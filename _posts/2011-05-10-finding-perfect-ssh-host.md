@@ -49,7 +49,7 @@ and features comes with its own price.
 
 Now, let's review some of the contestants I've picked
 
-### Alwaysdata
+## Alwaysdata
 
 They were the first I [checked](http://www.alwaysdata.com/). I heard quite a
 good thing about their service and reliability. They really seem to know what
@@ -69,7 +69,7 @@ that is way too much I can afford for what I have in mind.
 On the other hand, they not only provide hosting but the whole support package
 along with hotline and custom installation.
 
-### Dreamhost
+## Dreamhost
 
 I'm fond of Dreamhost. I've used them for years. They do provide a very nice
 shared hosting, with a lot of options to configure. They even allow cronjob
@@ -90,7 +90,7 @@ did), but it is not as full featured as alwaysdata.
 
 Their bandwith is also capped to 1Mo/s.
 
-### OVH
+## OVH
 
 Haven't tested yet, but their [VPS offer](https://www.ovh.com/fr/vps/) seems
 nice for as low as 60€/year.
@@ -103,7 +103,7 @@ accessing the server through SSH is not that simple.
 I've heard they have a 10Mo/s bandwith. I'll try to get more information on
 this.
 
-### Gandi
+## Gandi
 
 Gandi is an amazing registrar (both technically and ethically). I've never had
 any issues with their service and can only praise their technical support.

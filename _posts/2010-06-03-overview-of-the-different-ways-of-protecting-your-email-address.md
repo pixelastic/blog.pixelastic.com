@@ -19,7 +19,7 @@ The safest way is to not display it in the first place. Nothing beats that.
 But if you really need to be contacted through email, here are some of the
 possible alternative.
 
-### Using a contact form instead.
+## Using a contact form instead.
 
 That's what I'm doing on this very own site.
 
@@ -29,7 +29,7 @@ email for me.
 Unfortunatly, it means that you have to protect your contact form against spam
 now. How to do that is not the scope of this post, however.
 
-### Using an image
+## Using an image
 
 Instead of writing your email as plain text, you can use an image inside which
 your email is written. Spam bots can't read images (well, they **could** but
@@ -44,7 +44,7 @@ Secondly, people browsing without images (yes, that does exists, either
 because they have a slow connection, browsing through an old mobile phone or
 using a text reader) won't be able to contact you.
 
-### Spelling it aloud
+## Spelling it aloud
 
 One of the better way is still to appeal to the human brain and telling your
 user what your email is, like "my name, at, my domain dot com" or
@@ -67,7 +67,7 @@ Well, there have been attempt to do that, using various server side and client
 side techniques. Unfortunatly, all of them failed for at least one type of
 users.
 
-### Encrypting email using unicode
+## Encrypting email using unicode
 
 One can encrypt any string in Unicode using server script language. It will
 turn every character into an entity like &#46;. Your browser will stil
@@ -77,7 +77,7 @@ We could assume that bots won't understand it, but I have no data to back that
 up. It would be trivial for an harvest bot to parse email using unicode, so I
 won't recommend it.
 
-### Using CSS to display the mail
+## Using CSS to display the mail
 
 Modern browser, with great CSS support can help in this process with the use
 of generated content and the :after pseudo class.
@@ -98,7 +98,7 @@ You just put your username in the `span`, and the domain name in the `rel
 But you need a browser with a correct CSS support to do that, otherwise you
 will only see the user part, which is not really useful.
 
-### Using an HTTP redirect
+## Using an HTTP redirect
 
 This one is a clever one that I haven't seen used a lot. Instead of making a
 link to a mailto:, you make the link go to a mail.php page that will only
@@ -111,7 +111,7 @@ contain one php statement :
 I'm not sure of the browser support of this, however. And it still won't solve
 the problem of displaying your email address.
 
-### Adding HTML noise
+## Adding HTML noise
 
 You can add HTML comments (`<!-- -->`), or useless elements (`<span />`) all
 around your email adress. They won't get processed by your browser that will
@@ -120,7 +120,7 @@ still display it as normal, but it will most likely make the spam bot choke.
 Unfortunatly, you can't use them in the `href="mailto:"` section of your link,
 so it is not a perfect fit either. But still, that's a good start.
 
-### Using Javascript to populate the email
+## Using Javascript to populate the email
 
 The principle behind this one is that Javascript will write the email adress
 for you in the code. As most spam bots won't have Javascript enabled (again, I

@@ -152,7 +152,7 @@ projects from Mercurial to git. I know I'm still in the early stages of
 learning git (I've only started using branches extensively since a few weeks)
 but I do really enjoy it a lot.
 
-### What's next ?
+## What's next ?
 
 I've done all my git training by myself, while in New Zealand for a year, away
 from work and just for fun. I know that when I'll get back to Paris and start

@@ -1,0 +1,27 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Pixelastic
+tagline:          'You can cut our wings but we will always remember what it was like to fly.'
+description:      'Personal blog of Tim Carry. Posting mostly on tech-related stuff.'
+url:              http://blog.pixelastic.com/
+
+author:
+  name:           'Tim Carry'
+  url:            https://twitter.com/pixelastic
+
+paginate:         5
+
+# Custom vars
+version:          2.0.0
+
+github:
+  repo:           https://github.com/pixelastic/blog.pixelastic.com
+
+# Build
+exclude: ['tmp', 'v2tov3']

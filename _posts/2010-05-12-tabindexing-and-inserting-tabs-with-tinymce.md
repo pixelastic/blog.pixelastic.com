@@ -1,0 +1,22 @@
+---
+layout: post
+title: "Tabindexing and inserting tabs with tinyMCE"
+custom_v2_id: 159
+---
+
+<p>You may have noticed that you can't press tab to jump from field to field in a form that uses tinyMCE. There is a plugin named <code>tabfocus </code>in the core that is here to allow just that.</p>
+<p>But it does not seem to work correctly if you already have tabindex values defined on your inputs. So I decided to code my own.</p>
+<p>I choose the easiest way, letting the browser do most of the job. I only copied the textarea <code>tabindex </code>value to the create iframe and it did the trick.</p>
+<p>I created a tinyMCE for that, here the code of the init() method. By the way, I'm using the jQuery version of tinyMCE.</p>
+<pre><code lang="js">init : function(editor, url) {<br />	// We set a tabindex value to the iframe instead of the initial textarea<br />	editor.onInit.add(function() {<br />		var editorId = editor.editorId;<br />		var textarea = $('#'+editorId);<br />		$('#'+editorId+'_ifr').attr('tabindex', textarea.attr('tabindex'));<br />		textarea.attr('tabindex', null);<br />	});<br />}<br /></code></pre><p>What it does is grabbing the initial <code>tabindex </code>value of your textarea and setting it to the tinyMCE iframe. You have to wrap this in <code>onInit.add</code> because at the time the plugin <code>init </code>method is called, the iframe is not yet created. I also removed the <code>tabindex </code>value from the original textarea, two elements aren't supposed to have the same <code>tabindex </code>value.</p>
+<p>This method does not work in Chrome. Chrome always add a tab character when you press the tab key in a tinyMCE editor, it does not jump to the next tabindexed element. Is that a good behavior ? I don't know, it surely is useful to be able to insert tab characters, but it also is useful to tab through the whole form.</p>
+<h4>Listening to the tab key</h4>
+<p>Anyway, I decided to hook on the <code>keyDown </code>event and listen to the tab key being pressed. This way I could manually jump focus to the next field when tab is pressed, or insert a tab character when Shift+Tab is pressed (for example).</p>
+<p>I used the tinyMCE event helper methods and wrote this (just add it right after the previous <code>editor.onInit.add</code> code) :</p>
+<pre><code lang="js">// We hook on the tab key. One press will jump to the next focusable field. Maj+tab will insert a tab<br />editor.onKeyDown.add(function(editor, event) {<br />	// We only listen for the tab key<br />	if (event.keyCode!=9) return;<br />        <br />	// Shift + tab will insert a tab<br />	if (event.shiftKey) {<br />		editor.execCommand('mceInsertContent', false, "\t");<br />		tinymce.dom.Event.cancel(event);<br />		return;<br />	}<br />	// Just pressing tab will jump to the next element<br />	var tabindex = $('#'+editor.editorId+'_ifr').attr('tabindex');<br />	// We get all the tabindexed elements of the page<br />	var inputs = [];<br />	$(':input[tabindex]').each(function() {<br />		inputs[$(this).attr('tabindex')] = this;<br />	});<br />	// We find the next after our element and focus it<br />	for (var position in inputs) {<br />		if (position&lt;=tabindex) continue;<br />		inputs[position].focus();<br />		break;<br />	}<br /><br />	tinymce.dom.Event.cancel(event);<br />	return;<br />});<br /></code></pre><p>First, we discard any key press that is not a tab key.</p>
+<p>Then we check if the Shift key is pressed, and if so we add a tab character and stop there.</p>
+<p>The biggest part is jumping to the next field. I can't revert to the browser default for that because every browser default behavior is different and I surely don't want to do some browser sniffing.</p>
+<p>I first get the list of all the input fields that have a <code>tabindex </code>value (your fields should have one), then I sort them in <code>tabindex </code>order and then loop through the list and stop when I've found one with a bigger <code>tabindex </code>that the actual field. I focus this one and stop the loop.</p>
+<h4>One final word</h4>
+<p>I've tested under Firefox 3.6, Chrome, Safari and Opera. Haven't tested IE yet because I still have a lot of other scripts to debug in IE first.</p>
+<p>As said earlier, maybe you could skip the whole tabindex listing if you intelligently revert to browser default for the browser that will jump to the next field but I have no idea how to test for that.</p>

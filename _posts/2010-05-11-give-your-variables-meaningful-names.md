@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Give your variables meaningful names"
+custom_v2_id: 89
+---
+
+<p>I just realized that the fullscreen plugin I was using with tinyMCE (v3.3.5) was throwing an error in my Firebug panel everytime I closed it.</p>
+<p>As I wrote some tinyMCE plugins myself I thought I may have done something that was causing this. So I opened up the javascript file and checked for the error line :</p>
+<pre><code lang="js">var win, de = DOM.doc.documentElement;<br />if (ed.getParam('fullscreen_is_enabled')) {<br />	if (ed.getParam('fullscreen_new_window')) <br />		closeFullscreen(); // Call to close in new window<br />	else {<br />		DOM.win.setTimeout(function() {<br />			tinymce.dom.Event.remove(DOM.win, 'resize', t.resizeFunc);<br />	                tinyMCE.get(ed.getParam('fullscreen_editor_id')).setContent(ed.getContent({format : 'raw'}), {format : 'raw'});<br />	                tinyMCE.remove(ed);<br />	                DOM.remove('mce_fullscreen_container');<br />	                ed.style.overflow = ed.getParam('fullscreen_html_overflow');<br />	                DOM.setStyle(DOM.doc.body, 'overflow', ed.getParam('fullscreen_overflow'));<br />	                DOM.win.scrollTo(ed.getParam('fullscreen_scrollx'), ed.getParam('fullscreen_scrolly'));<br />	                tinyMCE.settings = tinyMCE.oldSettings; // Restore old settings<br />		}, 10);<br />	}<br />        return;<br />}<br /></code></pre><p>If you're not familiar with the complex tinyMCE syntax this may seems a little... well... complex.  I'll focus on the error line but I wanted to paste the whole code block so you can see my point.</p>
+<p>The error line is this one :</p>
+<pre><code lang="js">ed.style.overflow = ed.getParam('fullscreen_html_overflow');<br /></code></pre><p>Of course it will throw an error, we try to access a property of an element we just removed from the DOM (two lines before : <code>tinyMCE.remove(ed);</code>). Why would someone want to do that ?</p>
+<p>Well in fact, this is not <code>ed</code> (that we should try to access, but <code>de</code> (short for <code>DOM.doc.documentElement</code>). In fact the code was correct in 3.3.2, but someone changed it around 3.3.3.</p>
+<p>My guess is that someone had the file opened, saw this bit of code, spotted the <code>de</code>, and seeing a lot of references to <code>ed</code> all around, thought it was a typo and 'fixed' it.</p>
+<p>Reading the tinyMCE code (whenever you want to understand how it works, or want to study plugins before creating your own) is pretty hard. There are almost no comments, and variable names are only one or two letters long.</p>
+<p>The tinyMCE team released a survey asking user what should be improved on the tinyMCE product. I answered it, and my main point was to improve documentation, because reading the tinyMCE core to understand its inner goings is quite a chore.</p>

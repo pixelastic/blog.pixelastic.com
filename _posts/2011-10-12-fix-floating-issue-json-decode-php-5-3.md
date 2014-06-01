@@ -17,7 +17,7 @@ In my case it resulted in a complete unability to find a user in the database
 as the id didn't match anything. This was quite hard to find as I couldn't
 reproduce it on my local machine.
 
-#### Know your system
+## Know your system
 
 My local system was a 64bits machine while the production servers were 32bits.
 And of course, max int precision is far bigger on 64bits machines so the error
@@ -32,7 +32,7 @@ If you're running PHP 5.4, the fix is easy. Just add the
 If you're running a 32bits machine with PHP 5.3 like me, it's a little more
 tricky.
 
-#### The regexp
+## The regexp
 
 My solution is to parse the original JSON string and add quotes around ints so
 `json_decode` will keep them as string.

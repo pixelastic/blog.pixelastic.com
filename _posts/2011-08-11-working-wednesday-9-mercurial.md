@@ -15,7 +15,7 @@ I've been using Mercurial for the pas two years, but through a GUI and without
 using any "advanced" features. I never branched a project, and always worked
 alone.
 
-#### Commands
+## Commands
 
 Now that I'm working on a Linux machine every day, I can use hg through the
 command line.
@@ -35,7 +35,7 @@ new commit where the specified changeset is removed (through a merge). It can
 easily backout the tip, but may involve more merge work if we want to backout
 an old changeset.
 
-#### Automation
+## Automation
 
 Also, I've learned about two great tools of Mercurial.
 
@@ -52,7 +52,7 @@ The classical examples where running a build process after a commit, refusing
 a commit if no bug id where specified, or if the tests didn't pass. Another
 use case would be to push changes to a remote server on commit.
 
-#### Git
+## Git
 
 Why am I learning Mercurial while all the cool guys are using git ?
 

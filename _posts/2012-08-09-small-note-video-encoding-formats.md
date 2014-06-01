@@ -16,7 +16,7 @@ that were not better looking that smaller one.
 So I started some research on the Wikipedia and Google to understand more
 about all those fileformats, and here are my results.
 
-#### Containers
+## Containers
 
 First of all, the `avi`, `mp4` or `mkv` file extension denote a container
 format. This container is just a box that contain video and audio stream. Not
@@ -43,7 +43,7 @@ also media creation.
 
 If I had to choose, I'll pick mkv.
 
-#### Video codecs
+## Video codecs
 
 Now, what do we put in those boxes ? First, a video stream. We could put an
 uncompressed video stream in it, but this will result in huge filesize, so we
@@ -82,7 +82,7 @@ like divx in avi or h264 in mp4.
 
 Here, I'll pick h264 because of the hardware support.
 
-#### Audio codec
+## Audio codec
 
 As for the video stream, the audio stream is also compressed using an audio
 codec. The most common audio codec is the mp3. This is a lossy codec, meaning
@@ -104,7 +104,7 @@ they're are able to read AAC. But once, again, things are slowly changing.
 
 Here, I'll choose ogg over the alternatives.
 
-#### Conclusion
+## Conclusion
 
 I have a bunch of files, in different containers, encoded with different
 encoders and I'm going to try to clean a bit all this. First, I'll get rid of

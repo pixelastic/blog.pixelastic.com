@@ -15,7 +15,7 @@ I also check my mailbox and respond to mails from my normal job. I shouldn't.
 I'm on a day off, I have to force myself to completly cut out those external
 calls.
 
-#### Now, let's the work begin
+## Now, let's the work begin
 
 Anyway, I finally finished the vimtutor. I still have a some difficulties to
 remember the mapping of the basic hjkl movement keys (I always want use k to
@@ -48,7 +48,7 @@ So I ran all my updates, to have the most up to date system. Unfortunatly,
 `language-pack-gnome-fr` doesn't want to upgrade so the OS upgrade isn't
 displayed.
 
-#### Wait, what am I doing ?
+## Wait, what am I doing ?
 
 And that's when I remember that my initial wish was to learn Ruby on Rails and
 that I was now on the road to upgrading my whole operating system. That is not

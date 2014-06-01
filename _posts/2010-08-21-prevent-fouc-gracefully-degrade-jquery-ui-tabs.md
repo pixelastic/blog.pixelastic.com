@@ -13,7 +13,7 @@ re-arranged in tabs.
 
 What I want are my tabs displayed correctly right away, on first load.
 
-#### First, the markup
+## First, the markup
 
 Here's a typical tabs markup :
 
@@ -34,7 +34,7 @@ Here's a typical tabs markup :
     </div>  
     
 
-#### CSS to hide all tabs if Javascript is disabled
+## CSS to hide all tabs if Javascript is disabled
 
 If your Javascript is disabled, so will jQuery UI. We will then hide the
 `<ul>` because it serves no purpose here. We will only show it if js is
@@ -45,7 +45,7 @@ enabled
     .js .tabs ul { display:block; }  
     
 
-#### Applying jQuery UI tabs
+## Applying jQuery UI tabs
 
 By doing a` $('.tabs').tabs();` jQuery UI will treat your `<ul>` as your tab
 menu and all your `.tabPanel` as their corresponding contents. It will hide
@@ -69,7 +69,7 @@ without Javascript won't even be able to see your other tabs. Also, it asks
 you to add server-side logic (HTML markup with jQuery specific classes) for
 something that should be handled entirely client-side.
 
-#### Removing the FOUC while gracefully degrade
+## Removing the FOUC while gracefully degrade
 
 Ok, so what I did was writing two simple rules that will directly hide all
 unused panels while still displaying the active one, even before jQuery UI
@@ -83,7 +83,7 @@ That way, no FOUC, and users without Javascript still see all the content.
 Unfortunatly, if you now try clicking on your tabs, you'll see that nothing
 happens and you get stuck with your default panel always visible.
 
-#### Fixing the jQuery UI tabs
+## Fixing the jQuery UI tabs
 
 As jQuery will add new classes to my elements, I'll just have to write more
 specific rules that use those classes. Here's the little piece of logic I came
@@ -98,7 +98,7 @@ All the jQuery panels are shown, except for the one hidden by jQuery. All
 those rules being more and more specific, they will get applied once the tabs
 are activated but still override the previous `display:` declarations.
 
-#### Conclusion
+## Conclusion
 
 This is how I fixed an issue that was bugging me for years. Unfortunatly the
 CSS rules being dependent on the markup used, I haven't yet been able to write

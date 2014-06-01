@@ -24,7 +24,7 @@ both the plugin (on BitBucket) and the project I'm working on at the moment.
 To do that, I had to struggle my way with Mercurial because nested
 repositories (called subrepos) is not a trivial setup.
 
-#### Setting up subrepo with Mercurial :
+## Setting up subrepo with Mercurial :
 
 Let me show you the classical and easy way to achieve that :
 
@@ -45,7 +45,7 @@ You can now safely commit your main repo, or your subrepo independently.
 
 Now, let's see the edge case.
 
-#### Changing a classical sub directory into a subrepo
+## Changing a classical sub directory into a subrepo
 
 The classical example above is what you can find in the Mercurial help pages.
 It wasn't that helpful for me because my setup was a little different and it

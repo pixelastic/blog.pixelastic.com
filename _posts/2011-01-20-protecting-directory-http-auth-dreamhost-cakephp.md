@@ -7,7 +7,7 @@ custom_v2_id: 258
 One can protect the browsing of a special directory with a simple set of
 login/password by using appropriate `.htaccess`/`.htpasswd` files.
 
-#### The classic way
+## The classic way
 
 Just create an `.htaccess` in the directory you want to protect with the
 following lines :
@@ -32,7 +32,7 @@ webdir could be a good idea) and change `username `to any login you want.
 You'll then be prompted to enter the password (twice) and your file will be
 generated.
 
-#### cakePHP and Dreamhost fixed
+## cakePHP and Dreamhost fixed
 
 I had an issue when protecting a folder in my `app/webroot/ `folder on
 Dreamhost. I'm not sure it is completly cake related nor Dreamhost related but

@@ -14,7 +14,7 @@ for logging in.
 So I downloaded and installed the openID component by cakebaker. As I'm
 running my dev environment under Windows, I had to set some settings.
 
-#### Fixing the pluginPath
+## Fixing the pluginPath
 
 I've save the OpenId component in a plugin, and it has a clever mechanism to
 import the PHP OpenId library based on the folder it is saved.
@@ -42,7 +42,7 @@ Windows.
 Edit : I've sent this patch to the OpenId component author and it is now fixed
 in the latest versions.
 
-#### Generating randomness
+## Generating randomness
 
 The second fix was to change the `Auth_OpenID_RAND_SOURCE` constant to `null`.
 This constant enable the library to generate randomness (AFAIK), by using the
@@ -57,7 +57,7 @@ This does not exists on Windows, so I added the following lines in my
     }  
     
 
-#### Connecting to SSL servers
+## Connecting to SSL servers
 
 The PHP bundle on Windows comes with `cURL `already builtin, but without the
 bundle of the X.509 certificates of public CA. It means that the OpenId PHP

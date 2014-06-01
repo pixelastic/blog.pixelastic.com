@@ -17,7 +17,7 @@ to update some values, mostly IP addresses, and then validate the page.
 Instead of updating the `domain A` zones as I expected, it updated the `domain
 B` zones and left the `domain A` unchanged. Can you guess why ?
 
-#### Session handling
+## Session handling
 
 My guess is that everytime I opened a new page, a Session was tracking my
 "current" domain, the one I was editing. So opening a new tab to a new domain
@@ -27,7 +27,7 @@ Therefore, when I updated the `domain A` zone, the next page was assuming I
 was editing the `domain B` page. If I had opened the tabs in reverse order, it
 would have worked seamlessly.
 
-#### Why doing that ?
+## Why doing that ?
 
 I have encountered a similar behavior in my own apps. By using the cakePHP
 Security behavior, a special security token is generated for each form. Its

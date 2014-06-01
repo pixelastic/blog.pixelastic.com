@@ -14,7 +14,7 @@ a "malformed request" error.
 Debugging it in reverse order, using Wireshark and other tools I finally came
 to the conclusion that my request was indeed valid.
 
-#### So what ?
+## So what ?
 
 The guilty part was indeed Firebug. When I ran a simple `POST` request from
 Flash, and inspect it from Firebug, I could spot that no `Content-Length` nor
@@ -32,7 +32,7 @@ indeed absolutly valid. Wireshark did not show any `\r\n` that shouldn't be
 there and PHP correctly parsed my request. The only issue was the details
 displayed by Firebug.
 
-#### So it's a display bug ? I can live with it.
+## So it's a display bug ? I can live with it.
 
 Well, actually, it's a little more than just a display bug. It kind of blocks
 my usual debugging workflow.
@@ -51,7 +51,7 @@ I've [posted an issue](http://code.google.com/p/fbug/issues/detail?id=4327) on
 the Firebug bug tracker. I hope it will get resolved soon. Until then, I'm
 using Live HTTP Headers to capture and replay the requests I need to debug.
 
-#### Update
+## Update
 
 Seems like the bug come from Firefox internals and not Firebug. More details
 [on this post.](http://groups.google.com/group/mozilla.dev.platform/browse_thr

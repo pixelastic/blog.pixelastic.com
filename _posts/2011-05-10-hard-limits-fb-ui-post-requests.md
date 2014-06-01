@@ -29,7 +29,7 @@ This should open a Request popup with the custom title and message, as well as
 provide a list of friends that you can filter based on two criterias : "Some
 friends" and "Some other friends".
 
-#### What will go wrong
+## What will go wrong
 
 First, you have to know that both the message and title have a character
 limit. If you go over it, the popup will simply display something like "An
@@ -48,18 +48,18 @@ filters with 999 users as you want.
 
 Took me a little while to find, and I thought that this could be shared.
 
-#### Update
+## Update
 
 I found a new hard limit : You can't set more than 5 filters at a time. If you
 add one more, the Request popup will fail.
 
-#### New Update
+## New Update
 
 Also, if you define a callback, don't forget to `return true`. Otherwise
 Webkit will refuse to close the FB popup and you'll have to click twice for it
 to really close itself.
 
-#### Update (bis repetita)
+## Update (bis repetita)
 
 This one was pretty hard to find but if your filter contains a facebook id of
 someone that is not a friend of the currently loggued user, the filter will

@@ -18,7 +18,7 @@ errors and the Flash support wasn't so good.
 Additionnaly, there was not way to use the
 [IEDebugBar](http://www.debugbar.com/?langage=en) nor the WebPageTest plugin.
 
-#### Switching to VM
+## Switching to VM
 
 I finally decided to switch to a Virtual Machine. This would allow me to have
 an exact snapshot of a given OS/IE version.
@@ -37,7 +37,7 @@ legally, I'm allowed to do that. How does a VM fits inside the legal
 statements ? Am I allowed to use one windows activation key inside itself ?
 Well, I don't really know and don't care that much.
 
-#### Starting with some housekeeping
+## Starting with some housekeeping
 
 I ended up with a nice and clean WinXP install. I had to add an antivirus
 quick if I wanted to keep it clean. VirtualBox provides a Shared Folder
@@ -57,7 +57,7 @@ You should now be able to access your shared folders by opening the windows
 Explorer (Windows + E), and going to Network places > All network > VirtualBox
 Shared Folders
 
-#### Accessing your websites
+## Accessing your websites
 
 I then updated the `C:\WINDOWS\system32\drivers\etc\hosts` file to bind all
 requests made to my still-in-development websites to my host.

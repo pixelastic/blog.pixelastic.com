@@ -12,7 +12,7 @@ I've ran into this issue multiple times when dealing with SWFUpload and today
 was one more. As I always spent quite a lot of time debugging issues arising
 from this, I guess I should post about it here.
 
-#### The Flash player uses a different userAgent that your browser
+## The Flash player uses a different userAgent that your browser
 
 Most of the time, this is not a problem. But when dealing with restricted
 areas of a website built on top of cakePHP, it can become one.
@@ -34,7 +34,7 @@ in your controller `beforeFilter `(or component `initialize`)
 _In cake 1.2, you'll also have to call `$this->Session->destroy()` before to
 delete the Flash session created._
 
-#### The Flash player uses a different cookie pool that your browser
+## The Flash player uses a different cookie pool that your browser
 
 _This used to be an issue in 1.2 but not longer is._
 
@@ -52,7 +52,7 @@ flash request to avoid conflicts
     setcookie(Configure::read('Session.cookie'), '', time() - 42000, $this->Session->path);  
     
 
-#### cakePHP used to overwrite the userAgent string in session
+## cakePHP used to overwrite the userAgent string in session
 
 In cake 1.2, when you manually change the current session, cake would update
 the inner `userAgent `hash saved to your current userAgent hash.
@@ -67,7 +67,7 @@ session, you had to overwrite the `userAgent `hash to the correct one.
 _This is no longer the case in 1.3, changing the current session does not
 alter it anymore._
 
-#### Doesn't all that stuff alter security ?
+## Doesn't all that stuff alter security ?
 
 Well, most of the answers I found online were among the lines of "Just disable
 the check of the `userAgent`", so I think my method is a little bit more
@@ -76,7 +76,7 @@ secure.
 Anyway, passing a `sessionId `as a parameter seems a little risky, even to me.
 I guess there should be a way of encrypting it to not pass it as clear text
 
-#### UPDATE !
+## UPDATE !
 
 I had to fiddle with this script some more. It appears that, as we are
 changing the `sessionId`, we need to do that BEFORE we access the session. It

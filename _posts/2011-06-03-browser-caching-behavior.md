@@ -27,7 +27,7 @@ header.
 
 All the network tests have been made using Wireshark.
 
-#### Chrome
+## Chrome
 
 **Initial load** : Download of jpg and swf once each. Perfect.
 
@@ -38,7 +38,7 @@ All the network tests have been made using Wireshark.
 Reloading images is a standard behavior on images, but I wouldn't have
 expected it on soft reloads.
 
-#### Safari 5 Win
+## Safari 5 Win
 
 Safari behaves much like Chrome, with one important difference. It does not
 cache swf files at all.
@@ -62,7 +62,7 @@ request.
 It is supposed to have been fixed in Safari Mac (anyone can confirm this? I
 don't own a Mac) but the issue is still here on Safari Windows.
 
-#### IE6, IE7 and IE8
+## IE6, IE7 and IE8
 
 IE6, IE7 and IE8 behaves the same here. They have a less severe version of the
 bug than Safari 5. At the time of writing I didn't have IE9 to test on it.
@@ -78,7 +78,7 @@ more aggressive than the others (soft reload is really soft). However, it
 still have a nasty side effect of loading swf files multiple times on the same
 page. Shouldn't happen a lot in the real world, but still nice to know.
 
-#### Firefox 4.0
+## Firefox 4.0
 
 **Initial load** : No issue arising. It does fetch each resource once.
 

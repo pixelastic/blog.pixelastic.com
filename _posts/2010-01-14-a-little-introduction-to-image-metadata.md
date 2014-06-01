@@ -10,7 +10,7 @@ The [metadata ](http://en.wikipedia.org/wiki/Metadata)I have to write can be
 in different languages and uses different encoding (mainly French, English,
 Spanish and Chinese).
 
-#### A little history
+## A little history
 
 There is mainly three formats to store data inside an image. The main one is
 called [EXIF](http://en.wikipedia.org/wiki/Exif), its main goal is to store
@@ -32,7 +32,7 @@ It is now more or less replaced with XMP. XMP is based on XML and uses the
 Dublin Core tags. It is the future of metadatas because its structure allows
 it to be extended.
 
-#### And now, the problems
+## And now, the problems
 
 The problem is that with this three formats, it is quite difficult to know
 where to store or read the information we want. Additionnaly the XMP support
@@ -46,7 +46,7 @@ how to handle reconciliation (a same information is stored in more than one
 format, but with different values) and make our software the most compatible
 with existing software.
 
-#### What about me ?
+## What about me ?
 
 That's when I can talk about me again. I'm working on a project where I have
 to read a full database of images, parse their metadatas, store them in a

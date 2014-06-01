@@ -15,7 +15,7 @@ have only been able to make the former work with manually triggered errors
 After hours of googling, and reading SimpleTest source code, I finally managed
 to come up with a solution.
 
-#### Redefining the error handler
+## Redefining the error handler
 
 It still amaze me how awfuly complicated it is to do such a simple thing.
 Anyway, the key is to redefine the error handler function so you can
@@ -30,7 +30,7 @@ function. It means you won't have access to the test, so won't be able to call
 `$this->pass()` nor `$this->fail()`, because `$this` does not reference
 anything.
 
-#### Throw me out of here
+## Throw me out of here
 
 The only trick I've found to get out of this function and back in the scope of
 your test is to throw an Exception. Namely, an `ErrorException`.
@@ -38,7 +38,7 @@ your test is to throw an Exception. Namely, an `ErrorException`.
 Doing so we can rewrote our test to put the part that is triggering the error
 inside a `try `/ `catch `statement and manually pass or fail the test.
 
-#### Don't you forget something ?
+## Don't you forget something ?
 
 One **very** important thing not to forget here is to restore the
 `error_handler` to its original value once you won't need it. If you don't,
@@ -48,7 +48,7 @@ you will surely broke all your subsequent tests because SimpleTest use its own
 We have to restore it in two places, both when the code triggered and error /
 throw an exception and when it don't.
 
-#### Cut the speech, show me the code
+## Cut the speech, show me the code
 
 Okay, here's the code. Don't forget to adapt the condition in the
 `error_handler` to match your error.

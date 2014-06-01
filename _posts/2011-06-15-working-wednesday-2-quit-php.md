@@ -13,7 +13,7 @@ and why. The main reason is that I want to be able to build website and apps
 faster, with less hassle and better overall quality. And the more I thought
 about that, the more it became obvious that PHP was the main bottleneck.
 
-#### My journey accross PHP land
+## My journey accross PHP land
 
 I've been writing PHP for the last 12 years. I started as a script kiddy,
 putting things together, hacking strings, saving stuff in databases, building
@@ -26,7 +26,7 @@ Later, when I started as a freelancer, I learned cakePHP, and it let me much
 more time to focus on each project while still reusing the common code of
 previous projects easily.
 
-#### PHP is just so easy
+## PHP is just so easy
 
 I can be considered a PHP coder. I have some years of experience to
 consolidate that. Nevertheless, I don't consider myself "good" at PHP. I just
@@ -47,7 +47,7 @@ There is no "PHP Philosophy", no good practices that were kept in mind by PHP
 lead developers when they wrote the language and they wanted us to follow.
 Instead, we just have a bunch of functions, and play with it as in a sandbox.
 
-#### Adding some pattern in this mess
+## Adding some pattern in this mess
 
 Over the years you learn (the hard way) how to organise your code. PHP5 gives
 a little hope by adding more OO features. No need to get back on the namespace
@@ -65,7 +65,7 @@ cleaner on the outside, you can just concentrate on writing your app code.
 
 But even with cakePHP, you still have to write PHP.
 
-#### Summing up
+## Summing up
 
 So, to sum up, here are my feelings about PHP
 
@@ -84,7 +84,7 @@ upon Rails, I think catching up won't be too difficult.
 Also, Rails just realease it's version 3, so now the best time to learn it
 from scratch.
 
-#### Next week
+## Next week
 
 This first day off was much shorter than I expected it to be. I wanted to
 start coding some Rails code, following the Rails for Zombies tutorial. I also

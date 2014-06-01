@@ -18,7 +18,7 @@ it actually, I'm just fiddling with specific configurations here. But as it
 took me quite a bit to grasp, here is how it works, and some quirks to be
 aware of.
 
-#### The puppet files
+## The puppet files
 
 Puppet is installed in `/etc/puppet`. Our different modules are stored in`
 /etc/puppet/modules`. A module is a set of programs and config files that work
@@ -40,7 +40,7 @@ The `files/` directory contains all the files that puppet might need for this
 module. It will copy them from this directory to the final servers, according
 to the manifest config.
 
-#### Manifest syntax
+## Manifest syntax
 
 The manifest uses a very simple syntax, using blocks of `key => value` to
 define config. I've mostly use the simple `file `directives, to copy files and
@@ -84,7 +84,7 @@ environment without potentially breaking the working prod environment. I'm not
 exactly sure how this `$target` var is set, this is one more thing our
 sysadmin did. Thanks to him.
 
-#### Pulling changes
+## Pulling changes
 
 Puppet is configured to check its servers every 30mn. If some config files
 changed, or a directory isn't there anymore, it will recreate them, according
@@ -100,7 +100,7 @@ test at all, it simply pulls the puppet files from the puppet server and
 updates its files accordingly. It will notify you of any errors it might find,
 and even print a `diff `of the files changed.
 
-#### One last thing
+## One last thing
 
 I've lost 30mn checking and re-checking my puppet file because my `php.ini`
 changes weren't updated. In fact, I just forgot to reload `lighttpd`...

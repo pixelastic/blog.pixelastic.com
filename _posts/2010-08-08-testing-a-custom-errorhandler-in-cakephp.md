@@ -11,7 +11,7 @@ Here are some things I've found that may interest anyone wanting to test their
 own `ErrorHandlers`. Most of the ideas are taken from the core
 `ErrorHandlerTest`.
 
-#### Anatomy of an error
+## Anatomy of an error
 
 Every class in cakePHP extends `Object`. And in `Object `is defined a method
 named `cakeError`. It means that anywhere in your app you can call
@@ -25,12 +25,12 @@ Because of the use of static variables, `exit `calls and other happyness,
 testing several errors in a test case needs us to define some new classes to
 shortcircuit most of the logic.
 
-#### Preparing the test
+## Preparing the test
 
 This step is actually pretty short. Just load the default `ErrorHandler `by
 calling `App::import('Core','Error');`
 
-#### Creating a dummy AppController
+## Creating a dummy AppController
 
 Then, you'll have to create a new `AppController `class that extends
 `Controller`.
@@ -63,7 +63,7 @@ Here is what it looks like on my side :
     }  
     
 
-#### Creating a TestErrorHandler
+## Creating a TestErrorHandler
 
 This class will extends your `AppError`. It will just overwrite two methods to
 make it correctly work in a test case.
@@ -134,7 +134,7 @@ So, enough talk, here's the code :
     }  
     
 
-#### Writing your tests
+## Writing your tests
 
 Ok, your almost done. You just have now to write your tests. They have to
 follow a special syntax to correctly work.
@@ -161,7 +161,7 @@ Ok, so here's one of my tests :
     }  
     
 
-#### Conclusion
+## Conclusion
 
 It took me some hours to glue all this pieces together, I hope it may be
 useful to others, too. Writing the `AppError `itself was way easier, but as

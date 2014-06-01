@@ -21,7 +21,7 @@ webmail is Squirel Mail.
 So now I'm faced with a challenge. Which webmail should I choose and how will
 I initiate the migration ?
 
-#### Contestant 1 : Horde
+## Contestant 1 : Horde
 
 The easiest way would have been to reuse Horde. Horde has a nifty
 export/import function. It means that I could have exported the settings on
@@ -37,7 +37,7 @@ needed and SSL connection requires an additional monthly fee.
 That would be the better solution for the client, but I don't feel capable of
 doing it.
 
-#### Contestant 2 : Squirel Mail
+## Contestant 2 : Squirel Mail
 
 Squirel Mail is the default webmail on Dreamhost. It means that they do handle
 all the heavy stuff of configuring it and making sure it does not crash.
@@ -60,7 +60,7 @@ command named imapsynch however that maybe could help, but I'll need to know
 the name of the dreamhost imap server and needed credentials to connect to it.
 I'll sort this out with them.
 
-#### Contestant 3 : GMail
+## Contestant 3 : GMail
 
 I've already set mails up with GMail a couple of times in the past so this
 won't be too hard. Could take some times, but nothing difficult about that.
@@ -69,7 +69,7 @@ I may be able to copy the current mails to the GMail server, I've seen some
 articles on the subject floating on the network, but I'll definitly won't be
 able to copy drafts.
 
-#### Conclusion
+## Conclusion
 
 I'm still in contact with the Dreamhost support to choose the better option. I
 don't think I'll install Horde, this will be too much work. I guess I'll go
@@ -78,7 +78,7 @@ with the second option of migrating mails to Squirel Mail.
 Whatever solution I'll pick, I'll be sure to post the whole details here for
 others to follow.
 
-#### Update
+## Update
 
 <del>I finally won't have to migrate mails, the client makes regular POP
 backup of its mails so he will just do one more right before the transfer and

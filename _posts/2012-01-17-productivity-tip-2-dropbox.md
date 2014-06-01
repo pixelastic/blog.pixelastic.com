@@ -7,7 +7,7 @@ custom_v2_id: 335
 Here's one more post in my productivity serie. This one is about the Dropbox
 service.
 
-#### What is Dropbox ?
+## What is Dropbox ?
 
 In a nutshell, Dropbox is a private hosting service, based on a cloud
 infrastructure. Once you've installed the app, one of your folders (default to
@@ -20,7 +20,7 @@ documents easily between all your computers. If you don't want to install the
 app, you can simply log to [dropbox.com](http://www.dropbox.com) and
 download/upload any file you want.
 
-#### How I use it
+## How I use it
 
 There a few ways you can use Dropbox. Here are a few of mine, feel free to add
 yours in the comments.
@@ -55,7 +55,7 @@ and that I might need again one day. That way, I know I can always connect to
 past 5 years in a matter of minutes. This saved my day quite a few time
 already !
 
-#### Last words
+## Last words
 
 Dropbox is a free service. You can have 2Go for free, or pay for a more space.
 I personnaly only use a fraction of that so I stay on the free plan. I haven't

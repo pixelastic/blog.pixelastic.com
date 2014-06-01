@@ -14,7 +14,7 @@ as HTML. And only on Firefox.
 And if that wasn't odd enough, even with the plethora of Firefox versions I
 got, I couldn't reproduce the bug on my side.
 
-#### Turning off the debugger to debug
+## Turning off the debugger to debug
 
 Then I had an idea. I turned off the debug mode, and was then able to
 reproduce the infamous bug.
@@ -34,7 +34,7 @@ my whole view will get displayed as `text/plain`.
 I couldn't quite explain why a debug value will have anything to with the view
 rendering. I even disabled the Debug Kit component, just to be sure.
 
-#### Digging into cake world
+## Digging into cake world
 
 And then I decided to follow the dispatch trace to find where the debug value
 was being used. After a long journey, I got to the `respondAs `method of the
@@ -60,7 +60,7 @@ Unfortunatly, setting such an header in a `requestAction `wasn't useful for
 the request, and additionnaly, it was messing with the primary view dispatch
 path.
 
-#### Solution
+## Solution
 
 I[ reported the
 bug](http://cakephp.lighthouseapp.com/projects/42648-cakephp/tickets/1445

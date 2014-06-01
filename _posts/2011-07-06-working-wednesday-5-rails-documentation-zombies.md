@@ -8,7 +8,7 @@ Today I continue on my Rails for Zombie learning. Actually, I wake up kind of
 late (11am), had to deal with noisy neighbors and make some shopping before
 being really able to start working. It's 2pm now, and I just open my browser.
 
-#### Back to Zombies
+## Back to Zombies
 
 I like the clean syntax Ruby provides. I like being able to pass custom
 parameters without having to care about the order. This could be achieved in
@@ -39,20 +39,20 @@ After completing the Zombie tutorial, I headed to the famous blog tutorial
 every web language should have. Once again, I started reading the doc and a
 few things caught my attention as very promising :
 
-#### Command line interface
+## Command line interface
 
 I like the way one can create a new app simply with one command line. Such
 feature is also provided by cakePHP but I never managed to make it work the
 way I wanted to. That might have been influenced by the fact that I was
 working on Windows at that time.
 
-#### Directory structure
+## Directory structure
 
 I also note that a Rail application seems greatly structured : there are
 spaces defined for documentation, tests, database migration, dependencies,
 logs, deployment scripts and so on.
 
-#### Databases
+## Databases
 
 This is great that Rails directly provides two distinct DB configurations :
 development and production. I will no longer have to do it myself.

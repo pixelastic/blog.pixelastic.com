@@ -8,7 +8,7 @@ _This post spans two weeks because I couldn't manage to have a clean
 Ruby/Rails install on my first try. I read a lot, installed ruby using various
 methods, but finally managed to get it to work corretly. _
 
-#### Cleaning up
+## Cleaning up
 
 First of all, you have to remove any ruby version you might have already
 installed, just to be sure.
@@ -16,7 +16,7 @@ installed, just to be sure.
     
     sudo apt-get remove ruby && sudo apt-get autoremove
 
-#### Installing RVM
+## Installing RVM
 
 Then, you have to install RVM before installing Ruby. My biggest mistake in my
 various shots at installing Ruby was to install RVM last.
@@ -49,7 +49,7 @@ Just to sure to have the latest version, I also ran
     rvm get head  
     rvm reloadÂ 
 
-#### Updating your system
+## Updating your system
 
 RVM depends on some binaries to work, so be sure to install them all. They are
 listed when running `rvm notes`, but as the time of writing this was the list
@@ -58,7 +58,7 @@ for me :
     
     sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev
 
-#### Installing Ruby
+## Installing Ruby
 
 Once RVM is installed, installing the latest (1.9.2 as the time of writing)
 Ruby version is as easy as :
@@ -78,7 +78,7 @@ You can always switch back to your system-wide ruby install by doing
     
     rvm use system
 
-#### Creating a gemset
+## Creating a gemset
 
 Plugins in Ruby world are named gems. They can easily be installed/uninstalled
 to a project to provide advanced features. Rails itself is a gem.
@@ -114,14 +114,14 @@ Or list all the available gemsets by doing :
 
 The one you are currently using will be prefixed by "=>"
 
-#### What is Rake ?
+## What is Rake ?
 
 You might have noticed that your new gemset contains only one gem, named Rake.
 You do not need too spend to much time on that. You simply have to know that
 Rake is more or less the Ruby compiler. Your Ruby code will go through this
 gem to became a running app.
 
-#### Installing Rails
+## Installing Rails
 
 As I said above, Rails is a gem like many other, so you can simply install it
 by doing :
@@ -137,7 +137,7 @@ If we weren't using RVM, the gem would have been installed globally. RVM is
 actually wrapping itself around the `gem` command to sandbox it inside its own
 gemset.
 
-#### Handling dependencies with Bundler
+## Handling dependencies with Bundler
 
 Installing Rails will install a bunch of other gems. One of them is Bundler.
 
@@ -161,7 +161,7 @@ project accordingly is :
     
     bundle install
 
-#### Automatic switching gemset
+## Automatic switching gemset
 
 One nice bit of RVM is that it is able to automatically detect the gemset to
 use on a per project basis. You simply have to create a .rvmrc file in a
@@ -173,7 +173,7 @@ following to your `.rvmrc`
     
     rvm use 1.9.2@pixelastic
 
-#### References
+## References
 
 I read a lot on the subject, to finally get it right. Here are the various
 sources :
@@ -183,7 +183,7 @@ sources :
   * [The official Get Started guide](http://guides.rubyonrails.org/getting_started.html)
   * [A Stack Overflow question about RVM, Gems and Bundler](http://stackoverflow.com/questions/4604064/ruby-gems-bundler-and-rvm-confusion)
 
-#### Update : Sqlite3
+## Update : Sqlite3
 
 If you got error complaining about Sqlite3 missing, just
 

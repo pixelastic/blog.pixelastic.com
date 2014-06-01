@@ -19,7 +19,7 @@ where I'll add my tweaks.
 This will help migrating to a newer cake version easier when those bugs will
 be fixed.
 
-#### Easy debug
+## Easy debug
 
 Debugging emails is not an easy task, but is greatly eased by cake. One can
 set the delivery type to `debug `and the mail will be generated like a normal
@@ -28,14 +28,14 @@ mail, but won't be sent. Instead, its content will be saved in `Session`.
 My wrapper will allow switching from normal to debug mail thanks to an
 argument.
 
-#### View cleaning
+## View cleaning
 
 I'll also clear the `ClassRegistry `from the `View `created by the
 `EmailComponent`. The `Email `view is shared with the display view and this
 can result in vars being lost or not correctly set. I think all those troubles
 are gone in cake 2.0 but I haven't tested it yet.
 
-#### The __sendMail method
+## The __sendMail method
 
 Here is the method code. You should add it to your AppController :
 

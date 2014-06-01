@@ -16,7 +16,7 @@ password in one place. The 2.0 version also permit to save more than single
 password, virtually anything, and adding little icons to each entry (when you
 start having 200+ entries, icons are a must have).
 
-#### Enter Ubuntu world
+## Enter Ubuntu world
 
 The official 2.0 version is not supported under linux. There is a linux port,
 named [KeePassX](http://www.keepassx.org/), but it does not support the
@@ -27,7 +27,7 @@ Wine installed to run another app), but it wasn't working with KeePass. I
 tried instead an other emulator, Mono, and running `mono KeePass.exe` totally
 worked.
 
-#### Little tweaks ahead
+## Little tweaks ahead
 
 First of all, I had to install two additionnal packages to make it open
 without errors : `System.Windows.Forms` and `System.Runtime`. So far, so good.
@@ -50,7 +50,7 @@ Then, install the `libxtst-dev` package (it is needed for the install to
 complete), export the content of the `.tar.gz` file into a temporary directory
 and execute `sudo make install`.
 
-#### Finally !
+## Finally !
 
 Now, you got KeePass 2.0 working under Ubuntu, and installed all dependencies
 needed to run the auto-type feature.

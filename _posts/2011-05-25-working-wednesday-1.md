@@ -26,7 +26,7 @@ And I miss all that front-end part of the job. I also get kind of tired of
 using cakePHP. I do like it a lot, but the more I write PHP and read posts
 about Ruby, the more I want to switch.
 
-#### Working 4 days a week
+## Working 4 days a week
 
 I finally made a deal with my boss, for not working on Wednesday. I want to
 use that time to relax and learn all those things.
@@ -39,7 +39,7 @@ cakePHP.
 This time, I want to re-learn a whole new world, a better one. Using all I
 learnt those past years to make a fresh start.
 
-#### What I want to learn
+## What I want to learn
 
 There's a lot of things I would love to learn, unordered :
 
@@ -62,7 +62,7 @@ open source for all to enjoy but never really knew how to do it. I don't yet
 know if I want to create a whole new CMS in Rails, or if I'll do custom dev
 for each project, or use (and enhancing) existing CMS.
 
-#### That's all for now
+## That's all for now
 
 I might have forgotten stuff (I'd want to try couchDB/mongoDB, getting better
 at using Linux everyday), but here is a dump of all the things I want to

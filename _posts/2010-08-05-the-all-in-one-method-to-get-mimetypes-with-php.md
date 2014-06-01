@@ -15,14 +15,14 @@ filename could easily be faked by an uploader.
 So I needed an other way. In fact, in PHP world there are at least 4 methods
 I'm aware of to get this information.
 
-#### mime_content_type
+## mime_content_type
 
 The classic PHP function
 [mime_content_type](http://fr2.php.net/manual/en/function.mime-content-
 type.php) is supposed to return just that. Unfortunatly, it is deprecated. And
 not supported by Dreamhost, my host.
 
-#### The FileInfo functions
+## The FileInfo functions
 
 We are now encouraged to use the [Fileinfo
 functions](http://php.net/manual/en/ref.fileinfo.php) instead of
@@ -46,7 +46,7 @@ Also note that the mimetype may be returned in a `text/plain; charset=us-
 ascii` form. You may need to parse the result to get it in the format you
 need.
 
-#### The getimagesize function
+## The getimagesize function
 
 The [getimagesize](http://fr2.php.net/manual/en/function.getimagesize.php)
 function can be called on any image file. It will return an array containing
@@ -65,7 +65,7 @@ Here's how I use it :
     }  
     
 
-#### Calling the system file
+## Calling the system file
 
 The last method I'm aware of is simply calling the `file `command on a unix
 system through `exec`.

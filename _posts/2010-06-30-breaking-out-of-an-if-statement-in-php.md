@@ -20,7 +20,7 @@ harder to achieve if you need to stick inside a main method. You just want to
 go "out" of the `if` statement, to continue the script, but not end the
 method.
 
-#### Break to the rescue
+## Break to the rescue
 
 You can't use the `break `keyword in an `if` statement like you would in a
 loop. It just throws an error.

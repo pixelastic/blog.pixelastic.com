@@ -19,7 +19,7 @@ The solution was to define the` forced_root_block` setting value to `false`,
 allowing us to create any element on the top level, and not having it
 automatically wrapped in `<p>.`
 
-#### Fixing the side effect
+## Fixing the side effect
 
 Allowing for elements to be input directly in the root level has the nasty
 side effect of creating tinyMCE editor instances with a default text of, well,

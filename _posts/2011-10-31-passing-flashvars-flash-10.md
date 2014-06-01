@@ -10,7 +10,7 @@ Flash.
 In the end, I boiled the issue down to IE and Flash 10, https wasn't involved
 (in fact, that was a different issue).
 
-#### Markup hell
+## Markup hell
 
 It is known that to have a real crossbrowser markup to embed Flash we need an
 IE specific version and a non-IE one.
@@ -21,7 +21,7 @@ formats between Flash player 10 and Flash player 11.
 11 expect the classic `flashvars `parameter while 10 expect them to be passed
 as simili GET parameters to the movie url.
 
-#### Final HTML markup
+## Final HTML markup
 
 In the end, here is the PHP code I use to generate my SWF markup :
 

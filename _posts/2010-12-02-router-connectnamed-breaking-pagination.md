@@ -10,7 +10,7 @@ In cakePHP, you can pass all sort of parameters to your urls by following the
 You could then access `$this->params['foo']` and `$this->params['foo2']` in
 your `Controller::view()` method.
 
-#### Using Router::connectName()
+## Using Router::connectName()
 
 This does not play nice with default routing. I mean, if you define a route to
 add a vanity url like `www.domain.com/vanity` is routed to
@@ -28,7 +28,7 @@ If you do want your custom parameters to be taken into account by your
 `Router` rules, you have to manually add them, using`
 Router::connectNamed(array('foo', 'foo2'))`.
 
-#### Custom connectNamed()
+## Custom connectNamed()
 
 I'll let you browse the [connectNamed()](http://api.cakephp.org/class/router
 #method-RouterconnectNamed) documentation page for further details on how to

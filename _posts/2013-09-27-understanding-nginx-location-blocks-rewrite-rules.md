@@ -13,7 +13,7 @@ straightforward as Apache. In Apache, rules are processed in the order in
 which they appear in your config file/`.htaccess`. In Nginx, they follow a
 more complex pattern.
 
-#### Initial Apache rules
+## Initial Apache rules
 
 First of all, here are the (simplified) set of rules I had to convert :
 
@@ -49,7 +49,7 @@ And the last rule is the default cakePHP rewrite rule. It first checks if the
 requested url points to an existing directory or file, and if not dispatch it
 to the main entry point : `index.php` with the requested url as a parameter.
 
-#### Converting it to Nginx
+## Converting it to Nginx
 
 Rewrite rules in Nginx are usually found in `location` blocks. There are
 several ways you can define a `location` block, and it affects the order in
@@ -131,7 +131,7 @@ to the PHP fastcgi. This is quite easy using a `location ~` block matching any
     }  
     
 
-#### Conclusion
+## Conclusion
 
 Wrapping your mind around the order in which Nginx applies your rewrites is
 not easy at first. I hope this post helped you making sense of it.

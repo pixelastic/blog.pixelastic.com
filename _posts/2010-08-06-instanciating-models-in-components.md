@@ -17,7 +17,7 @@ expected, but the main `setup` method is never called.
 This caused some havoc in my app because some **reaaaaally **important stuff
 was defined in the `setup` method
 
-#### There I fixed it
+## There I fixed it
 
 I just manually fired all the `setup` methods by calling a simple :
 

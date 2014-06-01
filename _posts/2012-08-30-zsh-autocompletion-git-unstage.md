@@ -11,7 +11,7 @@ used the `git add` command extensively to add before committing.
 And zsh ships with nice git autocompletion features, and suggests files to add
 with `git add` when you press Tab.
 
-#### Git unstage
+## Git unstage
 
 What is missing from the basic git commands is a way to unstage a file from
 the staging area. Well, I can do it with `git reset HEAD`, but this command is
@@ -27,7 +27,7 @@ the following lines to my `~/.gitconfig`, under the `[alias]` header :
 I can now easily add files to the staging area with `git add` and remove them
 with `git unstage`
 
-#### Autocompletion
+## Autocompletion
 
 At this point, `git unstage` autocompletion does not work. It simply suggest
 all files in the current directory, while I'd like it to suggest only files in
@@ -112,7 +112,7 @@ in the staging area as I had been looking for a `__git_staged_files` for quite
 a while and finally discovered that the `__git_changed_files` was actually
 what I was looking for.
 
-#### Conclusion
+## Conclusion
 
 The `git unstage` alias is quite common, you can find it in a lot of books and
 websites teaching git. But it becomes much more usable once zsh does the

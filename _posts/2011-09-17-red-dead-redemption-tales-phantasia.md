@@ -14,7 +14,7 @@ Phantasia on my Dingoo on my way to work and back home everyday.
 Those two games are very different, almost completly different, but in a way,
 I can't stop comparing one to the other.
 
-#### Overview
+## Overview
 
 Red Dead Redemption is a "next generation" game, with great graphics, motion
 capture, voices, and so on. It is a free roaming game, a GTA like, made by
@@ -26,7 +26,7 @@ direct vein of gems like FF6 or Secret of Mana. Big story involving saving the
 world, defeating bosses, gaining experience, learning new technics and magic,
 etc.
 
-#### Storyline
+## Storyline
 
 Being a free roaming game, RDR does not have a fixed storyline. You can do
 quests in different order, depending of the people you run into. Of course,
@@ -62,7 +62,7 @@ _Note : The previous JRPG I played, Final Fantasy, was waaaaay more strict on
 its storyline order, so my appreciation of Tales of Phantasia might be biased
 due to the comparison._
 
-#### Graphics
+## Graphics
 
 RDR takes advantage of the PS3 power. All characters are animated using motion
 capture and voiced dialogs, making the world seem real. Animation are still a
@@ -109,7 +109,7 @@ hanging ropes in boats to patch of flowers and rocks on roads, it is really
 refreshing. When visiting a boat, the screen moves to emulate the rolling of
 the waves. This is no big deal but this is kind of details I appreciate.
 
-#### Shopping UI
+## Shopping UI
 
 One thing that strike me as odd is how hard it is to sell goods in RDR. When
 speaking to a merchant, you can select goods you wish to sell and press X to
@@ -139,7 +139,7 @@ practical.
 Screen resolution and hardware power has absolutly no influence on the
 greatness of UI here.
 
-#### Music
+## Music
 
 RDR music is honest, there isn't any theme that get stuck in your mind after
 playing, but the various ambiances are pleasant and strike our common
@@ -157,7 +157,7 @@ those cities with their own themes, and the two musics blends into one other
 when you approach the NPC. It is something common in today games, but the
 first time I see it in a 16bit game.
 
-#### Frustration
+## Frustration
 
 I have been very frustrated playing RDR. A lot of little things that add up
 and degrade my playing experience. Here are some random rambling :
@@ -189,7 +189,7 @@ horseback : water rise to your horse collar and your waist, and you drown.
 That is both stupid and frustrating, dying for something that you absolutly
 can't imagine the first time it occurs to you.
 
-#### Funny story
+## Funny story
 
 On an other occasion, I saw two guys shooting a third one trying to escape. I
 thought they were bandits trying to kill an innocent traveller, so I shot
@@ -223,7 +223,7 @@ And this is only one in the multiple stories I could tell about those random
 encounters plaggued with less-than-average AI. It resulted in a lot of
 frustration and some wtf moments.
 
-#### Conclusion
+## Conclusion
 
 First of all, thank you to have read this pamphlet from start to end, as it
 mostly was random rambling that I needed to get out. As a last word I might

@@ -14,7 +14,7 @@ greeted with various "_Database table is missing_" messages.
 After some digging, it occurs that the shell was connecting to my prod
 database, not the dev one.
 
-#### The culprit
+## The culprit
 
 I wrote a little snippet to automatically switch to the correct database based
 on the current server name. If it was `localhost`, I used the `$dev`
@@ -30,7 +30,7 @@ I couldn't find anyway to guess if I was running a shell from prod or dev. I
 sure had access to a lot of config informations through `env` and `$_SERVER`
 but none seemed to be enough to guess the correct environment.
 
-#### Solution
+## Solution
 
 I finally decided that the only way was to manually pass a flag to my shell
 call to tell if it was to use the dev or prod credentials.

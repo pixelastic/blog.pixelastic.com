@@ -10,7 +10,7 @@ resort to other hacky ways.
 
 Let me show you what can be done.
 
-#### Simulate it with an optical illusion
+## Simulate it with an optical illusion
 
 Instead of creating a real inner shadow, you can just create an optical
 illusion by adding the correct shadow to make the viewer believe your text is
@@ -32,7 +32,7 @@ you have light text, just add a subtle black one at the top.
 I added an `emboss `class to more easily spot the effect, but the important
 code is in the `light `and `dark `rules.
 
-#### Add an almost transparent layer
+## Add an almost transparent layer
 
 For this second solution we will simply add a second layer with the exact same
 text above the first text. Just slightly moving it and making it partly

@@ -7,7 +7,7 @@ custom_v2_id: 279
 I'm trying to find a company providing hosting capabilities. I have a strong
 set of pre-requisites.
 
-#### Connected through SSH
+## Connected through SSH
 
 I want the server to be accessible through SSH. I don't need http nor ftp
 acces on it.
@@ -18,7 +18,7 @@ push(/pull) from(/to) them using ssh.
 So, I will need those softs installed, or at least enough power to install
 them (even locally).
 
-#### Serving as an SSL tunnel
+## Serving as an SSL tunnel
 
 I also want to be able to create an SSH tunnel through this server. That way I
 could be securely connected from any wifi connection using SSL.
@@ -27,7 +27,7 @@ The server should have a pretty reasonable bandwidth. I'd also wish to avoid
 having it hosted in France. Peering agreement between providers in France are
 getting uglier and uglier.
 
-#### Secondary accounts for holding websites
+## Secondary accounts for holding websites
 
 If the same company also provides more conventional hosting, that also could
 be an important part of my choice.
@@ -42,7 +42,7 @@ php.ini).
 I also want to be able to install secondary parts like mongoDB or memcache and
 having a full access to their configuration.
 
-#### Pricing
+## Pricing
 
 Of course, the cheaper the better, but I know that such an amount of freedom
 and features comes with its own price.

@@ -76,7 +76,7 @@ a matter of defining the following event in the main setup :
     	 });  
      },
 
-#### Edit :
+## Edit :
 
 Note that in the latest tinyMCE version, the code is slightly different
 because you have to call a special method on the url before adding it to the

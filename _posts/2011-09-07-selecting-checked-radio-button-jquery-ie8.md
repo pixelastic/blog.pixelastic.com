@@ -13,7 +13,7 @@ jQuery or IE8 had trouble with my `radio` button selection.
 I finally managed to get what I wanted but with a sightly different syntax for
 IE8.
 
-#### First, the markup
+## First, the markup
 
     
         <form id="myForm">
@@ -33,7 +33,7 @@ IE8.
 Pretty simple, isn't it ? I only have three `radio `buttons, and I would like
 to get the selected value when pressing the Select `button`.
 
-#### What should work everywhere
+## What should work everywhere
 
 The following code is pretty straightforward and I expected it to just work.
 
@@ -55,7 +55,7 @@ using IE8.
 So I rebooted my VM, launched IE8 and was able to reproduce the bug on my
 first try.
 
-#### What the heck is IE8 doing ?
+## What the heck is IE8 doing ?
 
 Well, that's a deep question, and I've ask this myself countless times before.
 Once more, IE is doing things in its own weird way.

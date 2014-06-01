@@ -24,7 +24,7 @@ I had to work on a legacy project last week, where this technique wasn't
 implemented but all the css code was still compressed using CSSTidy. And I ran
 into a couple of issues.
 
-#### CSSTidy messes the star and underscore hacks
+## CSSTidy messes the star and underscore hacks
 
 Using the brilliant `_property` and `*property` hacks to target IE6 and IE7
 does not work in conjunction with CSSTidy.
@@ -36,7 +36,7 @@ as they are alphabetically arranged, the `_background` gets added before the
 On the other hand, on the `*property`, the `*` gets removed, and the value is
 merged with the original value of the correct property. Useless too.
 
-#### Other solutions that worked
+## Other solutions that worked
 
 To avoid digging into CSSTidy one more time, I tried to find other ways to
 achieve the same effect.

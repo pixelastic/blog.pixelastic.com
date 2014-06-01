@@ -21,7 +21,7 @@ downloaded and tried a few old emulator games on my
 As you may have guessed, I wrote a bunch of scripts during that week to help
 me in some of the more tedious aspects of this task.
 
-#### Dingoo deployment
+## Dingoo deployment
 
 Downloading roms, copying them to the Dingoo, and then testing the games to
 make sure they are working was tedious. I wrote a little script that
@@ -31,7 +31,7 @@ to it, removing old version along the way while still keeping my saved games.
 I had to parse `dmesg` (thanks to `grep`, `tail` and `sed`) as well as use
 `rsync` for the copy.
 
-#### Sansa Clip cleaning
+## Sansa Clip cleaning
 
 I also wrote a simple script to clean my [Sansa
 Clip](http://anythingbutipod.com/2009/08/sandisk-sansa-clip-plus-review/) of
@@ -41,7 +41,7 @@ other `thumbs.db` and `.DS_Store` useless files.
 
 Here, `find` to the rescue with some `zsh` scripting, and here we go.
 
-#### Shared config files
+## Shared config files
 
 As I'm working on several computers (two laptops and the one at work at
 least), I found myself spending time reconfiguring stuff multiple times.

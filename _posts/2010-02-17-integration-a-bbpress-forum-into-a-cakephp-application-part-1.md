@@ -20,7 +20,7 @@ existent), digging into existing plugins and the source code to finally script
 what I needed. I had to code a cake behavior, a cake component, a bbPress
 plugin, overwriting some bbPress functions but it finally works.
 
-#### Installing bbPress on a cakePHP app
+## Installing bbPress on a cakePHP app
 
 First thing you need to do is installing bbPress. Just drop the files you
 downloaded into `app/webroot/forum` and follow the installation instruction.
@@ -37,7 +37,7 @@ cake tables were set to `utf8_unicode_ci` and my bbPress tables were set to
 `utf8_general_ci`. I had to update all the bbPress tables to make sure no
 collation problems arise.
 
-#### Using the same password hashing
+## Using the same password hashing
 
 Now let's look at our bb_users table. You should have one entry for your admin
 account. Go to your own cake `users `table, copy your password hash and paste

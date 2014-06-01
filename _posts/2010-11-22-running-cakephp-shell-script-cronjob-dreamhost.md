@@ -11,7 +11,7 @@ getting it just right was a little frustrating.
 
 I finally managed to run my shell task as a cronjob, and here is how I did it.
 
-#### The magic command
+## The magic command
 
 First, here is the command I wrote in my Dreamhost panel :
 
@@ -29,12 +29,12 @@ But, this won't work as-is, you'll have to do several other stuff, mostly
 explained by [Miles Johnson](http://www.milesj.me/blog/read/83/Setting-Up-
 Cron-Jobs-With-Cake-Shells), but I'll recap them
 
-#### Setting the file as executable
+## Setting the file as executable
 
 You have to set the `cake/console/cake` file as executable. It is kind of
 obvious, but you have to do it anyway.
 
-#### Set the TERM variable
+## Set the TERM variable
 
 Update you `cake/console/cake` to replace the first lines with :
 
@@ -47,7 +47,7 @@ Update you `cake/console/cake` to replace the first lines with :
 If you don't, you'll have notice errors in the resulting log. No big deal, but
 it is cleaner that way.
 
-#### Forcing using php5
+## Forcing using php5
 
 While in command line, the php command refer to the php4 version. If you need
 to use php5 (and I guess you should), you would have to manually reference the
@@ -57,7 +57,7 @@ time and change the `exec `line to :
     
     exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"
 
-#### And it's ok
+## And it's ok
 
 Your cronjob should not work effortlessly. It took me some long hours to track
 all this down (along with other issues on my local dev machine that make

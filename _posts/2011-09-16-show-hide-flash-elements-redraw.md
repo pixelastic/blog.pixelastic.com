@@ -14,7 +14,7 @@ forces all inner Flash element to be restarted.
 There are a few ways you can work around that, and here are the two main I'm
 using
 
-#### Your Flash file is in a tab
+## Your Flash file is in a tab
 
 Fairly common scenario, you have tabs on your page (maybe using jQuery UI or a
 custom code). When you display your Flash tab, all others are hidden, and when
@@ -37,7 +37,7 @@ just display it offscreen.
 Don't forget to add a `position:relative` to the HTML parent of your tab for
 the absolute positionning to work.
 
-#### You have multiple Flash files in a list
+## You have multiple Flash files in a list
 
 This one is trickier. Imagine you have a list of elements, and each row
 contains a Flash file. You want to filter the list based on various criterias

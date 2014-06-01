@@ -15,7 +15,7 @@ it until you click.
 
 This resulted in an upload dialog popping up and many confused users.
 
-#### The fix
+## The fix
 
 The Flash `z-index` is fixed in my CSS (10), so I thought that adding a
 greater `z-index` to the jQuery UI datepicker in CSS would be enough.

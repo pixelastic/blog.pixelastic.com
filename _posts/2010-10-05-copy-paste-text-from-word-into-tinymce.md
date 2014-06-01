@@ -10,7 +10,7 @@ handed it to clients that will blindly copy/paste Word documents into it ?
 Well, it will just render a big ugly mess of proprietary and contradictory
 pseudo-css rules. You could even be blamed for it.
 
-#### The solution
+## The solution
 
 The latest versions of tinyMCE came bundled with an improved `paste `plugin.
 It will automatically attempt to clean bad pasted text by operating some dark
@@ -31,7 +31,7 @@ As I didn't want to have to click on a toolbar icon before pasting my text
 (and none of my actual clients would ever think of doing that either), I came
 up with a very simple plugin to do the boring stuff for me.
 
-#### The plugin
+## The plugin
 
 The only goal of this plugin is setting to `true `the `pasteAsPlainText
 `property of every editor. This property is defaulted to `false `but can be
@@ -88,7 +88,7 @@ plugin **after **the paste plugin.
     })();  
     
 
-#### Update
+## Update
 
 I added a `postprocess `calback after seing that the pasted text was a little
 too plain in Webkit. All my text was displayed on the same line, without the

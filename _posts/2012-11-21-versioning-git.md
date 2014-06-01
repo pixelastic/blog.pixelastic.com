@@ -29,7 +29,7 @@ me that he was using Mercurial, both for personal projects and at work, at
 that his whole team was actually versioning everything with it and were very
 happy about it.
 
-#### First steps with mercurial
+## First steps with mercurial
 
 So I thought I should start using Mercurial. If I have to learn a new tool,
 I'd rather take one that works well and where I have a friend able to help me
@@ -51,7 +51,7 @@ I was mostly using Mercurial as a backup system. I even opened an account on
 BitBucket where I uploaded my changes every day, in the case my laptop
 crashed, I still had backups of everything online.
 
-#### A little note about FTP
+## A little note about FTP
 
 Using Mercurial had another benefical side-effect on my productivity. It made
 me discover how backward FTP upload was. Before using Mercurial, when I needed
@@ -89,7 +89,7 @@ once a day became cumbersome as I wanted more fine-tuning on what I commited.
 I ended up commiting twice a day, or even every time I took a break, but then
 I realized it made much more sense to commit based on feature and not on time.
 
-#### No more Mercurial
+## No more Mercurial
 
 And that's when Mercurial started to get in the way. I often worked on a
 feature and while doing that, spotted tiny bugs or typos that I fixed while
@@ -125,7 +125,7 @@ So I digged deeper in Mercurial, trying to understand it better, to grok it
 but no, really, I still could'nt make it behave the way I'd like to work with
 my files so I finally decided to give git a try.
 
-#### First steps with git
+## First steps with git
 
 Because there was this thing named github, and all the cool kids where on
 github, and I too wanted to participate in those big open source projects and

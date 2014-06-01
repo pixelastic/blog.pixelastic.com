@@ -13,7 +13,7 @@ advantage of the syslog and log analyzer tools we had.
 At first I got confused by the various log files, but after reading the cake
 core code, it (kinda) makes sense. Let me explain it to you.
 
-#### CakeLog and FileLog
+## CakeLog and FileLog
 
 `CakeLog `is the cake static class that handles all the log actions. You can
 call it yourself statically using `CakeLog::write()`, but cake also calls it
@@ -22,7 +22,7 @@ itself when an error is reported.
 `CakeLog `internally write its content using the FileLog. This `FileLog
 `writes its content to files located in `app/tmp/logs`.
 
-#### Writing errors to the syslog instead
+## Writing errors to the syslog instead
 
 We didn't want our logs to be saved in `app/tmp/logs` for three mains reasons
 :
@@ -86,7 +86,7 @@ With this code, all your logs will now be routed to the syslog, and your
 `app/tmp/logs` directory will no longer grow in size (instead, that will be
 your `/var/logs/syslog` :) )
 
-#### Where are my errors loggued now ?
+## Where are my errors loggued now ?
 
 Well, your errors are loggued to the syslog. But cake defines its own error
 handler that will reformat the error thrown by PHP, and reroute it to the
@@ -119,7 +119,7 @@ And in` app/config/bootstrap.php` :
     
     CakeLog::config('default', array('engine' => 'SysLog'));
 
-#### Final words
+## Final words
 
 I wrote this blog post because I got hit by this problem. Twice. I didn't
 bloggued about it the first time, so a few weeks later when I had to change

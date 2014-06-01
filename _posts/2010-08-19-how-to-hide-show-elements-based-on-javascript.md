@@ -14,7 +14,7 @@ not work.
 In those case, you'd rather display a nice message to your user, telling him
 that he can't use the feature withou Javascript enabled.
 
-#### But how do you do that ?
+## But how do you do that ?
 
 Well, I myself load two different stylesheets. Remember that your website
 should be working without Javascript, this is just the last layer you add.
@@ -27,7 +27,7 @@ the `<head>`. And that's in this one that I write rules that overload the
 previous one. I add every styling that deals with Javascript-enabled features
 here.
 
-#### Limitations
+## Limitations
 
 I may be changing the way I load the JS stylesheet in the future. I don't
 really like relying on `document.write` because it is _evil_. I also don't
@@ -42,7 +42,7 @@ still be downloading those extra useless bytes.
 
 I haven't yet figured which way was the best (or should I say, the worst)
 
-#### Convenient methodes
+## Convenient methodes
 
 Whatever way you choose, one thing that really helped me was two real simple
 classes : `jsOn `and `jsOff `that I add to elements.

@@ -26,7 +26,7 @@ I finally found that one have to call `swfobject.switchOffAutoHideShow();`
 right before the` swfobject.registerObject` call. This seems to fix things by
 not hiding the alternate text
 
-#### Edit
+## Edit
 
 I spent some more hours trying to debug the last corner cases. We had a user
 using Firefox 3.5.3 with Flash 10.0.42.34. Using SWFObject, we required at

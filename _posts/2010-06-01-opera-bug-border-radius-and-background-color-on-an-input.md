@@ -20,7 +20,7 @@ your background color and render it as transparent instead.
 
 All three rules causes the bug. Remove one of them and the bug disappear.
 
-#### Solution
+## Solution
 
 At first I thought that I could just as well remove the border-radius rule and
 I won't have any more bugs. But a slightly decreased user experience for my

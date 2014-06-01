@@ -15,7 +15,7 @@ mailboxes to a brand new Dreamhost server.
 The current host use horde/imp as its webmail, but Dreamhost is running under
 Squirel Mail.
 
-#### How to do that ?
+## How to do that ?
 
 When I first contacted Dreamhost to ask them the better way to copy the
 content of my old IMAP server to their new one, they told me that IMAP to IMAP
@@ -27,7 +27,7 @@ from one server to an empty one, I guess it should work.
 
 And it does.
 
-#### Installing the tool
+## Installing the tool
 
 First of all, you really need to have a Linux machine. I'm sorry for all
 Windows and Mac users out there, but this solution will only work with Linux.
@@ -43,7 +43,7 @@ checkbox and start the install.
 
 I guess you, more experienced linux user, would know how to do that anyway.
 
-#### Running the command
+## Running the command
 
 Once it's installed, you'll just have to run one command. But before typing
 it, you have make sure that you have all the required informations.

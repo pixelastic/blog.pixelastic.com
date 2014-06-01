@@ -11,7 +11,7 @@ properties.
 It also isn't correctly parsed by CSSTidy. Here I'll show you how to patch
 your CSSTidy to make it eat gradients correctly.
 
-#### Quick and dirty patch
+## Quick and dirty patch
 
 First, you'll need to edit the huge `parse()` method in c`sstidy.ph`p. You'll
 have to add a condition to explictly tell CSSTidy not to discard `-webkit-
@@ -40,7 +40,7 @@ manage to come with anything better than that.
 
 Fortunatly, the next part is cleaner.
 
-#### Telling CSSTidy which properties not to merge
+## Telling CSSTidy which properties not to merge
 
 If you write a css like the following, only the latest (`color:white`) rule
 will get through CSSTidy.
@@ -63,7 +63,7 @@ allow the `cursor:` property to be defined several time (to cope with the old
 I just extended this quick fix to work for other properties as well, and even
 managed to allow them to be passed as a config value.
 
-#### Defining the config value
+## Defining the config value
 
 First, open the `csstidy.php` file, and around line 310 you should find a list
 of default config values. Just add the following :
@@ -127,7 +127,7 @@ And now, in `csstidy_print.php`, find the` _print()` method, and replace the
     break;  
     
 
-#### And that's it
+## And that's it
 
 You now can have gradients compressed with CSSTidy. Well sort of, because this
 is just a quick and dirty patch, as I'm not the creator of CSSTidy.

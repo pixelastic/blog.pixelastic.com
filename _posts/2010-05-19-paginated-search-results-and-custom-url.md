@@ -10,7 +10,7 @@ I wanted for this blog a search feature, but I had some prerequisites for it :
   * It should be paginated
   * It should play well with my custom url starting with /blog
 
-#### Defining custom urls
+## Defining custom urls
 
 Here are the two routes I defined in my routes.php
 
@@ -28,7 +28,7 @@ Here are the two routes I defined in my routes.php
 Going to` /blog/search/*keyword*` will start a search on the keyword, while
 going to `/blog/search/ `would display a search form.
 
-#### Writing the method
+## Writing the method
 
 I started by creating a `search `action in my `PostController`, then creating
 a form submitting to this action, with a `keyword `input field.

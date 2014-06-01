@@ -11,7 +11,7 @@ on purpose.
 I also wanted to use it in vim to toggle between normal and insert mode with
 one key instead of the default `i`/`Esc`.
 
-#### Disabling CapsLock
+## Disabling CapsLock
 
 Disabling CapsLock is a fairly straightforward process. The xmodmap program is
 responsible for binding keyboard events to your software and you can change
@@ -23,7 +23,7 @@ longer block your next keys in Caps.
     
     clear Lock
 
-#### Catching it in vim
+## Catching it in vim
 
 Now, to get it in vim, you'll have a little more work to do. First, CapsLock
 is not one of the default vim keycodes, so you won't be able to remap it to
@@ -54,7 +54,7 @@ in vim as an `<F13>` vim key.
 
 Now, you can use `<F13>` in your custom vim mappings
 
-#### Toggling normal/insert mode in vim
+## Toggling normal/insert mode in vim
 
 vim accepts two kinds of mapping. Those triggered in normal mode (using
 `nnoremap`) and those triggered in insert mode (using `inoremap`).
@@ -71,7 +71,7 @@ pressing `Esc` does.
 Notice the `l` after Esc. It is here to prevent the caret to move back one
 character when exiting insert mode.
 
-#### Fixing the shell
+## Fixing the shell
 
 One last thing to fix is your shell. By defining in xmodmap that pressing
 CapsLock would trigger an F13 event, it means that whatever software that

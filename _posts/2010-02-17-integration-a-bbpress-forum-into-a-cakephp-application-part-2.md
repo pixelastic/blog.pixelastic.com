@@ -7,7 +7,7 @@ custom_v2_id: 47
 We've done enough work on the forum for now. The time has come to edit our
 cake files.
 
-#### Creating the cakePHP models
+## Creating the cakePHP models
 
 We will create two models to help in speaking with the bbPress database.
 
@@ -53,7 +53,7 @@ bbPress tables do not follow the cakePHP convention.
 We also add a nifty `beforeSave()` method to `BbUser `to make sure its
 `user_nicename` (used as an url slug) is url-friendly.
 
-#### How to save bbPress users from the cakePHP app
+## How to save bbPress users from the cakePHP app
 
 Great. Now you can easily add, edit and delete users from bbPress directly
 from your app.

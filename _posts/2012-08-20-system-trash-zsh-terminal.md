@@ -16,7 +16,7 @@ The second thing is that it is also much much easier to **permanently delete
 very important files **as deleting a file through the terminal has no trash
 bin nor any other safeguard mechanism.
 
-#### Scripting a rm replacement
+## Scripting a rm replacement
 
 At first, I scripted my own rm `rm` replacement that was manually moving files
 to `~/.local/share/Trash/files` (the common Trash directory) instead of
@@ -27,7 +27,7 @@ Fortunatly, the `trash-cli` package on Ubuntu provides a set of methods to
 deal with the trash from the command line. They have very explicit names such
 as `trash`, `list-trash`, `restore-trash` or `empty-trash`.
 
-#### ZSH aliases
+## ZSH aliases
 
 I had to resort to quite a bit of ZSH tweaking to make it a perfect `rm`
 replacement. First, I added a simple alias for the `rm` command.
@@ -49,7 +49,7 @@ I prefer setting `NO_COMPLETE_ALIASES` so I can use the correct autocompletion
 on my commands with my aliases, but for the `rmdir` case this was proving to
 be an issue.
 
-#### rmdir autocompletion
+## rmdir autocompletion
 
 So, I started writing my own `rmdir` implementation in a custom script. This
 was merely a wrapper to `rmdir` but putting it in its own script allowed me to

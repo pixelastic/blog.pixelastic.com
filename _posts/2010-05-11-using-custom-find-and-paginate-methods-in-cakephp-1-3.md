@@ -15,7 +15,7 @@ automagic.
 It was not that easy, I had to override two core methods in my `AppModel`, but
 here the result :
 
-#### Using custom find methods
+## Using custom find methods
 
 I wanted to be able to call my custom method writing
 `$this->Post->find('published')` so I created a `__findPublished()` method in
@@ -48,7 +48,7 @@ Anyway, what it does is testing if a `__findSomething()` method is defined,
 and if it is it returns its results, otherwise it just delegates to the
 default `find()` method.
 
-#### Using custom find methods in paginate
+## Using custom find methods in paginate
 
 So far, so good. But now how do you tell cake to use this custom find when
 paginating stuff ? The first part is easy (but required some digging into the
@@ -107,7 +107,7 @@ So, here the `paginateCount()` method to add to your `AppModel `:
 And don't forget to create a` __paginateCountPublished($conditions = array(),
 $recursive = null, $extra = array())` method in your `Post `model
 
-#### And you're done
+## And you're done
 
 You can now do some `$this->Post->find('published')` magic in your controller.
 And don't forget the `array_unshift()` tip to use the custom find in a

@@ -7,7 +7,7 @@ custom_v2_id: 48
 Let's go back to bbPress now. With the previous post, you should be able to
 create bbPress user directly from your app.
 
-#### Redirecting bbPress to the cakePHP app actions
+## Redirecting bbPress to the cakePHP app actions
 
 What we'll be doing now is adding some hooks on every user-related action on
 bbPress to redirect them to their equivalent in your app. No need to have two
@@ -69,7 +69,7 @@ Don't forget to enable this plugin in your bbPress admin panel.
 Of course, feel free to change the destination url to reflect those of your
 app.
 
-#### Additional information
+## Additional information
 
 Note that the` users/edit/ `method takes the bbPress `nicename `as argument,
 so you should have to convert it before displaying the edit form.

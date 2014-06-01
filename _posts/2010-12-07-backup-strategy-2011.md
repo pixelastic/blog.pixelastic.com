@@ -11,7 +11,7 @@ And I realized I had different versions of the same files on my 2 laptops...
 
 Well, it seems I have to do some cleaning up.
 
-#### Synchronizing paperwork
+## Synchronizing paperwork
 
 I started by cleaning up my [Dropbox ](http://www.dropbox.com/)folder. I
 removed shared folders with past clients, and created a "Paperwork" folder
@@ -28,7 +28,7 @@ Dropbox is excellent for storing simple files, that you need everywhere. Being
 able to access invoices and contracts even from my mobile phone proved quite
 valuable when meeting clients.
 
-#### Hard backup of personal files
+## Hard backup of personal files
 
 I've also changed my scheduled backups of personal files. I bought an [Acronis
 True Image](http://www.acronis.com/) last year, and reconfigured it today.
@@ -41,7 +41,7 @@ I manually started all this backups to have a clean start. I also forced the
 backup to restart a whole new file every 6 month (opposed to using the
 incremental backup).
 
-#### Backing up my music and movies
+## Backing up my music and movies
 
 I did not spent too much time figuring how to save my hundred of Go of music
 and movies. I rarely watch the same movies twice, so losing them won't affect
@@ -54,7 +54,7 @@ them (again).
 Regarding music, well, I have quite a big collection, but most of it is
 already "backed up" on my portable mp3 player.
 
-#### Automatic synchronizing with BitBucket
+## Automatic synchronizing with BitBucket
 
 On my day work, I now always version my files using Mercurial.
 [BitBucket](http://bitbucket.org/) offers unlimited storage, and unlimited
@@ -68,7 +68,7 @@ access it from anywhere.
 I wrote a custom Hg hook on commit to automatically push my repos to BitBucket
 at least once a day (I'll post the code in a future post).
 
-#### MySQL Backup
+## MySQL Backup
 
 I used to backup mysql databases on my work computer using a windows app. This
 was slowing down my computer on every boot as well and backup was thus only
@@ -86,7 +86,7 @@ mail address (stored on GMail).
 This way I am sure to have my mysql backups on two different hosts, with daily
 and automatic saves, that I can access from anywhere if anything goes wrong.
 
-#### Conclusion
+## Conclusion
 
 It took me almost two full days to get the right tools, configure them and
 write my custom scripts but now, it is seamlessly integrated with my daily

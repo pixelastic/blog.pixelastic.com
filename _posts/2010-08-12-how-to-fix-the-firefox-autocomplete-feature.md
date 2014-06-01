@@ -13,7 +13,7 @@ have to do it ?
 
 Well, it is bad, and here's why.
 
-#### How does it work ?
+## How does it work ?
 
 I haven't read the source code, but from what I've experienced it seems to
 work like that :
@@ -26,7 +26,7 @@ one of the username saved, it will autofill the password field.
 Note that if you have more than 5 password fields on a page, the feature will
 be disabled.
 
-#### What is terribly wrong with this approach
+## What is terribly wrong with this approach
 
 Let's imagine you are a registered user of a website. You want to update your
 preferences. You have a nice page with lots of input fields where you can
@@ -51,7 +51,7 @@ useless.
 The worst part is that most users won't understand when the error comes and
 will blame the webdeveloper.
 
-#### Solutions that does not work
+## Solutions that does not work
 
 First, Firefox is just doing a very wild guess on that fields. And, there is
 no way to disable this feature from the page markup. Sure, as a user you can
@@ -67,7 +67,7 @@ the form itself. Setting the `value `attribute does not work either. Even
 updating the value through Javascript would not work because the password
 field will get re-populated on every blur event on the text field.
 
-#### A solution that does work
+## A solution that does work
 
 The final solution I've found is to add a dummy password field between your
 real mail and password fields. That way, Firefox will autocomplete this dummy

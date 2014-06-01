@@ -15,12 +15,12 @@ a VM to act as a server.
 
 Let's see how I did that :
 
-#### Required components
+## Required components
 
 First, let's clarify what I'll have to install for this project : Lighttpd as
 the webserver, mysql and memcached for storing data and php5 to run cakePHP.
 
-#### Step One : Running Ubuntu inside a VM
+## Step One : Running Ubuntu inside a VM
 
 Start by downloading the [Ubuntu iso](http://www.ubuntu.com/business/get-
 ubuntu/download) (i's 687Mo, you'd better start this download first). I
@@ -58,7 +58,7 @@ Start a terminal and install the guest additions by doing :
 This will finish the guest addition installation. Reboot your guest machine
 one last time and you'll be ready for step 2.
 
-#### Step 2 : Installing the server stuff
+## Step 2 : Installing the server stuff
 
 We will now install the various components we'll need. You could probably
 install them all with one command but I'll split them in different line so
@@ -92,7 +92,7 @@ that stuff later. You should now completely close your Virtual Machine and get
 back to Windows. It's time to configure your host and guest so they can
 correctly communicate
 
-#### Step 3 : Enabling communication between host and guest
+## Step 3 : Enabling communication between host and guest
 
 What we will do in this section is configure your network so the guest machine
 is considered part of your network and so you can connect to id using SSH and
@@ -135,7 +135,7 @@ access rights issues you may have with Lighty.
 You should have to re-run the last command on every login, so I strongly
 suggest you to put it in `/etc/rc.local` so it gets executed automatically.
 
-#### Step 4 : Configuring all that stuff
+## Step 4 : Configuring all that stuff
 
 I won't go into much details on how to configure lighty or php because it is
 not the scope of this post. I might post on that subject later, though. But
@@ -156,7 +156,7 @@ using the port 80. I fixed it by removing every reference to Apache by running
     
     sudo update-rc.d -f apache2 remove
 
-#### Final note :
+## Final note :
 
 If you followed this instruction, you should have a server running inside a VM
 that runs your website stored in your host. Isn't that pretty ?

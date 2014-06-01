@@ -11,7 +11,7 @@ I had a website working perfectly under Firefox but when browsing using
 Chrome, I noticed that my Session gets regenerated on each page load.
 **Constantly**. Creating hundred and hundred of useless session files.
 
-#### And only with Chrome.
+## And only with Chrome.
 
 Since when using a browser should change the server behavior ? Well I don't
 exactly know what Chrome is doing with the `referer` but it seems that it is
@@ -37,7 +37,7 @@ quick fix by forcing the setting of `session_start()` in
 /web-development/session-issue-in-iis-with-cakephp/)and [debugging
 ](http://freetofeel.com/page15/)I finally found the culprit.
 
-#### Hacking your way through the fix
+## Hacking your way through the fix
 
 There is no easy way to prevent cake from setting this setting, but you can
 define your own session handler in the `Session.save` configure key.

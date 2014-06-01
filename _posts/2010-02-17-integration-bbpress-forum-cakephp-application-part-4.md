@@ -8,7 +8,7 @@ We're almost done. There is just one last thing we must do. We don't want our
 dear user to have to login twice, once for the main app and once for the form,
 do we ?
 
-#### Creating the Configure keys
+## Creating the Configure keys
 
 So first, go back to your `bb-config.php` file and if you haven't already,
 define the `BB_AUTH_KEY` and `BB_LOGGED_IN_KEY`.
@@ -30,7 +30,7 @@ Of course, set `XXXX` to a unique string. The name of your website should
 suffice, it is just used to differenciate between cookies on the same domain.
 Report the same value in `Configure` : `bbPress.hash`.
 
-#### Creating the cookies
+## Creating the cookies
 
 You're now ready to create bbPress cookies. bbPress will need to create two
 different sets of cookie.
@@ -147,7 +147,7 @@ And for logging out, just delete the cookies :
 Hope all that helps ! It took some time to put all this together but I hope it
 could help other bakers out there.
 
-#### Downloading
+## Downloading
 
 For anyone interested, here is a link to download all the files :
 http://www.pixelastic.com/download/bbpress.rar

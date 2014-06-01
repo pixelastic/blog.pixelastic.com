@@ -12,7 +12,7 @@ Today, I spotted that logs we save in the DB have some date inaccuracy. It
 appears that our mysql server and instances weren't always updated to the
 correct date. Some hours later, here is what I learned :
 
-#### Finding and updating MySQL date
+## Finding and updating MySQL date
 
 You can tell what timezone mysql should use when you start the service. If you
 don't specify anything, it will use the system time. Once loaded, you can get
@@ -30,7 +30,7 @@ It means that changing your server time will not affet running mysql
 processes. You'll have to restart mysql to do that : `sudo /etc/init.d/mysql
 restart`
 
-#### Finding and updating the server date
+## Finding and updating the server date
 
 Even after restarting mysql on some servers, the mysql date was still
 incorrect. After connecting the the sql server, I found that it was the server
@@ -39,7 +39,7 @@ time that was incorrectly set (I just type `date`).
 To update the current time zone, I had to call `sudo dpkg-reconfigure tzdata`
 (I'm using ubuntu) and choose the correct city
 
-#### Updating mysql running through ndb_mgm
+## Updating mysql running through ndb_mgm
 
 I'm no server expert, so this part was a little trickier. Some of our
 databases are using ndb cluster for replication. Reloading those

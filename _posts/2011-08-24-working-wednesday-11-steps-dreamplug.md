@@ -16,7 +16,7 @@ fit for testing web performance optimisations.
 Actually, I have a lot of ideas for this plug (ssh tunnel, dropox-like server,
 etc).
 
-#### First, let's establish a connection
+## First, let's establish a connection
 
 To do any of that, you first have to log into your device. This first step
 might have been the one that caused me the much trouble.
@@ -41,7 +41,7 @@ I chose `10.0.0.2` because it's close to the Dreamplug address and I will
 remember it better, but you can actually choose anything you want, it
 absolutely does not matter.
 
-#### Connect through ssh
+## Connect through ssh
 
 Once the first step is done, you are now able to connect to the device through
 SSH.
@@ -102,7 +102,7 @@ Now, we can logout from the `root` session, and login back with our new user
     $ sudo pwd  
      /home/pixelastic
 
-#### What next ?
+## What next ?
 
 Now, one last sensible thing to do is to change the root password for
 something stronger, and even disable login as `root` through ssh. To do that,

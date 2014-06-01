@@ -8,7 +8,7 @@ I often use `$this->cakeError('error404')` in my controllers to stop
 processing the request (and return a 404 error) when the supplied parameters
 are buggy or incomplete.
 
-#### A strange side effect
+## A strange side effect
 
 I recently spotted a strange side effect on the latest site I was developping.
 It used a pretty large html footer filled with links dynamically fetched from
@@ -22,7 +22,7 @@ fetch them all and return them to the view. I added this component to my
 This worked nicely until I spotted that on error pages, the footer was left
 mostly empty. I was because my `Component` callback was never fired.
 
-#### How's that ?
+## How's that ?
 
 When detecting an error, cake starts using its `ErrorHandler `and thus do not
 fire callbacks.

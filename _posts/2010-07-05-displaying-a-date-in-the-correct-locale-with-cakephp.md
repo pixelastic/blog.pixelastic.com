@@ -11,7 +11,7 @@ Sometimes, you also need your date to be displayed in a specific language. For
 example, for a french website, I needed a date to be displayed as "_mardi 03
 août 2010_" instead of "_Wednesday, August 3rd_".
 
-#### Setting the locale
+## Setting the locale
 
 To achieve that, you just have to tell PHP which locale to use when displaying
 date with `setlocale(LC_TIME, $locale)`.
@@ -55,7 +55,7 @@ That's a pity, but I'll show you how to correctly make it work underWwindows.
 As a side note, `setlocale` will not `return false` if the locale is not
 found, it will just fail to load it.
 
-#### Displaying date in UTF8
+## Displaying date in UTF8
 
 If your app is in UTF8 (and it should be !) you may run into problem when
 trying to display a simple `strftime("%B", strtotime($date))` on Windows.

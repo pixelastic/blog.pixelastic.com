@@ -15,7 +15,7 @@ will force myself to use only `vim` on wednesday to really learn it. I plan to
 completly drop Komodo Edit once I'll be familar enough with vim to gain more
 time than I lose.
 
-#### Rails for Zombies
+## Rails for Zombies
 
 Anyway. I finally get to start the Rails for Zombies tutorial. And here is
 what I learned.
@@ -43,7 +43,7 @@ I guess it's just a matter of time before I learn how to to do in Rails
 anyway. I saw that there was more "advanced" method (much like the cake `find`
 method) that would surely allow such finding.
 
-#### Part 2 : Validation and Relationships
+## Part 2 : Validation and Relationships
 
 The second part of the tutorial was more about models. Validation rules were
 pretty much the same as those of cakePHP. But the Ruby syntax makes it more

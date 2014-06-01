@@ -42,7 +42,7 @@ tabindexed element. Is that a good behavior ? I don't know, it surely is
 useful to be able to insert tab characters, but it also is useful to tab
 through the whole form.
 
-#### Listening to the tab key
+## Listening to the tab key
 
 Anyway, I decided to hook on the `keyDown `event and listen to the tab key
 being pressed. This way I could manually jump focus to the next field when tab
@@ -96,7 +96,7 @@ I first get the list of all the input fields that have a `tabindex `value
 loop through the list and stop when I've found one with a bigger `tabindex
 `that the actual field. I focus this one and stop the loop.
 
-#### One final word
+## One final word
 
 I've tested under Firefox 3.6, Chrome, Safari and Opera. Haven't tested IE yet
 because I still have a lot of other scripts to debug in IE first.

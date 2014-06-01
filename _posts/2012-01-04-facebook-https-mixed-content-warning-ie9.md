@@ -15,7 +15,7 @@ image file it contains is requested through `http`, the warning will pop.
 _(It's interesting to note here that not all assets are treated equal. Loading
 a flash movie through `http `does not trigger the warning)._
 
-#### The IE special case
+## The IE special case
 
 Now, what's special about IE is that it also trigger the mixed content warning
 when content is the other way around. If you're serving a page through `http
@@ -29,7 +29,7 @@ protocol as the host page. An easy way to do so is to use the `//` relative
 protocol url. This will use `http `or `https `automatically based on the page
 protocol.
 
-#### And adding Facebook to the mix
+## And adding Facebook to the mix
 
 A few months ago, Facebook forced all apps to serve content through `https`.
 In the meantime, they suggested that all their users browse their website
@@ -57,7 +57,7 @@ After some googling, I found a solution that consisted in forcing the SDK to
 consider that we are in `https `mode by calling : `FB._https = true` before
 the call to` FB.init()`
 
-#### Almost there
+## Almost there
 
 If correctly forced FB to use the correct set of urls, thus removing the mixed
 content warning. And I almost thought it would be that easy.
@@ -69,7 +69,7 @@ This did not fixed the payment popup. All Facebook UI element loaded correctly
 
 I couldn't find a way to fix that, so I reverted to a more brutal approach.
 
-#### Final and brutal solution
+## Final and brutal solution
 
 All my problems came from the fact that FB thought we were serving `http
 `while in fact we were serving `https`. So the solution, might be to force FB
@@ -106,7 +106,7 @@ with this :
     }  
     FB.init(options);
 
-#### Conclusion
+## Conclusion
 
 I'm not really proud of this solution, as it is mostly a hack and will force a
 useless loading of the http version before loading the https one, but that's

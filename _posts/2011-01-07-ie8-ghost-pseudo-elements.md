@@ -37,7 +37,7 @@ As you can see, nothing too fancy. I positionned my arrow using an empty
 `:after` element and a `background `image. I defaulted the arrow to hidden,
 and only show it when hovering the element.
 
-#### IE in action
+## IE in action
 
 It does work pretty well in moder browsers. It also seems to work on IE8. When
 you hover the element in IE8, the arrow gets displayed. But it does not gets
@@ -69,7 +69,7 @@ opinion). Removing the default `a:after` rule and adding all properties to
     }  
     
 
-#### Update
+## Update
 
 It should be noted that more generally, I gets confused and create ghost
 elements and styling when we try to update the `:after`/`:before` properties

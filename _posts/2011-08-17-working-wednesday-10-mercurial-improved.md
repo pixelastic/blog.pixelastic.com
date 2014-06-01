@@ -11,7 +11,7 @@ I skipped the last chapters about patches and queues. I know this would be
 useful, but I'd rather get back to them when I'll need them instead of try
 them without any real world example.
 
-#### Tweaking Mercurial
+## Tweaking Mercurial
 
 I updated my `.hgrc` to configure it as best as I could.
 
@@ -37,7 +37,7 @@ that deleted the file, and then revert the file to the parent changeset of
 that changeset. I might post the exact code later as I'm quite happy with the
 result.
 
-#### A note on laptop screens
+## A note on laptop screens
 
 Also, I've spent the last few weeks working on my netbook when at home. This
 is very tiny thing, the screen is really small (compared to my two 21" at work
@@ -49,7 +49,7 @@ The more I use the netbook, the more I like it. I didn't quite use it back
 when it was running Windows because it was way too slow. Now with Ubuntu on
 it, it's a whole new story !
 
-#### Next week
+## Next week
 
 I still have some zsh to learn. I still don't quite get the quote and double
 quote differences, and a few other quirks (arithmetic, arrays, etc).

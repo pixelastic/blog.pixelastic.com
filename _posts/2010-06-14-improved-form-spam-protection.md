@@ -15,7 +15,7 @@ to tell my human readers to keep this field empty.
 I also hide the whole field using Javascript because most of the bots don't
 have Javascript enabled, but legitimate users do.
 
-#### Does it work ?
+## Does it work ?
 
 To say the truth I don't know. In the previous version of this website I
 haven't any kind of spam protection and was receinving almost a dozen spam
@@ -25,7 +25,7 @@ Now that I've added this protection, I don't receive spam anymore. But that
 doesn't mean my protection is working, it may just mean that the spam bots
 needs a little time to adjust to the new website.
 
-#### Improving the existing
+## Improving the existing
 
 One week ago, two spam comments managed to get past my protection. I have
 currently no way to judge my protection efficiency. Maybe that was the only
@@ -35,7 +35,7 @@ the only two to beat me.
 
 I don't know, I have absolutly no numbers on that.
 
-#### Getting some stats
+## Getting some stats
 
 So today, I decided to add some extra measures. I'm keeping count of every
 spam I block (this number will be displayed below the comment list if at least

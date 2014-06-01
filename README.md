@@ -22,7 +22,6 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
-- Maybe convert back all html to real markdown
 - Escape html in post titles.
 - Add syntax highlighting to all code snippets
 - Allow browsing per year, and set default folder pages

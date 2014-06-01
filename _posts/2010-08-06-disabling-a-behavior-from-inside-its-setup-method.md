@@ -12,7 +12,7 @@ So what do you do ? Do you resort to manually fill the `$actsAs` variable of
 each model, except for the two lonely loosers, or defining the `$actsAs` of
 your main `AppModel `really seems more appaling ?
 
-#### Lazyness to the rescue
+## Lazyness to the rescue
 
 If, like me, you prefer writing less code, you'd probably go with the
 `AppModel` approach. All you have to do is define a `setup()` method in your

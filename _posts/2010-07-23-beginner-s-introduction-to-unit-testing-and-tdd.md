@@ -22,7 +22,7 @@ reading more general concepts about the whole testing thing before writing
 anything. That's how I learned that Unit Testing and TDD are two different
 thing, the former leading to the latter.
 
-#### So, what exactly is Unit Testing ?
+## So, what exactly is Unit Testing ?
 
 A Unit Test is a simple test (function) you write that will test that one tiny
 little part of your whole application is doing what it is supposed to do. Most
@@ -45,7 +45,7 @@ behavior.
 The more precise your tests are, the easier it will be for you to debug where
 the bug is coming from.
 
-#### And what is Test Driven Development ?
+## And what is Test Driven Development ?
 
 TDD is a whole new way of writing code. Instead of writing your method then
 write the test for it, you write the test before. You can even write several
@@ -71,7 +71,7 @@ Thanks to TDD, you'll have a precise measure of where you are in the
 development cycle. If all your code is test covered and that you only add new
 code that is also covered, you can release you app as often as you want.
 
-#### And how is it good for me ?
+## And how is it good for me ?
 
 First of all, you will know for sure when you're done working on a method. If
 all the tests passes, you're good. If at least one test fails, it means that
@@ -88,7 +88,7 @@ it's suprising how fast you can see the benefits. It will allow you to see
 more easily edge cases you hadn't thought of, and prepare yourself in
 consequence.
 
-#### But I spend so much time writing tests, while I could be adding new
+## But I spend so much time writing tests, while I could be adding new
 features instead !
 
 Yeah, I thougt that too. Writing tests is a chore. It takes a lot of time,
@@ -124,7 +124,7 @@ with tests, but at least you'll be able to say "Ok, it's done, and it's
 working", while with a feature that hasn't been tested, you'll ended up saying
 "Ok it's done, I think it should work. Well, we'll see...".
 
-#### You've convinced me, I want to start writing tests now.
+## You've convinced me, I want to start writing tests now.
 
 Great !
 

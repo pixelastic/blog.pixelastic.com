@@ -8,7 +8,7 @@ I recently bought an HTC Legend. My old phone was broken and I have plans to
 develop an Android app. I've been using the phone for 3 weeks now, and I'm not
 exactly as thrilled about it as I think I would.
 
-#### Open source from Big Brother
+## Open source from Big Brother
 
 I was hoping to have a little piece of open source software in my pocket. In
 fact, it turns out that Google has a little more piece of me when I'm using
@@ -36,7 +36,7 @@ with Gmail, when it tried to remove the mails from my online address book.
 I didn't want them downloaded in the first place and once I removed them I
 didn't want them to be deleted from my online address book !
 
-#### Disabling sync
+## Disabling sync
 
 So I tried to remove the google account from my phone, but that is clearly
 impossible and is NEEDED to make the phone work. What ? This is stupid.
@@ -48,7 +48,7 @@ An other thing to note is that if you want to fine-tune what kind of data your
 phone syncs, you first have to enable the auto-sync feature and quickly
 disable the data you don't want, because they all are checked by default.
 
-#### Other settings
+## Other settings
 
 Even changing the default ringtone is a chore. There's no way to easily select
 a music file saved on the SD card. There isn't even a native file explorer,
@@ -58,7 +58,7 @@ The camera quality isn't very good and the auto-focus makes pictures more
 blurry with it than without. Even my old Nokia XpressMusic was taking better
 shots.
 
-#### Conclusion
+## Conclusion
 
 I really am disapointed by this phone actually, and by the Android platform as
 a whole. Maybe the underlying app is great but as an end-user we are blocked

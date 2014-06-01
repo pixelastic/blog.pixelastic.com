@@ -17,7 +17,7 @@ differently, so our user will think twice before hitting it.
 
 You got two ways of achieving this, depending if you still support IE6 or not.
 
-#### Simple way for non-IE6
+## Simple way for non-IE6
 
 If you don't care about IE6 (and hell, it's 2012, you shouldn't), you just
 have to add a second class to your button/link :
@@ -47,7 +47,7 @@ This will cause problems as soon as you'll use the `.important` class on
 something else than a `.button` : IE will apply the `.button.dangerous` rules
 to anything with the `.dangerous` class.
 
-#### Other way, for IE6
+## Other way, for IE6
 
 The solution I personnaly use to fix IE6 is to use more explicit classes
 instead of using multiple ones. For example, instead of `.button.dangerous {}`

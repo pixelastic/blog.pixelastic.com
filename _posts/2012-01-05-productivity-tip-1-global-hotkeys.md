@@ -24,7 +24,7 @@ I'm now working under Ubuntu, and the global hotkeys can be defined directly
 from the System Settings (in 11.10 it's `System Settings > Keyboard >
 Shortcuts > Custom Shortcuts`)
 
-#### Opening apps
+## Opening apps
 
 I choose a key combination hard enough to type so I won't type it by mistake,
 but easy enough to remember that I could type it whenever I want.
@@ -33,7 +33,7 @@ For example, I binded all the app I use the most to a `Ctrl+Win+{Letter}`
 combination. `Ctrl+Win+C` opens Chromium, `Ctrl+Win+F` opens Firefox,
 `Ctrl+Win+T` opens Trillian, etc.
 
-#### Opening folders
+## Opening folders
 
 I used a close combination for opening directories : `Ctrl+Win+Alt+{Letter}`.
 Those three keys are side by side on most keyboards so pressing them is easy.

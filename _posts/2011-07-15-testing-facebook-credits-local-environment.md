@@ -27,7 +27,7 @@ feature, so I decided to put in place a little IP/port forwarding. Thanks to
 tips from my colleague [LĂŠo](http://leo-peltier.fr/), this was done in a
 matter of minutes.
 
-#### Setting up the DNS/port forwarding
+## Setting up the DNS/port forwarding
 
 First, we'll need a url that Facebook will call. I want this url to point to
 my local server. So all I had to do was to create a simple DNS redirect at
@@ -51,7 +51,7 @@ configuration.
 Finally, we'll have to update the server virtualhost config to point all
 incoming requests matching `customname.dyndns-office.com` to the server files.
 
-#### A side note
+## A side note
 
 There is one last little gotcha to be aware of.
 
@@ -70,7 +70,7 @@ brought me to my router admin panel and did not forward the port correctly.
 Doing a `curl http://customname.dyndns-office.com/` from one of my online
 servers correctly returned what I wanted.
 
-#### Back to Facebook
+## Back to Facebook
 
 Back to our Facebook example, you still won't be able to see any outputs from
 the calls Facebook is making to your app. Your best bet is to have a logging

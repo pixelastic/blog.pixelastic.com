@@ -40,7 +40,7 @@ saving it, and if not, we retry. And we do so recursively.
 Note, that this will not work if one of your values is defined as false,
 otherwise you'll end up in an infinite loop.
 
-#### Update
+## Update
 
 Well, the problem kept sporadically popping. And we finally found the REAL
 culprit.

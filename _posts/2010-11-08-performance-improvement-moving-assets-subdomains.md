@@ -17,7 +17,7 @@ I'm talking about the multiple domains to serve static content. There are two
 important things to note here : parallel requests and cookies. Let me explain
 in a little more details what it's all about.
 
-#### Parallell requests
+## Parallell requests
 
 Your browser is only able to perform a certain number of parallel request at
 the same time. It means that it can only download a certain number of files
@@ -48,7 +48,7 @@ Each one maps to the exact same site as `www.pixelastic.com` but using
 different names improve the number of possible downloads and thus improve page
 load.
 
-#### Cookies
+## Cookies
 
 All this stuff about subdomains brings me to my second point : cookies.
 
@@ -76,7 +76,7 @@ On the other hand, if your main domain is `www.domain.com`, it is not
 considered a parent domain of `files.domain.com` (but rather a sibling
 domain).
 
-#### Configuring Apache
+## Configuring Apache
 
 If you need to edit your `httpd.con`f file, here is what I put to add my
 different subdomains on my local machine :

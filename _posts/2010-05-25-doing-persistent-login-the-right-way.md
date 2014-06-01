@@ -15,7 +15,7 @@ And to allow the user to auto-login, I stored the user and password, in plain
 text, in a cookie and requested a login with those credentials whenever its
 session expired.
 
-#### That's insane !
+## That's insane !
 
 Yes it was, but I remember thinking "Well, nobody can even have access to the
 database so there's no risk" and "I can store the password in the cookie, it
@@ -35,7 +35,7 @@ I was thinking "The password is not stored as plain text but as a hash,
 there's no way an attacker would even be able to guess the password from
 that".
 
-#### That's better, but still...
+## That's better, but still...
 
 I haven't thought that the cookie was like an open sesame to my app. One would
 just have to steal the file and place it in its browser cookie list and he
@@ -48,7 +48,7 @@ username and password in the cookie.
 
 Clearly, something was broken in my persistent login implementation.
 
-#### Here come the tokens
+## Here come the tokens
 
 After some research, I finally get it the right way.
 
@@ -85,7 +85,7 @@ update the table with a hashed version of it.
 That way each token can only be used once and are generated only when the user
 correctly authenticate and are only used once the session expires.
 
-#### But one can still steal cookies
+## But one can still steal cookies
 
 Yes, a malicious user can still steal my cookie, copy it to its computer and
 use the token to login. That's true and as we can't do anything against that,

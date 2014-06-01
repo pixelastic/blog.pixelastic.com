@@ -21,7 +21,7 @@ archive.com/internals@lists.php.net/msg35782.html) using
 the unit tests used by PHP itself. It is supposed to simulate any kind of
 query. Unfortunatly, setting that up seemed a little to complex for me.
 
-#### So, how did I do ?
+## So, how did I do ?
 
 I finally found a way to do that by :
 
@@ -39,7 +39,7 @@ instead.`
 
 `
 
-#### What does that change ?
+## What does that change ?
 
 The fondamental difference between the former and the latter functions is that
 the former checks that the target really was uploaded through POST while the

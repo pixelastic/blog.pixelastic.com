@@ -12,7 +12,7 @@ However, when passing an argument that has nothing to do with a JSON string,
 the function was supposed to return null. But, in practice, this didn't go so
 well.
 
-#### Passing a string
+## Passing a string
 
 Here's an example :
 
@@ -22,7 +22,7 @@ Here's an example :
     // $bar is nothing,  
     echo (is_null($bar)) ? "This is null" : "This is not null";
 
-#### Passing a float
+## Passing a float
 
 Here, we try to decode a string. The function rejects it and returns null.
 
@@ -38,7 +38,7 @@ number. Wait, what ?
 This is weird, I expected it to return null, once again. But maybe it's
 correct and the JSON specs says so. I didn't check, actually.
 
-#### Passing a string thats looks like a float
+## Passing a string thats looks like a float
 
 But the next example is even better :
 
@@ -53,7 +53,7 @@ result (like example 2).
 
 Well, this time I'm sure that can't be the correct behavior.
 
-#### How to deal with it
+## How to deal with it
 
 I finally wrote a little wrapper for json_decode to handle those strange cases
 :

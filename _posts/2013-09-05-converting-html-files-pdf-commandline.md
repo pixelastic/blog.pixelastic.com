@@ -18,7 +18,7 @@ needs a few tweaks. First, you have to add `-T 0 -R 0 -B 0 -L 0` to remove the
 margins. Then, you have to use the `file://` notation to target a local file.
 Also, it does not understand the css properties `page-break-after` nor `page-
 break-before`. I had to manually add padding in my elements to stop them from
-being cut in between two pages.Â But worst of all, it chokes on UTF-8
+being cut in between two pages. But worst of all, it chokes on UTF-8
 characters in filenames.
 
 In the end, I wrote a small ruby wrapper around wkhtmltopdf to work around all

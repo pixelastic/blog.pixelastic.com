@@ -13,7 +13,7 @@ there is no method to do that. I had to instead directly call the `.abort()`
 method on the XHR object returned by `$.ajax`.
 
 What I learned was that aborting an XHR request still triggered the jQuery
-ajax `complete `callback, and even passed aÂ `success` as second argument.
+ajax `complete `callback, and even passed a `success` as second argument.
 
 My complete callback was supposed to display the loaded window, so I really
 didn't want it to fire if the user closed the loading window.

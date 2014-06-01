@@ -86,7 +86,7 @@ page. Shouldn't happen a lot in the real world, but still nice to know.
 
 **Hard reload** : Re-request jpg and swf files by adding a `Cache-Control: max-age=0` request header. This feels like the expected behavior.
 
-Â
+
 
   
 

@@ -37,7 +37,7 @@ project at a given time.
 
 On the other hand, each Mercurial repository holds both the current public
 version and all the history. You do not have to deploy anything anywhere,
-justÂ `update` your current repo with data from one of the revision.
+just `update` your current repo with data from one of the revision.
 
 ## Tortoise
 

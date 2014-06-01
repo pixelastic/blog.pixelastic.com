@@ -18,7 +18,5 @@ seemed that it was the padding-bottom:0px that cause the bug.
 I finally rewrote my css (in three lines instead of one) and moved to other
 things.
 
-Â
-
 I post it here as a reminder, and hope it could help someone.
 

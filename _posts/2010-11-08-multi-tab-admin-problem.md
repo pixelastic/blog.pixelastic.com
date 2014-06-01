@@ -8,7 +8,7 @@ Today I had to update an important zone file at my registrar. Because it was
 quite important, and because I already did an almost identical job a few
 months ago, I decided to copy-paste the old work.
 
-So I started by opening the `domain A` zone edit page. TheÂ  I opened a new
+So I started by opening the `domain A` zone edit page. Then  I opened a new
 tab, and loaded the `domain B` zone edit page.
 
 I selected the `domain B` content and copied it in the `domain A` page. I had

@@ -15,7 +15,7 @@ IE8.
 
 ## First, the markup
 
-~~~html    
+```html    
 <form id="myForm">
   <input name="data[Payment][value]" id="payment_1500" type="radio" value="1500" />
   <label for="payment_1500">1500</label><br />
@@ -28,7 +28,7 @@ IE8.
   
   <button id="test">Select</button>
 </form>
-~~~
+```
     
 
 Pretty simple, isn't it ? I only have three `radio `buttons, and I would like
@@ -39,14 +39,14 @@ to get the selected value when pressing the Select `button`.
 The following code is pretty straightforward and I expected it to just work.
 
     
-~~~js
+```js
 var selected1 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]:checked');  
 var value1 = selected1.val();  
 console.log(value1);
-~~~js
+```
 
 Note that we have to double escape the `[` and `]` characters and wrap in
-quotes the `name `value. Nothing fancy, just classic string protection.Â This
+quotes the `name `value. Nothing fancy, just classic string protection. This
 code works perfectly on Firefox and Chrome, and I deployed it in production
 for a few weeks.
 
@@ -67,11 +67,11 @@ After some fiddling, I managed to make it work, by just slightly altering the
 syntax.
 
     
-~~~js
+```js
 var selected2 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]').filter(':checked');  
 var value2 = selected2.val();  
-console.log(value2);Â 
-~~~
+console.log(value2); 
+```
 
 Yep, that's right, I simply moved the `:checked` selector in its own `filter
 `call and it worked. Took me a while to figure, but this finally turned out to

@@ -68,5 +68,5 @@ if (defined('CAKEPHP_SHELL')) {
 ```
 
 Note that I checked if the script was accessed through normal server/php
-delegation or through the CLI usingÂ `defined('CAKEPHP_SHELL')`
+delegation or through the CLI using `defined('CAKEPHP_SHELL')`
 

@@ -116,7 +116,7 @@ but change the name to fit your project name
     
 ```sh
 rvm gemset create pixelastic  
-rvm gemset use pixelasticÂ 
+rvm gemset use pixelastic 
 ```
 
 You'll be now using the gemset `pixelastic`. You can list all available gems

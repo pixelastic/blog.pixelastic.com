@@ -10,8 +10,8 @@ actually need it ? Well, here's an easy way to get your file back.
 First of all, we'll get the commit in which the file has been deleted with :
 `git log --diff-filter=D --format=format:%H -- {your_filename}`
 
-`--diff-filter=D` will only keep commits where files gets deleted,Â
-`--format=format:%H` will only display the commit hashÂ and finally the `--`
+`--diff-filter=D` will only keep commits where files gets deleted,
+`--format=format:%H` will only display the commit hash and finally the `--`
 is a separator between your options and the argument. Argument should be your
 filename, and it even accepts `*` as a wildcard.
 

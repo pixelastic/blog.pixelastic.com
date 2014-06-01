@@ -21,8 +21,8 @@ FB.ui({
   'message' : "Hey, this Request is awesome, just accept it, ok ?",  
   'title' : "Awesome request incoming",  
   'filters' : [  
-    { "name" : "Some friends", "user_ids" : [ "97841578", "548673131", "[...]"]Â  },  
-    { "name" : "Some other friends", "user_ids" : [ "97841578", "56867134", "[...]"]Â  },  
+    { "name" : "Some friends", "user_ids" : [ "97841578", "548673131", "[...]"]  },  
+    { "name" : "Some other friends", "user_ids" : [ "97841578", "56867134", "[...]"]  },  
   ]  
 });
 ```

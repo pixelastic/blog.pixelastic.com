@@ -25,7 +25,7 @@ a, a:visited { color:blue; }
 ```
 
 Unfortunatly, this will have some nasty side effects on your `.button` and
-`.customButton` rules becauseÂ `a:visited` will have precedence over `.button`
+`.customButton` rules because `a:visited` will have precedence over `.button`
 and `.customButton`
 
 You can find more information about CSS specificity in this [Star

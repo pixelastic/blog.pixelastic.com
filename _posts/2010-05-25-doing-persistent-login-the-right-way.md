@@ -65,7 +65,7 @@ Then, when the user authenticate I generate a random token and save it along
 the `user_id` in a cookie.
 
 I'll also populate the `UserToken `table with the `user_id`, a hashed version
-of the token,Â  and matching the `duration `to the expires date of the cookie.
+of the token,  and matching the `duration `to the expires date of the cookie.
 
 That way, the next time that the user comes to my website without a session I
 check its cookie. If he has a `user_id` and a token, I'll try to authenticate

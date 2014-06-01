@@ -41,7 +41,7 @@ Also, I've learned about two great tools of Mercurial.
 
 `hg bisect` let you isolate a specified commit in your history where you
 introduced a specific bug. You write a piece of code that, given a changeset,
-returnsÂ `true` or `false` based on the bug presence, and `hg bisect` will
+returns `true` or `false` based on the bug presence, and `hg bisect` will
 cleverly scan the history to find the revision that introduced the bug.
 
 hooks where also very interesting. One can script automatic command on
@@ -64,5 +64,5 @@ On the other hand, Mercurial is far easier to learn and has built-in command
 for the day to day work. As I was already quite familiar with Mercurial, I
 stick with it, but know that I'll learn git also eventually.
 
-Â
+
 

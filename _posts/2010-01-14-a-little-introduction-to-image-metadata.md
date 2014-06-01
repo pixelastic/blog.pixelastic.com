@@ -68,5 +68,3 @@ I've learn a lot until now and I still have 15 more days to finish it. The
 main app is almost finished (I just have to polish on some edge cases) and
 then I'll have to integrate it in the existing admin panel.
 
-Â
-

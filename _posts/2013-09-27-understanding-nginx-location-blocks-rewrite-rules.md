@@ -42,7 +42,7 @@ uploading date (like `/files/2012/08/25/`). The actual file is given a UUID
 when saved, and this UUID is used as its filename on disk. The rewrite rule
 allow the use of any custom filename when linking the file. This helps for SEO
 purposes as well as making it more user-friendly when we present a download to
-our users.Â So
+our users. So
 `/files/2012/08/25/50483446-4b00-4d5b-8498-763e45a3e447/Subscription_form.pdf`
 actually returns the file at
 `/files/2012/09/06/50483446-4b00-4d5b-8498-763e45a3e447.pdf`
@@ -107,7 +107,7 @@ newly rewritten url.
 
 There is one last `location` block that we can use, and it's the simple
 `location`, without any prefix. These `location` blocks will be checked last,
-if no `location =` orÂ `location ~` had stopped the processing. They are
+if no `location =` or `location ~` had stopped the processing. They are
 especially good for a last "catch all" solution, and we are going to use them
 to dispatch urls to `index.php`
 

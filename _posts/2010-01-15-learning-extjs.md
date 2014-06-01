@@ -24,7 +24,7 @@ javascript in the head of the page...
 That is simply horrible advices. I hope the rest of the framewok is not of the
 same kind or learning it will be painful.
 
-Â
+
 
 One thing that is quite frustrating with their documentation is that it is
 absolutly not up to date. It is refering to 1.0 or 2.0 version even if the
@@ -36,5 +36,5 @@ the approach of the framework, I sincerely recommend that you read it if you
 want to learn ExtJs. Too bad the book was released before the 3.0 version, but
 by refering to the API whenever you need to use a new class, you should be ok
 
-Â
+
 

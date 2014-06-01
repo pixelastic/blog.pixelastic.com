@@ -32,6 +32,6 @@ npm cache clean jshint
 sudo npm install jshint -g  
 ```
 
-Source :Â [https://github.com/isaacs/npm/issues/1888](https://github.com/isaac
+Source : [https://github.com/isaacs/npm/issues/1888](https://github.com/isaac
 s/npm/issues/1888)
 

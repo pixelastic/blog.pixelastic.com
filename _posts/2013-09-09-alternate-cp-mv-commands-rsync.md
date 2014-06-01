@@ -14,7 +14,7 @@ I have two simple aliases to do just that. Meet `rcp` and `rmv` :
 ```sh
 function rcp() { rsync -rahP --modify-window=1 "$@" }   
 function rmv() { rsync -rahP --modify-window=1 --prune-empty-dirs --remove-sent-files "$@" }  
-compdef _cp rcp rmvÂ 
+compdef _cp rcp rmv 
 ```
 
 They are defined as functions and not aliases so I can define which completion

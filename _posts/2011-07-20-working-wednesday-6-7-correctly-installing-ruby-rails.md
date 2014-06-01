@@ -6,7 +6,7 @@ custom_v2_id: 299
 
 _This post spans two weeks because I couldn't manage to have a clean
 Ruby/Rails install on my first try. I read a lot, installed ruby using various
-methods, but finally managed to get it to work corretly. _
+methods, but finally managed to get it to work corretly._
 
 ## Cleaning up
 
@@ -14,7 +14,9 @@ First of all, you have to remove any ruby version you might have already
 installed, just to be sure.
 
     
-    sudo apt-get remove ruby && sudo apt-get autoremove
+```sh
+sudo apt-get remove ruby && sudo apt-get autoremove
+```
 
 ## Installing RVM
 
@@ -34,20 +36,26 @@ happen, so, avoid future troubles and install RVM first.
 To install RVM, simply execute the following command
 
     
-    bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+```sh
+bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+```
 
 This will download and execute the install script. Once it's finished, edit
 your `.bashrc` or `.zshrc` to include the rvm config file whenever a shell is
 launched.
 
     
-    [[ -r $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+```sh
+[[ -r $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+```
 
 Just to sure to have the latest version, I also ran
 
     
-    rvm get head  
-    rvm reloadÂ 
+```sh
+rvm get head  
+rvm reload
+```
 
 ## Updating your system
 
@@ -56,7 +64,9 @@ listed when running `rvm notes`, but as the time of writing this was the list
 for me :
 
     
-    sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev
+```sh
+sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev
+```
 
 ## Installing Ruby
 
@@ -64,19 +74,25 @@ Once RVM is installed, installing the latest (1.9.2 as the time of writing)
 Ruby version is as easy as :
 
     
-    rvm install 1.9.2
+```sh
+rvm install 1.9.2
+```
 
 This will take some time, downloading and compiling Ruby. Next, tell RVM that
 this is the version we are gonna use.
 
     
-    rvm use 1.9.2  
-    
+```sh
+rvm use 1.9.2  
+
+```
 
 You can always switch back to your system-wide ruby install by doing
 
     
-    rvm use system
+```sh
+rvm use system
+```
 
 ## Creating a gemset
 
@@ -98,21 +114,27 @@ Let's create a new gemset for our new project. I'll name mine `pixelastic`,
 but change the name to fit your project name
 
     
-    rvm gemset create pixelastic  
-    rvm gemset use pixelasticÂ 
+```sh
+rvm gemset create pixelastic  
+rvm gemset use pixelasticÂ 
+```
 
 You'll be now using the gemset `pixelastic`. You can list all available gems
 in your current gemset by doing
 
     
-    gem list
+```sh
+gem list
+```
 
 Or list all the available gemsets by doing :
 
     
-    rvm gemset list
+```sh
+rvm gemset list
+```
 
-The one you are currently using will be prefixed by "=>"
+The one you are currently using will be prefixed by `=>`
 
 ## What is Rake ?
 
@@ -127,7 +149,9 @@ As I said above, Rails is a gem like many other, so you can simply install it
 by doing :
 
     
-    gem install rails
+```sh
+gem install rails
+```
 
 Note that because we are using RVM, the gem will only be installed in this
 gemset and not globally. If you switch gemset, rails will no longer be
@@ -159,7 +183,9 @@ experience with them, but the command to read the gemfile and update the
 project accordingly is :
 
     
-    bundle install
+```sh
+bundle install
+```
 
 ## Automatic switching gemset
 
@@ -171,7 +197,9 @@ For example, to use my `pixelastic` gemset and Ruby 1.9.2, simply add the
 following to your `.rvmrc`
 
     
-    rvm use 1.9.2@pixelastic
+```sh
+rvm use 1.9.2@pixelastic
+```
 
 ## References
 
@@ -187,6 +215,7 @@ sources :
 
 If you got error complaining about Sqlite3 missing, just
 
-    
-    sudo apt-get install libsqlite3-0 libsqlite3-dev
+```sh
+sudo apt-get install libsqlite3-0 libsqlite3-dev
+```
 

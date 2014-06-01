@@ -14,14 +14,15 @@ Anyway, I switched back to classical session, stored on disk.
 Here's the relevant `php.ini` config
 
     
-    [Session]  
-    session.save_handler = files  
-    session.save_path = '/tmp/php'
+```ini
+[Session]  
+session.save_handler = files  
+session.save_path = '/tmp/php'
+```
 
 `/tmp/php` should be writable by `www-data`, so
 
-    
-    $ chown www-data:www-data /tmp/php
-
-Â
+```sh
+$ chown www-data:www-data /tmp/php
+```
 

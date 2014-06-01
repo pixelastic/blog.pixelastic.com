@@ -14,16 +14,18 @@ Facebook forced on some of the arguments.
 Let us write a very basic example code :
 
     
-    FB.ui({  
-    	'method' : 'apprequests',  
-    	'display': 'iframe',  
-    	'message' : "Hey, this Request is awesome, just accept it, ok ?",  
-    	'title' : "Awesome request incoming",  
-    	'filters' : [  
-    		{ "name" : "Some friends", "user_ids" : [ "97841578", "548673131", "[...]"]Â  },  
-    		{ "name" : "Some other friends", "user_ids" : [ "97841578", "56867134", "[...]"]Â  },  
-    	]  
-    });
+```js
+FB.ui({  
+  'method' : 'apprequests',  
+  'display': 'iframe',  
+  'message' : "Hey, this Request is awesome, just accept it, ok ?",  
+  'title' : "Awesome request incoming",  
+  'filters' : [  
+    { "name" : "Some friends", "user_ids" : [ "97841578", "548673131", "[...]"]Â  },  
+    { "name" : "Some other friends", "user_ids" : [ "97841578", "56867134", "[...]"]Â  },  
+  ]  
+});
+```
 
 This should open a Request popup with the custom title and message, as well as
 provide a list of friends that you can filter based on two criterias : "Some

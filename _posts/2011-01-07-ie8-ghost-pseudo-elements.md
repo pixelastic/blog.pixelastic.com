@@ -12,26 +12,30 @@ wanted this arrow to only display when my element was hovered, so I wrote the
 following code :
 
     
-    <a href="#">Example</a>
-    
-    a {  
-    	position:relative;  
-    	display:block;   
-    	height:30px;  
-    }  
-    a:after {  
-    	position:absolute;  
-    	content:"";  
-    	top:0px;   
-    	right:-15px;  
-    	width:15px;  
-    	height:30px;  
-    	background:url(arrow.gif) top left no-repeat;   
-    	display:none;  
-    }  
-    a:hover:after {  
-    	display:block;  
-    }
+```html
+<a href="#">Example</a>
+```
+
+```css
+a {  
+  position:relative;  
+  display:block;   
+  height:30px;  
+}  
+a:after {  
+  position:absolute;  
+  content:"";  
+  top:0px;   
+  right:-15px;  
+  width:15px;  
+  height:30px;  
+  background:url(arrow.gif) top left no-repeat;   
+  display:none;  
+}  
+a:hover:after {  
+  display:block;  
+}
+```
 
 As you can see, nothing too fancy. I positionned my arrow using an empty
 `:after` element and a `background `image. I defaulted the arrow to hidden,
@@ -52,22 +56,23 @@ opinion). Removing the default `a:after` rule and adding all properties to
 `a:hover:after` :
 
     
-    a {  
-    	position:relative;  
-    	display:block;  
-    	height:30px;  
-    }  
-    a:hover:after {  
-    	position:absolute;  
-    	content:"";  
-    	top:0px;  
-    	right:-15px;  
-    	width:15px;  
-    	height:30px;  
-    	background:url(arrow.gif) top left no-repeat;  
-    	display:block;  
-    }  
-    
+```css
+a {  
+  position:relative;  
+  display:block;  
+  height:30px;  
+}  
+a:hover:after {  
+  position:absolute;  
+  content:"";  
+  top:0px;  
+  right:-15px;  
+  width:15px;  
+  height:30px;  
+  background:url(arrow.gif) top left no-repeat;  
+  display:block;  
+}  
+```
 
 ## Update
 

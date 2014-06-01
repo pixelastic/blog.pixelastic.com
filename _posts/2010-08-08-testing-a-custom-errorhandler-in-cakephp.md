@@ -48,20 +48,21 @@ using any custom helpers.
 Here is what it looks like on my side :
 
     
-    class AppController extends Controller {  
-    	// Helpers used in the view. If not set, will generate a fatal error  
-    	var $helpers = array('Caracole.Fastcode', 'CaracolePacker.Packer');  
-    	// Overriding the header method. If not set, will generate 'Headers already set' errors;  
-    	function header($header) {  
-    		$this->header = $header;  
-    	}  
-    	// Overriding render method to keep track of the rendered error  
-    	function render($action) {  
-            	$this->renderedAction = $action;  
-            	return parent::render($action);  
-    	}  
-    }  
-    
+```php
+class AppController extends Controller {  
+  // Helpers used in the view. If not set, will generate a fatal error  
+  var $helpers = array('Caracole.Fastcode', 'CaracolePacker.Packer');  
+  // Overriding the header method. If not set, will generate 'Headers already set' errors;  
+  function header($header) {  
+    $this->header = $header;  
+  }  
+  // Overriding render method to keep track of the rendered error  
+  function render($action) {  
+        	$this->renderedAction = $action;  
+        	return parent::render($action);  
+  }  
+}  
+```
 
 ## Creating a TestErrorHandler
 
@@ -86,52 +87,54 @@ script will halt after the first error you'll test.
 So, enough talk, here's the code :
 
     
-    class TestErrorHandler extends AppError {  
-    	// Copy/paste of ErrorHandler construct method, but force a new instance of CakeErrorController as $this->controller each time  
-    	// CakeErrorController extends AppController, so we can overwrite its methods  
-    	function __construct($method, $messages) {  
-    		App::import('Core', 'Sanitize');  
-      
-    		// Forcing CakeErrorController  
-    		$this->controller =& new CakeErrorController();  
-    		$options = array('escape' => false);  
-    		$messages = Sanitize::clean($messages, $options);  
-      
-    		if (!isset($messages[0])) {  
-    			$messages = array($messages);  
-    		}  
-      
-    		if (method_exists($this->controller, 'apperror')) {  
-    			return $this->controller->appError($method, $messages);  
-    		}  
-      
-    		if (!in_array(strtolower($method), array_map('strtolower', get_class_methods($this)))) {  
-    			$method = 'error';  
-    		}  
-    		if ($method !== 'error') {  
-    			if (Configure::read('debug') == 0) {  
-    				$parentClass = get_parent_class($this);  
-    				if (strtolower($parentClass) != 'errorhandler') {  
-    					$method = 'error404';  
-    				}  
-    				$parentMethods = array_map('strtolower', get_class_methods($parentClass));  
-    				if (in_array(strtolower($method), $parentMethods)) {  
-    					$method = 'error404';  
-    				}  
-    				if (isset($code) && $code == 500) {  
-    					$method = 'error500';  
-    				}  
-    			}  
-    		}  
-    		$this->dispatchMethod($method, $messages);  
-    		$this->_stop();  
-    	}  
-      
-    	// Preventing the error from stopping all the request  
-    	function _stop() {  
-    		return;  
-    	}  
+```php
+class TestErrorHandler extends AppError {  
+  // Copy/paste of ErrorHandler construct method, but force a new instance of CakeErrorController as $this->controller each time  
+  // CakeErrorController extends AppController, so we can overwrite its methods  
+  function __construct($method, $messages) {  
+    App::import('Core', 'Sanitize');  
+
+    // Forcing CakeErrorController  
+    $this->controller =& new CakeErrorController();  
+    $options = array('escape' => false);  
+    $messages = Sanitize::clean($messages, $options);  
+  
+    if (!isset($messages[0])) {  
+      $messages = array($messages);  
     }  
+  
+    if (method_exists($this->controller, 'apperror')) {  
+      return $this->controller->appError($method, $messages);  
+    }  
+  
+    if (!in_array(strtolower($method), array_map('strtolower', get_class_methods($this)))) {  
+      $method = 'error';  
+    }  
+    if ($method !== 'error') {  
+      if (Configure::read('debug') == 0) {  
+        $parentClass = get_parent_class($this);  
+        if (strtolower($parentClass) != 'errorhandler') {  
+          $method = 'error404';  
+        }  
+        $parentMethods = array_map('strtolower', get_class_methods($parentClass));  
+        if (in_array(strtolower($method), $parentMethods)) {  
+          $method = 'error404';  
+        }  
+        if (isset($code) && $code == 500) {  
+          $method = 'error500';  
+        }  
+      }  
+    }  
+    $this->dispatchMethod($method, $messages);  
+    $this->_stop();  
+  }  
+  
+  // Preventing the error from stopping all the request  
+  function _stop() {  
+    return;  
+  }  
+}  
+```
     
 
 ## Writing your tests
@@ -152,14 +155,15 @@ output through `$output`.
 Ok, so here's one of my tests :
 
     
-    // DEV : Error will use the error layout  
-    function testCallingErrorInDevWillUseErrorLayout() {  
-    	ob_start();  
-    	$errorHandler = new TestErrorHandler('missingController', $this->errorParams);  
-    	$result = ob_get_clean();  
-    	$this->assertEqual($errorHandler->controller->layout, 'error');  
-    }  
-    
+```php
+// DEV : Error will use the error layout  
+function testCallingErrorInDevWillUseErrorLayout() {  
+  ob_start();  
+  $errorHandler = new TestErrorHandler('missingController', $this->errorParams);  
+  $result = ob_get_clean();  
+  $this->assertEqual($errorHandler->controller->layout, 'error');  
+}  
+```
 
 ## Conclusion
 

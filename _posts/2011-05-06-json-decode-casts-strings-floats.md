@@ -17,21 +17,23 @@ well.
 Here's an example :
 
     
-    $foo = 'foo';  
-    $bar = json_decode($foo);  
-    // $bar is nothing,  
-    echo (is_null($bar)) ? "This is null" : "This is not null";
-
+```php
+$foo = 'foo';  
+$bar = json_decode($foo);  
+// $bar is nothing,  
+echo (is_null($bar)) ? "This is null" : "This is not null";
+```
 ## Passing a float
 
 Here, we try to decode a string. The function rejects it and returns null.
 
     
-    $foo = 0.4;  
-    $bar = json_decode($foo);  
-    // $bar is a float  
-    echo (is_float($bar)) ? "This is a float" : "This is not a float";
-
+```php
+$foo = 0.4;  
+$bar = json_decode($foo);  
+// $bar is a float  
+echo (is_float($bar)) ? "This is a float" : "This is not a float";
+```
 Here, we pass a floating number. And the function returns... a floating
 number. Wait, what ?
 
@@ -43,11 +45,12 @@ correct and the JSON specs says so. I didn't check, actually.
 But the next example is even better :
 
     
-    $foo = '0.4';  
-    $bar = json_decode($foo);  
-    // $bar is also a float, even if $foo was a string  
-    echo (is_float($bar)) ? "This is a float" : "This is not a float";
-
+```php
+$foo = '0.4';  
+$bar = json_decode($foo);  
+// $bar is also a float, even if $foo was a string  
+echo (is_float($bar)) ? "This is a float" : "This is not a float";
+```
 This time I pass a string as a parameter (like example 1) but got a float as a
 result (like example 2).
 
@@ -59,11 +62,12 @@ I finally wrote a little wrapper for json_decode to handle those strange cases
 :
 
     
-    function my_json_decode($var) {  
-    	$decodedValue = json_decode($var, true);  
-    	return is_array($decodedValue) ? $decodedValue : $var;  
-    }
-
+```php
+function my_json_decode($var) {  
+  $decodedValue = json_decode($var, true);  
+  return is_array($decodedValue) ? $decodedValue : $var;  
+}
+```
 This will check that the result of the JSON decoding is an array, and if not
 (meaning the original string was not a JSON string), it will return the
 original string.

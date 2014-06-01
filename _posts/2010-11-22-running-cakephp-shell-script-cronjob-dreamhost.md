@@ -16,7 +16,9 @@ I finally managed to run my shell task as a cronjob, and here is how I did it.
 First, here is the command I wrote in my Dreamhost panel :
 
     
-    /home/username/domain.com/cake/console/cake -app /home/username/domain.com/app/ shell_name
+```sh
+/home/username/domain.com/cake/console/cake -app /home/username/domain.com/app/ shell_name
+```
 
 You have to set the full path to the cake console because it obviously is not
 in the pre-saved paths on a default Dreamhost install.
@@ -39,10 +41,12 @@ obvious, but you have to do it anyway.
 Update you `cake/console/cake` to replace the first lines with :
 
     
-    LIB=${0/%cake/}  
-    APP='pwd'  
-    TERM=linux  
-    export TERM
+```sh
+LIB=${0/%cake/}  
+APP='pwd'  
+TERM=linux  
+export TERM
+```
 
 If you don't, you'll have notice errors in the resulting log. No big deal, but
 it is cleaner that way.
@@ -55,7 +59,9 @@ binary file. Hence, you have to update your `cake/console/cake` file one more
 time and change the `exec `line to :
 
     
-    exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"
+```sh
+exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"
+```
 
 ## And it's ok
 

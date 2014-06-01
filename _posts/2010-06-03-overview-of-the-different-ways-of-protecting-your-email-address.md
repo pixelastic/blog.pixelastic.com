@@ -11,8 +11,6 @@ no time.
 Spammer have bots running all day long, crawling through hundred of thousands
 of pages, grabbing everything that looks like something@somewhere.com.
 
-Before going any
-
 ## Existing way of protecting your email address
 
 The safest way is to not display it in the first place. Nothing beats that.
@@ -21,7 +19,7 @@ possible alternative.
 
 ## Using a contact form instead.
 
-That's what I'm doing on this very own site.
+That's what I'm doing on this site.
 
 This way I don't have to display my address, I let my server script send the
 email for me.
@@ -85,12 +83,15 @@ of generated content and the :after pseudo class.
 Let's look at the following code :
 
     
-    <span class="email" rel="@pixelastic.com">tim</span>
-    
-    span.email[rel]:after {  
-    	content: attr(rel);  
-    }  
-    
+```html
+<span class="email" rel="@pixelastic.com">tim</span>
+```
+
+```css
+span.email[rel]:after {  
+  content: attr(rel);  
+}  
+```
 
 You just put your username in the `span`, and the domain name in the `rel
 `attribute and let CSS display it as one single email address.
@@ -105,8 +106,9 @@ link to a mailto:, you make the link go to a mail.php page that will only
 contain one php statement :
 
     
-    header('Location: mailto:user@domain.com');  
-    
+```php
+header('Location: mailto:user@domain.com');  
+```
 
 I'm not sure of the browser support of this, however. And it still won't solve
 the problem of displaying your email address.

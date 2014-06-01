@@ -25,15 +25,17 @@ throwing errors on Windows, due to the backslashes used in the file path.
 I updated the `getPluginName()` method to this new one and it did the trick :
 
     
-    private function getPluginName() {  
-            $result = array();  
-            $ds = (Folder::isWindowsPath(__FILE__)) ? '\\\\' : DS;  
-            if (preg_match('#'.$ds.'plugins'.$ds.'(.*)'.$ds.'controllers#', __FILE__, $result)) {  
-                return $result[1];  
-            }  
-      
-            return false;  
-        }  
+```php
+private function getPluginName() {  
+  $result = array();  
+  $ds = (Folder::isWindowsPath(__FILE__)) ? '\\\\' : DS;  
+  if (preg_match('#'.$ds.'plugins'.$ds.'(.*)'.$ds.'controllers#', __FILE__, $result)) {  
+      return $result[1];  
+  }  
+
+  return false;  
+  }  
+```
     
 
 Basically it makes sure that the backslashes are correctly escaped under
@@ -52,10 +54,11 @@ This does not exists on Windows, so I added the following lines in my
 `bootstrap.php`
 
     
-    if (Folder::isWindowsPath(__FILE__)) {  
-        define('Auth_OpenID_RAND_SOURCE', null);  
-    }  
-    
+```php
+if (Folder::isWindowsPath(__FILE__)) {  
+    define('Auth_OpenID_RAND_SOURCE', null);  
+}  
+```
 
 ## Connecting to SSL servers
 
@@ -73,8 +76,8 @@ library.
 All you have to do is add the following line on line 93 of the
 `vendors/Auth/Yadis/ParanoidHTTPFetcher.php` file :
 
+```php
+curl_setopt($c, CURLOPT_CAINFO, str_replace('\\', '/', dirname(__FILE__)).'/../OpenID/ca-bundle.crt');
+```
+
     
-    curl_setopt($c, CURLOPT_CAINFO, str_replace('\\', '/', dirname(__FILE__)).'/../OpenID/ca-bundle.crt');
-
-Â
-

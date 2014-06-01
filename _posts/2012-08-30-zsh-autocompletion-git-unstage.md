@@ -21,8 +21,9 @@ So I created an alias, named `git unstage` that does just that. I just added
 the following lines to my `~/.gitconfig`, under the `[alias]` header :
 
     
-    unstage = reset HEAD
-    
+```ini
+unstage = reset HEAD
+```
 
 I can now easily add files to the staging area with `git add` and remove them
 with `git unstage`
@@ -49,45 +50,47 @@ already defined in `_git`.
 Here is the full content of the file :
 
     
-    #compdef git-reset
-    
-    _git-reset () {
-        local curcontext=$curcontext state line
-        typeset -A opt_args
-    
-        _arguments -C -S -A '-*' \
-                '(-q --quiet)'{-q,--quiet}'[be quiet, only report errors]' \
-                '::commit:__git_revisions' \
-            - reset-head \
-                '(        --soft --hard --merge --keep)--mixed[reset the index but not the working tree (default)]' \
-                '(--mixed        --hard --merge --keep)--soft[do not touch the index file nor the working tree]' \
-                '(--mixed --soft        --merge --keep)--hard[match the working tree and index to the given tree]' \
-                '(--mixed --soft --hard         --keep)--merge[reset out of a conflicted merge]' \
-                '(--mixed --soft --hard --merge       )--keep[like --hard, but keep local working tree changes]' \
-            - reset-paths \
-                '(-p --patch)'{-p,--patch}'[select diff hunks to remove from the index]' \
-                '*::file:->files' && ret=0
-    
-        case $state in
-            (files)
-                local commit
-                if [[ -n $line[1] ]] && __git_is_committish $line[1]; then
-                    commit=$line[1]
-                else
-                    commit=HEAD
-                fi
-                # Suggest files in index if `git reset HEAD`
-                if [[ $line[1] = HEAD ]]; then
-                    __git_changed_files
-                else
-                    __git_tree_files . $commit
-                fi
-                ret=0
-                ;;
-        esac
-    }
-    
-    _git-reset "$@"
+```sh
+#compdef git-reset
+
+_git-reset () {
+    local curcontext=$curcontext state line
+    typeset -A opt_args
+
+    _arguments -C -S -A '-*' \
+            '(-q --quiet)'{-q,--quiet}'[be quiet, only report errors]' \
+            '::commit:__git_revisions' \
+        - reset-head \
+            '(        --soft --hard --merge --keep)--mixed[reset the index but not the working tree (default)]' \
+            '(--mixed        --hard --merge --keep)--soft[do not touch the index file nor the working tree]' \
+            '(--mixed --soft        --merge --keep)--hard[match the working tree and index to the given tree]' \
+            '(--mixed --soft --hard         --keep)--merge[reset out of a conflicted merge]' \
+            '(--mixed --soft --hard --merge       )--keep[like --hard, but keep local working tree changes]' \
+        - reset-paths \
+            '(-p --patch)'{-p,--patch}'[select diff hunks to remove from the index]' \
+            '*::file:->files' && ret=0
+
+    case $state in
+        (files)
+            local commit
+            if [[ -n $line[1] ]] && __git_is_committish $line[1]; then
+                commit=$line[1]
+            else
+                commit=HEAD
+            fi
+            # Suggest files in index if `git reset HEAD`
+            if [[ $line[1] = HEAD ]]; then
+                __git_changed_files
+            else
+                __git_tree_files . $commit
+            fi
+            ret=0
+            ;;
+    esac
+}
+
+_git-reset "$@"
+```
     
 
 As you may have noticed this script is an almost exact copy/paste from the
@@ -95,13 +98,14 @@ original `_git-reset` script. The only modification I've done is in those
 lines :
 
     
-        # Suggest files in index if `git reset HEAD`
-        if [[ $line[1] = HEAD ]]; then
-            __git_changed_files
-        else
-            __git_tree_files . $commit
-        fi
-    
+```sh
+# Suggest files in index if `git reset HEAD`
+if [[ $line[1] = HEAD ]]; then
+    __git_changed_files
+else
+    __git_tree_files . $commit
+fi
+```
 
 What it does is checking the first argument of `git reset`, and if it's
 `HEAD`, it suggests files in the staging area (`__git_changed_files`) instead

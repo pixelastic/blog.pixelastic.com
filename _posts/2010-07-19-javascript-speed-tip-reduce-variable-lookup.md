@@ -21,21 +21,22 @@ So, for example, if you need to access at least twice a global variable like
 first.
 
     
-    function myTestFunction() {  
-    	var button = document.getElementById('button');  
-    	var header = document.getElementById('header');  
-    }  
-    
+```php
+function myTestFunction() {  
+  var button = document.getElementById('button');  
+  var header = document.getElementById('header');  
+}  
+
+```
 
 is bad and could be rewritten as :
 
     
-    function myTestFunction() {  
-    	var doc = document;  
-    	var button = doc.getElementById('button');  
-    	var header = doc.getElementById('header');  
-    }  
-    
-
-Â
+```php
+function myTestFunction() {  
+  var doc = document;  
+  var button = doc.getElementById('button');  
+  var header = doc.getElementById('header');  
+}  
+```
 

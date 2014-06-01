@@ -37,9 +37,11 @@ uncommenting the line `extension=php_fileinfo.dll` in your `php.ini`
 And you use it like this :
 
     
-    $finfo = finfo_open(FILEINFO_MIME);  
-    $mimeType = finfo_file($finfo, $filepath);  
-    finfo_close($finfo);  
+```php
+$finfo = finfo_open(FILEINFO_MIME);  
+$mimeType = finfo_file($finfo, $filepath);  
+finfo_close($finfo);  
+```
     
 
 Also note that the mimetype may be returned in a `text/plain; charset=us-
@@ -58,12 +60,14 @@ can't even catch that using a `try/catch`. You can suppress the error using
 
 Here's how I use it :
 
-    
-    $imageData = @getimagesize($filepath);  
-    if (!empty($imageData['mime'])) {  
-    	$mimeType = $imageData['mime'];  
-    }  
-    
+
+```php
+$imageData = @getimagesize($filepath);  
+if (!empty($imageData['mime'])) {  
+  $mimeType = $imageData['mime'];  
+}  
+```
+
 
 ## Calling the system file
 
@@ -71,7 +75,9 @@ The last method I'm aware of is simply calling the `file `command on a unix
 system through `exec`.
 
     
-    $mimeType = exec("/usr/bin/file -i -b $filepath");  
+```php
+$mimeType = exec("/usr/bin/file -i -b $filepath");  
+```
     
 
 Merging all that into one do-it-all method
@@ -80,46 +86,48 @@ If you're not sure what your system is capable of or if you plan on
 distributing your code, you'd better test for all alternatives. Here's the
 code I'm using :
 
-    
-    /**  
-     *    mimetype  
-     *    Returns a file mimetype. Note that it is a true mimetype fetch, using php and OS methods. It will NOT  
-     *    revert to a guessed mimetype based on the file extension if it can't find the type.  
-     *    In that case, it will return false  
-     **/  
-     function mimetype($filepath) {  
-    	 // Check only existing files  
-    	 if (!file_exists($filepath) || !is_readable($filepath)) return false;  
-      
-    	 // Trying finfo  
-    	 if (function_exists('finfo_open')) {  
-    		 $finfo = finfo_open(FILEINFO_MIME);  
-    		 $mimeType = finfo_file($finfo, $filepath);  
-    		 finfo_close($finfo);  
-    		 // Mimetype can come in text/plain; charset=us-ascii form  
-    		 if (strpos($mimeType, ';')) list($mimeType,) = explode(';', $mimeType);  
-    		 return $mimeType;  
-    	 }  
-      
-    	 // Trying mime_content_type  
-    	 if (function_exists('mime_content_type')) {  
-    		 return mime_content_type($filepath);  
-    	 }  
-      
-    	 // Trying exec  
-    	 if (function_exists('exec')) {  
-    		 $mimeType = exec("/usr/bin/file -i -b $filepath");  
-    		 if (!empty($mimeType)) return $mimeType;  
-    	 }  
-      
-    	 // Trying to get mimetype from images  
-    	 $imageData = @getimagesize($filepath);  
-    	 if (!empty($imageData['mime'])) {  
-    		 return $imageData['mime'];  
-    	 }  
-      
-    	 return false;  
-     }
+
+```php
+/**  
+*    mimetype  
+*    Returns a file mimetype. Note that it is a true mimetype fetch, using php and OS methods. It will NOT  
+*    revert to a guessed mimetype based on the file extension if it can't find the type.  
+*    In that case, it will return false  
+**/  
+function mimetype($filepath) {  
+ // Check only existing files  
+ if (!file_exists($filepath) || !is_readable($filepath)) return false;  
+
+ // Trying finfo  
+ if (function_exists('finfo_open')) {  
+   $finfo = finfo_open(FILEINFO_MIME);  
+   $mimeType = finfo_file($finfo, $filepath);  
+   finfo_close($finfo);  
+   // Mimetype can come in text/plain; charset=us-ascii form  
+   if (strpos($mimeType, ';')) list($mimeType,) = explode(';', $mimeType);  
+   return $mimeType;  
+ }  
+
+ // Trying mime_content_type  
+ if (function_exists('mime_content_type')) {  
+   return mime_content_type($filepath);  
+ }  
+
+ // Trying exec  
+ if (function_exists('exec')) {  
+   $mimeType = exec("/usr/bin/file -i -b $filepath");  
+   if (!empty($mimeType)) return $mimeType;  
+ }  
+
+ // Trying to get mimetype from images  
+ $imageData = @getimagesize($filepath);  
+ if (!empty($imageData['mime'])) {  
+   return $imageData['mime'];  
+ }  
+
+ return false;  
+}
+```
 
 Hope that helps !
 

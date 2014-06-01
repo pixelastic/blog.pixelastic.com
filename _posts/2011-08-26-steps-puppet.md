@@ -53,20 +53,22 @@ here.
 Here are a couple of simple file orders :
 
     
-    file { "/etc/lighttpd/scripts":  
-    	ensure  => directory,  
-    	owner   => root,  
-    	group   => root,  
-    	mode    => 550  
-    }  
-    file { "/etc/lighttpd/lighttpd.conf":  
-    	owner   => root,  
-    	group   => root,  
-    	mode    => 644,  
-    	source  => "puppet:///http/$target/lighttpd/lighttpd.conf",  
-    	require => Package["lighttpd"],  
-    	notify  => Service["lighttpd"],  
-    }
+```puppet
+file { "/etc/lighttpd/scripts":  
+  ensure  => directory,  
+  owner   => root,  
+  group   => root,  
+  mode    => 550  
+}  
+file { "/etc/lighttpd/lighttpd.conf":  
+  owner   => root,  
+  group   => root,  
+  mode    => 644,  
+  source  => "puppet:///http/$target/lighttpd/lighttpd.conf",  
+  require => Package["lighttpd"],  
+  notify  => Service["lighttpd"],  
+}
+```
 
 The first part will create a` /etc/lighttpd/scripts` directory on the final
 server, with a user and group `root `and 550 permissions mode.
@@ -93,7 +95,9 @@ servers themselves. Just log to one of the servers puppet is monitoring and
 type
 
     
-    $ sudo puppetd --test
+```sh
+$ sudo puppetd --test
+```
 
 The `--test` argument is a bit misleading. It actually does not seem to do any
 test at all, it simply pulls the puppet files from the puppet server and

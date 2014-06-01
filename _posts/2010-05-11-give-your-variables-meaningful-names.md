@@ -12,25 +12,27 @@ that was causing this. So I opened up the javascript file and checked for the
 error line :
 
     
-    var win, de = DOM.doc.documentElement;  
-    if (ed.getParam('fullscreen_is_enabled')) {  
-    	if (ed.getParam('fullscreen_new_window'))   
-    		closeFullscreen(); // Call to close in new window  
-    	else {  
-    		DOM.win.setTimeout(function() {  
-    			tinymce.dom.Event.remove(DOM.win, 'resize', t.resizeFunc);  
-    	                tinyMCE.get(ed.getParam('fullscreen_editor_id')).setContent(ed.getContent({format : 'raw'}), {format : 'raw'});  
-    	                tinyMCE.remove(ed);  
-    	                DOM.remove('mce_fullscreen_container');  
-    	                ed.style.overflow = ed.getParam('fullscreen_html_overflow');  
-    	                DOM.setStyle(DOM.doc.body, 'overflow', ed.getParam('fullscreen_overflow'));  
-    	                DOM.win.scrollTo(ed.getParam('fullscreen_scrollx'), ed.getParam('fullscreen_scrolly'));  
-    	                tinyMCE.settings = tinyMCE.oldSettings; // Restore old settings  
-    		}, 10);  
-    	}  
-            return;  
-    }  
-    
+```js
+var win, de = DOM.doc.documentElement;  
+if (ed.getParam('fullscreen_is_enabled')) {  
+  if (ed.getParam('fullscreen_new_window'))   
+    closeFullscreen(); // Call to close in new window  
+  else {  
+    DOM.win.setTimeout(function() {  
+      tinymce.dom.Event.remove(DOM.win, 'resize', t.resizeFunc);  
+                  tinyMCE.get(ed.getParam('fullscreen_editor_id')).setContent(ed.getContent({format : 'raw'}), {format : 'raw'});  
+                  tinyMCE.remove(ed);  
+                  DOM.remove('mce_fullscreen_container');  
+                  ed.style.overflow = ed.getParam('fullscreen_html_overflow');  
+                  DOM.setStyle(DOM.doc.body, 'overflow', ed.getParam('fullscreen_overflow'));  
+                  DOM.win.scrollTo(ed.getParam('fullscreen_scrollx'), ed.getParam('fullscreen_scrolly'));  
+                  tinyMCE.settings = tinyMCE.oldSettings; // Restore old settings  
+    }, 10);  
+  }  
+        return;  
+}  
+
+```
 
 If you're not familiar with the complex tinyMCE syntax this may seems a
 little... well... complex.  I'll focus on the error line but I wanted to paste
@@ -39,8 +41,10 @@ the whole code block so you can see my point.
 The error line is this one :
 
     
-    ed.style.overflow = ed.getParam('fullscreen_html_overflow');  
-    
+```js
+ed.style.overflow = ed.getParam('fullscreen_html_overflow');  
+
+```
 
 Of course it will throw an error, we try to access a property of an element we
 just removed from the DOM (two lines before : `tinyMCE.remove(ed);`). Why

@@ -19,12 +19,12 @@ data).
 I just had to search for
 
     
-    <img src="(.*)" width="(.*)" height="(.*)" alt="(.*)">
-
+```html
+<img src="(.*)" width="(.*)" height="(.*)" alt="(.*)">
+```
 and replace with
-
     
-    <img src="\1" alt="\4" height="\3" width="\2">
+```html
+<img src="\1" alt="\4" height="\3" width="\2">
 
-Â
-
+```

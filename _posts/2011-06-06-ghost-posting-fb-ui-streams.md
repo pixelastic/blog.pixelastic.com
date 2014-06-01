@@ -24,11 +24,13 @@ environments, this was pretty difficult to debug.
 Here was the code used to post the Sharing :
 
     
-    FB.ui({  
-    	[...],  
-    	'title' : 'Title of the Sharing',  
-    	'caption' : 'Text of the Sharing'  
-    });
+```js
+FB.ui({  
+  [...],  
+  'title' : 'Title of the Sharing',  
+  'caption' : 'Text of the Sharing'  
+});
+```
 
 As I later found out, the `caption `key is not supposed to hold the Sharing
 text. The `description `key should be used for that. I'm not exactly sure was
@@ -39,11 +41,13 @@ The solution simply was to put the text in the `description `text, and leaving
 the `caption `key empty :
 
     
-    FB.ui({  
-    	'title' : 'Title of the Sharing',  
-    	'caption' : '',  
-    	'description' : 'Text of the Sharing'  
-    });
+```js
+FB.ui({  
+  'title' : 'Title of the Sharing',  
+  'caption' : '',  
+  'description' : 'Text of the Sharing'  
+});
+```
 
 As this behaviour is counter-intuitive, undocumented and random, I think
 posting it here could help other lost souls like me.

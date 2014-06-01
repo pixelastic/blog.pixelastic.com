@@ -34,17 +34,16 @@ jQuery. This is a bit of a hack but given the context this is the only way I
 found.
 
     
-    // Set the datepicker zIndex on load  
-    element.datepicker({  
-    [...]  
-    	'beforeShow': function(input, datepicker) {  
-    		setTimeout(function() {  
-    			$(datepicker.dpDiv).css('zIndex', 100);  
-    		}, 500);  
-    	},  
-    [...]  
-    });  
+```js
+// Set the datepicker zIndex on load  
+element.datepicker({  
+[...]  
+  'beforeShow': function(input, datepicker) {  
+    setTimeout(function() {  
+      $(datepicker.dpDiv).css('zIndex', 100);  
+    }, 500);  
+  },  
+[...]  
+});  
+```
     
-
-Â
-

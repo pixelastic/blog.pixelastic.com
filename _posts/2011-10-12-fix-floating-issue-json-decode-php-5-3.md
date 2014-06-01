@@ -27,7 +27,9 @@ If you're running PHP 5.4, the fix is easy. Just add the
 `JSON_BIGINT_AS_STRING` bitmask as 4th option like this
 
     
-    $decoded = json_decode($encoded, true, null, JSON_BIGINT_AS_STRING);
+```php
+$decoded = json_decode($encoded, true, null, JSON_BIGINT_AS_STRING);
+```
 
 If you're running a 32bits machine with PHP 5.3 like me, it's a little more
 tricky.
@@ -40,7 +42,9 @@ My solution is to parse the original JSON string and add quotes around ints so
 My first attempt was naive
 
     
-    preg_replace('/":([0-9]+),/', '":$1,', $encoded)
+```php
+preg_replace('/":([0-9]+),/', '":$1,', $encoded)
+```
 
 This will find any int between `":` (marking the end of a key) and `,`
 (marking the start of the next key), and replace it with the same string but
@@ -53,7 +57,9 @@ instead.
 So, I adapted it a little bit :
 
     
-    preg_replace('/":([0-9]+)(,|})/', '":"$1"$2', $encoded)
+```php
+preg_replace('/":([0-9]+)(,|})/', '":"$1"$2', $encoded)
+```
 
 Ok, it worked better. Any int key in the JSON, anywhere will be enclosed in
 quotes.
@@ -62,7 +68,9 @@ It was a little overkill so I decided to limit it to keys of at least 10
 digits
 
     
-    preg_replace('/":([0-9]{10,})(,|})/', '":"$1"$2', $encoded)
+```php
+preg_replace('/":([0-9]{10,})(,|})/', '":"$1"$2', $encoded)
+```
 
 Better. But still not perfect.
 
@@ -77,7 +85,9 @@ in an escaped JSON string themselves, by checking that the closing quote of
 the key wasn't escaped.
 
     
-    preg_replace('/([^\\\])":([0-9]{10,})(,|})/', '$1":"$2"$3', $encoded)
+```php
+preg_replace('/([^\\\])":([0-9]{10,})(,|})/', '$1":"$2"$3', $encoded)
+```
 
 Here it is, the final fix. I might have forgotten some corner cases, but at
 least it works for my current application.

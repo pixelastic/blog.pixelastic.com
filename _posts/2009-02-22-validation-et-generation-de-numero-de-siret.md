@@ -14,17 +14,18 @@ J'ai donc retranscris ce calcul sous une règle de validation pour cakePHP, le
 voici :
 
     
-    function validateSiret($data, $field) {
-    	$siret = r(' ', '', $data[$field]);
-    	$sum = 0;
-    	for($i=0;$i!=14;$i++) {
-    		$tmp = ((($i+1)%2)+1) * intval($siret[$i]);
-    		if ($tmp>=10) $tmp-=9;
-    		$sum+=$tmp;
-    	}
-    	return ($sum%10===0);
-    }
-    
+```php
+function validateSiret($data, $field) {
+  $siret = r(' ', '', $data[$field]);
+  $sum = 0;
+  for($i=0;$i!=14;$i++) {
+    $tmp = ((($i+1)%2)+1) * intval($siret[$i]);
+    if ($tmp>=10) $tmp-=9;
+    $sum+=$tmp;
+  }
+  return ($sum%10===0);
+}
+```
 
 Tout d'abord, je m'assure que le siret ne contienne pas d'espace. Puis je
 passe nombre après nombre pour calculer la somme (je multiplie par deux les
@@ -37,45 +38,48 @@ Si le résultat final est congru à 10, alors le numero de SIRET est valide.
 Il ne reste plus qu'à l'ajouter à mes régles de validation :
 
     
-    var $validate = array(
-    	'siret' => array(
-    		'rule' => array('validateSiret', 'siret'),
-    		'message' => "Le numero de SIRET indiqué n'est pas valide."
-    	)
-    );
-    
+```php
+var $validate = array(
+  'siret' => array(
+    'rule' => array('validateSiret', 'siret'),
+    'message' => "Le numero de SIRET indiqué n'est pas valide."
+  )
+);
+```
 
 Mais ce n'est pas tout. Comme pour mes tests je crée à la volée des dizaines
 d'enregistrements, j'avais besoin d'un générateur automatique de numero de
 SIRET valides. Voici ce que j'ai fini par écrire :
 
     
-    public function siret() {
-    	//On génère le début du numero de siret
-    	$siret = '';
-    	$sum = 0;
-    	for($i=0;$i!=8;$i++) {
-    		$rand = mt_rand(0,9);
-    		$siret.=$rand;
-    		//On ajoute une fois le résultat si index impair, deux fois sinon
-    		$tmp = $rand * (1+($i+1)%2);
-    		if ($tmp>=10) $tmp-=9;
-    		$sum+=$tmp;
-    	}
-    	//On ajoute 4 zeros
-    	$siret.="0000";
-    	//On regarde combien il me manque pour etre congru à 10
-    	$diff = 10-($sum%10);
-    	if ($diff>2) {
-    		$first = floor($diff/3);
-    		$second = $diff-(2*$first);
-    		$siret.=$first.$second;
-    	} else {
-    		$siret.='0'.$diff;
-    	}
-    
-    	return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{5})/", "$1 $2 $3 $4", $siret);
-     }
+```php
+public function siret() {
+  //On génère le début du numero de siret
+  $siret = '';
+  $sum = 0;
+  for($i=0;$i!=8;$i++) {
+    $rand = mt_rand(0,9);
+    $siret.=$rand;
+    //On ajoute une fois le résultat si index impair, deux fois sinon
+    $tmp = $rand * (1+($i+1)%2);
+    if ($tmp>=10) $tmp-=9;
+    $sum+=$tmp;
+  }
+  //On ajoute 4 zeros
+  $siret.="0000";
+  //On regarde combien il me manque pour etre congru à 10
+  $diff = 10-($sum%10);
+  if ($diff>2) {
+    $first = floor($diff/3);
+    $second = $diff-(2*$first);
+    $siret.=$first.$second;
+  } else {
+    $siret.='0'.$diff;
+  }
+
+  return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{5})/", "$1 $2 $3 $4", $siret);
+ }
+```
     
 
 Le principe consiste à générer les 8 premiers nombres de façon complétement

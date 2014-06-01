@@ -14,34 +14,38 @@ We will create two models to help in speaking with the bbPress database.
 Create a bb_usermeta.php model :
 
     
-    class BbUsermeta extends AppModel {  
-    	var $useTable = 'bb_usermeta';  
-    	var $primaryKey = 'umeta_id';  
-    }
+```php
+class BbUsermeta extends AppModel {  
+  var $useTable = 'bb_usermeta';  
+  var $primaryKey = 'umeta_id';  
+}
+```
 
 Create a `bb_user.php` model :
 
     
-    class BbUser extends AppModel {  
-    	var $primaryKey = 'ID';  
-      
-    	var $hasMany = array(  
-    		 'BbUsermeta' => array(  
-    			 'className' => 'BbUsermeta',  
-    			 'foreignKey' => 'user_id',  
-    			 'dependent' => true  
-    		)  
-    	 );  
-      
-    	//We make sure, before saving, that the nicename is url-friendly  
-    	function beforeSave() {  
-    		if (!empty($this->data[$this->name]['user_nicename'])) {  
-    			$this->data[$this->name]['user_nicename'] = Inflector::slug($this->data[$this->name]['user_nicename']);  
-    		}  
-    		return true;  
-    	}  
-      
-    }
+```php
+class BbUser extends AppModel {  
+  var $primaryKey = 'ID';  
+
+  var $hasMany = array(  
+     'BbUsermeta' => array(  
+       'className' => 'BbUsermeta',  
+       'foreignKey' => 'user_id',  
+       'dependent' => true  
+    )  
+   );  
+  
+  //We make sure, before saving, that the nicename is url-friendly  
+  function beforeSave() {  
+    if (!empty($this->data[$this->name]['user_nicename'])) {  
+      $this->data[$this->name]['user_nicename'] = Inflector::slug($this->data[$this->name]['user_nicename']);  
+    }  
+    return true;  
+  }  
+  
+}
+```
 
 So, what was that about ?
 

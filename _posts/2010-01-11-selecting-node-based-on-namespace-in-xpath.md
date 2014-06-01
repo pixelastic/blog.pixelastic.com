@@ -13,26 +13,28 @@ with namespaces, all became suddenly much more difficult in the XPath world.
 
 Here is my xml source (shortened for the sake of clarity) :
 
-    
-    <?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>  
-     <x:xmpmeta xmlns:x="adobe:ns:meta/">  
-     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">  
-       
-     <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">  
-     <dc:creator>Igor Gosstroff</dc:creator>  
-     <dc:description xml:lang="x-default">Awesome picture</dc:description>  
-     </rdf:Description>  
-       
-     <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/">  
-     <xmp:Rating>4</xmp:Rating>  
-     </rdf:Description>  
-       
-     </rdf:RDF>  
-     </x:xmpmeta>                                               
-    <?xpacket end="w"?>
+
+```xml
+<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>  
+ <x:xmpmeta xmlns:x="adobe:ns:meta/">  
+ <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">  
+   
+ <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">  
+ <dc:creator>Igor Gosstroff</dc:creator>  
+ <dc:description xml:lang="x-default">Awesome picture</dc:description>  
+ </rdf:Description>  
+   
+ <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/">  
+ <xmp:Rating>4</xmp:Rating>  
+ </rdf:Description>  
+   
+ </rdf:RDF>  
+ </x:xmpmeta>                                               
+<?xpacket end="w"?>
+```
 
 
-I wanted to select the first <rdf:Description> (Dublin Core).
+I wanted to select the first `<rdf:Description>` (Dublin Core).
 
 First of all, you have to know that you can't do //rdf:description, you have
 to use a special syntax because the : is a reserved character. The solution is
@@ -51,7 +53,9 @@ namespace uri was http://purl.org/dc/elements/1.1/ and then get its parent. I
 still feel like its a dirty hack but I've allready spent too much time on it,
 so it will be enough for now.
 
-    
-    //*[namespace-uri()='http://purl.org/dc/elements/1.1/'][1]/../
+
+```xml
+//*[namespace-uri()='http://purl.org/dc/elements/1.1/'][1]/../
+```
 
 

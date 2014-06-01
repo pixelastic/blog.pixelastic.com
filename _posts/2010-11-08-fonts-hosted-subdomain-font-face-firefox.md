@@ -19,12 +19,11 @@ After some digging, I found that I had to manually allow them to be linked
 from an other domain, server-side. Here is the little snippet I added to my
 `.htaccess`
 
-    
-    <FilesMatch "\.(ttf|otf|woff)$">  
-    	<IfModule mod_headers.c>  
-    		Header set Access-Control-Allow-Origin "*"  
-    	</IfModule>  
-    </FilesMatch>
-
-Â
+```apache
+<FilesMatch "\.(ttf|otf|woff)$">  
+  <IfModule mod_headers.c>  
+    Header set Access-Control-Allow-Origin "*"  
+  </IfModule>  
+</FilesMatch>
+```
 

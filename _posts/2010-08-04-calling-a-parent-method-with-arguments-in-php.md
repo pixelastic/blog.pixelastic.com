@@ -16,12 +16,14 @@ alternate syntax is given.
 
 Here is what worked for me :
 
-    
-    class TestDocument extends Document {  
-        function foo() {  
-            return $this->fooResult= call_user_func_array(array('parent', 'foo'), func_get_args());  
-        }  
-    }  
-    
+
+```php
+class TestDocument extends Document {  
+    function foo() {  
+        return $this->fooResult= call_user_func_array(array('parent', 'foo'), func_get_args());  
+    }  
+}  
+```
+
 
 

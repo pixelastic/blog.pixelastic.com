@@ -27,12 +27,13 @@ view.
 Just apply the following CSS rule to the element you want to hide. It will
 just display it offscreen.
 
-    
-    .tabHidden {  
-    	position:absolute;  
-    	top:0px;  
-    	left:-9999em;  
-    }
+```css
+.tabHidden {  
+  position:absolute;  
+  top:0px;  
+  left:-9999em;  
+}
+```
 
 Don't forget to add a `position:relative` to the HTML parent of your tab for
 the absolute positionning to work.
@@ -53,13 +54,14 @@ change the `visibility `without triggering a redraw. As this will only make
 the element invisible but still taking space, you just have to put its `height
 `and `width `to `0` to make it effectively disappear.
 
-    
-    .listElementHidden {  
-    	visibility:hidden;  
-    	width:0px;  
-    	height:0px:  
-    	margin:0px;  
-    }
+```css
+.listElementHidden {
+  visibility:hidden;
+  width:0px;
+  height:0px:
+  margin:0px;
+}
+```
 
 The `margin:0px` is here to clear any margin you might have defined around
 your element.

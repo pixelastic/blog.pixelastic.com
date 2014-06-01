@@ -21,8 +21,10 @@ simply created an empty 120Go hard drive and booted my VM.
 
 Here, under Ubuntu, I cloned my current hard drive to the new one using :
 
-    
-    sudo dd if=/dev/sda of=/dev/sdb
+
+```sh
+sudo dd if=/dev/sda of=/dev/sdb
+```
 
 ## Fixing the guest partition
 

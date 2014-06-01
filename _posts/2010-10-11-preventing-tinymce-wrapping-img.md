@@ -9,9 +9,9 @@ find out very quickly that it will be wrapped in `<p></p>` without you asking.
 
 The question has been asked several times on the tinyMCE forums, but the
 answers never quite satisfied me. It ranges from the classical "_Why do you
-want to do this ? You should better use <insert semantic element and css
-here>_" to "_Just do a regexp before displaying your content to remove the bad
-<p>_</p>".
+want to do this ? You should better use `<insert semantic element and css
+here>`_" to "_Just do a regexp before displaying your content to remove the bad
+`<p>...</p>`_".
 
 This clearly did not satisfy me.
 
@@ -33,22 +33,24 @@ There is a little subtelty though, to correctly place the caret where needed.
 
 In your `tinyMCE.init` call, just add the following setup key :
 
-    
-    tinyMCE.init({  
-    [...]  
-    	setup: function(editor) {  
-    		editor.onNodeChange.add(function(editor, cm, e, c, o) {  
-    			var editorContent = editor.getContent();  
-    			if (editorContent==="") {  
-    				// We set content as a <p> containing a placeholder, then we delete the placeholder to place the caret  
-    				editor.setContent('<p><span id="__CaretPlacholder">Placeholder</span></p>');  
-    				editor.selection.select(editor.dom.select('#__CaretPlacholder')[0]);  
-    				editor.dom.remove(editor.dom.select('#__CaretPlacholder')[0]);  
-    			}  
-    		});  
-    	 }),  
-    [...]  
-     });
+
+```js
+tinyMCE.init({  
+[...]  
+  setup: function(editor) {  
+    editor.onNodeChange.add(function(editor, cm, e, c, o) {  
+      var editorContent = editor.getContent();  
+      if (editorContent==="") {  
+        // We set content as a <p> containing a placeholder, then we delete the placeholder to place the caret  
+        editor.setContent('<p><span id="__CaretPlacholder">Placeholder</span></p>');  
+        editor.selection.select(editor.dom.select('#__CaretPlacholder')[0]);  
+        editor.dom.remove(editor.dom.select('#__CaretPlacholder')[0]);  
+      }  
+    });  
+   }),  
+[...]  
+ });
+```
 
 Before finding this solution, I tried the `onBeforeSetContent `callback, but
 due to a bug in the tinyMCE source, it couldn't handle well the case where the

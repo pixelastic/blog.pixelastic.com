@@ -8,12 +8,14 @@ Today I had to setup a complex find relation. Here is the simplifed version of
 what I had :
 
     
-    TABLE timestamps  
-    int id  
-    datetime date  
-    string type  
-    int user_id  
-    
+```sql
+TABLE timestamps  
+int id  
+datetime date  
+string type  
+int user_id  
+
+```
 
 The type field only had two types of values : `START `and `END`. As you can
 guess, this was used to log the time users where using an application. Every
@@ -28,28 +30,29 @@ records, I'll automatically have the end ones as related models.
 Here's how I did that :
 
     
-    $this->find('all', array(  
-    	'conditions' => array(  
-    		'Timestamp.type' => 'START'  
-    	),  
-    	'joins' => array(  
-    		array(  
-    			'table' => 'timestamp',  
-    			'alias' => 'EndTimestamp',  
-    			'type' => 'LEFT',  
-    			'conditions' => array(  
-    				'EndTimestamp.type' => 'END',  
-    				'EndTimestamp.user_id = Timestamp.user_id',  
-    				'EndTimestamp.date > Timestamp.date',  
-    			)  
-    		)  
-    	),  
-    	'order' => array(  
-    		'Timestamp.date' => 'ASC'  
-    	),  
-    	'group' => 'Timestamp.date'  
-    ));  
-    
+```php
+$this->find('all', array(  
+  'conditions' => array(  
+    'Timestamp.type' => 'START'  
+  ),  
+  'joins' => array(  
+    array(  
+      'table' => 'timestamp',  
+      'alias' => 'EndTimestamp',  
+      'type' => 'LEFT',  
+      'conditions' => array(  
+        'EndTimestamp.type' => 'END',  
+        'EndTimestamp.user_id = Timestamp.user_id',  
+        'EndTimestamp.date > Timestamp.date',  
+      )  
+    )  
+  ),  
+  'order' => array(  
+    'Timestamp.date' => 'ASC'  
+  ),  
+  'group' => 'Timestamp.date'  
+));  
+```
 
 It will fetch all the start timestamp (`fields`) in chronological order
 (`order`). We will also define a custom join relation (`joins`). We set the

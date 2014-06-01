@@ -47,12 +47,14 @@ algorithm, so we are going to change that.
 Open `forum/bb-config.php` and add the following code :
 
     
-    define('CAKE_SALT', "XXXXX");  
-    // Check password using sha1  
-    function bb_check_password( $password, $hash, $user_id = '' ) {  
-     	// Does it match ?  
-    	return sha1(CAKE_SALT.$password)==$hash;  
-    }
+```php
+define('CAKE_SALT', "XXXXX");  
+// Check password using sha1  
+function bb_check_password( $password, $hash, $user_id = '' ) {  
+  // Does it match ?  
+  return sha1(CAKE_SALT.$password)==$hash;  
+}
+```
 
 Of course, replace the `XXXXX `value of `CAKE_SALT` with your own
 `Security.Salt` value (usually found in `app/config/core.php`). Also note that

@@ -24,7 +24,9 @@ One last key to create. Head back to `bb-config.php` and add the following
 line :
 
     
-    define('BB_HASH', 'XXXXX');
+```php
+define('BB_HASH', 'XXXXX');
+```
 
 Of course, set `XXXX` to a unique string. The name of your website should
 suffice, it is just used to differenciate between cookies on the same domain.
@@ -46,24 +48,24 @@ I've eased the pain of understanding how to create a cookie value, just use
 the following function :
 
     
-    function __getCookieValue($options = array()) {  
-    	 // We will need the login, pass and expiration date to create the cookie  
-    	 $userLogin = $options['name']; // The user login  
-    	 $userPass = $options['password']; // The password encrypted in the database  
-    	 $userPassFragment = substr($userPass, 8, 4);    // We will take only a small part of the password  
-    	 $expiration = $options['expiration'];  
-    	 $data = $userLogin.$userPassFragment."|".$expiration;    // The main data that will be used create the final hash  
-      
-    	 // We first get a first hash key that we will use to generate a second one  
-    	 $firstKey = hash_hmac('md5', $data, $options['salt']);  
-    	 // Then we create the final hash saved in the cookie  
-    	 $finalHash = hash_hmac('md5', $userLogin.'|'.$expiration, $firstKey);  
-      
-    	 // The final data to store in the cookie  
-    	 return $userLogin."|".$expiration."|".$finalHash;  
-      
-     }  
-    
+```php
+function __getCookieValue($options = array()) {  
+   // We will need the login, pass and expiration date to create the cookie  
+   $userLogin = $options['name']; // The user login  
+   $userPass = $options['password']; // The password encrypted in the database  
+   $userPassFragment = substr($userPass, 8, 4);    // We will take only a small part of the password  
+   $expiration = $options['expiration'];  
+   $data = $userLogin.$userPassFragment."|".$expiration;    // The main data that will be used create the final hash  
+  
+   // We first get a first hash key that we will use to generate a second one  
+   $firstKey = hash_hmac('md5', $data, $options['salt']);  
+   // Then we create the final hash saved in the cookie  
+   $finalHash = hash_hmac('md5', $userLogin.'|'.$expiration, $firstKey);  
+  
+   // The final data to store in the cookie  
+   return $userLogin."|".$expiration."|".$finalHash;  
+} 
+```
 
 You should pass to this function an array containing a name, password and
 expiration date. The password should be exactly as it is stored in the
@@ -83,66 +85,68 @@ your app whenever your want to log the current user to the forum. Just feed it
 a user and password.
 
     
-    /**  
-     *    createCookies  
-     *    Create the cookies that can be used to connect to the bbPress forum  
-     *    bbPress does a lot of complicating stuff with hashing when creating its cookie. We replicate it here  
-     *  
-     *    The content of the cookie is formed in the format username|expirationDate|hash  
-     *  
-     *    The hash part is the most difficult, it involve double hashing based on various salt and values  
-     **/  
-     function createCookies($name, $pass) {  
-    	 $expirationDate = time() + 1209600; // When the cookie should stop working (2 weeks)  
-      
-    	 // Getting the log in salt  
-    	 $completeSalt = Configure::read('bbPress.logKey').Configure::read('bbPress.logSalt');  
-    	 // The log in cookie name  
-    	 $cookieName = "bbpress_logged_in_".Configure::read('bbPress.hash');  
-    	 // Getting the value  
-    	 $cookieValue = __getCookieValue(array(  
-    		 'name' => $name,  
-    		 'password' => $pass,  
-    		 'salt' => $completeSalt,  
-    		 'expiration' => $expirationDate  
-    	 ));  
-    	 // Setting the cookie for the correct path  
-    	 setcookie($cookieName, $cookieValue, $expirationDate, "/", false, false, true);  
-    	 setcookie($cookieName, $cookieValue, $expirationDate, "/forum/", false, false, true);  
-      
-      
-      
-    	 // Getting the auth salt  
-    	 $completeSalt = Configure::read('bbPress.authKey').Configure::read('bbPress.authSalt');  
-    	 // The auth cookie name  
-    	 $cookieName = "bbpress_".Configure::read('bbPress.hash');  
-    	 // Getting the value  
-    	 $cookieValue = __getCookieValue(array(  
-    		 'name' => $name,  
-    		 'password' => $pass,  
-    		 'salt' => $completeSalt,  
-    		 'expiration' => $expirationDate  
-    	 ));  
-    	 // Setting the cookie for the correct path  
-    	 setcookie($cookieName, $cookieValue, $expirationDate, '/forum/bb-admin', false, false, true);  
-    	 setcookie($cookieName, $cookieValue, $expirationDate, '/forum/bb-plugins', false, false, true);  
-    	 setcookie($cookieName, $cookieValue, $expirationDate, '/forum/my-plugins', false, false, true);  
-     }
+```php
+/**  
+*    createCookies  
+*    Create the cookies that can be used to connect to the bbPress forum  
+*    bbPress does a lot of complicating stuff with hashing when creating its cookie. We replicate it here  
+*  
+*    The content of the cookie is formed in the format username|expirationDate|hash  
+*  
+*    The hash part is the most difficult, it involve double hashing based on various salt and values  
+**/  
+function createCookies($name, $pass) {  
+ $expirationDate = time() + 1209600; // When the cookie should stop working (2 weeks)  
+
+ // Getting the log in salt  
+ $completeSalt = Configure::read('bbPress.logKey').Configure::read('bbPress.logSalt');  
+ // The log in cookie name  
+ $cookieName = "bbpress_logged_in_".Configure::read('bbPress.hash');  
+ // Getting the value  
+ $cookieValue = __getCookieValue(array(  
+   'name' => $name,  
+   'password' => $pass,  
+   'salt' => $completeSalt,  
+   'expiration' => $expirationDate  
+ ));  
+ // Setting the cookie for the correct path  
+ setcookie($cookieName, $cookieValue, $expirationDate, "/", false, false, true);  
+ setcookie($cookieName, $cookieValue, $expirationDate, "/forum/", false, false, true);  
+
+ // Getting the auth salt  
+ $completeSalt = Configure::read('bbPress.authKey').Configure::read('bbPress.authSalt');  
+ // The auth cookie name  
+ $cookieName = "bbpress_".Configure::read('bbPress.hash');  
+ // Getting the value  
+ $cookieValue = __getCookieValue(array(  
+   'name' => $name,  
+   'password' => $pass,  
+   'salt' => $completeSalt,  
+   'expiration' => $expirationDate  
+ ));  
+ // Setting the cookie for the correct path  
+ setcookie($cookieName, $cookieValue, $expirationDate, '/forum/bb-admin', false, false, true);  
+ setcookie($cookieName, $cookieValue, $expirationDate, '/forum/bb-plugins', false, false, true);  
+ setcookie($cookieName, $cookieValue, $expirationDate, '/forum/my-plugins', false, false, true);  
+}
+```
 
 And for logging out, just delete the cookies :
 
     
-    function clearCookies() {  
-    	 // The name of the cookie to delete  
-    	 $cookieName = "bbpress_logged_in_".Configure::read('bbPress.hash');  
-    	 setcookie($cookieName, "", time()-3600, "/", false, false, true);  
-    	 setcookie($cookieName, "", time()-3600, "/forum/", false, false, true);  
-    	 // The auth cookie name  
-    	 $cookieName = "bbpress_".Configure::read('bbPress.hash');  
-    	 setcookie($cookieName, "", time()-3600, '/forum/bb-admin', false, false, true);  
-    	 setcookie($cookieName, "", time()-3600, '/forum/bb-plugins', false, false, true);  
-    	 setcookie($cookieName, "", time()-3600, '/forum/my-plugins', false, false, true);  
-     }
+```php
+function clearCookies() {  
+   // The name of the cookie to delete  
+   $cookieName = "bbpress_logged_in_".Configure::read('bbPress.hash');  
+   setcookie($cookieName, "", time()-3600, "/", false, false, true);  
+   setcookie($cookieName, "", time()-3600, "/forum/", false, false, true);  
+   // The auth cookie name  
+   $cookieName = "bbpress_".Configure::read('bbPress.hash');  
+   setcookie($cookieName, "", time()-3600, '/forum/bb-admin', false, false, true);  
+   setcookie($cookieName, "", time()-3600, '/forum/bb-plugins', false, false, true);  
+   setcookie($cookieName, "", time()-3600, '/forum/my-plugins', false, false, true);  
+ }
+```
 
 Hope all that helps ! It took some time to put all this together but I hope it
 could help other bakers out there.

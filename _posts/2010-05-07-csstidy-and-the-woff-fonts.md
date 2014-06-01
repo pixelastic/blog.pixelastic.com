@@ -10,11 +10,12 @@ the web.
 You should add them first in the order of fonts you're loading, before the
 `.ttf`/`.otf` ones.
 
-    
-    @font-face {  
-    	font-family: "Unibody8SmallCaps Regular";  
-    	src: url('fonts/unibody_8-smallcaps-webfont.woff') format('woff'), url('fonts/unibody_8-smallcaps-webfont.ttf') format('truetype');  
-    }
+```css
+@font-face {  
+  font-family: "Unibody8SmallCaps Regular";  
+  src: url('fonts/unibody_8-smallcaps-webfont.woff') format('woff'), url('fonts/unibody_8-smallcaps-webfont.ttf') format('truetype');  
+}
+```
 
 The interesting thing to note is that you cannot omit the quotes around the
 `format('woff')`/`format('truetype')` part. Otherwise the font won't be
@@ -31,15 +32,17 @@ I updated the `csstidy.php` file at around line 847 and changed the `if`
 statement to look like this :
 
     
-    if($this->sub_value != '') {  
-    	$this->sub_value_arr[] = $this->sub_value;  
-    	foreach($this->sub_value_arr as &$sub_value) {  
-    		if (substr($sub_value, 0, 6) == 'format') {  
-    			$sub_value = str_replace(array('format(', ')'), array('format("', '")'), $sub_value);  
-    		}  
-    	}  
-    	$this->sub_value = '';  
-    }
+```php
+if($this->sub_value != '') {  
+  $this->sub_value_arr[] = $this->sub_value;  
+  foreach($this->sub_value_arr as &$sub_value) {  
+    if (substr($sub_value, 0, 6) == 'format') {  
+      $sub_value = str_replace(array('format(', ')'), array('format("', '")'), $sub_value);  
+    }  
+  }  
+  $this->sub_value = '';  
+}
+```
 
 This way all sub values of the `src:` rule will be correctly parsed, and not
 only the last one.

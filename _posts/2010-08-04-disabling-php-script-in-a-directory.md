@@ -11,12 +11,10 @@ direct webroot access on your server...
 Just drop a `.htaccess` file in it, and add the following rules
 
     
-    # We don't want php files from being parsed by the server in this directory, so we will return them as plain text  
-    AddType text/plain .php .php3 .php4 .php5 .php6 .phtml  
-      
-    # Or, if the first rule does not work on your server, you may want to completely turn off PHP  
-    #php_flag engine off  
-    
+```apache
+# We don't want php files from being parsed by the server in this directory, so we will return them as plain text  
+AddType text/plain .php .php3 .php4 .php5 .php6 .phtml  
 
-Â
-
+# Or, if the first rule does not work on your server, you may want to completely turn off PHP  
+#php_flag engine off  
+```

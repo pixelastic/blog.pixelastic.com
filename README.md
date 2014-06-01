@@ -22,8 +22,8 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
-- Escape html in post titles.
 - Add syntax highlighting to all code snippets
+- Remove trailing whitespaces
 - Allow browsing per year, and set default folder pages
 - Import all images from previous blogposts
 - Find a favicon

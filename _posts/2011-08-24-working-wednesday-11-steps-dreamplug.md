@@ -34,8 +34,9 @@ What took me a while to figure is that the Dreamplug have its own ip address :
 `10.0.0.1`. To enable transfer between your host and the plug, you have to set
 a fixed ip address to your ethernet (mine was `eth0`)
 
-    
-    $ sudo ifconfig eth0 10.0.0.2 
+```sh
+$ sudo ifconfig eth0 10.0.0.2 
+```
 
 I chose `10.0.0.2` because it's close to the Dreamplug address and I will
 remember it better, but you can actually choose anything you want, it
@@ -46,8 +47,9 @@ absolutely does not matter.
 Once the first step is done, you are now able to connect to the device through
 SSH.
 
-    
-    $ ssh root@10.0.0.1
+```sh
+$ ssh root@10.0.0.1
+```
 
 The default password is `nosoup4u`. I chose to keep it for now, as I'll have
 to type it a lot, but I'll change it once everything is installed.
@@ -55,8 +57,9 @@ to type it a lot, but I'll change it once everything is installed.
 First thing you should do is create a new user. Using `root` for the day to
 day activities is a bad habit.
 
-    
-    $ adduser pixelastic 
+```sh
+$ adduser pixelastic 
+```
 
 You'll be prompted for password and other misc informations. Once done, we
 will give sudo power to this user.
@@ -74,33 +77,37 @@ and exit_
 I added a new line just below the one starting with `root` and copied it,
 simply by changing the user name.
 
-    
-    root    ALL=(ALL) ALL  
-    pixelastic ALL=(ALL) ALL  
+```sh
+root    ALL=(ALL) ALL  
+pixelastic ALL=(ALL) ALL  
+```
 
 Your new user should now have the sudo powers.
 
 Unfortunatly, on my build one more thing was missing. It might not be the case
 on your plug, but we'd better check.
 
-    
-    $ which sudo  
-     /usr/bin/sudo  
-    $ ls -l /usr/bin/sudo  
-     -rwxr-xr-x 1 root root 114976 2011-02-14 08:08 /usr/bin/sudo
+```sh
+$ which sudo  
+ /usr/bin/sudo  
+$ ls -l /usr/bin/sudo  
+ -rwxr-xr-x 1 root root 114976 2011-02-14 08:08 /usr/bin/sudo
+```
 
 Check the permissions, if you have this output, then something is wrong. The
 `sudo` executable should have the `s` permissions, otherwise it won't work.
 
-    
-    $ chmod u+s /usr/bin/sudo
+```sh
+$ chmod u+s /usr/bin/sudo
+```
 
 Now, we can logout from the `root` session, and login back with our new user
 
-    
-    $ ssh pixelastic@10.0.0.1  
-    $ sudo pwd  
-     /home/pixelastic
+```sh
+$ ssh pixelastic@10.0.0.1
+$ sudo pwd
+ /home/pixelastic
+```
 
 ## What next ?
 

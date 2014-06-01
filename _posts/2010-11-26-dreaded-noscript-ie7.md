@@ -24,9 +24,13 @@ only have borders and background...
 If you want to style it, just add an inner element and style this one :
 
     
-    <noscript><p>Lorem ipsum</p></noscript>
-    
-    noscript p { background:blue; }
+```html
+<noscript><p>Lorem ipsum</p></noscript>
+```
+
+```css
+noscript p { background:blue; }
+```
 
 ## Disabling Javascript on IE7
 

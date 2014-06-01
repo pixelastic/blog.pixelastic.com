@@ -29,7 +29,9 @@ I created a garbage file using the following code and used `scp` to send it
 from one server to another, to test bandwith.
 
     
-    dd if=/dev/zero of=garbage.bin bs=100000000 count=1
+```sh
+dd if=/dev/zero of=garbage.bin bs=100000000 count=1
+```
 
 Nothing interesting came out of it. I had a impressivly fast connection
 between our fiber connection and OVH (up to 50Mb/s) and slow connection to

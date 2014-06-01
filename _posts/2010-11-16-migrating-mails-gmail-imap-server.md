@@ -31,7 +31,9 @@ The syntax to be used is a little different than the one I mentioned on my
 previous post, so here it is :
 
     
-    imapsync --host1 imap.gmail.com --ssl1 --authmech1 LOGIN --user1 foo@domain.fr --passfile1 /path/to/pass1 --host2 208.97.*.* --user2 foo@domain.fr --passfile2 /path/to/pass2 --useheader="X-GMail-Received" --useheader 'Message-Id' --noauthmd5
+```sh
+imapsync --host1 imap.gmail.com --ssl1 --authmech1 LOGIN --user1 foo@domain.fr --passfile1 /path/to/pass1 --host2 208.97.*.* --user2 foo@domain.fr --passfile2 /path/to/pass2 --useheader="X-GMail-Received" --useheader 'Message-Id' --noauthmd5
+```
 
 After that, I reloaded my Squirel Mail inbox, and it was populated. I just had
 to do that for every account.

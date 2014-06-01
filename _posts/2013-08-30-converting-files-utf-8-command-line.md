@@ -19,12 +19,14 @@ sets.
 Fortunatly, the default `file` command can do that.
 
     
-    $ file -bi file.txt  
-    text/plain; charset=us-ascii  
-    $ file -bi bad.html  
-    text/html; charset=iso-8859-1  
-    $ file -bi good.html  
-    text/html; charset=utf-8
+```sh
+$ file -bi file.txt  
+text/plain; charset=us-ascii  
+$ file -bi bad.html  
+text/html; charset=iso-8859-1  
+$ file -bi good.html  
+text/html; charset=utf-8
+```
 
 Now that we have a way to know the input encoding, we can use `recode` to
 convert to UTF-8. You can install `recode` easily with `sudo apt-get install

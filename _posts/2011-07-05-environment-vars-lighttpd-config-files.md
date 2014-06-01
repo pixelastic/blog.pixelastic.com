@@ -23,8 +23,10 @@ custom value, name it as you want, but keep the `var` prefix) and then re-use
 when needed.
 
     
-    #!/bin/bash  
-    echo 'var.serverName="'$(uname -n)'"'
+```sh
+#!/bin/bash  
+echo 'var.serverName="'$(uname -n)'"'
+```
 
 Then, I included it in my `lighttpd.conf` file using `include_shell
 "/etc/lighttpd/scripts/serverName.sh"`
@@ -32,14 +34,18 @@ Then, I included it in my `lighttpd.conf` file using `include_shell
 To define the PHP SERVER_NAME value :
 
     
-    setenv.add-environment = (  
-    	"SERVER_NAME" => var.serverName  
-    )
+```ini
+setenv.add-environment = (  
+  "SERVER_NAME" => var.serverName  
+)
+```
 
 To add it as a Server: response Header :
 
     
-    server.tag = var.serverName
+```ini
+server.tag = var.serverName
+```
 
 Note that `include_shell` directives are only called when you start lighty and
 not on every request.

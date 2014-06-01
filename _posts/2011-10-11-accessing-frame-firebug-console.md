@@ -11,8 +11,9 @@ file system.
 For example, if you want Firebug to use the first frameof the page as its
 current window object, just type the following code in Firebug console :
 
-    
-    cd(window.frames[0])
+```js
+cd(window.frames[0])
+```
 
 This proved immensely useful when debugging a Facebook application.
 

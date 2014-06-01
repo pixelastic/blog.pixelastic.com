@@ -11,12 +11,13 @@ charm).
 When you apply the following rules to an input element, Opera will discard
 your background color and render it as transparent instead.
 
-    
-    input {  
-        border-radius:5px;  
-        border:none;  
-        background:#375a5e;  
-    }
+~~~css    
+input {  
+    border-radius:5px;  
+    border:none;  
+    background:#375a5e;  
+}
+~~~
 
 All three rules causes the bug. Remove one of them and the bug disappear.
 
@@ -40,12 +41,12 @@ side seemed to be the more convenient method.
 
 So here's my updated code :
 
-    
-    input {  
-    	border-radius:5px;  
-    	border:none;  
-    	border-right:1px solid rgba(0,0,0,0);  
-    	background:#375a5e;  
-    }
-
+~~~css
+input {  
+  border-radius:5px;  
+  border:none;  
+  border-right:1px solid rgba(0,0,0,0);  
+  background:#375a5e;  
+}
+~~~
 

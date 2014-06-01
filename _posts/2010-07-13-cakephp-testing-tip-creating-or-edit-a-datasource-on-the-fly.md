@@ -15,24 +15,26 @@ values.
 Here's how I did it :
 
     
-    // Getting the datasource cache in the ConnectionManager object  
-    $connectionManagerInstance = ConnectionManager::getInstance();  
-    $databaseConfig = &$connectionManagerInstance->_dataSources;  
-      
-    // Saving the initial setting for reverting it later  
-    $_defaultConfig = $databaseConfig['default'];  
-      
-    // Changing the password so the credentials will fail  
-    $databaseConfig['default']->config['password'].= 'pass';  
-      
-    // Getting the updated datasource  
-    $connect = ConnectionManager::getDataSource('default');  
-      
-    // Error handling when connection unavailable  
-    [...]  
-      
-    // And reverting the settings back  
-    $databaseConfig['default'] = $_defaultConfig;  
+```php
+// Getting the datasource cache in the ConnectionManager object  
+$connectionManagerInstance = ConnectionManager::getInstance();  
+$databaseConfig = &$connectionManagerInstance->_dataSources;  
+
+// Saving the initial setting for reverting it later  
+$_defaultConfig = $databaseConfig['default'];  
+  
+// Changing the password so the credentials will fail  
+$databaseConfig['default']->config['password'].= 'pass';  
+  
+// Getting the updated datasource  
+$connect = ConnectionManager::getDataSource('default');  
+  
+// Error handling when connection unavailable  
+[...]  
+  
+// And reverting the settings back  
+$databaseConfig['default'] = $_defaultConfig;  
+```
     
 
 This proved really useful when testing to simulate a database server error.

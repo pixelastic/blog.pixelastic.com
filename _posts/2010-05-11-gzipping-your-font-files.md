@@ -27,9 +27,11 @@ As far as I know `.otf` and `.ttf` files don't have registered mimetype, so I
 had to create a dummy one for them in my .htaccess :
 
     
-    AddType x-font/otf    .otf  
-    AddType x-font/ttf    .ttf  
-    AddType x-font/eot    .eot
+```apache
+AddType x-font/otf    .otf  
+AddType x-font/ttf    .ttf  
+AddType x-font/eot    .eot
+```
 
 I also added the `.eot` because even if an `application/vnd.ms-fontobject`
 mimetype is registered for this obscure microsoft format, when I tried to add
@@ -42,7 +44,9 @@ mimetypes.
 The second part was to add gziping to those
 
     
-    AddOutputFilterByType DEFLATE x-font/otf x-font/ttf x-font/eot
+```apache
+AddOutputFilterByType DEFLATE x-font/otf x-font/ttf x-font/eot
+```
 
 SVG files are in fact xml files, and you should already have them gzipped, so
 no need to add them here.

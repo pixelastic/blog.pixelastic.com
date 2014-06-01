@@ -63,10 +63,12 @@ I then updated the `C:\WINDOWS\system32\drivers\etc\hosts` file to bind all
 requests made to my still-in-development websites to my host.
 
     
-    10.0.2.2        www.pixelastic  
-    10.0.2.2        s1.pixelastic  
-    10.0.2.2        s2.pixelastic  
-    10.0.2.2        s3.pixelastic
+```ini
+10.0.2.2        www.pixelastic  
+10.0.2.2        s1.pixelastic  
+10.0.2.2        s2.pixelastic  
+10.0.2.2        s3.pixelastic
+```
 
 You can find your host ip by doing a `ipconfig /all` in a command prompt.
 

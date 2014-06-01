@@ -21,11 +21,13 @@ was defined in the `setup` method
 
 I just manually fired all the `setup` methods by calling a simple :
 
-    
-    foreach($myModel->Behaviors->_attached as $behaviorName) {  
-    	$myModel->Behaviors->{$behaviorName}->setup($myModel);  
-    }  
-    
+
+```php
+foreach($myModel->Behaviors->_attached as $behaviorName) {  
+  $myModel->Behaviors->{$behaviorName}->setup($myModel);  
+}  
+```
+
 
 Once again, small fix, but does the trick. I did not file a bug report because
 I'm not really sure this is bug or if that is so by design.

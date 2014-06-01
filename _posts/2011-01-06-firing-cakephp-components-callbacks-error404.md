@@ -32,13 +32,15 @@ overwrite the `ErrorHandler `method. Namely, the `error404`. I rewrote mine to
 explicitly fire the `initialize` and `startup` methods.
 
     
-    class AppError extends ErrorHandler {  
-    	function error404($params) {  
-    		$this->controller->Component->initialize($this->controller);  
-    		$this->controller->Component->startup($this->controller);  
-    		parent::error404($params);  
-    	}  
-    }
+```php
+class AppError extends ErrorHandler {  
+  function error404($params) {  
+    $this->controller->Component->initialize($this->controller);  
+    $this->controller->Component->startup($this->controller);  
+    parent::error404($params);  
+  }  
+}
+```
 
 I only fired two of the callbacks, but maybe `beforeRender `and `shutdown
 `should be fired too.

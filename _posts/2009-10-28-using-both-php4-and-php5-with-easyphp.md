@@ -26,22 +26,24 @@ I've finally found a way, by installing php4 as a cgi.
   * Edit your apache config file and add the line ScriptAlias /php4/ "${path}/apache/cgi-bin/php4/" after the allready defined ScriptAlias (~line 379)
   * Create a new virtualhost for the website you would like to run in php4. Mine is as follow :
     
-    <Virtualhost *:80>   
-     ServerName foobar   
-     ServerAdmin me@localhost   
-     DocumentRoot "${path}/www/foobar.com"   
-       
-     <Directory "${path}/www/foobar.com">   
-     Options Indexes FollowSymLinks Includes ExecCGI   
-     AllowOverride All   
-     Order allow,deny   
-     Allow from all   
-     </Directory>   
-       
-     AddHandler php4-script .php .html .htm   
-     Action     php4-script /php4/php.exe   
-       
-     </Virtualhost> 
+```apache
+<Virtualhost *:80>   
+ ServerName foobar   
+ ServerAdmin me@localhost   
+ DocumentRoot "${path}/www/foobar.com"   
+
+ <Directory "${path}/www/foobar.com">   
+ Options Indexes FollowSymLinks Includes ExecCGI   
+ AllowOverride All   
+ Order allow,deny   
+ Allow from all   
+ </Directory>   
+
+ AddHandler php4-script .php .html .htm   
+ Action     php4-script /php4/php.exe   
+
+ </Virtualhost> 
+```
 
 This means that all .php, .html and .htm file of this virtualhost will be
 parsed by the php.exe file in our /cgi-bin/php4 directory.

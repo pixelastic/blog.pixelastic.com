@@ -22,17 +22,21 @@ That's not very user friendly and makes you look bad.
 So, to fix this, I added two error messages as alternate content :
 
     
-    <div id="alternateContent" class="alternateContent">  
-    	<div class="noFlash message">It seems that you do not have the Flash player installed. Please install it, by <a href="http://www.adobe.com/go/getflashplayer" target="_parent">following this link</a>.</div>  
-    	<div class="error404 message">Sorry, we were unable to load the game. Please try again in a few moments.</div>  
-    </div>
+```html
+<div id="alternateContent" class="alternateContent">  
+  <div class="noFlash message">It seems that you do not have the Flash player installed. Please install it, by <a href="http://www.adobe.com/go/getflashplayer" target="_parent">following this link</a>.</div>  
+  <div class="error404 message">Sorry, we were unable to load the game. Please try again in a few moments.</div>  
+</div>
+```
 
 Then, in CSS I decided to hide them both :
 
     
-    .alternateContent .message { display:none; }  
-    .alternateContent.noFlash .noFlash { display:block; }  
-    .alternateContent.error404 .error404 { display:block; }
+```css
+.alternateContent .message { display:none; }  
+.alternateContent.noFlash .noFlash { display:block; }  
+.alternateContent.error404 .error404 { display:block; }
+```
 
 And finally, in Javascript I checked for the current Flash version. If it's
 equal to zero, it means that Flash is not installed, so I display the `noFlash
@@ -40,15 +44,17 @@ equal to zero, it means that Flash is not installed, so I display the `noFlash
 message.
 
     
-    var flashVersion = swfobject.getFlashPlayerVersion(),  
-    	alternateContent = $('#alternateContent')  
-    ;  
-    // Displaying one message or the other  
-    if (flashVersion.minor=='0') {  
-    	alternateContent.addClass('noFlash');  
-    } else {  
-    	alternateContent.addClass('error404');  
-    }
+```js
+var flashVersion = swfobject.getFlashPlayerVersion(),  
+  alternateContent = $('#alternateContent')  
+;  
+// Displaying one message or the other  
+if (flashVersion.minor=='0') {  
+  alternateContent.addClass('noFlash');  
+} else {  
+  alternateContent.addClass('error404');  
+}
+```
 
 This is not bulletproof : I only test for two cases. And a better solution
 would also have been to put the error message dynamically using Javascript

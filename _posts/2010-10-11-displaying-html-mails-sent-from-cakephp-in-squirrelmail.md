@@ -28,10 +28,12 @@ my problem.
 So here's my updated code :
 
     
-    $this->Email->sendAs = 'both';  
-    $this->Email->_createboundary();  
-    $this->Email->__header[] = 'MIME-Version: 1.0';  
-    $this->Email->send();
+```php
+$this->Email->sendAs = 'both';  
+$this->Email->_createboundary();  
+$this->Email->__header[] = 'MIME-Version: 1.0';  
+$this->Email->send();
+```
 
 I'll now have to add those two additional line of code everytime I'll have to
 send a multipart (html + text) email in cakePHP, until it get fixed (no

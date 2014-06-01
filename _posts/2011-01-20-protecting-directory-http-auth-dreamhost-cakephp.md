@@ -13,17 +13,21 @@ Just create an `.htaccess` in the directory you want to protect with the
 following lines :
 
     
-    AuthName "Restricted Access"  
-    AuthType Basic  
-    AuthUserFile /full/path/to/your/.htpasswd  
-    <Limit GET POST PUT>  
-    Require valid-user  
-    </Limit>
+```apache
+AuthName "Restricted Access"  
+AuthType Basic  
+AuthUserFile /full/path/to/your/.htpasswd  
+<Limit GET POST PUT>  
+Require valid-user  
+</Limit>
+```
 
 And to create the .htpasswd file, run the following command :
 
     
-    htpasswd -c /full/path/to/your/.htpasswd username
+```sh
+htpasswd -c /full/path/to/your/.htpasswd username
+```
 
 The `-c` modifier will create the file, omit it if you only want to add a new
 user. Also change the path to your `.htpasswd` file (moving it out of the

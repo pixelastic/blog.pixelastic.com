@@ -88,8 +88,7 @@ it's suprising how fast you can see the benefits. It will allow you to see
 more easily edge cases you hadn't thought of, and prepare yourself in
 consequence.
 
-## But I spend so much time writing tests, while I could be adding new
-features instead !
+## But I spend so much time writing tests, while I could be adding new features instead !
 
 Yeah, I thougt that too. Writing tests is a chore. It takes a lot of time,
 especially if you've never wrote any before (but it gets much easier with
@@ -129,7 +128,7 @@ working", while with a feature that hasn't been tested, you'll ended up saying
 Great !
 
 First, I discourage you to start and write tests for your whole application
-right now. The biggest the app, the faster you'll be fed up with tests. It's
+right now. The bigger the app, the faster you'll be fed up with tests. It's
 much more harder to write tests after, than before. So just write tests for
 one class or two at the moment, add new features to your app (using the TDD
 approach), and get back to writing tests to the rest of the app later.
@@ -150,9 +149,11 @@ you :
   * Use and abuse the `startTest `method. This method is called before every test, this is a good way to reset vars to make sure one previous test call will not impact subsequent calls. I got the habit to define a property of the test case as the object I want to test. For example, when testing a model, I'll write something along the lines of :  
 
     
-    function startTest() {  
-    	$this->model = ClassRegistry::init('User');  
-    }
+```php
+function startTest() {  
+$this->model = ClassRegistry::init('User');  
+}
+```
 
   * Try to refactor you code to split logic into several small methods, each with its own goal and logic. This will be easier to test.
   * If you have to test code that relies on an external library and make static calls to it, just wrap the static calls inside a method of your class and mock (see MockObjects) the method.

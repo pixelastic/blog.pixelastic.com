@@ -17,7 +17,9 @@ add a vanity url like `www.domain.com/vanity` is routed to
 `Controller:view()`, you'll write something like this :
 
     
-    Router::connect('/vanity', array('controller' => 'controllers', 'action' => 'view'));
+```php
+Router::connect('/vanity', array('controller' => 'controllers', 'action' => 'view'));
+```
 
 This will work as long as you don't specify any additional parameters. Once
 you started to add any parameters, the Router won't be able to parse your url

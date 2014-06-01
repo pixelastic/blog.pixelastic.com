@@ -42,10 +42,12 @@ was being used. After a long journey, I got to the `respondAs `method of the
 
 And specifically, to that part :
 
-    
-    if (Configure::read() < 2 && !defined('CAKEPHP_SHELL')) {  
-    	$this->_header($header);  
-    }
+
+```php
+if (Configure::read() < 2 && !defined('CAKEPHP_SHELL')) {  
+  $this->_header($header);  
+}
+```
 
 Ok, so there was my debug value. Exactly the code reponsible for my symptoms.
 Well, I still don't understand WHY someone wanted to add an header based on

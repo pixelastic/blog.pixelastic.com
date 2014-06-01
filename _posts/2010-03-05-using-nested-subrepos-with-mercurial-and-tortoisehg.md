@@ -35,7 +35,9 @@ You then go back to your main repo root and edit the .hgsub file (if you don't
 have this file yet, just create it). Add the following line to the .hgsub :
 
     
-    path/to/your/subrepo = path/to/your/subrepo
+```ini
+path/to/your/subrepo = path/to/your/subrepo
+```
 
 Now, on every subsequent commit Hg will be aware that your repo is holding a
 new subrepo. If you omit this line, Hg will not allow you to commit

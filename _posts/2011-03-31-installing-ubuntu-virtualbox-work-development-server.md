@@ -52,8 +52,10 @@ sitting on your desktop.
 Start a terminal and install the guest additions by doing :
 
     
-    cd /media/{name of your VBOX image}  
-    ./autorun.sh
+```sh
+cd /media/{name of your VBOX image}  
+./autorun.sh
+```
 
 This will finish the guest addition installation. Reboot your guest machine
 one last time and you'll be ready for step 2.
@@ -67,25 +69,32 @@ you'll correctly see what's installed.
 First, lighttpd :
 
     
-    sudo apt-get install lighttpd
+```sh
+sudo apt-get install lighttpd
+```
 
 Now, memcached
 
     
-    sudo apt-get install memcached
+```sh
+sudo apt-get install memcached
+```
 
 And mysql server. This one will prompt you to enter the root password you'll
 want.
 
     
-    sudo apt-get install mysql-server
+```sh
+sudo apt-get install mysql-server
+```
 
 Now we will install php5 as CGI (Lighty will run php as cgi), as well as the
 needed dependency so php can connect to both mysql and memcache.
 
     
-    sudo apt-get install php5-cgi php5-memcache php5-mysql  
-    
+```sh
+sudo apt-get install php5-cgi php5-memcache php5-mysql  
+```
 
 Ok, you should now have everything correctly installed. We will configure all
 that stuff later. You should now completely close your Virtual Machine and get
@@ -114,7 +123,9 @@ You should also install openssh server so that you'll be able to connect to
 your guest machine using ssh :
 
     
-    sudo apt-get install openssh-server
+```sh
+sudo apt-get install openssh-server
+```
 
 We will now take care of the shared folder defined earlier. Selecting them in
 VirtualBox only made them available for mounting in the guest, but you'll now
@@ -124,8 +135,10 @@ access to a project I coded in my host (let's name it `myproject`).
 Here's how I made it available to Lighty :
 
     
-    sudo mkdir /var/www/myproject  
-    sudo mount -t vboxsf -o rw,uid=$(id -u),gid=$(id -g www-data) myproject /var/www/myproject
+```sh
+sudo mkdir /var/www/myproject  
+sudo mount -t vboxsf -o rw,uid=$(id -u),gid=$(id -g www-data) myproject /var/www/myproject
+```
 
 This will create a directory in `/var/www` to hold the project, and will then
 mount the shared folder to that directory. The uid/gid stuff indicate that you
@@ -145,8 +158,10 @@ cgi.fix_pathinfo=1 line in your php.ini.
 Don't forget to reload Lighty after changes to its config files by running:
 
     
-    sudo /etc/init.d/lightppd restart  
-    
+```sh
+sudo /etc/init.d/lightppd restart  
+
+```
 
 I also had one additional side-effect on my install : installing php5 also
 installed Apache, causing Lighty to fail on startup because Apache was already
@@ -154,7 +169,9 @@ using the port 80. I fixed it by removing every reference to Apache by running
 :
 
     
-    sudo update-rc.d -f apache2 remove
+```sh
+sudo update-rc.d -f apache2 remove
+```
 
 ## Final note :
 

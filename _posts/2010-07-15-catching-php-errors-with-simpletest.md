@@ -54,36 +54,34 @@ Okay, here's the code. Don't forget to adapt the condition in the
 `error_handler` to match your error.
 
     
-    function testGotUndefinedIndex() {
-        // Overriding the error handler
-        function errorHandlerCatchUndefinedIndex($errno, $errstr, $errfile, $errline ) {
-            // We are only interested in one kind of error
-            if ($errstr=='Undefined index: bar') {
-                //We throw an exception that will be catched in the test
-                throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-            }
-            return false;
+```php
+function testGotUndefinedIndex() {
+    // Overriding the error handler
+    function errorHandlerCatchUndefinedIndex($errno, $errstr, $errfile, $errline ) {
+        // We are only interested in one kind of error
+        if ($errstr=='Undefined index: bar') {
+            //We throw an exception that will be catched in the test
+            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
         }
-        set_error_handler("errorHandlerCatchUndefinedIndex");
-    
-        try {
-            // triggering the error
-            $foo = array();
-            echo $foo['bar'];
-        } catch (ErrorException $e) {
-            // Very important : restoring the previous error handler
-            restore_error_handler();
-            // Manually asserting that the test fails
-            $this->fail();
-            return;
-        }
-    
+        return false;
+    }
+    set_error_handler("errorHandlerCatchUndefinedIndex");
+
+    try {
+        // triggering the error
+        $foo = array();
+        echo $foo['bar'];
+    } catch (ErrorException $e) {
         // Very important : restoring the previous error handler
         restore_error_handler();
-        // Manually asserting that the test succeed
-        $this->pass();
+        // Manually asserting that the test fails
+        $this->fail();
+        return;
     }
-    
 
-Â
-
+    // Very important : restoring the previous error handler
+    restore_error_handler();
+    // Manually asserting that the test succeed
+    $this->pass();
+}
+```

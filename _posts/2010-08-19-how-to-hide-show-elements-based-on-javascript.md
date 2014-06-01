@@ -53,12 +53,12 @@ otherwise, while element with `jsOff `will do the opposite.
 Assuming you mark your body element with a `js` class if Javascript is
 enabled, here's how to do it :
 
-    
-    .jsOn { display:none; }  
-    .js .jsOn { display:block; }  
-    .jsOff { display:block;}  
-    .js .jsOff { display:none; }  
-    
+```js
+.jsOn { display:none; }
+.js .jsOn { display:block;
+.jsOff { display:block;
+.js .jsOff { display:none;
+```
 
 Hope all that helps at least someone.
 

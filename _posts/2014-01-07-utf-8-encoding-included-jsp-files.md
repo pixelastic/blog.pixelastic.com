@@ -29,14 +29,15 @@ I was dealing with dozen of included files, I needed a more generic solution.
 Turns out that I had to edit my `web.xml` file and add the following
 configuration :
 
-    
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.jsp</url-pattern>
-            <page-encoding>UTF-8</page-encoding>
-        </jsp-property-group>
-    </jsp-config>
-    
+
+```xml
+<jsp-config>
+  <jsp-property-group>
+    <url-pattern>*.jsp</url-pattern>
+    <page-encoding>UTF-8</page-encoding>
+  </jsp-property-group>
+</jsp-config>
+```
 
 And it worked !
 

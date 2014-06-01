@@ -4,11 +4,12 @@ title: "Performance improvement : moving assets to subdomains"
 custom_v2_id: 238
 ---
 
-**Disclaimer : What I'm talking about in this blog post can be optimised. Yes, having multiple hosts is a great feature for performance improvement, but I kind of did it wrong. My recent try at the webperf contest gave me more insight on how to do it right. **
+**Disclaimer : What I'm talking about in this blog post can be optimised. Yes,
+having multiple hosts is a great feature for performance improvement, but
+I kind of did it wrong. My recent try at the webperf contest gave me more
+insight on how to do it right.**
 
 **I'll post more on the subject or update this post to reflect that.**
-
-Â
 
 I've just added to this site a performance improvement I read a long time ago
 but never implemented.
@@ -82,21 +83,20 @@ If you need to edit your `httpd.con`f file, here is what I put to add my
 different subdomains on my local machine :
 
     
-    <VirtualHost *:80>  
-    	ServerName pixelastic  
-    	ServerAlias www.pixelastic  
-    	ServerAlias css.pixelastic  
-    	ServerAlias js.pixelastic  
-    	ServerAlias img.pixelastic  
-    	ServerAlias dl.pixelastic  
-    	DocumentRoot "www/pixelastic.com"  
-    	<Directory "www/pixelastic.com">  
-    		Options Indexes FollowSymLinks Includes ExecCGI  
-    		AllowOverride All  
-    		Order allow,deny  
-    		Allow from all  
-    	</Directory>  
-    </VirtualHost>
-
-Â
-
+```apache
+<VirtualHost *:80>  
+  ServerName pixelastic  
+  ServerAlias www.pixelastic  
+  ServerAlias css.pixelastic  
+  ServerAlias js.pixelastic  
+  ServerAlias img.pixelastic  
+  ServerAlias dl.pixelastic  
+  DocumentRoot "www/pixelastic.com"  
+  <Directory "www/pixelastic.com">  
+    Options Indexes FollowSymLinks Includes ExecCGI  
+    AllowOverride All  
+    Order allow,deny  
+    Allow from all  
+  </Directory>  
+</VirtualHost>
+```

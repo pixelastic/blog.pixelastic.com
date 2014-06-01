@@ -23,10 +23,10 @@ I now prefix all my Javascript rules by `.js`. I add a `js` class to the `html
 `element directly from the `head`, this helps in preventing any FOUC that may
 occur because we add the class before the `body` rendering.
 
-    
-    <head>  
-        <script>document.documentElement.className+=' js';</script>  
-    </head>  
-    
+```html
+<head>  
+    <script>document.documentElement.className+=' js';</script>  
+</head>  
+```
 
-
+    

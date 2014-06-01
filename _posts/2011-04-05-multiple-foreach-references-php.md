@@ -19,14 +19,16 @@ after the foreach loop. It is recommended to destroy it by unset().php.net
 My code was as simple as :
 
     
-    $newArray = array();  
-    $newArray2 = array();  
-    foreach($list as $key => &$data) {  
-    	$newArray[] = $data;  
-    }  
-    foreach($list2 as $key => &$data) {  
-    	$newArray2[] = $data;  
-    }
+```php
+$newArray = array();  
+$newArray2 = array();  
+foreach($list as $key => &$data) {  
+  $newArray[] = $data;  
+}  
+foreach($list2 as $key => &$data) {  
+  $newArray2[] = $data;  
+}
+```
 
 This resulted in the latest index of `$newArray` being set to one of `$list2`
 values (didn't know exactly which). This is really counter intuitive.

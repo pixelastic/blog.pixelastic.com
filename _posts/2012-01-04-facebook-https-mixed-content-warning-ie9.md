@@ -97,14 +97,16 @@ care of keeping any GET parameter passed before the redirect, and I ended up
 with this :
 
     
-    if (!FB._https) {  
-    	var appUrl = 'https://apps.facebook.com/appname/';  
-    	var iframeUrl = location.protocol+'//'+location.host+location.pathname;  
-    	var redirectUrl = location.href.replace(iframeUrl, appUrl);  
-    	top.location.href = redirectUrl;  
-    	return;  
-    }  
-    FB.init(options);
+```js
+if (!FB._https) {  
+  var appUrl = 'https://apps.facebook.com/appname/';  
+  var iframeUrl = location.protocol+'//'+location.host+location.pathname;  
+  var redirectUrl = location.href.replace(iframeUrl, appUrl);  
+  top.location.href = redirectUrl;  
+  return;  
+}  
+FB.init(options);
+```
 
 ## Conclusion
 
@@ -112,8 +114,4 @@ I'm not really proud of this solution, as it is mostly a hack and will force a
 useless loading of the http version before loading the https one, but that's
 the best I've found. If any of you have a better solution, feel free to
 comment.
-
-Â
-
-Â
 

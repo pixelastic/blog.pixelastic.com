@@ -29,8 +29,9 @@ So, I just had to edit the `/etc/postfix/main.cf` file, find the
 Then, just restart postfix by doing a
 
     
-    postfix restart  
-    
+```sh
+postfix restart  
+```
 
 ## It still doesn't work
 

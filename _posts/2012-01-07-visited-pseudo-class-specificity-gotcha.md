@@ -20,8 +20,9 @@ visited links are styled. You might write something like :
 
     
     
-    a, a:visited { color:blue; }
-    
+```css
+a, a:visited { color:blue; }
+```
 
 Unfortunatly, this will have some nasty side effects on your `.button` and
 `.customButton` rules becauseÂ `a:visited` will have precedence over `.button`
@@ -34,11 +35,10 @@ post.
 Your first solution could be to add even more specificity to your own rules,
 to override the `a:visited` one, like so :
 
-    
-    
-    .button, .button:visited { ... }
-    .customButton, .customButton:visited { ... }
-    
+```css
+.button, .button:visited { ... }
+.customButton, .customButton:visited { ... }
+```
 
 This will work, of course, but you're only adding complexity to your
 specificities, and this get more and more tedious the more you add other
@@ -47,10 +47,9 @@ customised buttons.
 In fact, there is a much better way, one that you could throw in your
 `reset.css` if it isn't there already :
 
-    
-    
-    a:visited { color:inherit; }
-    
+```css
+a:visited { color:inherit; }
+```
 
 That way, all your visited links will inherit their color from their non-
 visited version. This mean that visited `.button` will use the `.button`

@@ -33,8 +33,9 @@ I had to resort to quite a bit of ZSH tweaking to make it a perfect `rm`
 replacement. First, I added a simple alias for the `rm` command.
 
     
-    alias rm='trash'
-    
+```sh
+alias rm='trash'
+```
 
 Then I also wanted to change the default `rmdir` command. I could have used
 the same type of alias (`alias rmdir='trash'`) but I would have lost the
@@ -58,9 +59,10 @@ change its name and thus changing its autocomplete method.
 I named it `better-rmdir`, and put it in my `$PATH`. Here is the code
 
     
-    #!/usr/bin/zsh
-    trash $@
-    
+```sh
+#!/usr/bin/zsh
+trash $@
+```
 
 As you can see, this is just a wrapper, taking the initial arguments and
 passing them to `trash`.
@@ -72,10 +74,11 @@ code of the original `_directories` method (that you can probably find in
 created `better-rmdir`
 
     
-    #compdef better-rmdir
-    local expl
-    
-    _wanted directories expl directory _files -/ "$@" -
+```sh
+#compdef better-rmdir
+local expl
+_wanted directories expl directory _files -/ "$@" -
+```
     
 
 And finally, I added an alias (`alias rmdir='better-rmdir'`) and everytime I

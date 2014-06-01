@@ -42,14 +42,16 @@ file before the call is made.
 That's where the setup callback come into play. I just defined in my
 inyMCE.init :
 
-    
-    tinyMCE.init({  
-    	skin: 'caracole',  
-    	editor_css: 'caracoleDoNotInclude',  
-    	setup: function(editor) {  
-    		tinymce.DOM.files['http://'+document.domain+'/caracoleDoNotInclude'] = true;  
-    	}  
-    }
+
+```js
+tinyMCE.init({  
+  skin: 'caracole',  
+  editor_css: 'caracoleDoNotInclude',  
+  setup: function(editor) {  
+    tinymce.DOM.files['http://'+document.domain+'/caracoleDoNotInclude'] = true;  
+  }  
+}
+```
 
 Doing so, the `loadCSS `will try to load the `caracoleDoNotInclude` file
 (clearly this name is a placeholder, I have no such file). And in the setup
@@ -68,13 +70,15 @@ have to update, not the general `tinymce.DOM`.
 Fortunatly, the latest tinyMCE version expose their event API, so it was just
 a matter of defining the following event in the main setup :
 
-    
-    setup: function(editor) {  
-    	tinymce.DOM.files[baseUrl+'caracoleDoNotInclude'] = true;  
-    	editor.onPreInit.add(function(editor) {  
-    		editor.dom.files[baseUrl+'js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css'] = true;  
-    	 });  
-     },
+
+```js
+setup: function(editor) {  
+  tinymce.DOM.files[baseUrl+'caracoleDoNotInclude'] = true;  
+  editor.onPreInit.add(function(editor) {  
+    editor.dom.files[baseUrl+'js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css'] = true;  
+   });  
+ }
+```
 
 ## Edit :
 
@@ -82,10 +86,9 @@ Note that in the latest tinyMCE version, the code is slightly different
 because you have to call a special method on the url before adding it to the
 `editor.dom.files`
 
-    
-    editor.onPreInit.add(function(editor) {  
-    	editor.dom.files[editor.baseURI.toAbsolute('http://'+document.domain+'/js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css')] = true;  
-    });
 
-Â
-
+```js
+editor.onPreInit.add(function(editor) {  
+  editor.dom.files[editor.baseURI.toAbsolute('http://'+document.domain+'/js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css')] = true;  
+});
+```

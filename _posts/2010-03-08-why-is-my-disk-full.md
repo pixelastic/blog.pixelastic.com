@@ -23,7 +23,9 @@ googlehostedservice.html file online on the domain to prove that I am the
 owner and...
 
     
-    452 Transfer aborted.Â  No space left on device
+```
+452 Transfer aborted.  No space left on device
+```
 
 Here is what the FTP server answered. What ? No more space ? But, but, but,
 but I just cleaned it all, deleting a whole 1Go log file. Wtf ?
@@ -31,8 +33,10 @@ but I just cleaned it all, deleting a whole 1Go log file. Wtf ?
 I connect to the server and got the list of the biggest files and directories
 by doing a :
 
-    
-    find  /var -type f -ls | sort -k 7 -r -n | head -10
+
+```sh
+find  /var -type f -ls | sort -k 7 -r -n | head -10
+```
 
 I found that the maillog was 1.1Go... I deleted it and hurry the Gmail
 activation process. Problem solved.

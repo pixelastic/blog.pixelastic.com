@@ -11,9 +11,11 @@ whole chunks of data.
 I have two simple aliases to do just that. Meet `rcp` and `rmv` :
 
     
-    function rcp() { rsync -rahP --modify-window=1 "$@" }   
-    function rmv() { rsync -rahP --modify-window=1 --prune-empty-dirs --remove-sent-files "$@" }  
-    compdef _cp rcp rmvÂ 
+```sh
+function rcp() { rsync -rahP --modify-window=1 "$@" }   
+function rmv() { rsync -rahP --modify-window=1 --prune-empty-dirs --remove-sent-files "$@" }  
+compdef _cp rcp rmvÂ 
+```
 
 They are defined as functions and not aliases so I can define which completion
 functions zsh will use (that's the `compdef` part). In that case, I want them

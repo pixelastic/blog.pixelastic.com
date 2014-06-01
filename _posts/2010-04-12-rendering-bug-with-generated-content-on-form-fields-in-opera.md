@@ -8,13 +8,15 @@ If you try the following code in Opera 10.51, you'll have some weird rendering
 bug :
 
     
-    <style>  
-    	.test:after {  
-    		content:"This should be on red background";  
-    		background:red;  
-    	}  
-     </style>  
-     Text input : <input type="text" value="I'm unstyled" class="test" />
+```html
+<style>  
+  .test:after {  
+    content:"This should be on red background";  
+    background:red;  
+  }  
+ </style>  
+ Text input : <input type="text" value="I'm unstyled" class="test" />
+```
 
 The generated content is added to the page, but the background color isn't
 rendered. Worse, the input lose all styling, it does not have a background

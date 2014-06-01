@@ -29,13 +29,15 @@ solution. Basically, we simply checks that the value is correctly saved after
 saving it, and if not, we retry. And we do so recursively.
 
     
-    function set($key, $val, $recursionLevel = 0) {  
-    	Cache::write($key, $val);  
-    	if (Cache::read($key)===false) {  
-    		if ($recursionLevel>10) die('Possible infinite recursion);  
-    		$this->set($key, $val, $recursionLevel);  
-    	}  
-    }
+```php
+function set($key, $val, $recursionLevel = 0) {  
+  Cache::write($key, $val);  
+  if (Cache::read($key)===false) {  
+    if ($recursionLevel>10) die('Possible infinite recursion);  
+    $this->set($key, $val, $recursionLevel);  
+  }  
+}
+```
 
 Note, that this will not work if one of your values is defined as false,
 otherwise you'll end up in an infinite loop.

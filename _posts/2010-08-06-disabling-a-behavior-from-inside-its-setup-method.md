@@ -25,17 +25,19 @@ behavior for them. The `BehaviorCollection `that comes bundle into
 Unfortunatly, they won't work from inside the `setup()` method because the
 Behavior is not yet correctly instanciated.
 
-What you can do, however, is to hack inside the `BehaviorCollection `to update
+What you can do, however, is to hack inside the `BehaviorCollection` to update
 the inner `_disabled` key to add your own Behavior to the list.
 
     
-    function setup(&$model, $config = array()) {  
-            [...]  
-    	if ($faultyModel) {  
-    	        $model->Behaviors->_disabled[] = 'MyBehavior';  
-    	}  
-    }  
-    
+```php
+function setup(&$model, $config = array()) {  
+  [...]  
+  if ($faultyModel) {  
+    $model->Behaviors->_disabled[] = 'MyBehavior';  
+  }  
+}  
+
+```
 
 This is more than a bit hacky, I have to admit that. But it does the trick.
 Enjoy.

@@ -18,14 +18,16 @@ more complex pattern.
 First of all, here are the (simplified) set of rules I had to convert :
 
     
-    RewriteRule ^(css|js)/packed_(.*)$ $1/packed/$2 [L]  
+```apache
+RewriteRule ^(css|js)/packed_(.*)$ $1/packed/$2 [L]  
+
+RewriteRule ^files/([0-9]{4})/([0-9]{2})/([0-9]{2})/([[:alnum:]]{8}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{12})/(.*)\.(.{3,4})	/files/$1/$2/$3/$4.$6 [L]  
+  
+RewriteCond %{REQUEST_FILENAME} !-d  
+RewriteCond %{REQUEST_FILENAME} !-f  
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]  
       
-    RewriteRule ^files/([0-9]{4})/([0-9]{2})/([0-9]{2})/([[:alnum:]]{8}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{12})/(.*)\.(.{3,4})	/files/$1/$2/$3/$4.$6 [L]  
-      
-    RewriteCond %{REQUEST_FILENAME} !-d  
-    RewriteCond %{REQUEST_FILENAME} !-f  
-    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]  
-      
+```
     
 
 The first rule deals with compressed `css` and `js` files. Minified `css` and
@@ -60,9 +62,11 @@ exact match of the requested url. Once such a block is found, its content is
 applied, and Nginx stops looking for more matches.
 
     
-    location = /my-exact-file.html {  
-    	rewrite /my-exact-file.html http://external-website.com/  
-    }
+```nginx
+location = /my-exact-file.html {  
+  rewrite /my-exact-file.html http://external-website.com/  
+}
+```
 
 In this example, a request for `/my-exact-file.html` will be redirected to
 `http://external-website.com.` Note that you need to repeat the url in both
@@ -79,12 +83,14 @@ apply them. It's up to you, in the block content, to define if the parsing
 should stop, using the `break` command.
 
     
-    location ~ /(css|js)/packed_ {  
-    	rewrite ^/(css|js)/packed_(.*)$ /$1/packed/$2 break;   
-    }    
-    location ~ /files {  
-     	rewrite ^/files/(.*)/(.*)/(.*)\.(.*)$ /files/$1/$2.$4 break;  
-    }
+```nginx
+location ~ /(css|js)/packed_ {  
+  rewrite ^/(css|js)/packed_(.*)$ /$1/packed/$2 break;   
+}    
+location ~ /files {  
+  rewrite ^/files/(.*)/(.*)/(.*)\.(.*)$ /files/$1/$2.$4 break;  
+}
+```
 
 In the first rule I'm looking for any `/css/packed_*` or `/js/packed_*`
 request, and converting them to `/css/packed/*` or `/js/packed/*`. Note the
@@ -106,10 +112,11 @@ especially good for a last "catch all" solution, and we are going to use them
 to dispatch urls to `index.php`
 
     
-    location / {  
-     	try_files $uri /index.php?url=$request_uri;   
-    }  
-    
+```nginx
+location / {  
+  try_files $uri /index.php?url=$request_uri;   
+}  
+```
 
 Using `location /`, we'll catch any remaining requests. The `try_files`
 command will test every one of its arguments in order to see if they exist on
@@ -123,13 +130,14 @@ to the PHP fastcgi. This is quite easy using a `location ~` block matching any
 `.php` file. This will even apply to files served through `try_files`.
 
     
-    location ~ \.php$ {  
-     	fastcgi_pass   127.0.0.1:9000;  
-     	fastcgi_index  index.php;  
-     	fastcgi_intercept_errors on;  
-    	include fastcgi.conf;  
-    }  
-    
+```nginx
+location ~ \.php$ {  
+  fastcgi_pass   127.0.0.1:9000;  
+  fastcgi_index  index.php;  
+  fastcgi_intercept_errors on;  
+  include fastcgi.conf;  
+}  
+```
 
 ## Conclusion
 

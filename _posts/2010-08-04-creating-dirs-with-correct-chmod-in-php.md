@@ -15,10 +15,11 @@ The trick was to reset the mask (using `umask(0)`) before the `mkdir() `call
 and then reapplying the old mask after.
 
     
-    $tmpUmask = umask(0);  
-    mkdir('my_dir', 0777);  
-    umask($tmpUmask);  
-    
+```php
+$tmpUmask = umask(0);  
+mkdir('my_dir', 0777);  
+umask($tmpUmask);  
+```
 
 I must admit that I've never really understand why it was working better than
 simply calling `mkdir()` but hey, it's been years that I'm using that now and

@@ -20,9 +20,10 @@ Then, it was simply a matter of extracting only the urls, and feeding them to
 `wget`
 
     
-    cat file.txt | tr ' ' '\n' | tr '\t' '\n' | grep http > list.txt
-    wget --no-clobber -i list.txt
-    
+```sh
+cat file.txt | tr ' ' '\n' | tr '\t' '\n' | grep http > list.txt
+wget --no-clobber -i list.txt
+```
 
 This took a while to download as there are more than 400 files, but that way
 I'll have some interesting talks to listen to during my trip.

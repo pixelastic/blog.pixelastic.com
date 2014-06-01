@@ -22,12 +22,16 @@ In fact it only removes the wrapping node, but keep the content intact. In
 other words if you have
 
     
-    <a href="http://www.domain.com/"><img src="http://www.domain.com/picture.jpg" /></a>
+```html
+<a href="http://www.domain.com/"><img src="http://www.domain.com/picture.jpg" /></a>
+```
 
 And you remove the `<a>` node using `mceRemoveNode`, you'll end up with
 
     
-    <img src="http://www.domain.com/picture.jpg" />
+```html
+<img src="http://www.domain.com/picture.jpg" />
+```
 
 in place of your link.
 

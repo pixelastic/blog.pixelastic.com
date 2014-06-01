@@ -7,13 +7,15 @@ custom_v2_id: 80
 Imagine the following HTML code :
 
     
-    <div class="wrapper">  
-    [... various HTML elements ...]  
-    	<div class="bar">bar</div>  
-    	<div class="foo">foo</div>  
-    	<div class="bar">bar</div>  
-    	<div class="foo">foo</div>  
-    </div>
+```html
+<div class="wrapper">  
+[... various HTML elements ...]  
+  <div class="bar">bar</div>  
+  <div class="foo">foo</div>  
+  <div class="bar">bar</div>  
+  <div class="foo">foo</div>  
+</div>
+```
 
 How would one style the first `div.foo` ?
 

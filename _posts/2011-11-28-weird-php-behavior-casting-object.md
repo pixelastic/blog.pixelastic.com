@@ -8,14 +8,18 @@ I've just stumbled upon that weird behavior when force casting the return of a
 function to an object. The PHP result was not what I expected.
 
     
-    $a = null;  
-    echo empty($a) ? "Yes, I'm empty" : "You should not see this"
+```php
+$a = null;  
+echo empty($a) ? "Yes, I'm empty" : "You should not see this"
+```
 
 This is pretty straighforward code. Now, we test it with an object.
 
     
-    $a = (object) null;  
-    echo empty($a) ? "Yes, I'm empty" : "You should not see this but, actually, you do."
+```php
+$a = (object) null;  
+echo empty($a) ? "Yes, I'm empty" : "You should not see this but, actually, you do."
+```
 
 Note that it even gets weirder when `(object) false` and `(object) true`
 become objects with a key `scalar`, set to `false`

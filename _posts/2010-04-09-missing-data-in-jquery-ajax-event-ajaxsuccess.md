@@ -21,9 +21,8 @@ You can use the `$.httpData` to directly parse it, giving the XHR as first
 argument and the data type as the second one.
 
     
-    $('#ajaxIndicator').bind('ajaxSuccess', function(event, xhr, options) {  
-    	var data = $.httpData(xhr, options.dataType);  
-    }
-
-Â
-
+```js
+$('#ajaxIndicator').bind('ajaxSuccess', function(event, xhr, options) {  
+  var data = $.httpData(xhr, options.dataType);  
+}
+```

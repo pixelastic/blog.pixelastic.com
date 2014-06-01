@@ -16,10 +16,12 @@ AutoHotKey to help fix this.
 Here is the little snippet I added to my default AutoHotKey script :
 
     
-    ;        Open page in new tab in Opera using Ctrl + Click  
-    #ifWinActive, ahk_class OpWindow  
-    ^LButton::Send +{LButton}  
-    #IfWinActive
+```ahk
+;        Open page in new tab in Opera using Ctrl + Click  
+#ifWinActive, ahk_class OpWindow  
+^LButton::Send +{LButton}  
+#IfWinActive
+```
 
 It basically catch every Shift+Click in Opera and return a Ctrl+Click instead,
 allowing me to finally open tabs the way I'm used to.

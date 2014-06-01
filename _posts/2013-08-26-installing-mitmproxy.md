@@ -19,8 +19,10 @@ But `sudo pip install mitmproxy` resulted in charming compilation errors in my
 case. Something along the lines of :
 
     
-    src/lxml/lxml.etree.c:16:20: fatal error: Python.h: No such file or directory  
-    
+```sh
+src/lxml/lxml.etree.c:16:20: fatal error: Python.h: No such file or directory  
+
+```
 
 After a bit of googling, I understood that the issue was some missing headers
 on my part. After running `sudo apt-get install python-dev` I was good to run

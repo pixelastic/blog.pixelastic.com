@@ -4,8 +4,6 @@ title: "Working on Wednesday #4 : Rails for Zombies"
 custom_v2_id: 294
 ---
 
-Â
-
 (I finally managed to update Ubuntu to the 10.10 version, configure Unity to
 make it more usable, and I'm not ready to start the RoR tutorial I wanted to
 start last week.)
@@ -34,10 +32,11 @@ The first part of the tutorial (basic CRUD) was easy. I didn't find how to
 make a complex SQL query like this (cake) one :
 
     
-    $Zombie->find('all', array(  
-    'order' => array('Zombie.graveyard' => 'ASC', 'Zombie.name' => 'DESC'  
-    ));  
-    
+```php
+$Zombie->find('all', array(  
+'order' => array('Zombie.graveyard' => 'ASC', 'Zombie.name' => 'DESC'  
+));  
+```
 
 I guess it's just a matter of time before I learn how to to do in Rails
 anyway. I saw that there was more "advanced" method (much like the cake `find`
@@ -57,43 +56,53 @@ element to the model. Not very clear isn't it ? Here some code to explain it
 better. The last two lines have exactly the same effect :
 
     
-    class Zombie < ActiveRecord::Base  
-    end  
-    class Weapon < ActiveRecord::Base  
-    belongs_to :zombie  
-    end  
-    Weapon.create(:name => "Rocket Launcher", :zombie_id => 2)  
-    Weapon.create(:name => "Rocket Launcher", :zombie => Zombie.find(2))
+```ruby
+class Zombie < ActiveRecord::Base  
+end  
+class Weapon < ActiveRecord::Base  
+belongs_to :zombie  
+end  
+Weapon.create(:name => "Rocket Launcher", :zombie_id => 2)  
+Weapon.create(:name => "Rocket Launcher", :zombie => Zombie.find(2))
+```
 
 Later on, I had to select all weapons binded to a specific Zombie. I was able
 to find the a specific zombie using any of the two following commands :
 
     
-    z = Zombie.where(:name => "Ash").first  
-    z = Zombie.find(:first, :conditions => { :name => "Ash" })
+```ruby
+z = Zombie.where(:name => "Ash").first  
+z = Zombie.find(:first, :conditions => { :name => "Ash" })
+```
 
 Then, I wanted to find the weapons binded to this zombie. First I tried the
 following command :
 
     
-    Weapon.where(:zombie_id => z.id)
+```ruby
+Weapon.where(:zombie_id => z.id)
+```
 
 Obviously, this worked. But I wanted to test some more of the Rails magic. So
 I tried something along the lines of what I did in the previous chapter and
 tried to use my `z` var directly instead of `z.id`.
 
     
-    Weapon.where(:zombie => z)
+```ruby
+Weapon.where(:zombie => z)
+```
 
-This didn't worked. Well, I guess I'll also learn why later one. But one even
+This didn't worked. Well, I guess I'll also learn why later on. But one even
 more weird thing is that the following command did work even I'm not really
 sur why ?
 
     
-    Weapon.where(:zombie_id => z)
+```ruby
+Weapon.where(:zombie_id => z)
+```
 
-That's all I did today (well I also did some more Mercurial an Dingux testing,
-but I that wasn't really work)
+That's all I did today (well I also did some more Mercurial and Dingux testing,
+but that wasn't really work)
 
   
 

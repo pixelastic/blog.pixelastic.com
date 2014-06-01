@@ -4,5 +4,27 @@ title: "Writing a class in Javascript"
 custom_v2_id: 30
 ---
 
-<p>I always have to refer to a manual or a webpage to remember the correct syntax for creating a new class in Javascript. Here it is :</p>
-<pre class="source source-javascript"><span class="co1"></span>myClass<span class="me1"></span> = <span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br />    // Here I can define private variables and methods<span class="co1"></span><br />    var myPrivateVar = "foo";<br />    var myPrivateMethod = function() {<br />    };<br /><br />    <span class="co1">// And now I will return an object, so it is the place <br /></span>    // to put public variables and methods<br /><span class="co1"></span>    <span class="kw1">return</span> <span class="br0">{</span><br />        <span class="co1"></span>publicVariable = 'bar',<br />        <span class="co1"></span>publicMethod = function() {<br />        <span class="co1"></span>},<br />        init: <span class="kw2">function</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br />            // And here I place the code to execute when I'm ready to<br />            // start executing, eg. when the DOM is ready<br />        <span class="br0">}</span><br />    <span class="br0">}</span>;<br /><span class="br0">}</span><span class="br0">(</span><span class="br0">)</span>; <span class="co1">// Note that this function is executed and so the object is returned.</span><br /></pre>
+I always have to refer to a manual or a webpage to remember the correct syntax
+for creating a new class in Javascript. Here it is :
+
+    
+    myClass = function() {  
+        // Here I can define private variables and methods  
+        var myPrivateVar = "foo";  
+        var myPrivateMethod = function() {  
+        };  
+      
+        // And now I will return an object, so it is the place   
+        // to put public variables and methods  
+        return {  
+            publicVariable = 'bar',  
+            publicMethod = function() {  
+            },  
+            init: function() {  
+                // And here I place the code to execute when I'm ready to  
+                // start executing, eg. when the DOM is ready  
+            }  
+        };  
+    }(); // Note that this function is executed and so the object is returned.  
+    
+

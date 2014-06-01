@@ -4,20 +4,80 @@ title: "Paginated search results and custom url"
 custom_v2_id: 170
 ---
 
-<p>I wanted for this blog a search feature, but I had some <span class="searchmatch">prerequisites</span> for it :</p>
-<ul>
-<li>The search url could be bookmarked</li>
-<li>It should be paginated</li>
-<li>It should play well with my custom url starting with /blog</li>
-</ul>
-<h4>Defining custom urls</h4>
-<p>Here are the two routes I defined in my routes.php</p>
-<pre><code lang="php">Router::connect('/blog/search/:keyword',<br />    array('controller' =&gt; 'posts', 'action' =&gt; 'search'),<br />    array(<br />        'pass' =&gt; array('keyword'),<br />        'keyword' =&gt; '[^/]+'<br />    )<br />);<br />Router::connect('/blog/search/*', array('controller' =&gt; 'posts', 'action' =&gt; 'search'));<br /></code></pre>
-<p>Going to<code> /blog/search/*keyword*</code> will start a search on the keyword, while going to <code>/blog/search/ </code>would display a search form.</p>
-<h4>Writing the method</h4>
-<p>I started by creating a <code>search </code>action in my <code>PostController</code>, then creating a form submitting to this action, with a <code>keyword </code>input field.</p>
-<p>In the <code>search </code>method, the first thing I do is checking if some POST data is submitted (coming from the search form). If so, I redirect to the same page, but passing the <code>keyword </code>as first parameter.</p>
-<p>If no <code>keyword </code>is passed nor data submitted, I'll display a simple search form.</p>
-<p>And finally if a <code>keyword </code>is specified, I'll do a paginated search on every posts whose <code>name </code>or <code>text </code>contains the <code>keyword</code>.</p>
-<pre><code lang="php">function search() {<br />	// We redirect to get it in GET mode<br />	if (!empty($this-&gt;data)) {<br />		return $this-&gt;redirect(array('keyword' =&gt; urlencode($this-&gt;data['Post']['keyword'])));<br />	}<br />	<br />	// Search index<br />	if (empty($keyword)) {<br />		return $this-&gt;render('search_index');<br />	}<br /><br />	// Adding conditions to name and text<br />	$keyword = urldecode($keyword);<br />	$this-&gt;paginate = Set::merge(<br />		$this-&gt;paginate,<br />		array(<br />			'conditions' =&gt; array(<br />				'AND' =&gt; array(<br />					'OR' =&gt; array(<br />						'Post.name LIKE' =&gt; '%'.$keyword.'%',<br />						'Post.text LIKE' =&gt; '%'.$keyword.'%'<br />					)<br />				)<br />			)<br />		)<br />	);<br />	// Getting paginated result<br />	$itemList = $this-&gt;paginate();<br /><br />	$this-&gt;set(array(<br />		'keyword' =&gt; $keyword,<br />		'itemList' =&gt; $itemList<br />	));<br />}<br /></code></pre>
-<p> </p>
+I wanted for this blog a search feature, but I had some prerequisites for it :
+
+  * The search url could be bookmarked
+  * It should be paginated
+  * It should play well with my custom url starting with /blog
+
+#### Defining custom urls
+
+Here are the two routes I defined in my routes.php
+
+    
+    Router::connect('/blog/search/:keyword',  
+        array('controller' => 'posts', 'action' => 'search'),  
+        array(  
+            'pass' => array('keyword'),  
+            'keyword' => '[^/]+'  
+        )  
+    );  
+    Router::connect('/blog/search/*', array('controller' => 'posts', 'action' => 'search'));  
+    
+
+Going to` /blog/search/*keyword*` will start a search on the keyword, while
+going to `/blog/search/ `would display a search form.
+
+#### Writing the method
+
+I started by creating a `search `action in my `PostController`, then creating
+a form submitting to this action, with a `keyword `input field.
+
+In the `search `method, the first thing I do is checking if some POST data is
+submitted (coming from the search form). If so, I redirect to the same page,
+but passing the `keyword `as first parameter.
+
+If no `keyword `is passed nor data submitted, I'll display a simple search
+form.
+
+And finally if a `keyword `is specified, I'll do a paginated search on every
+posts whose `name `or `text `contains the `keyword`.
+
+    
+    function search() {  
+    	// We redirect to get it in GET mode  
+    	if (!empty($this->data)) {  
+    		return $this->redirect(array('keyword' => urlencode($this->data['Post']['keyword'])));  
+    	}  
+    	  
+    	// Search index  
+    	if (empty($keyword)) {  
+    		return $this->render('search_index');  
+    	}  
+      
+    	// Adding conditions to name and text  
+    	$keyword = urldecode($keyword);  
+    	$this->paginate = Set::merge(  
+    		$this->paginate,  
+    		array(  
+    			'conditions' => array(  
+    				'AND' => array(  
+    					'OR' => array(  
+    						'Post.name LIKE' => '%'.$keyword.'%',  
+    						'Post.text LIKE' => '%'.$keyword.'%'  
+    					)  
+    				)  
+    			)  
+    		)  
+    	);  
+    	// Getting paginated result  
+    	$itemList = $this->paginate();  
+      
+    	$this->set(array(  
+    		'keyword' => $keyword,  
+    		'itemList' => $itemList  
+    	));  
+    }  
+    
+
+

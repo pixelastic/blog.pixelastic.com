@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SWFObject must be included in the <head>"
+title: "SWFObject must be included in the `<head>`"
 custom_v2_id: 292
 ---
 
@@ -42,4 +42,3 @@ Doing so, you won't even need the previous fix
 
 I would have loved putting it at the end of the page, with the others JS
 files, but I guess I won't have a choice here.
-

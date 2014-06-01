@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Preventing tinyMCE from wrapping <img /> in <p>"
+title: "Preventing tinyMCE from wrapping `<img />` in `<p>`"
 custom_v2_id: 231
 ---
 
@@ -53,4 +53,3 @@ In your `tinyMCE.init` call, just add the following setup key :
 Before finding this solution, I tried the `onBeforeSetContent `callback, but
 due to a bug in the tinyMCE source, it couldn't handle well the case where the
 editor is empty. So I had to resort to a more generic callback.
-

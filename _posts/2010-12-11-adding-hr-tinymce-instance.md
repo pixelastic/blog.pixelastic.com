@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Adding a <hr> in a tinyMCE instance"
+title: "Adding a `<hr>` in a tinyMCE instance"
 custom_v2_id: 249
 ---
 
@@ -46,4 +46,3 @@ id and then select it through this id.
 I use jQuery in my example and I strongly suggest you to do the same, the
 selectors it provides are much sexier and helps writing these kind of plugins
 pretty fast.
-

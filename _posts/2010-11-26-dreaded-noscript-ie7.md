@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The dreaded <noscript> on IE7"
+title: "The dreaded `<noscript>` on IE7"
 custom_v2_id: 246
 ---
 
@@ -37,4 +37,3 @@ No.
 Yes, this doesn't make any sense.
 
   
-

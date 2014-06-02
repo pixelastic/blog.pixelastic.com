@@ -24,5 +24,5 @@ class solved the issue.
 Hope this blog post will be usefull for anyone else struggling with this error
 message.
 
-  
+
 

@@ -10,7 +10,7 @@ one. If you want to open multiple Firefox versions side by side, here's my way
 
   * First, uninstall all your previous Firefox installation(s). Make sure to backup any important data beforehand (I personnaly use MozBackup to do that).
   * Then install the latest available stable version. This will be the main Firefox version, the one you'll be using on your dayjob and the one you'll always update.
-  * Now run the Firefox ProfileManager.  
+  * Now run the Firefox ProfileManager.
 To do that, create a shortcut to your `firefox.exe` file, then edit this
 shortcut. In the "Target" field, add `-Profilemanager`.
 
@@ -21,11 +21,11 @@ My field looks like : `"C:\Program Files\Internet\Firefox\firefox.exe"
   * Now download the corresponding Firefox version from [oldversion.com](http://www.oldversion.com/Mozilla-Firefox.html)
   * Do not install it, but extract its content (using a archiving tool like winrar or 7-zip) in a tmp directory. Remove the `optional `directory as well as `removed-files.log` and `setup.exe`.
   * Copy the content of `localized/` into `nonlocalized/` (overwrite files if asked).
-  * You can now rename the `nonlocalized/` directory and move it around on your hard drive.  
+  * You can now rename the `nonlocalized/` directory and move it around on your hard drive.
 I renamed mine to `Firefox 3.0/` and put it alongside the main Firefox, in
 `C:\Program Files\Internet\Firefox 3.0\`
 
-  * Create a shortcut to the `firefox.exe` file in this directory and edit the target field.   
+  * Create a shortcut to the `firefox.exe` file in this directory and edit the target field.
 This time, we have to specify which profile to use. Just add `-P "FF3.0" -no-
 remote` in the target field.
 

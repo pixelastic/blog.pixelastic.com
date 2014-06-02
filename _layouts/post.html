@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="post">
-  <h1 class="post-title">{{ page.title | markdownify }}</h1>
+  <h1 class="post-title">{{ page.title | xml_escape }}</h1>
   <span class="post-date">{{ page.date | date_to_string }}</span>
   {{ content }}
 </div>
@@ -15,7 +15,7 @@ layout: default
       <li>
         <h3>
           <a href="{{ post.url }}">
-            {{ post.title }}
+            {{ post.title | xml_escape }}
             <small>{{ post.date | date_to_string }}</small>
           </a>
         </h3>

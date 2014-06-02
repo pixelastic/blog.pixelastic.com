@@ -12,7 +12,7 @@ class EscapeTitle
 
       lines.each do |line|
         if line.match(/^title/)
-          new_line = line.gsub(/<(.*?)>/, '`<\1>`')
+          new_line = line.gsub(/`<(.*?)>`/, '<\1>')
           if new_line != line
             content.gsub!(line, new_line)
             changed = true
@@ -22,7 +22,8 @@ class EscapeTitle
       end
 
       if changed == true
-        File.write(file, content);
+        p content
+        # File.write(file, content);
       end
     end
   end

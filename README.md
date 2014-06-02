@@ -22,8 +22,8 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
-- Remove trailing whitespaces
-- Allow browsing per year, and set default folder pages
+- Update CSS, split base theme and custom rules.
+- Remove underline on title link
 - Import all images from previous blogposts
 - Find a favicon
 - Add tags to link posts together
@@ -31,6 +31,7 @@ workflow now involves `git`, it seems a natural evolution.
 - Add link to the RSS
 - Integrate comments ? I'd like a comment API to be linked in javascript.
 - Try a different default font
+- Add a contact form
 - Put some 304 redirects on the old website to point to the new url. Generate
   a 304 to redirect ids to new urls.
 

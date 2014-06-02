@@ -22,8 +22,7 @@ class EscapeTitle
       end
 
       if changed == true
-        p content
-        # File.write(file, content);
+        File.write(file, content);
       end
     end
   end

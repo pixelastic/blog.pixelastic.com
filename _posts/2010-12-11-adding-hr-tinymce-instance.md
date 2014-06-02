@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Adding a `<hr>` in a tinyMCE instance"
+title: "Adding a <hr> in a tinyMCE instance"
 custom_v2_id: 249
 ---
 

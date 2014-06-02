@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Preventing tinyMCE from wrapping `<img />` in `<p>`"
+title: "Preventing tinyMCE from wrapping <img /> in <p>"
 custom_v2_id: 231
 ---
 

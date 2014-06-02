@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SWFObject must be included in the `<head>`"
+title: "SWFObject must be included in the <head>"
 custom_v2_id: 292
 ---
 

@@ -11,11 +11,11 @@ charm).
 When you apply the following rules to an input element, Opera will discard
 your background color and render it as transparent instead.
 
-~~~css    
-input {  
-    border-radius:5px;  
-    border:none;  
-    background:#375a5e;  
+~~~css
+input {
+    border-radius:5px;
+    border:none;
+    background:#375a5e;
 }
 ~~~
 
@@ -42,11 +42,11 @@ side seemed to be the more convenient method.
 So here's my updated code :
 
 ~~~css
-input {  
-  border-radius:5px;  
-  border:none;  
-  border-right:1px solid rgba(0,0,0,0);  
-  background:#375a5e;  
+input {
+  border-radius:5px;
+  border:none;
+  border-right:1px solid rgba(0,0,0,0);
+  background:#375a5e;
 }
 ~~~
 

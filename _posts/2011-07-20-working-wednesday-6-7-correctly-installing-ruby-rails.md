@@ -13,7 +13,7 @@ methods, but finally managed to get it to work corretly._
 First of all, you have to remove any ruby version you might have already
 installed, just to be sure.
 
-    
+
 ```sh
 sudo apt-get remove ruby && sudo apt-get autoremove
 ```
@@ -35,7 +35,7 @@ happen, so, avoid future troubles and install RVM first.
 
 To install RVM, simply execute the following command
 
-    
+
 ```sh
 bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
 ```
@@ -44,16 +44,16 @@ This will download and execute the install script. Once it's finished, edit
 your `.bashrc` or `.zshrc` to include the rvm config file whenever a shell is
 launched.
 
-    
+
 ```sh
 [[ -r $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 ```
 
 Just to sure to have the latest version, I also ran
 
-    
+
 ```sh
-rvm get head  
+rvm get head
 rvm reload
 ```
 
@@ -63,7 +63,7 @@ RVM depends on some binaries to work, so be sure to install them all. They are
 listed when running `rvm notes`, but as the time of writing this was the list
 for me :
 
-    
+
 ```sh
 sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev
 ```
@@ -73,7 +73,7 @@ sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev
 Once RVM is installed, installing the latest (1.9.2 as the time of writing)
 Ruby version is as easy as :
 
-    
+
 ```sh
 rvm install 1.9.2
 ```
@@ -81,15 +81,15 @@ rvm install 1.9.2
 This will take some time, downloading and compiling Ruby. Next, tell RVM that
 this is the version we are gonna use.
 
-    
+
 ```sh
-rvm use 1.9.2  
+rvm use 1.9.2
 
 ```
 
 You can always switch back to your system-wide ruby install by doing
 
-    
+
 ```sh
 rvm use system
 ```
@@ -113,23 +113,23 @@ skip this part for now.
 Let's create a new gemset for our new project. I'll name mine `pixelastic`,
 but change the name to fit your project name
 
-    
+
 ```sh
-rvm gemset create pixelastic  
+rvm gemset create pixelastic
 rvm gemset use pixelastic 
 ```
 
 You'll be now using the gemset `pixelastic`. You can list all available gems
 in your current gemset by doing
 
-    
+
 ```sh
 gem list
 ```
 
 Or list all the available gemsets by doing :
 
-    
+
 ```sh
 rvm gemset list
 ```
@@ -148,7 +148,7 @@ gem to became a running app.
 As I said above, Rails is a gem like many other, so you can simply install it
 by doing :
 
-    
+
 ```sh
 gem install rails
 ```
@@ -182,7 +182,7 @@ The syntax of a gem file will not be discussed here as I have no previous
 experience with them, but the command to read the gemfile and update the
 project accordingly is :
 
-    
+
 ```sh
 bundle install
 ```
@@ -196,7 +196,7 @@ project, and RVM will execute it.
 For example, to use my `pixelastic` gemset and Ruby 1.9.2, simply add the
 following to your `.rvmrc`
 
-    
+
 ```sh
 rvm use 1.9.2@pixelastic
 ```

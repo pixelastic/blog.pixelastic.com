@@ -26,7 +26,7 @@ be careful.
 The best way of creating the favicon I've found is to first create it as a
 `.gif`, then running ImageMagick upon it. On Linux, this means running
 
-    
+
 ```sh
 convert favicon.gif -resize 16x16! favicon.ico
 ```

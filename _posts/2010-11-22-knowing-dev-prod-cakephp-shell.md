@@ -38,32 +38,32 @@ call to tell if it was to use the dev or prod credentials.
 I decided that adding a `dev` arg to the shell call will switch to dev mode,
 while not adding it will use production mode.
 
-    
-My final shell call looked like : 
+
+My final shell call looked like :
 
 ```sh
-cake -app "path/to/app" mail_import dev  
+cake -app "path/to/app" mail_import dev
 
 ```
 
 And I added the following logic in my database switching logic :
 
-    
+
 ```php
-// Defining the Environment (prod or dev)  
-if (defined('CAKEPHP_SHELL')) {  
-  // Based on the prod/dev flag  
-  $args = env('argv');  
-  $environment = 'prod';  
-  foreach($args as $flag) {  
-    if ($flag=='dev') {  
-      $environment = 'dev';  
-      break;  
-    }  
-  }  
-} else {  
-  // Based on the server url  
-  $environment = (env('SERVER_ADDR')=='127.0.0.1') ? 'dev' : 'prod';  
+// Defining the Environment (prod or dev)
+if (defined('CAKEPHP_SHELL')) {
+  // Based on the prod/dev flag
+  $args = env('argv');
+  $environment = 'prod';
+  foreach($args as $flag) {
+    if ($flag=='dev') {
+      $environment = 'dev';
+      break;
+    }
+  }
+} else {
+  // Based on the server url
+  $environment = (env('SERVER_ADDR')=='127.0.0.1') ? 'dev' : 'prod';
 }
 ```
 

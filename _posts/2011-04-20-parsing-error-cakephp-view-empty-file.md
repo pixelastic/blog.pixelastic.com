@@ -16,18 +16,18 @@ Parse error: syntax error, unexpected $end in /var/www/website/app/views/players
 
 My `default.ctp file` only contain the following content :
 
-    
+
 ```php
-<?php  
+<?php
 ```
 
 It took me a couple of minutes to fix it. I only added an empty line after the
 opening tag, so it now read :
 
-    
+
 ```php
-<?php  
-  
+<?php
+
 
 ```
 

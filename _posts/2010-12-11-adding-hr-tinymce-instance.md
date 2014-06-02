@@ -10,31 +10,31 @@ should be an element on its own, without such a parent).
 
 I've added my own plugin to resolve this small issue, here is the code :
 
-    
+
 ```js
-(function() {  
-  tinymce.create('tinymce.plugins.pixelastic_hrPlugin', {  
-    init : function(editor, url) {  
-      // Register the command  
-      editor.addCommand('mcepixelastic_hr', function() {  
-        // We get the parent node  
-        var parentNode = editor.selection.getNode(),  
-        uniqueId = editor.dom.uniqueId();  
-        // We insert the hr (with a unique id to select it later)  
-        editor.execCommand('mceInsertContent', false, '<hr id="'+uniqueId+'" />');  
-        var hr = editor.dom.select('#'+uniqueId)[0];  
-        // We split the parent element around the hr  
-        editor.dom.split(parentNode, hr);  
-        // We remove the temporary id  
-        $(hr).attr('id', null);  
-      });  
-      // Adding a button  
-      editor.addButton(pluginName, { title : 'pixelastic_hr.desc', cmd : 'mcepixelastic_hr' });  
-      }  
-    }  
-  });  
-  // Register plugin  
-  tinymce.PluginManager.add('pixelastic_hr', tinymce.plugins['pixelastic_hrPlugin']);  
+(function() {
+  tinymce.create('tinymce.plugins.pixelastic_hrPlugin', {
+    init : function(editor, url) {
+      // Register the command
+      editor.addCommand('mcepixelastic_hr', function() {
+        // We get the parent node
+        var parentNode = editor.selection.getNode(),
+        uniqueId = editor.dom.uniqueId();
+        // We insert the hr (with a unique id to select it later)
+        editor.execCommand('mceInsertContent', false, '<hr id="'+uniqueId+'" />');
+        var hr = editor.dom.select('#'+uniqueId)[0];
+        // We split the parent element around the hr
+        editor.dom.split(parentNode, hr);
+        // We remove the temporary id
+        $(hr).attr('id', null);
+      });
+      // Adding a button
+      editor.addButton(pluginName, { title : 'pixelastic_hr.desc', cmd : 'mcepixelastic_hr' });
+      }
+    }
+  });
+  // Register plugin
+  tinymce.PluginManager.add('pixelastic_hr', tinymce.plugins['pixelastic_hrPlugin']);
 })();
 ```
 

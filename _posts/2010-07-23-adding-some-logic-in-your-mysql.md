@@ -13,7 +13,7 @@ concatenate various field and compare them.
 Here is, as a reminder, how I've managed to I've managed to get the time spent
 by comparing two dates :
 
-    
+
 ```sql
 TIMESTAMPDIFF(SECOND, Timestamp.date, EndTimestamp.date) AS timeSpent
 ```
@@ -22,8 +22,8 @@ And is practice is never as easy as theory, I didn't really had a timestamp
 but two string fields instead (one `date `and one `time`), so here's how I
 combined them
 
-    
+
 ```sql
-TIMESTAMPDIFF(SECOND, CONCAT(Timestamp.date, " ", Timestamp.time), CONCAT(Timestamp.date, " ", Timestamp.time)) AS timeSpent  
+TIMESTAMPDIFF(SECOND, CONCAT(Timestamp.date, " ", Timestamp.time), CONCAT(Timestamp.date, " ", Timestamp.time)) AS timeSpent
 ```
 

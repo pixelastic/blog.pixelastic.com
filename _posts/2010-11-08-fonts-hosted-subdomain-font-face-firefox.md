@@ -20,10 +20,10 @@ from an other domain, server-side. Here is the little snippet I added to my
 `.htaccess`
 
 ```apache
-<FilesMatch "\.(ttf|otf|woff)$">  
-  <IfModule mod_headers.c>  
-    Header set Access-Control-Allow-Origin "*"  
-  </IfModule>  
+<FilesMatch "\.(ttf|otf|woff)$">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
 </FilesMatch>
 ```
 

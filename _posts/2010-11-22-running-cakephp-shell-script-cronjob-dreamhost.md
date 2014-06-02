@@ -15,7 +15,7 @@ I finally managed to run my shell task as a cronjob, and here is how I did it.
 
 First, here is the command I wrote in my Dreamhost panel :
 
-    
+
 ```sh
 /home/username/domain.com/cake/console/cake -app /home/username/domain.com/app/ shell_name
 ```
@@ -40,11 +40,11 @@ obvious, but you have to do it anyway.
 
 Update you `cake/console/cake` to replace the first lines with :
 
-    
+
 ```sh
-LIB=${0/%cake/}  
-APP='pwd'  
-TERM=linux  
+LIB=${0/%cake/}
+APP='pwd'
+TERM=linux
 export TERM
 ```
 
@@ -58,7 +58,7 @@ to use php5 (and I guess you should), you would have to manually reference the
 binary file. Hence, you have to update your `cake/console/cake` file one more
 time and change the `exec `line to :
 
-    
+
 ```sh
 exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"
 ```

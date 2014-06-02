@@ -25,20 +25,20 @@ as simili GET parameters to the movie url.
 
 In the end, here is the PHP code I use to generate my SWF markup :
 
-    
+
 ```php
-sprintf(  
-  '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="%1$s" height="%2$s" id="%3$s">  
-    <param name="movie" value="%4$s?%6$s" />  
-    %5$s  
-    <!--[if !IE]>-->  
-      <object type="application/x-shockwave-flash" data="%4$s" width="%1$s" height="%2$s">  
-      %5$s  
-    <!--<![endif]-->  
-    %7$s  
-    <!--[if !IE]>--></object><!--<![endif]-->  
-  </object>  
-',  
+sprintf(
+  '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="%1$s" height="%2$s" id="%3$s">
+    <param name="movie" value="%4$s?%6$s" />
+    %5$s
+    <!--[if !IE]>-->
+      <object type="application/x-shockwave-flash" data="%4$s" width="%1$s" height="%2$s">
+      %5$s
+    <!--<![endif]-->
+    %7$s
+    <!--[if !IE]>--></object><!--<![endif]-->
+  </object>
+',
 $width, $height, $id, $url, $params, $flashVars, $alternateContent);
 ```
 

@@ -20,29 +20,29 @@ The key is : running php4 as a cgi script.
 I've finally found a way, by installing php4 as a cgi.
 
   * Download the [Windows binary of the version](http://fr.php.net/releases/) you want to emulate.
-  * Create a subdirectory named php4 in your EasyPHP/apache/cgi-bin/ directory 
-  * Extract the php.exe, php4ts.dll, sapi/php4apache.dll, php.ini-recommended and the extensions directory in this new directory 
-  * Rename php.ini-recommended to php.ini (this will be the php.ini used with php4) 
+  * Create a subdirectory named php4 in your EasyPHP/apache/cgi-bin/ directory
+  * Extract the php.exe, php4ts.dll, sapi/php4apache.dll, php.ini-recommended and the extensions directory in this new directory
+  * Rename php.ini-recommended to php.ini (this will be the php.ini used with php4)
   * Edit your apache config file and add the line ScriptAlias /php4/ "${path}/apache/cgi-bin/php4/" after the allready defined ScriptAlias (~line 379)
   * Create a new virtualhost for the website you would like to run in php4. Mine is as follow :
-    
+
 ```apache
-<Virtualhost *:80>   
- ServerName foobar   
- ServerAdmin me@localhost   
- DocumentRoot "${path}/www/foobar.com"   
+<Virtualhost *:80>
+ ServerName foobar
+ ServerAdmin me@localhost
+ DocumentRoot "${path}/www/foobar.com"
 
- <Directory "${path}/www/foobar.com">   
- Options Indexes FollowSymLinks Includes ExecCGI   
- AllowOverride All   
- Order allow,deny   
- Allow from all   
- </Directory>   
+ <Directory "${path}/www/foobar.com">
+ Options Indexes FollowSymLinks Includes ExecCGI
+ AllowOverride All
+ Order allow,deny
+ Allow from all
+ </Directory>
 
- AddHandler php4-script .php .html .htm   
- Action     php4-script /php4/php.exe   
+ AddHandler php4-script .php .html .htm
+ Action     php4-script /php4/php.exe
 
- </Virtualhost> 
+ </Virtualhost>
 ```
 
 This means that all .php, .html and .htm file of this virtualhost will be

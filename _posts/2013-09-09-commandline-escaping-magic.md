@@ -12,10 +12,10 @@ magic`.
 
 Just initiate it in your `.zshrc` with the following lines :
 
-    
+
 ```sh
-autoload -U url-quote-magic   
-zle -N self-insert url-quote-magic  
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
 ```
 
 And now, everytime you type or paste a url in `wget` it will automatically

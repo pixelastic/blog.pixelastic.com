@@ -53,7 +53,7 @@ throw an exception and when it don't.
 Okay, here's the code. Don't forget to adapt the condition in the
 `error_handler` to match your error.
 
-    
+
 ```php
 function testGotUndefinedIndex() {
     // Overriding the error handler

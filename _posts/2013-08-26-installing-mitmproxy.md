@@ -18,9 +18,9 @@ that one need to install stuff with `pip` using `sudo`.
 But `sudo pip install mitmproxy` resulted in charming compilation errors in my
 case. Something along the lines of :
 
-    
+
 ```sh
-src/lxml/lxml.etree.c:16:20: fatal error: Python.h: No such file or directory  
+src/lxml/lxml.etree.c:16:20: fatal error: Python.h: No such file or directory
 
 ```
 

@@ -23,12 +23,12 @@ environments, this was pretty difficult to debug.
 
 Here was the code used to post the Sharing :
 
-    
+
 ```js
-FB.ui({  
-  [...],  
-  'title' : 'Title of the Sharing',  
-  'caption' : 'Text of the Sharing'  
+FB.ui({
+  [...],
+  'title' : 'Title of the Sharing',
+  'caption' : 'Text of the Sharing'
 });
 ```
 
@@ -40,12 +40,12 @@ then Facebook fills it automatically with a placeholder text.
 The solution simply was to put the text in the `description `text, and leaving
 the `caption `key empty :
 
-    
+
 ```js
-FB.ui({  
-  'title' : 'Title of the Sharing',  
-  'caption' : '',  
-  'description' : 'Text of the Sharing'  
+FB.ui({
+  'title' : 'Title of the Sharing',
+  'caption' : '',
+  'description' : 'Text of the Sharing'
 });
 ```
 

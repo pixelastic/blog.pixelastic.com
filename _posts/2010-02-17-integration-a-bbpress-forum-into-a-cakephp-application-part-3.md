@@ -16,50 +16,50 @@ different login form, hey ?
 Create a new php file in your `app/webroot/forum/my-plugins/` directory, and
 copy and paste the following code :
 
-    
+
 ```php
-/*  
-Plugin Name: cakePHP User  
-Description:  Remaps each login/register/forgotpass action to those of your own application  
-Version: 0.1  
-Author: Pixelastic  
-Author URI: http://www.pixelastic.com/  
-  
-License: CC-GNU-GPL http://creativecommons.org/licenses/GPL/2.0/  
-  
-*/  
-  
-define( 'APP_URL', 'http://www.myapp.com/' );  
-/**  
- *    __convertToAppUrl  
- *    Convert a given bbPress URI to one mapped to the main application  
- **/  
-function cake_convertToAppUrl($uri) {  
-   // We explode the path in different subdirs  
-   $paths = explode('/', $uri);  
-   $nbrPath = count($paths);  
-  
-   // We get the last part of the url  
-   $endUri = substr($uri, strrpos($uri, "/")+1);  
-  
-   $mappedUrl = array(  
-     // Register  
-     'register.php' => 'users/add',  
-     // Lost password  
-     'password-reset.php' => 'users/pass',  
-     // Login  
-     'bb-login.php' => 'users/login',  
-     // Logout  
-     'bb-login.php?action=logout' => 'users/logout',  
-     // Profile editing  
-     'edit' => 'users/edit/'.$paths[$nbrPath-2]  
-   );  
-  
-   // If there is a mapping, we return it, otherwise we don't touch the uri  
-   return (!empty($mappedUrl[$endUri])) ? APP_URL.$mappedUrl[$endUri] : $uri;  
-}  
-// We filter both bb_uri and bb_get_uri  
-add_filter('bb_uri', 'cake_convertToAppUrl', 1);  
+/*
+Plugin Name: cakePHP User
+Description:  Remaps each login/register/forgotpass action to those of your own application
+Version: 0.1
+Author: Pixelastic
+Author URI: http://www.pixelastic.com/
+
+License: CC-GNU-GPL http://creativecommons.org/licenses/GPL/2.0/
+
+*/
+
+define( 'APP_URL', 'http://www.myapp.com/' );
+/**
+ *    __convertToAppUrl
+ *    Convert a given bbPress URI to one mapped to the main application
+ **/
+function cake_convertToAppUrl($uri) {
+   // We explode the path in different subdirs
+   $paths = explode('/', $uri);
+   $nbrPath = count($paths);
+
+   // We get the last part of the url
+   $endUri = substr($uri, strrpos($uri, "/")+1);
+
+   $mappedUrl = array(
+     // Register
+     'register.php' => 'users/add',
+     // Lost password
+     'password-reset.php' => 'users/pass',
+     // Login
+     'bb-login.php' => 'users/login',
+     // Logout
+     'bb-login.php?action=logout' => 'users/logout',
+     // Profile editing
+     'edit' => 'users/edit/'.$paths[$nbrPath-2]
+   );
+
+   // If there is a mapping, we return it, otherwise we don't touch the uri
+   return (!empty($mappedUrl[$endUri])) ? APP_URL.$mappedUrl[$endUri] : $uri;
+}
+// We filter both bb_uri and bb_get_uri
+add_filter('bb_uri', 'cake_convertToAppUrl', 1);
 add_filter('bb_get_uri', 'cake_convertToAppUrl', 1);
 ```
 

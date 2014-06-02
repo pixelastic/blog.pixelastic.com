@@ -13,10 +13,10 @@ Anyway, I switched back to classical session, stored on disk.
 
 Here's the relevant `php.ini` config
 
-    
+
 ```ini
-[Session]  
-session.save_handler = files  
+[Session]
+session.save_handler = files
 session.save_path = '/tmp/php'
 ```
 

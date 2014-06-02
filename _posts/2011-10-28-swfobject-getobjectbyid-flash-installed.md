@@ -27,7 +27,7 @@ element in FF8.
 
 I've added a small patch to my code to take it into account :
 
-    
+
 ```js
 var el = swfobject.getObjectById(id) || document.getElementById(id);
 ```

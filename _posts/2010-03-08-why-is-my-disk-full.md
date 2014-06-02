@@ -22,7 +22,7 @@ finish the registration process at Gmail, I had to put a
 googlehostedservice.html file online on the domain to prove that I am the
 owner and...
 
-    
+
 ```
 452 Transfer aborted.  No space left on device
 ```

@@ -74,9 +74,9 @@ password of your accounts, or they could be found in the history files.
 Once it's done, just run the following command
 
 ~~~sh
-imapsync --host1 mail.domain.com --user1 contact@domain.com --passfile1 /path/to/pass1 --host2 208.97.XXX.XXX --user2 contact@domain.com --passfile2 /path/to/pass2 --noauthmd5  
+imapsync --host1 mail.domain.com --user1 contact@domain.com --passfile1 /path/to/pass1 --host2 208.97.XXX.XXX --user2 contact@domain.com --passfile2 /path/to/pass2 --noauthmd5
 ~~~
-    
+
 
 It is not an instant process, actually in can be quite long. One of the
 mailbox I had to move had more than 20.000 mails in the sent folder and about

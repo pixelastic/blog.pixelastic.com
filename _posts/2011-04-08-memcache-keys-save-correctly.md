@@ -28,14 +28,14 @@ Finally, we decided to code a fast and dirty fix, until we found a better
 solution. Basically, we simply checks that the value is correctly saved after
 saving it, and if not, we retry. And we do so recursively.
 
-    
+
 ```php
-function set($key, $val, $recursionLevel = 0) {  
-  Cache::write($key, $val);  
-  if (Cache::read($key)===false) {  
-    if ($recursionLevel>10) die('Possible infinite recursion);  
-    $this->set($key, $val, $recursionLevel);  
-  }  
+function set($key, $val, $recursionLevel = 0) {
+  Cache::write($key, $val);
+  if (Cache::read($key)===false) {
+    if ($recursionLevel>10) die('Possible infinite recursion);
+    $this->set($key, $val, $recursionLevel);
+  }
 }
 ```
 

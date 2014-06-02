@@ -52,21 +52,21 @@ here.
 
 Here are a couple of simple file orders :
 
-    
+
 ```puppet
-file { "/etc/lighttpd/scripts":  
-  ensure  => directory,  
-  owner   => root,  
-  group   => root,  
-  mode    => 550  
-}  
-file { "/etc/lighttpd/lighttpd.conf":  
-  owner   => root,  
-  group   => root,  
-  mode    => 644,  
-  source  => "puppet:///http/$target/lighttpd/lighttpd.conf",  
-  require => Package["lighttpd"],  
-  notify  => Service["lighttpd"],  
+file { "/etc/lighttpd/scripts":
+  ensure  => directory,
+  owner   => root,
+  group   => root,
+  mode    => 550
+}
+file { "/etc/lighttpd/lighttpd.conf":
+  owner   => root,
+  group   => root,
+  mode    => 644,
+  source  => "puppet:///http/$target/lighttpd/lighttpd.conf",
+  require => Package["lighttpd"],
+  notify  => Service["lighttpd"],
 }
 ```
 
@@ -94,7 +94,7 @@ to the manifest. But you can force the pulling of changes from the final
 servers themselves. Just log to one of the servers puppet is monitoring and
 type
 
-    
+
 ```sh
 $ sudo puppetd --test
 ```

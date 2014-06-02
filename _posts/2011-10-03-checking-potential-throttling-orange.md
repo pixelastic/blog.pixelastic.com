@@ -28,7 +28,7 @@ opposite effect, rendering the request in the expected time.
 I created a garbage file using the following code and used `scp` to send it
 from one server to another, to test bandwith.
 
-    
+
 ```sh
 dd if=/dev/zero of=garbage.bin bs=100000000 count=1
 ```

@@ -11,9 +11,9 @@ You should add them first in the order of fonts you're loading, before the
 `.ttf`/`.otf` ones.
 
 ```css
-@font-face {  
-  font-family: "Unibody8SmallCaps Regular";  
-  src: url('fonts/unibody_8-smallcaps-webfont.woff') format('woff'), url('fonts/unibody_8-smallcaps-webfont.ttf') format('truetype');  
+@font-face {
+  font-family: "Unibody8SmallCaps Regular";
+  src: url('fonts/unibody_8-smallcaps-webfont.woff') format('woff'), url('fonts/unibody_8-smallcaps-webfont.ttf') format('truetype');
 }
 ```
 
@@ -31,16 +31,16 @@ about that.
 I updated the `csstidy.php` file at around line 847 and changed the `if`
 statement to look like this :
 
-    
+
 ```php
-if($this->sub_value != '') {  
-  $this->sub_value_arr[] = $this->sub_value;  
-  foreach($this->sub_value_arr as &$sub_value) {  
-    if (substr($sub_value, 0, 6) == 'format') {  
-      $sub_value = str_replace(array('format(', ')'), array('format("', '")'), $sub_value);  
-    }  
-  }  
-  $this->sub_value = '';  
+if($this->sub_value != '') {
+  $this->sub_value_arr[] = $this->sub_value;
+  foreach($this->sub_value_arr as &$sub_value) {
+    if (substr($sub_value, 0, 6) == 'format') {
+      $sub_value = str_replace(array('format(', ')'), array('format("', '")'), $sub_value);
+    }
+  }
+  $this->sub_value = '';
 }
 ```
 

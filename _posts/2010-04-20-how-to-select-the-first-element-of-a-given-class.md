@@ -6,14 +6,14 @@ custom_v2_id: 80
 
 Imagine the following HTML code :
 
-    
+
 ```html
-<div class="wrapper">  
-[... various HTML elements ...]  
-  <div class="bar">bar</div>  
-  <div class="foo">foo</div>  
-  <div class="bar">bar</div>  
-  <div class="foo">foo</div>  
+<div class="wrapper">
+[... various HTML elements ...]
+  <div class="bar">bar</div>
+  <div class="foo">foo</div>
+  <div class="bar">bar</div>
+  <div class="foo">foo</div>
 </div>
 ```
 

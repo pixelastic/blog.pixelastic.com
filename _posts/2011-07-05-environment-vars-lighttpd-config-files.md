@@ -22,9 +22,9 @@ So I wrote a simple shell script to define a `var.serverName` (this is a
 custom value, name it as you want, but keep the `var` prefix) and then re-use
 when needed.
 
-    
+
 ```sh
-#!/bin/bash  
+#!/bin/bash
 echo 'var.serverName="'$(uname -n)'"'
 ```
 
@@ -33,16 +33,16 @@ Then, I included it in my `lighttpd.conf` file using `include_shell
 
 To define the PHP SERVER_NAME value :
 
-    
+
 ```ini
-setenv.add-environment = (  
-  "SERVER_NAME" => var.serverName  
+setenv.add-environment = (
+  "SERVER_NAME" => var.serverName
 )
 ```
 
 To add it as a Server: response Header :
 
-    
+
 ```ini
 server.tag = var.serverName
 ```

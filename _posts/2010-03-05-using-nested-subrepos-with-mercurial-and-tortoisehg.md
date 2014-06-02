@@ -34,7 +34,7 @@ want to add your subrepo and you either create it using hg init or hg clone.
 You then go back to your main repo root and edit the .hgsub file (if you don't
 have this file yet, just create it). Add the following line to the .hgsub :
 
-    
+
 ```ini
 path/to/your/subrepo = path/to/your/subrepo
 ```

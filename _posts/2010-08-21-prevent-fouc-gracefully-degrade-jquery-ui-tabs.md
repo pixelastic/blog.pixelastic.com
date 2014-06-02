@@ -17,24 +17,24 @@ What I want are my tabs displayed correctly right away, on first load.
 
 Here's a typical tabs markup :
 
-    
-```html
-<div class="tabs">  
-    <ul>  
-        <li><a href="#firstTab">First tab</a></li>  
-        <li><a href="#secondTab">Second tab</a></li>  
-    </ul>  
 
-    <div class="tabPanel" id="firstTab">  
-        First tab content  
-    </div>  
-      
-    <div class="tabPanel" id="secondTab">  
-        Second tab content  
-    </div>  
-</div>  
+```html
+<div class="tabs">
+    <ul>
+        <li><a href="#firstTab">First tab</a></li>
+        <li><a href="#secondTab">Second tab</a></li>
+    </ul>
+
+    <div class="tabPanel" id="firstTab">
+        First tab content
+    </div>
+   
+    <div class="tabPanel" id="secondTab">
+        Second tab content
+    </div>
+</div>
 ```
-    
+
 
 ## CSS to hide all tabs if Javascript is disabled
 
@@ -42,10 +42,10 @@ If your Javascript is disabled, so will jQuery UI. We will then hide the
 `<ul>` because it serves no purpose here. We will only show it if js is
 enabled
 
-    
+
 ```css
-.tabs ul { display:none; }  
-.js .tabs ul { display:block; }  
+.tabs ul { display:none; }
+.js .tabs ul { display:block; }
 ```
 
 ## Applying jQuery UI tabs
@@ -58,9 +58,9 @@ it hides.
 
 Right now, you should add another CSS rule to hide the unused panels :
 
-    
+
 ```css
-.ui-tabs-hide { display: none; }  
+.ui-tabs-hide { display: none; }
 ```
 
 But if you look at your page now, you'll see all your tabs content before they
@@ -79,9 +79,9 @@ Ok, so what I did was writing two simple rules that will directly hide all
 unused panels while still displaying the active one, even before jQuery UI
 takes action.
 
-    
+
 ```css
-.js .tabPanel + .tabPanel { display:none;}  
+.js .tabPanel + .tabPanel { display:none;}
 ```
 
 That way, no FOUC, and users without Javascript still see all the content.
@@ -94,10 +94,10 @@ As jQuery will add new classes to my elements, I'll just have to write more
 specific rules that use those classes. Here's the little piece of logic I came
 up with :
 
-    
+
 ```css
-.js .tabPanel.ui-tabs-panel { display:block;}  
-.js .tabPanel.ui-tabs-panel.ui-tabs-hide { display:none;}  
+.js .tabPanel.ui-tabs-panel { display:block;}
+.js .tabPanel.ui-tabs-panel.ui-tabs-hide { display:none;}
 ```
 
 All the jQuery panels are shown, except for the one hidden by jQuery. All

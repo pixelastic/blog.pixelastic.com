@@ -35,20 +35,20 @@ In your `tinyMCE.init` call, just add the following setup key :
 
 
 ```js
-tinyMCE.init({  
-[...]  
-  setup: function(editor) {  
-    editor.onNodeChange.add(function(editor, cm, e, c, o) {  
-      var editorContent = editor.getContent();  
-      if (editorContent==="") {  
-        // We set content as a <p> containing a placeholder, then we delete the placeholder to place the caret  
-        editor.setContent('<p><span id="__CaretPlacholder">Placeholder</span></p>');  
-        editor.selection.select(editor.dom.select('#__CaretPlacholder')[0]);  
-        editor.dom.remove(editor.dom.select('#__CaretPlacholder')[0]);  
-      }  
-    });  
-   }),  
-[...]  
+tinyMCE.init({
+[...]
+  setup: function(editor) {
+    editor.onNodeChange.add(function(editor, cm, e, c, o) {
+      var editorContent = editor.getContent();
+      if (editorContent==="") {
+        // We set content as a <p> containing a placeholder, then we delete the placeholder to place the caret
+        editor.setContent('<p><span id="__CaretPlacholder">Placeholder</span></p>');
+        editor.selection.select(editor.dom.select('#__CaretPlacholder')[0]);
+        editor.dom.remove(editor.dom.select('#__CaretPlacholder')[0]);
+      }
+    });
+   }),
+[...]
  });
 ```
 

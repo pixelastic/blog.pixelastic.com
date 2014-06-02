@@ -6,18 +6,18 @@ custom_v2_id: 328
 
 Just found this weird little behavior of PHP today :
 
-    
+
 ```php
-$a = false;  
-$b = true;  
-$c = $a OR $b;  
-$d = ($a OR $b);  
-var_dump(compact('a', 'b', 'c', 'd'));  
-array(4) {  
-  ["a"]=>    bool(false)  
-  ["b"]=>    bool(true)  
-  ["c"]=>    bool(false)  
-  ["d"]=>    bool(true)  
+$a = false;
+$b = true;
+$c = $a OR $b;
+$d = ($a OR $b);
+var_dump(compact('a', 'b', 'c', 'd'));
+array(4) {
+  ["a"]=>    bool(false)
+  ["b"]=>    bool(true)
+  ["c"]=>    bool(false)
+  ["d"]=>    bool(true)
 }
 ```
 

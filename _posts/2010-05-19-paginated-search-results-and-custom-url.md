@@ -14,16 +14,16 @@ I wanted for this blog a search feature, but I had some prerequisites for it :
 
 Here are the two routes I defined in my routes.php
 
-    
+
 ```php
-Router::connect('/blog/search/:keyword',  
-    array('controller' => 'posts', 'action' => 'search'),  
-    array(  
-        'pass' => array('keyword'),  
-        'keyword' => '[^/]+'  
-    )  
-);  
-Router::connect('/blog/search/*', array('controller' => 'posts', 'action' => 'search'));  
+Router::connect('/blog/search/:keyword',
+    array('controller' => 'posts', 'action' => 'search'),
+    array(
+        'pass' => array('keyword'),
+        'keyword' => '[^/]+'
+    )
+);
+Router::connect('/blog/search/*', array('controller' => 'posts', 'action' => 'search'));
 ```
 
 Going to` /blog/search/*keyword*` will start a search on the keyword, while
@@ -44,43 +44,43 @@ form.
 And finally if a `keyword `is specified, I'll do a paginated search on every
 posts whose `name `or `text `contains the `keyword`.
 
-    
-```php
-function search() {  
-  // We redirect to get it in GET mode  
-  if (!empty($this->data)) {  
-    return $this->redirect(array('keyword' => urlencode($this->data['Post']['keyword'])));  
-  }  
 
-  // Search index  
-  if (empty($keyword)) {  
-    return $this->render('search_index');  
-  }  
-  
-  // Adding conditions to name and text  
-  $keyword = urldecode($keyword);  
-  $this->paginate = Set::merge(  
-    $this->paginate,  
-    array(  
-      'conditions' => array(  
-        'AND' => array(  
-          'OR' => array(  
-            'Post.name LIKE' => '%'.$keyword.'%',  
-            'Post.text LIKE' => '%'.$keyword.'%'  
-          )  
-        )  
-      )  
-    )  
-  );  
-  // Getting paginated result  
-  $itemList = $this->paginate();  
-  
-  $this->set(array(  
-    'keyword' => $keyword,  
-    'itemList' => $itemList  
-  ));  
-}  
+```php
+function search() {
+  // We redirect to get it in GET mode
+  if (!empty($this->data)) {
+    return $this->redirect(array('keyword' => urlencode($this->data['Post']['keyword'])));
+  }
+
+  // Search index
+  if (empty($keyword)) {
+    return $this->render('search_index');
+  }
+
+  // Adding conditions to name and text
+  $keyword = urldecode($keyword);
+  $this->paginate = Set::merge(
+    $this->paginate,
+    array(
+      'conditions' => array(
+        'AND' => array(
+          'OR' => array(
+            'Post.name LIKE' => '%'.$keyword.'%',
+            'Post.text LIKE' => '%'.$keyword.'%'
+          )
+        )
+      )
+    )
+  );
+  // Getting paginated result
+  $itemList = $this->paginate();
+
+  $this->set(array(
+    'keyword' => $keyword,
+    'itemList' => $itemList
+  ));
+}
 ```
-    
+
 
 

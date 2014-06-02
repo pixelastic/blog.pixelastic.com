@@ -37,40 +37,40 @@ intercepted and stored in our main log analyzer.
 To do so, we wrote a simple `SysLog `class to use instead of the `FileLog`.
 Here it is :
 
-    
+
 ```php
-class SysLog {  
-  /**  
-  *    Writes a log to the syslog  
-  *    \param    $type    Either a numerical constant or a string  
-  *    \param    $message    Message to log  
-  **/  
-  public function write($type, $message) {  
-    // We "fix" CakeLog that passes severity as a string  
-    if (is_string($type)) {  
-      // Mapping string to syslog priorities  
-      $priorities = array(  
-        'debug'    => LOG_DEBUG,  
-        'info'        => LOG_INFO,  
-        'notice'    => LOG_NOTICE,  
-        'warning'    => LOG_WARNING,  
-        'error'    => LOG_ERR,  
-        'default'    => LOG_NOTICE  
-      );  
-      $type = (array_key_exists($type, $priorities)) ? $priorities[$type] : $priorities['default'];  
-    }  
-    // Writing to syslog  
-    openlog(false, 0, LOG_LOCAL7);  
-    syslog($type, trim($message));  
-    closelog();  
-  }  
+class SysLog {
+  /**
+  *    Writes a log to the syslog
+  *    \param    $type    Either a numerical constant or a string
+  *    \param    $message    Message to log
+  **/
+  public function write($type, $message) {
+    // We "fix" CakeLog that passes severity as a string
+    if (is_string($type)) {
+      // Mapping string to syslog priorities
+      $priorities = array(
+        'debug'    => LOG_DEBUG,
+        'info'        => LOG_INFO,
+        'notice'    => LOG_NOTICE,
+        'warning'    => LOG_WARNING,
+        'error'    => LOG_ERR,
+        'default'    => LOG_NOTICE
+      );
+      $type = (array_key_exists($type, $priorities)) ? $priorities[$type] : $priorities['default'];
+    }
+    // Writing to syslog
+    openlog(false, 0, LOG_LOCAL7);
+    syslog($type, trim($message));
+    closelog();
+  }
 }
 ```
 
 Place this file in `app/lib/log/sys_log.php`. Then, in
 `app/config/bootstrap.php`, place the following code :
 
-    
+
 ```php
 CakeLog::config('default', array('engine' => 'SysLog'));
 ```
@@ -113,15 +113,15 @@ So, finally, here is the final working configuration :
 
 In `app/config/core.ph`p :
 
-    
+
 ```php
-Configure::write('log', E_ALL & ~E_DEPRECATED);  
-define('DISABLE_DEFAULT_ERROR_HANDLING', true);  
+Configure::write('log', E_ALL & ~E_DEPRECATED);
+define('DISABLE_DEFAULT_ERROR_HANDLING', true);
 ```
 
 And in` app/config/bootstrap.php` :
 
-    
+
 ```php
 CakeLog::config('default', array('engine' => 'SysLog'));
 ```

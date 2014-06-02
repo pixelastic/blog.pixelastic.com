@@ -28,17 +28,17 @@ loop. It just throws an error.
 But, you can define a simple `do {} while (false)` loop and use the break
 goodness inside it.
 
-    
+
 ```php
-do {  
-  if (empty($data)) break;  
-                    
-  $this->create($data);  
-                      
-  if (!$this->validates()) break;  
-                      
-  $this->save();  
-} while (false);  
+do {
+  if (empty($data)) break;
+                 
+  $this->create($data);
+                   
+  if (!$this->validates()) break;
+                   
+  $this->save();
+} while (false);
 ```
 
 This helped me some times, hope it can help someone else.

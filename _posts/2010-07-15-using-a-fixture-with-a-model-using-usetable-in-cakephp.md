@@ -18,17 +18,17 @@ the model name when creating the table.
 Anyway, the quick fix I've found so far is to define the `$table` property of
 your fixture to match your model `$useTable`.
 
-    
-```php
-class Client extends Model {  
-  var $useTable = 'users';  
-}  
 
-class ClientFixture extends CakeTestFixture {  
-  var $table= 'users';  
-}  
+```php
+class Client extends Model {
+  var $useTable = 'users';
+}
+
+class ClientFixture extends CakeTestFixture {
+  var $table= 'users';
+}
 ```
-    
+
 
 I've filed a bug report as well as suggested a fix to allow cake to
 automatically use the correct table.

@@ -23,7 +23,7 @@ only have borders and background...
 
 If you want to style it, just add an inner element and style this one :
 
-    
+
 ```html
 <noscript><p>Lorem ipsum</p></noscript>
 ```
@@ -40,4 +40,4 @@ No.
 
 Yes, this doesn't make any sense.
 
-  
+

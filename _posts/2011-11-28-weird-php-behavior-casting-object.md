@@ -7,17 +7,17 @@ custom_v2_id: 327
 I've just stumbled upon that weird behavior when force casting the return of a
 function to an object. The PHP result was not what I expected.
 
-    
+
 ```php
-$a = null;  
+$a = null;
 echo empty($a) ? "Yes, I'm empty" : "You should not see this"
 ```
 
 This is pretty straighforward code. Now, we test it with an object.
 
-    
+
 ```php
-$a = (object) null;  
+$a = (object) null;
 echo empty($a) ? "Yes, I'm empty" : "You should not see this but, actually, you do."
 ```
 

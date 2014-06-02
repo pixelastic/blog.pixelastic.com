@@ -11,29 +11,29 @@ I was adding a nice looking arrow after one of my elements using `:after`. I
 wanted this arrow to only display when my element was hovered, so I wrote the
 following code :
 
-    
+
 ```html
 <a href="#">Example</a>
 ```
 
 ```css
-a {  
-  position:relative;  
-  display:block;   
-  height:30px;  
-}  
-a:after {  
-  position:absolute;  
-  content:"";  
-  top:0px;   
-  right:-15px;  
-  width:15px;  
-  height:30px;  
-  background:url(arrow.gif) top left no-repeat;   
-  display:none;  
-}  
-a:hover:after {  
-  display:block;  
+a {
+  position:relative;
+  display:block;
+  height:30px;
+}
+a:after {
+  position:absolute;
+  content:"";
+  top:0px;
+  right:-15px;
+  width:15px;
+  height:30px;
+  background:url(arrow.gif) top left no-repeat;
+  display:none;
+}
+a:hover:after {
+  display:block;
 }
 ```
 
@@ -55,23 +55,23 @@ To counter this I had to write it in an other fashion (less readable in my
 opinion). Removing the default `a:after` rule and adding all properties to
 `a:hover:after` :
 
-    
+
 ```css
-a {  
-  position:relative;  
-  display:block;  
-  height:30px;  
-}  
-a:hover:after {  
-  position:absolute;  
-  content:"";  
-  top:0px;  
-  right:-15px;  
-  width:15px;  
-  height:30px;  
-  background:url(arrow.gif) top left no-repeat;  
-  display:block;  
-}  
+a {
+  position:relative;
+  display:block;
+  height:30px;
+}
+a:hover:after {
+  position:absolute;
+  content:"";
+  top:0px;
+  right:-15px;
+  width:15px;
+  height:30px;
+  background:url(arrow.gif) top left no-repeat;
+  display:block;
+}
 ```
 
 ## Update

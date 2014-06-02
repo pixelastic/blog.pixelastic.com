@@ -32,7 +32,7 @@ as `trash`, `list-trash`, `restore-trash` or `empty-trash`.
 I had to resort to quite a bit of ZSH tweaking to make it a perfect `rm`
 replacement. First, I added a simple alias for the `rm` command.
 
-    
+
 ```sh
 alias rm='trash'
 ```
@@ -58,7 +58,7 @@ change its name and thus changing its autocomplete method.
 
 I named it `better-rmdir`, and put it in my `$PATH`. Here is the code
 
-    
+
 ```sh
 #!/usr/bin/zsh
 trash $@
@@ -73,13 +73,13 @@ code of the original `_directories` method (that you can probably find in
 `/usr/share/zsh/functions/Completion/Unix/`), and adapted it to fit my newly
 created `better-rmdir`
 
-    
+
 ```sh
 #compdef better-rmdir
 local expl
 _wanted directories expl directory _files -/ "$@" -
 ```
-    
+
 
 And finally, I added an alias (`alias rmdir='better-rmdir'`) and everytime I
 ask for an autocomplete on `rmdir` it actually looks for the autocomplete of

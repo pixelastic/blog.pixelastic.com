@@ -24,9 +24,9 @@ I now prefix all my Javascript rules by `.js`. I add a `js` class to the `html
 occur because we add the class before the `body` rendering.
 
 ```html
-<head>  
-    <script>document.documentElement.className+=' js';</script>  
-</head>  
+<head>
+    <script>document.documentElement.className+=' js';</script>
+</head>
 ```
 
-    
+

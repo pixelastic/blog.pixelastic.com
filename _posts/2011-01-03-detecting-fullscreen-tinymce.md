@@ -29,14 +29,14 @@ executed my code when the `.selection `was set.
 
 Here is my final snippet, to be included in my plugin `init `method :
 
-    
+
 ```js
-if (editor.getParam('fullscreen_is_enabled')) {  
-  var fullScreenInterval = setInterval(function() {  
-    if (!editor.selection) return false;  
-    clearInterval(fullScreenInterval);  
-    editor.execCommand('anyTinyMCECommand');  
-  }, 1000);  
+if (editor.getParam('fullscreen_is_enabled')) {
+  var fullScreenInterval = setInterval(function() {
+    if (!editor.selection) return false;
+    clearInterval(fullScreenInterval);
+    editor.execCommand('anyTinyMCECommand');
+  }, 1000);
 }
 ```
 

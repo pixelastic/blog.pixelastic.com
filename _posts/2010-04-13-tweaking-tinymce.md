@@ -44,12 +44,12 @@ inyMCE.init :
 
 
 ```js
-tinyMCE.init({  
-  skin: 'caracole',  
-  editor_css: 'caracoleDoNotInclude',  
-  setup: function(editor) {  
-    tinymce.DOM.files['http://'+document.domain+'/caracoleDoNotInclude'] = true;  
-  }  
+tinyMCE.init({
+  skin: 'caracole',
+  editor_css: 'caracoleDoNotInclude',
+  setup: function(editor) {
+    tinymce.DOM.files['http://'+document.domain+'/caracoleDoNotInclude'] = true;
+  }
 }
 ```
 
@@ -72,11 +72,11 @@ a matter of defining the following event in the main setup :
 
 
 ```js
-setup: function(editor) {  
-  tinymce.DOM.files[baseUrl+'caracoleDoNotInclude'] = true;  
-  editor.onPreInit.add(function(editor) {  
-    editor.dom.files[baseUrl+'js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css'] = true;  
-   });  
+setup: function(editor) {
+  tinymce.DOM.files[baseUrl+'caracoleDoNotInclude'] = true;
+  editor.onPreInit.add(function(editor) {
+    editor.dom.files[baseUrl+'js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css'] = true;
+   });
  }
 ```
 
@@ -88,7 +88,7 @@ because you have to call a special method on the url before adding it to the
 
 
 ```js
-editor.onPreInit.add(function(editor) {  
-  editor.dom.files[editor.baseURI.toAbsolute('http://'+document.domain+'/js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css')] = true;  
+editor.onPreInit.add(function(editor) {
+  editor.dom.files[editor.baseURI.toAbsolute('http://'+document.domain+'/js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css')] = true;
 });
 ```

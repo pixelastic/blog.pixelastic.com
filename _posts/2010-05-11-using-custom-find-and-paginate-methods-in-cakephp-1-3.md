@@ -25,19 +25,19 @@ It basically returns a `find('all')` with custom conditions.
 
 I then edited my AppModel file to hook on the default `find()` method :
 
-    
+
 ```php
-function find($type, $options = array(), $order = null, $recursive = null) {  
-  $methodName = '__find'.ucfirst($type);  
-  // Using default method if not defined  
-  if (!method_exists($this, $methodName)) {  
-    // We force default fields and order keys or we could run into trouble for undefined index  
-    $options = Set::merge(array('fields' => array(), 'order' => array()), $options);  
-    return parent::find($type, $options, $order, $recursive);  
-  }  
-  // Using custom method  
-  return $this->{$methodName}($options, $order, $recursive);  
-}  
+function find($type, $options = array(), $order = null, $recursive = null) {
+  $methodName = '__find'.ucfirst($type);
+  // Using default method if not defined
+  if (!method_exists($this, $methodName)) {
+    // We force default fields and order keys or we could run into trouble for undefined index
+    $options = Set::merge(array('fields' => array(), 'order' => array()), $options);
+    return parent::find($type, $options, $order, $recursive);
+  }
+  // Using custom method
+  return $this->{$methodName}($options, $order, $recursive);
+}
 ```
 
 (Note that there may still be some issues with this method, especially if the
@@ -60,12 +60,12 @@ One easy way to do this is calling `array_unshift($this->paginate,
 'published')` just before the `$this->paginate('Post')` call in the
 controller.
 
-    
+
 ```php
-// Getting the paginated post list  
-array_unshift($this->paginate, 'published');  
-$itemList = $this->paginate($this->model);  
-$this->set('itemList', $itemList);  
+// Getting the paginated post list
+array_unshift($this->paginate, 'published');
+$itemList = $this->paginate($this->model);
+$this->set('itemList', $itemList);
 ```
 
 You'll notice that your custom find method is used for the pagination. What
@@ -89,22 +89,22 @@ core).
 
 So, here the `paginateCount()` method to add to your `AppModel `:
 
-    
-```php
-function paginateCount($conditions = array(), $recursive = null, $extra = array()) {  
-  // If no custom find specified, we return the default count  
-  if (empty($extra['type'])) {  
-      $parameters = compact('conditions');  
-      if ($recursive != $this->recursive) {  
-          $parameters['recursive'] = $recursive;  
-      }  
-      return $this->find('count', array_merge($parameters, $extra));  
-  }  
 
-  // We return the __paginateCountSomething  
-  $methodName = '__paginateCount'.ucfirst($extra['type']);  
-  return $this->{$methodName}($conditions, $recursive, $extra);  
-    }  
+```php
+function paginateCount($conditions = array(), $recursive = null, $extra = array()) {
+  // If no custom find specified, we return the default count
+  if (empty($extra['type'])) {
+      $parameters = compact('conditions');
+      if ($recursive != $this->recursive) {
+          $parameters['recursive'] = $recursive;
+      }
+      return $this->find('count', array_merge($parameters, $extra));
+  }
+
+  // We return the __paginateCountSomething
+  $methodName = '__paginateCount'.ucfirst($extra['type']);
+  return $this->{$methodName}($conditions, $recursive, $extra);
+    }
 ```
 
 And don't forget to create a` __paginateCountPublished($conditions = array(),

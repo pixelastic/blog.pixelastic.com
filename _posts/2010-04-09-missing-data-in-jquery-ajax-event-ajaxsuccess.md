@@ -20,9 +20,9 @@ the code already called in the jQuery core.
 You can use the `$.httpData` to directly parse it, giving the XHR as first
 argument and the data type as the second one.
 
-    
+
 ```js
-$('#ajaxIndicator').bind('ajaxSuccess', function(event, xhr, options) {  
-  var data = $.httpData(xhr, options.dataType);  
+$('#ajaxIndicator').bind('ajaxSuccess', function(event, xhr, options) {
+  var data = $.httpData(xhr, options.dataType);
 }
 ```

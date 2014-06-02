@@ -26,7 +26,7 @@ didn't pop in my tests.
 If you're running PHP 5.4, the fix is easy. Just add the
 `JSON_BIGINT_AS_STRING` bitmask as 4th option like this
 
-    
+
 ```php
 $decoded = json_decode($encoded, true, null, JSON_BIGINT_AS_STRING);
 ```
@@ -41,7 +41,7 @@ My solution is to parse the original JSON string and add quotes around ints so
 
 My first attempt was naive
 
-    
+
 ```php
 preg_replace('/":([0-9]+),/', '":$1,', $encoded)
 ```
@@ -56,7 +56,7 @@ instead.
 
 So, I adapted it a little bit :
 
-    
+
 ```php
 preg_replace('/":([0-9]+)(,|})/', '":"$1"$2', $encoded)
 ```
@@ -67,7 +67,7 @@ quotes.
 It was a little overkill so I decided to limit it to keys of at least 10
 digits
 
-    
+
 ```php
 preg_replace('/":([0-9]{10,})(,|})/', '":"$1"$2', $encoded)
 ```
@@ -84,7 +84,7 @@ This time, I added a final touch. I only added quotes around int that were not
 in an escaped JSON string themselves, by checking that the closing quote of
 the key wasn't escaped.
 
-    
+
 ```php
 preg_replace('/([^\\\])":([0-9]{10,})(,|})/', '$1":"$2"$3', $encoded)
 ```
@@ -94,5 +94,5 @@ least it works for my current application.
 
 Hope it helps !
 
-  
+
 

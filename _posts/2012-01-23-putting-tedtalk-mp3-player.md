@@ -19,7 +19,7 @@ selected all text and copied it into a `file.txt`.
 Then, it was simply a matter of extracting only the urls, and feeding them to
 `wget`
 
-    
+
 ```sh
 cat file.txt | tr ' ' '\n' | tr '\t' '\n' | grep http > list.txt
 wget --no-clobber -i list.txt

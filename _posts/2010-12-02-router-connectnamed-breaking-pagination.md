@@ -16,7 +16,7 @@ This does not play nice with default routing. I mean, if you define a route to
 add a vanity url like `www.domain.com/vanity` is routed to
 `Controller:view()`, you'll write something like this :
 
-    
+
 ```php
 Router::connect('/vanity', array('controller' => 'controllers', 'action' => 'view'));
 ```

@@ -12,24 +12,24 @@ Well, it wasn't so simple due to a bug in the npm version shipped with node.
 Here are the complete commands to run to make it work, in case I had to do it
 again :
 
-    
+
 ```sh
-# Download and extract node  
-cd ~/local/src  
-wget http://nodejs.org/dist/v0.6.6/node-v0.6.6.tar.gz  
-tar xvzf node-v0.6.6.tar.gz  
-rm node-v0.6.6.tar.gz  
-# Compile and install  
-cd node-v0.6.6  
-./configure  
-make  
-sudo make install  
-# Update npm  
-sudo npm install npm@alpha -g  
-# (Optional) Clear npm cache  
-npm cache clean jshint  
-# Install jshint  
-sudo npm install jshint -g  
+# Download and extract node
+cd ~/local/src
+wget http://nodejs.org/dist/v0.6.6/node-v0.6.6.tar.gz
+tar xvzf node-v0.6.6.tar.gz
+rm node-v0.6.6.tar.gz
+# Compile and install
+cd node-v0.6.6
+./configure
+make
+sudo make install
+# Update npm
+sudo npm install npm@alpha -g
+# (Optional) Clear npm cache
+npm cache clean jshint
+# Install jshint
+sudo npm install jshint -g
 ```
 
 Source : [https://github.com/isaacs/npm/issues/1888](https://github.com/isaac

@@ -82,21 +82,21 @@ domain).
 If you need to edit your `httpd.con`f file, here is what I put to add my
 different subdomains on my local machine :
 
-    
+
 ```apache
-<VirtualHost *:80>  
-  ServerName pixelastic  
-  ServerAlias www.pixelastic  
-  ServerAlias css.pixelastic  
-  ServerAlias js.pixelastic  
-  ServerAlias img.pixelastic  
-  ServerAlias dl.pixelastic  
-  DocumentRoot "www/pixelastic.com"  
-  <Directory "www/pixelastic.com">  
-    Options Indexes FollowSymLinks Includes ExecCGI  
-    AllowOverride All  
-    Order allow,deny  
-    Allow from all  
-  </Directory>  
+<VirtualHost *:80>
+  ServerName pixelastic
+  ServerAlias www.pixelastic
+  ServerAlias css.pixelastic
+  ServerAlias js.pixelastic
+  ServerAlias img.pixelastic
+  ServerAlias dl.pixelastic
+  DocumentRoot "www/pixelastic.com"
+  <Directory "www/pixelastic.com">
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+  </Directory>
 </VirtualHost>
 ```

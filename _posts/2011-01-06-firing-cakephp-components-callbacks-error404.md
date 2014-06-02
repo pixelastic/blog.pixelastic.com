@@ -31,14 +31,14 @@ Fortunatly, you can create an `AppError `class (in `app/app_error.php`) and
 overwrite the `ErrorHandler `method. Namely, the `error404`. I rewrote mine to
 explicitly fire the `initialize` and `startup` methods.
 
-    
+
 ```php
-class AppError extends ErrorHandler {  
-  function error404($params) {  
-    $this->controller->Component->initialize($this->controller);  
-    $this->controller->Component->startup($this->controller);  
-    parent::error404($params);  
-  }  
+class AppError extends ErrorHandler {
+  function error404($params) {
+    $this->controller->Component->initialize($this->controller);
+    $this->controller->Component->startup($this->controller);
+    parent::error404($params);
+  }
 }
 ```
 

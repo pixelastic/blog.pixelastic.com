@@ -21,14 +21,14 @@ does.
 In fact it only removes the wrapping node, but keep the content intact. In
 other words if you have
 
-    
+
 ```html
 <a href="http://www.domain.com/"><img src="http://www.domain.com/picture.jpg" /></a>
 ```
 
 And you remove the `<a>` node using `mceRemoveNode`, you'll end up with
 
-    
+
 ```html
 <img src="http://www.domain.com/picture.jpg" />
 ```

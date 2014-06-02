@@ -24,7 +24,7 @@ in the script if you want to make it easier to read on you screen. I use 2 and
 
 Ok, enough talk, here is the script
 
-    
+
 ```sh
 #!/usr/bin/zsh
 # Display the terminal 255 colors by blocks
@@ -38,7 +38,7 @@ local lines=6
 # Number of blocks per terminal line
 local blocks=2
 
-# Tmp var to hold the current line in a block 
+# Tmp var to hold the current line in a block
 local m=0
 # Tmp var to hold how many blocks are filled
 local b=0

@@ -12,19 +12,19 @@ login/password by using appropriate `.htaccess`/`.htpasswd` files.
 Just create an `.htaccess` in the directory you want to protect with the
 following lines :
 
-    
+
 ```apache
-AuthName "Restricted Access"  
-AuthType Basic  
-AuthUserFile /full/path/to/your/.htpasswd  
-<Limit GET POST PUT>  
-Require valid-user  
+AuthName "Restricted Access"
+AuthType Basic
+AuthUserFile /full/path/to/your/.htpasswd
+<Limit GET POST PUT>
+Require valid-user
 </Limit>
 ```
 
 And to create the .htpasswd file, run the following command :
 
-    
+
 ```sh
 htpasswd -c /full/path/to/your/.htpasswd username
 ```

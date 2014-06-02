@@ -44,8 +44,8 @@ And specifically, to that part :
 
 
 ```php
-if (Configure::read() < 2 && !defined('CAKEPHP_SHELL')) {  
-  $this->_header($header);  
+if (Configure::read() < 2 && !defined('CAKEPHP_SHELL')) {
+  $this->_header($header);
 }
 ```
 
@@ -77,5 +77,5 @@ text/html`. I guess Firefox uses the first one while other browsers the last.
 This is what made Firebug and the Developer Toolbar return different results
 too.
 
-  
+
 

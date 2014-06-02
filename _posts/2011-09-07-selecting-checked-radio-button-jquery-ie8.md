@@ -15,21 +15,21 @@ IE8.
 
 ## First, the markup
 
-```html    
+```html
 <form id="myForm">
   <input name="data[Payment][value]" id="payment_1500" type="radio" value="1500" />
   <label for="payment_1500">1500</label><br />
-  
+
   <input name="data[Payment][value]" id="payment_2000" type="radio" value="2000" />
   <label for="payment_2000">2000</label><br />
-  
+
   <input name="data[Payment][value]" id="payment_5000" type="radio" value="5000" />
   <label for="payment_5000">5000</label><br />
-  
+
   <button id="test">Select</button>
 </form>
 ```
-    
+
 
 Pretty simple, isn't it ? I only have three `radio `buttons, and I would like
 to get the selected value when pressing the Select `button`.
@@ -38,10 +38,10 @@ to get the selected value when pressing the Select `button`.
 
 The following code is pretty straightforward and I expected it to just work.
 
-    
+
 ```js
-var selected1 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]:checked');  
-var value1 = selected1.val();  
+var selected1 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]:checked');
+var value1 = selected1.val();
 console.log(value1);
 ```
 
@@ -66,10 +66,10 @@ Once more, IE is doing things in its own weird way.
 After some fiddling, I managed to make it work, by just slightly altering the
 syntax.
 
-    
+
 ```js
-var selected2 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]').filter(':checked');  
-var value2 = selected2.val();  
+var selected2 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]').filter(':checked');
+var value2 = selected2.val();
 console.log(value2); 
 ```
 

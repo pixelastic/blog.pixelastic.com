@@ -14,12 +14,12 @@ severly frown upon any coder who wrote horribles things like that.
 For the php part, here is a very good list of what NOT to do :
 
   * I used shorthand notation for my php tags : `<?` instead of `<?php`.
-  * My server was set as `register_global` off, but I was circumventing it by doing my own `register_global` on :  
+  * My server was set as `register_global` off, but I was circumventing it by doing my own `register_global` on :
 
 ```php
-extract($_SERVER);  
-extract($_COOKIE);  
-extract($_GET);  
+extract($_SERVER);
+extract($_COOKIE);
+extract($_GET);
 extract($_POST);
 ```
 

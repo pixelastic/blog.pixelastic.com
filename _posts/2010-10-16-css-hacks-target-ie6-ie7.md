@@ -9,11 +9,11 @@ a special IE stylesheet, I now use conditional comments to mark my body
 element with classes reflecting the current IE version.
 
 ```html
-<!--[if IE 6]><body class="ie ie6 ie-lt8 ie-lt9"><![endif]-->  
-<!--[if IE 7]><body class="ie ie7 ie-lt8 ie-lt9"><![endif]-->  
-<!--[if IE 8]><body class="ie ie8 ie-lt9"><![endif]-->  
-<!--[if IE 9]><body class="ie ie9"><![endif]-->  
-<!--[if !IE]><!--><body class="nie"><!--<![endif]-->  
+<!--[if IE 6]><body class="ie ie6 ie-lt8 ie-lt9"><![endif]-->
+<!--[if IE 7]><body class="ie ie7 ie-lt8 ie-lt9"><![endif]-->
+<!--[if IE 8]><body class="ie ie8 ie-lt9"><![endif]-->
+<!--[if IE 9]><body class="ie ie9"><![endif]-->
+<!--[if !IE]><!--><body class="nie"><!--<![endif]-->
 ```
 
 This saves me a lot of trouble : less files to manage and easier fixes to

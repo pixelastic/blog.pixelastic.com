@@ -7,14 +7,14 @@ custom_v2_id: 73
 If you try the following code in Opera 10.51, you'll have some weird rendering
 bug :
 
-    
+
 ```html
-<style>  
-  .test:after {  
-    content:"This should be on red background";  
-    background:red;  
-  }  
- </style>  
+<style>
+  .test:after {
+    content:"This should be on red background";
+    background:red;
+  }
+ </style>
  Text input : <input type="text" value="I'm unstyled" class="test" />
 ```
 

@@ -35,7 +35,7 @@ What took me a while to figure is that the Dreamplug have its own ip address :
 a fixed ip address to your ethernet (mine was `eth0`)
 
 ```sh
-$ sudo ifconfig eth0 10.0.0.2 
+$ sudo ifconfig eth0 10.0.0.2
 ```
 
 I chose `10.0.0.2` because it's close to the Dreamplug address and I will
@@ -58,7 +58,7 @@ First thing you should do is create a new user. Using `root` for the day to
 day activities is a bad habit.
 
 ```sh
-$ adduser pixelastic 
+$ adduser pixelastic
 ```
 
 You'll be prompted for password and other misc informations. Once done, we
@@ -78,8 +78,8 @@ I added a new line just below the one starting with `root` and copied it,
 simply by changing the user name.
 
 ```sh
-root    ALL=(ALL) ALL  
-pixelastic ALL=(ALL) ALL  
+root    ALL=(ALL) ALL
+pixelastic ALL=(ALL) ALL
 ```
 
 Your new user should now have the sudo powers.
@@ -88,9 +88,9 @@ Unfortunatly, on my build one more thing was missing. It might not be the case
 on your plug, but we'd better check.
 
 ```sh
-$ which sudo  
- /usr/bin/sudo  
-$ ls -l /usr/bin/sudo  
+$ which sudo
+ /usr/bin/sudo
+$ ls -l /usr/bin/sudo
  -rwxr-xr-x 1 root root 114976 2011-02-14 08:08 /usr/bin/sudo
 ```
 

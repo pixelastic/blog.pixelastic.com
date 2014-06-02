@@ -39,34 +39,34 @@ that are in the app.
 All I had to do was updating the `execute()` method, and replacing the end of
 the method (from line 152) with this one :
 
-    
+
 ```php
-$this->params['plugins'] = isset($this->params['plugins']) ? $this->params['plugins'] : 'no';  
-if (empty($this->__files)) {  
-  if ($this->params['plugins']=='yes') {  
-    $this->__searchFiles();  
-  } else {  
-    $this->__searchFilesExcludePlugins();  
-  }  
+$this->params['plugins'] = isset($this->params['plugins']) ? $this->params['plugins'] : 'no';
+if (empty($this->__files)) {
+  if ($this->params['plugins']=='yes') {
+    $this->__searchFiles();
+  } else {
+    $this->__searchFilesExcludePlugins();
+  }
 }
 ```
 
 And then add this method to the class :
 
 ```php
-function __searchFilesExcludePlugins() {  
-  foreach ($this->__paths as $path) {  
-    $Folder = new Folder($path);  
-    $filelist = $Folder->tree($path);  
-    foreach($filelist[1] as &$file) {  
-      // We discard plugins  
-      if (strpos(str_replace($path, '', $file), DS.'plugins')===0) continue;  
-      // We keep those that match the pattern  
-      if (!preg_match('/^.*\.(php|ctp|thtml|inc|tpl)$/i', $file)) continue;  
-      $this->__files[]= $file;  
-    }  
-  }  
-}  
+function __searchFilesExcludePlugins() {
+  foreach ($this->__paths as $path) {
+    $Folder = new Folder($path);
+    $filelist = $Folder->tree($path);
+    foreach($filelist[1] as &$file) {
+      // We discard plugins
+      if (strpos(str_replace($path, '', $file), DS.'plugins')===0) continue;
+      // We keep those that match the pattern
+      if (!preg_match('/^.*\.(php|ctp|thtml|inc|tpl)$/i', $file)) continue;
+      $this->__files[]= $file;
+    }
+  }
+}
 ```
 
-    
+

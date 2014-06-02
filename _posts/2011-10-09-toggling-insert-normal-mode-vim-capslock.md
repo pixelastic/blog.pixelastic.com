@@ -20,7 +20,7 @@ the default behavior by creating an `~/.Xmodmap` file.
 Just put the following code in it and the pressing the CapsLock key will no
 longer block your next keys in Caps.
 
-    
+
 ```
 clear Lock
 ```
@@ -38,7 +38,7 @@ them. So, why not using them ?
 
 In your `~/.Xmodmap` file, this is as easy as adding the following line
 
-    
+
 ```
 keycode 66 = F13
 ```
@@ -49,7 +49,7 @@ physical CapsLock key should trigger the F13 virtual key.
 Now, in `~/.vimrc`, we will tell vim to explictly listen to extended F keys
 (from 13 to 37) which it does not do by default.
 
-    
+
 ```vim
 set <F13>=^[[25~
 ```
@@ -70,9 +70,9 @@ normal mode will go to insert mode, like pressing `i` does. And we also want
 to get back to normal mode when pressing CapsLock in insert mode, just like
 pressing `Esc` does.
 
-    
+
 ```vim
-nnoremap <F13> i  
+nnoremap <F13> i
 inoremap <F13> <Esc>l
 ```
 
@@ -89,7 +89,7 @@ It insert a `~` character on it (just like it does with F12).
 To disable it, we'll simply define a key binding in `~/.zshrc` so pressing F13
 does nothing.
 
-    
+
 ```sh
 bindkey -s "\e[25~" ""
 ```

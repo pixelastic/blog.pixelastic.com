@@ -26,10 +26,10 @@ of adding new types.
 As far as I know `.otf` and `.ttf` files don't have registered mimetype, so I
 had to create a dummy one for them in my .htaccess :
 
-    
+
 ```apache
-AddType x-font/otf    .otf  
-AddType x-font/ttf    .ttf  
+AddType x-font/otf    .otf
+AddType x-font/ttf    .ttf
 AddType x-font/eot    .eot
 ```
 
@@ -43,7 +43,7 @@ mimetypes.
 
 The second part was to add gziping to those
 
-    
+
 ```apache
 AddOutputFilterByType DEFLATE x-font/otf x-font/ttf x-font/eot
 ```

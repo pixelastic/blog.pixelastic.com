@@ -39,26 +39,26 @@ are gone in cake 2.0 but I haven't tested it yet.
 
 Here is the method code. You should add it to your AppController :
 
-    
+
 ```php
-function __sendMail($sendAsDebug = false) {  
-  if (empty($this->Email)) {  
-    return false;  
-  }  
-  // Debug mode  
-  if (!empty($sendAsDebug)) {  
-    $this->Email->delivery = 'debug';  
-  }  
-  // We force adding the boundaries and header otherwise some webmail (like SquirelMail) won't correctly display them  
-  $this->Email->_createboundary();  
-  $this->Email->__header[] = 'MIME-Version: 1.0';  
-  $this->Email->send();  
-  // We display debug info  
-  if (!empty($sendAsDebug)) {  
-    debug($this->Session->read('Message.email.message'), true);  
-  }  
-  // We also need to clear the generated view so our display does not get poisoned by the Email display  
-  ClassRegistry::removeObject('view');  
+function __sendMail($sendAsDebug = false) {
+  if (empty($this->Email)) {
+    return false;
+  }
+  // Debug mode
+  if (!empty($sendAsDebug)) {
+    $this->Email->delivery = 'debug';
+  }
+  // We force adding the boundaries and header otherwise some webmail (like SquirelMail) won't correctly display them
+  $this->Email->_createboundary();
+  $this->Email->__header[] = 'MIME-Version: 1.0';
+  $this->Email->send();
+  // We display debug info
+  if (!empty($sendAsDebug)) {
+    debug($this->Session->read('Message.email.message'), true);
+  }
+  // We also need to clear the generated view so our display does not get poisoned by the Email display
+  ClassRegistry::removeObject('view');
 }
 ```
 

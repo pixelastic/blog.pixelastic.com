@@ -27,28 +27,28 @@ I wrote a little method that use the `L10n `object that comes with cakePHP to
 automate the creation of such an array. Just feed him a 3-letter language code
 and it will return an array of the most common locale names.
 
-    
+
 ```php
-function getLocales($lang) {  
-// Loading the L10n object  
-App::import('L10n');  
-$l10n = new L10n();  
+function getLocales($lang) {
+// Loading the L10n object
+App::import('L10n');
+$l10n = new L10n();
 
-// Iso2 lang code  
-$iso2 = $l10n->map($lang);  
-$catalog = $l10n->catalog($lang);  
+// Iso2 lang code
+$iso2 = $l10n->map($lang);
+$catalog = $l10n->catalog($lang);
 
-$locales = array(  
-  $iso2.'_'.strtoupper($iso2).'.'.strtoupper(str_replace('-', '', $catalog['charset'])),    // fr_FR.UTF8  
-  $iso2.'_'.strtoupper($iso2),    // fr_FR  
-  $catalog['locale'],             // fre  
-  $catalog['localeFallback'],     // fre  
-  $iso2                           // fr  
-  );  
-return $locales;  
-}  
+$locales = array(
+  $iso2.'_'.strtoupper($iso2).'.'.strtoupper(str_replace('-', '', $catalog['charset'])),    // fr_FR.UTF8
+  $iso2.'_'.strtoupper($iso2),    // fr_FR
+  $catalog['locale'],             // fre
+  $catalog['localeFallback'],     // fre
+  $iso2                           // fr
+  );
+return $locales;
+}
 ```
-    
+
 
 You may note that I set in first position a locale with the mention of the
 encoding. This is only used on Linux machines, Windows does not handle that.
@@ -77,16 +77,16 @@ wrong characters displayed.
 What I've done is creating a simple method in an helper that will take care of
 encoding the result if needed.
 
-    
+
 ```php
-function time($format, $date = null) {  
-  // On Windows, we will force the utf8 encoding of the date  
-  if (DIRECTORY_SEPARATOR == '\\') {  
-    return utf8_encode(strftime(utf8_decode($format), strtotime($date)));  
-  }  
-  // On linux, this is already taken care of by setlocale()  
-  return strftime($format, strtotime($date));  
-}  
+function time($format, $date = null) {
+  // On Windows, we will force the utf8 encoding of the date
+  if (DIRECTORY_SEPARATOR == '\\') {
+    return utf8_encode(strftime(utf8_decode($format), strtotime($date)));
+  }
+  // On linux, this is already taken care of by setlocale()
+  return strftime($format, strtotime($date));
+}
 
 ```
 

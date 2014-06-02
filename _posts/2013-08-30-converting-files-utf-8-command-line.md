@@ -18,13 +18,13 @@ sets.
 
 Fortunatly, the default `file` command can do that.
 
-    
+
 ```sh
-$ file -bi file.txt  
-text/plain; charset=us-ascii  
-$ file -bi bad.html  
-text/html; charset=iso-8859-1  
-$ file -bi good.html  
+$ file -bi file.txt
+text/plain; charset=us-ascii
+$ file -bi bad.html
+text/html; charset=iso-8859-1
+$ file -bi good.html
 text/html; charset=utf-8
 ```
 

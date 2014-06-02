@@ -17,18 +17,18 @@ more complex pattern.
 
 First of all, here are the (simplified) set of rules I had to convert :
 
-    
-```apache
-RewriteRule ^(css|js)/packed_(.*)$ $1/packed/$2 [L]  
 
-RewriteRule ^files/([0-9]{4})/([0-9]{2})/([0-9]{2})/([[:alnum:]]{8}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{12})/(.*)\.(.{3,4})	/files/$1/$2/$3/$4.$6 [L]  
-  
-RewriteCond %{REQUEST_FILENAME} !-d  
-RewriteCond %{REQUEST_FILENAME} !-f  
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]  
-      
+```apache
+RewriteRule ^(css|js)/packed_(.*)$ $1/packed/$2 [L]
+
+RewriteRule ^files/([0-9]{4})/([0-9]{2})/([0-9]{2})/([[:alnum:]]{8}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{12})/(.*)\.(.{3,4})	/files/$1/$2/$3/$4.$6 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
 ```
-    
+
 
 The first rule deals with compressed `css` and `js` files. Minified `css` and
 `js` files are saved in `/css/packed/` with a filename made of a md5 hash of
@@ -61,10 +61,10 @@ Nginx first checks for `location =` blocks. Those blocks are used to catch an
 exact match of the requested url. Once such a block is found, its content is
 applied, and Nginx stops looking for more matches.
 
-    
+
 ```nginx
-location = /my-exact-file.html {  
-  rewrite /my-exact-file.html http://external-website.com/  
+location = /my-exact-file.html {
+  rewrite /my-exact-file.html http://external-website.com/
 }
 ```
 
@@ -82,13 +82,13 @@ but does not stop. It keeps looking for other blocks that might match and
 apply them. It's up to you, in the block content, to define if the parsing
 should stop, using the `break` command.
 
-    
+
 ```nginx
-location ~ /(css|js)/packed_ {  
-  rewrite ^/(css|js)/packed_(.*)$ /$1/packed/$2 break;   
-}    
-location ~ /files {  
-  rewrite ^/files/(.*)/(.*)/(.*)\.(.*)$ /files/$1/$2.$4 break;  
+location ~ /(css|js)/packed_ {
+  rewrite ^/(css|js)/packed_(.*)$ /$1/packed/$2 break;
+}
+location ~ /files {
+  rewrite ^/files/(.*)/(.*)/(.*)\.(.*)$ /files/$1/$2.$4 break;
 }
 ```
 
@@ -111,11 +111,11 @@ if no `location =` or `location ~` had stopped the processing. They are
 especially good for a last "catch all" solution, and we are going to use them
 to dispatch urls to `index.php`
 
-    
+
 ```nginx
-location / {  
-  try_files $uri /index.php?url=$request_uri;   
-}  
+location / {
+  try_files $uri /index.php?url=$request_uri;
+}
 ```
 
 Using `location /`, we'll catch any remaining requests. The `try_files`
@@ -129,14 +129,14 @@ There is one last thing we must do, it's telling Nginx to pass any `.php` file
 to the PHP fastcgi. This is quite easy using a `location ~` block matching any
 `.php` file. This will even apply to files served through `try_files`.
 
-    
+
 ```nginx
-location ~ \.php$ {  
-  fastcgi_pass   127.0.0.1:9000;  
-  fastcgi_index  index.php;  
-  fastcgi_intercept_errors on;  
-  include fastcgi.conf;  
-}  
+location ~ \.php$ {
+  fastcgi_pass   127.0.0.1:9000;
+  fastcgi_index  index.php;
+  fastcgi_intercept_errors on;
+  include fastcgi.conf;
+}
 ```
 
 ## Conclusion

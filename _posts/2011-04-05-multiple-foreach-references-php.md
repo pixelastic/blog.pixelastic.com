@@ -18,15 +18,15 @@ after the foreach loop. It is recommended to destroy it by unset().php.net
 
 My code was as simple as :
 
-    
+
 ```php
-$newArray = array();  
-$newArray2 = array();  
-foreach($list as $key => &$data) {  
-  $newArray[] = $data;  
-}  
-foreach($list2 as $key => &$data) {  
-  $newArray2[] = $data;  
+$newArray = array();
+$newArray2 = array();
+foreach($list as $key => &$data) {
+  $newArray[] = $data;
+}
+foreach($list2 as $key => &$data) {
+  $newArray2[] = $data;
 }
 ```
 

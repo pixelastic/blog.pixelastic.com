@@ -25,9 +25,9 @@ your current session variables.
 As you can't overwrite the `userAgent `hash sent, you need to send the
 `sessionId `along with your flash request. That way, you'll be able to call a
 
-    
+
 ```php
-$this->Session->id($sessionId);  
+$this->Session->id($sessionId);
 $this->Session->start();
 ```
 
@@ -50,9 +50,9 @@ reading an other request that the one I was setting.
 In 1.2, you needed to delete the cookie created by cake whenever you made a
 flash request to avoid conflicts
 
-    
+
 ```php
-setcookie(Configure::read('Session.cookie'), '', time() - 42000, $this->Session->path);  
+setcookie(Configure::read('Session.cookie'), '', time() - 42000, $this->Session->path);
 
 ```
 
@@ -64,9 +64,9 @@ the inner `userAgent `hash saved to your current userAgent hash.
 This meant that whenever you were moving from the Flash session to the correct
 session, you had to overwrite the `userAgent `hash to the correct one.
 
-    
+
 ```php
-$this->Session->write('Config.userAgent', $userAgent);  
+$this->Session->write('Config.userAgent', $userAgent);
 
 ```
 

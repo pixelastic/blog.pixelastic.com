@@ -18,14 +18,14 @@ the same directory in your own server).
 
 I remove the line relative to the MX records and added those instead
 
-    
+
 ```
-domain.tld.    IN    MX    10 ASPMX.L.GOOGLE.COM.  
-domain.tld.    IN    MX    20 ALT1.ASPMX.L.GOOGLE.COM.  
-domain.tld.    IN    MX    20 ALT2.ASPMX.L.GOOGLE.COM.  
-domain.tld.    IN    MX    30 ASPMX2.L.GOOGLE.COM.  
-domain.tld.    IN    MX    30 ASPMX3.L.GOOGLE.COM.  
-domain.tld.    IN    MX    30 ASPMX4.L.GOOGLE.COM.  
+domain.tld.    IN    MX    10 ASPMX.L.GOOGLE.COM.
+domain.tld.    IN    MX    20 ALT1.ASPMX.L.GOOGLE.COM.
+domain.tld.    IN    MX    20 ALT2.ASPMX.L.GOOGLE.COM.
+domain.tld.    IN    MX    30 ASPMX2.L.GOOGLE.COM.
+domain.tld.    IN    MX    30 ASPMX3.L.GOOGLE.COM.
+domain.tld.    IN    MX    30 ASPMX4.L.GOOGLE.COM.
 domain.tld.    IN    MX    30 ASPMX5.L.GOOGLE.COM.
 ```
 
@@ -35,7 +35,7 @@ I also wanted to use a simple address for the webmail, like mail.domain.tld.
 
 So I added the following line
 
-    
+
 ```
 mail.domain.tld    IN    CNAME    ghs.google.com.
 ```

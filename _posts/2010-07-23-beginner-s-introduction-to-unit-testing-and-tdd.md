@@ -146,12 +146,12 @@ you :
   * The number of tests you'll have to write is not dependent on the number of methods you have in your class. Most of the methods will need several tests, while some rare methods won't need any. Just write one test for each outcome you want to test. The cake Core tests usually make one test method for each method in the class. I prefer to make several small tests, that way I can more easily spot the part that is failing.
   * You can name your test methods the way you want, they just have to start with `test`. Do not hesitate to be very specific in the method name. I have methods called `test404ErrorIfInvalidUserId` or `test404ErrorIfNonExistentuser`
   * Make calls to `App::import()` at the top of your file to load every class you'll need.
-  * Use and abuse the `startTest `method. This method is called before every test, this is a good way to reset vars to make sure one previous test call will not impact subsequent calls. I got the habit to define a property of the test case as the object I want to test. For example, when testing a model, I'll write something along the lines of :  
+  * Use and abuse the `startTest `method. This method is called before every test, this is a good way to reset vars to make sure one previous test call will not impact subsequent calls. I got the habit to define a property of the test case as the object I want to test. For example, when testing a model, I'll write something along the lines of :
 
-    
+
 ```php
-function startTest() {  
-$this->model = ClassRegistry::init('User');  
+function startTest() {
+$this->model = ClassRegistry::init('User');
 }
 ```
 

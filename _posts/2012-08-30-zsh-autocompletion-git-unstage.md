@@ -20,7 +20,7 @@ a bit tedious to type.
 So I created an alias, named `git unstage` that does just that. I just added
 the following lines to my `~/.gitconfig`, under the `[alias]` header :
 
-    
+
 ```ini
 unstage = reset HEAD
 ```
@@ -49,7 +49,7 @@ already defined in `_git`.
 
 Here is the full content of the file :
 
-    
+
 ```sh
 #compdef git-reset
 
@@ -91,13 +91,13 @@ _git-reset () {
 
 _git-reset "$@"
 ```
-    
+
 
 As you may have noticed this script is an almost exact copy/paste from the
 original `_git-reset` script. The only modification I've done is in those
 lines :
 
-    
+
 ```sh
 # Suggest files in index if `git reset HEAD`
 if [[ $line[1] = HEAD ]]; then

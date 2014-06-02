@@ -7,9 +7,9 @@ custom_v2_id: 162
 Trying to push some new code to a Hg repository on my Dreamhost account, I had
 the following error message :
 
-    
+
 ```sh
-remote: *** failed to import extension hgext.imerge: No module named imerge  
+remote: *** failed to import extension hgext.imerge: No module named imerge
 
 ```
 
@@ -22,10 +22,10 @@ Here's how :
 Edit your `.hgrc` file and under the `[extensions]` category, add
 `hgext.imerge=!`, like this
 
-    
+
 ```ini
-[extensions]  
-hgext/hbisect = !  
+[extensions]
+hgext/hbisect = !
 hgext.imerge=!
 ```
 

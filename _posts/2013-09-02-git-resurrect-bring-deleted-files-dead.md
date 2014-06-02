@@ -21,13 +21,13 @@ commit, right before the file gets deleted.
 
 All wrapped up in a nice shell script, here is what it looks like :
 
-    
+
 ```sh
 #!/usr/bin/env bash
-filename=$1    
-# We first find the commit where the file was deleted   
-hash=$(git log --diff-filter=D --format=format:%H -- $filename)    
-# We then bring it back from the dead   
+filename=$1
+# We first find the commit where the file was deleted
+hash=$(git log --diff-filter=D --format=format:%H -- $filename)
+# We then bring it back from the dead
 git checkout $hash~1 $filename
 ```
 

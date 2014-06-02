@@ -20,23 +20,23 @@ So, for example, if you need to access at least twice a global variable like
 `window `or `document `in a method, you'd better cache it in a local variable
 first.
 
-    
+
 ```php
-function myTestFunction() {  
-  var button = document.getElementById('button');  
-  var header = document.getElementById('header');  
-}  
+function myTestFunction() {
+  var button = document.getElementById('button');
+  var header = document.getElementById('header');
+}
 
 ```
 
 is bad and could be rewritten as :
 
-    
+
 ```php
-function myTestFunction() {  
-  var doc = document;  
-  var button = doc.getElementById('button');  
-  var header = doc.getElementById('header');  
-}  
+function myTestFunction() {
+  var doc = document;
+  var button = doc.getElementById('button');
+  var header = doc.getElementById('header');
+}
 ```
 

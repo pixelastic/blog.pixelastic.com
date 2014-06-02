@@ -14,22 +14,22 @@ one thing or two to accomodate your own setup.
 First, I create a custom `.bashrc` file that I will put on the webserver and
 create into the following method :
 
-    
+
 ```sh
-hgInstall() {  
- mkdir -p ~/.packages/src  
- cd ~/.packages/src  
- wget http://www.selenic.com/mercurial/release/mercurial-1.2.tar.gz  
- tar xvzf mercurial-1.2.tar.gz  
- cd mercurial-1.2  
- python setup.py install --home=~/.packages/  
- echo -e "[ui]\nusername = Pixelastic <tim@mailastic.com>" >> ~/.hgrc  
- echo -e "[extensions]\nhgext/hbisect=!\nhgext.imerge=! >> ~/.hgrc  
-  
- . ~/.hgrc  
- cd ~/  
- hg version  
-}  
+hgInstall() {
+ mkdir -p ~/.packages/src
+ cd ~/.packages/src
+ wget http://www.selenic.com/mercurial/release/mercurial-1.2.tar.gz
+ tar xvzf mercurial-1.2.tar.gz
+ cd mercurial-1.2
+ python setup.py install --home=~/.packages/
+ echo -e "[ui]\nusername = Pixelastic <tim@mailastic.com>" >> ~/.hgrc
+ echo -e "[extensions]\nhgext/hbisect=!\nhgext.imerge=! >> ~/.hgrc
+
+ . ~/.hgrc
+ cd ~/
+ hg version
+}
 ```
 
 Let me explain. I first create a directory to store the packages I will
@@ -46,9 +46,9 @@ the default directory while displaying hg version.
 That's almost done, I also have to edit the .bash_profile and add the
 following lines
 
-    
+
 ```sh
-export PYTHONPATH=~/.packages/lib/python  
+export PYTHONPATH=~/.packages/lib/python
 export PATH=~/.packages/bin:$PATH
 ```
 
@@ -59,17 +59,17 @@ see if we cannot automate that as well.
 Now, I'm editing my .zsh_aliases on my local machine (or your .bash_aliases if
 you're using bash) to add the following method
 
-    
+
 ```sh
-dreamhost() {  
- scp ~/Documents/Config/Dreamhost/.bashrc ~/Documents/Config/Dreamhost/.bash_profile $1:~/  
- ssh $1 '. ~/.bashrc'  
- scp ~/.ssh/id_rsa.pub ~/Documents/Config/Dreamhost/.ssh/xpsfixe.pub $1:~/  
- ssh $1 'addKeys'  
- scp ~/Documents/Config/Dreamhost/cakeClearCache.sh $1:~/  
- ssh $1 'chmod +x ~/cakeClearCache.sh'  
- ssh $1 'hgInstall'  
- ssh $1  
+dreamhost() {
+ scp ~/Documents/Config/Dreamhost/.bashrc ~/Documents/Config/Dreamhost/.bash_profile $1:~/
+ ssh $1 '. ~/.bashrc'
+ scp ~/.ssh/id_rsa.pub ~/Documents/Config/Dreamhost/.ssh/xpsfixe.pub $1:~/
+ ssh $1 'addKeys'
+ scp ~/Documents/Config/Dreamhost/cakeClearCache.sh $1:~/
+ ssh $1 'chmod +x ~/cakeClearCache.sh'
+ ssh $1 'hgInstall'
+ ssh $1
 }
 ```
 Ok, so this one is a little more complex. You have to call this method with
@@ -98,17 +98,17 @@ calling addKeys. It will authorize those keys to connect using ssh without
 having to type login/pass on each request. Here is the addKeys code (you have
 to put it in your .bashrc file and modify the filename to your own)
 
-    
+
 ```sh
-addKeys() {  
- mkdir .ssh  
- cat id_rsa.pub >> .ssh/authorized_keys  
- cat xpsfixe.pub >> .ssh/authorized_keys  
- rm id_rsa.pub  
- rm xpsfixe.pub  
- chmod go-w ~  
- chmod 700 ~/.ssh  
- chmod 600 ~/.ssh/authorized_keys  
+addKeys() {
+ mkdir .ssh
+ cat id_rsa.pub >> .ssh/authorized_keys
+ cat xpsfixe.pub >> .ssh/authorized_keys
+ rm id_rsa.pub
+ rm xpsfixe.pub
+ chmod go-w ~
+ chmod 700 ~/.ssh
+ chmod 600 ~/.ssh/authorized_keys
 }
 ```
 It will basically create the .ssh dir and authorized_keys file with your keys
@@ -120,13 +120,13 @@ they contain filepath reference and are likely to be different between your
 test and prod environment and would surely broke your whole app. So, you set
 an ignore rule in the .hgignore about them like the following :
 
-    
+
 ```
-syntax:glob  
-app/tmp/cache/cake_*  
-app/tmp/cache/views/*.php  
-app/tmp/cache/models/cake_*  
-app/tmp/cache/persistent/cake_*  
+syntax:glob
+app/tmp/cache/cake_*
+app/tmp/cache/views/*.php
+app/tmp/cache/models/cake_*
+app/tmp/cache/persistent/cake_*
 ```
 
 It does work fine almost all the time, but it sometimes lead to errors as the
@@ -139,13 +139,13 @@ So what i did to avoid that was to create a script that will clear the cache
 for you. Here is the code (you have to be inside the project dir for this to
 work)
 
-    
+
 ```sh
-cd app/tmp/cache  
-rm -f cake_*  
-rm -f views/*\.php  
-rm -f models/cake_*  
-rm -f persistent/cake_*  
+cd app/tmp/cache
+rm -f cake_*
+rm -f views/*\.php
+rm -f models/cake_*
+rm -f persistent/cake_*
 cd ../../../
 ```
 
@@ -161,9 +161,9 @@ the dreamhost() method earlie)r. I also added the following line to my
 /project/.hg/hgrc on my server (if you don't have this file, just create it,
 it's a project-based hg configuration file)
 
-    
+
 ```ini
-[hooks]  
+[hooks]
 update = ~/cakeClearCache.sh
 ```
 
@@ -175,12 +175,12 @@ One last thing to do was creating the hgrc file automatically. That's why I
 created the following method (add it to the .bashrc file in the server). It is
 just a wrapper that will create the hgrc file after doing an hg init
 
-    
+
 ```sh
-hgInitStart() {  
- hg init  
- echo -e "[hooks]\nupdate = ~/cakeClearCache.sh" >> ./.hg/hgrc  
-}  
+hgInitStart() {
+ hg init
+ echo -e "[hooks]\nupdate = ~/cakeClearCache.sh" >> ./.hg/hgrc
+}
 ```
 
 So instead of doing hg init, just do hgInitStart. You can then start cloning
@@ -189,22 +189,22 @@ your project here.
 And one last thing, I also created a method that will set correct chmod to
 app/tmp and app/webroot/files
 
-    
+
 ```sh
-cakeCorrectChmod() {  
- chmod 777 ./app/tmp -R  
- chmod 777 ./app/webroot/files -R  
+cakeCorrectChmod() {
+ chmod 777 ./app/tmp -R
+ chmod 777 ./app/webroot/files -R
 }
 ```
 
 And created a wrapper around it to call just after having cloned the project
 that will update it and set the correct chmods
 
-    
+
 ```sh
-hgInitEnd() {  
- hg update tip  
- cakeCorrectChmod  
+hgInitEnd() {
+ hg update tip
+ cakeCorrectChmod
 }
 ```
 

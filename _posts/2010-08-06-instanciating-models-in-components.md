@@ -23,9 +23,9 @@ I just manually fired all the `setup` methods by calling a simple :
 
 
 ```php
-foreach($myModel->Behaviors->_attached as $behaviorName) {  
-  $myModel->Behaviors->{$behaviorName}->setup($myModel);  
-}  
+foreach($myModel->Behaviors->_attached as $behaviorName) {
+  $myModel->Behaviors->{$behaviorName}->setup($myModel);
+}
 ```
 
 

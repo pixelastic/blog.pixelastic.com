@@ -36,13 +36,13 @@ uncommenting the line `extension=php_fileinfo.dll` in your `php.ini`
 
 And you use it like this :
 
-    
+
 ```php
-$finfo = finfo_open(FILEINFO_MIME);  
-$mimeType = finfo_file($finfo, $filepath);  
-finfo_close($finfo);  
+$finfo = finfo_open(FILEINFO_MIME);
+$mimeType = finfo_file($finfo, $filepath);
+finfo_close($finfo);
 ```
-    
+
 
 Also note that the mimetype may be returned in a `text/plain; charset=us-
 ascii` form. You may need to parse the result to get it in the format you
@@ -62,10 +62,10 @@ Here's how I use it :
 
 
 ```php
-$imageData = @getimagesize($filepath);  
-if (!empty($imageData['mime'])) {  
-  $mimeType = $imageData['mime'];  
-}  
+$imageData = @getimagesize($filepath);
+if (!empty($imageData['mime'])) {
+  $mimeType = $imageData['mime'];
+}
 ```
 
 
@@ -74,11 +74,11 @@ if (!empty($imageData['mime'])) {
 The last method I'm aware of is simply calling the `file `command on a unix
 system through `exec`.
 
-    
+
 ```php
-$mimeType = exec("/usr/bin/file -i -b $filepath");  
+$mimeType = exec("/usr/bin/file -i -b $filepath");
 ```
-    
+
 
 Merging all that into one do-it-all method
 
@@ -88,44 +88,44 @@ code I'm using :
 
 
 ```php
-/**  
-*    mimetype  
-*    Returns a file mimetype. Note that it is a true mimetype fetch, using php and OS methods. It will NOT  
-*    revert to a guessed mimetype based on the file extension if it can't find the type.  
-*    In that case, it will return false  
-**/  
-function mimetype($filepath) {  
- // Check only existing files  
- if (!file_exists($filepath) || !is_readable($filepath)) return false;  
+/**
+*    mimetype
+*    Returns a file mimetype. Note that it is a true mimetype fetch, using php and OS methods. It will NOT
+*    revert to a guessed mimetype based on the file extension if it can't find the type.
+*    In that case, it will return false
+**/
+function mimetype($filepath) {
+ // Check only existing files
+ if (!file_exists($filepath) || !is_readable($filepath)) return false;
 
- // Trying finfo  
- if (function_exists('finfo_open')) {  
-   $finfo = finfo_open(FILEINFO_MIME);  
-   $mimeType = finfo_file($finfo, $filepath);  
-   finfo_close($finfo);  
-   // Mimetype can come in text/plain; charset=us-ascii form  
-   if (strpos($mimeType, ';')) list($mimeType,) = explode(';', $mimeType);  
-   return $mimeType;  
- }  
+ // Trying finfo
+ if (function_exists('finfo_open')) {
+   $finfo = finfo_open(FILEINFO_MIME);
+   $mimeType = finfo_file($finfo, $filepath);
+   finfo_close($finfo);
+   // Mimetype can come in text/plain; charset=us-ascii form
+   if (strpos($mimeType, ';')) list($mimeType,) = explode(';', $mimeType);
+   return $mimeType;
+ }
 
- // Trying mime_content_type  
- if (function_exists('mime_content_type')) {  
-   return mime_content_type($filepath);  
- }  
+ // Trying mime_content_type
+ if (function_exists('mime_content_type')) {
+   return mime_content_type($filepath);
+ }
 
- // Trying exec  
- if (function_exists('exec')) {  
-   $mimeType = exec("/usr/bin/file -i -b $filepath");  
-   if (!empty($mimeType)) return $mimeType;  
- }  
+ // Trying exec
+ if (function_exists('exec')) {
+   $mimeType = exec("/usr/bin/file -i -b $filepath");
+   if (!empty($mimeType)) return $mimeType;
+ }
 
- // Trying to get mimetype from images  
- $imageData = @getimagesize($filepath);  
- if (!empty($imageData['mime'])) {  
-   return $imageData['mime'];  
- }  
+ // Trying to get mimetype from images
+ $imageData = @getimagesize($filepath);
+ if (!empty($imageData['mime'])) {
+   return $imageData['mime'];
+ }
 
- return false;  
+ return false;
 }
 ```
 

@@ -7,13 +7,13 @@ custom_v2_id: 199
 Today I had to setup a complex find relation. Here is the simplifed version of
 what I had :
 
-    
+
 ```sql
-TABLE timestamps  
-int id  
-datetime date  
-string type  
-int user_id  
+TABLE timestamps
+int id
+datetime date
+string type
+int user_id
 
 ```
 
@@ -29,29 +29,29 @@ records, I'll automatically have the end ones as related models.
 
 Here's how I did that :
 
-    
+
 ```php
-$this->find('all', array(  
-  'conditions' => array(  
-    'Timestamp.type' => 'START'  
-  ),  
-  'joins' => array(  
-    array(  
-      'table' => 'timestamp',  
-      'alias' => 'EndTimestamp',  
-      'type' => 'LEFT',  
-      'conditions' => array(  
-        'EndTimestamp.type' => 'END',  
-        'EndTimestamp.user_id = Timestamp.user_id',  
-        'EndTimestamp.date > Timestamp.date',  
-      )  
-    )  
-  ),  
-  'order' => array(  
-    'Timestamp.date' => 'ASC'  
-  ),  
-  'group' => 'Timestamp.date'  
-));  
+$this->find('all', array(
+  'conditions' => array(
+    'Timestamp.type' => 'START'
+  ),
+  'joins' => array(
+    array(
+      'table' => 'timestamp',
+      'alias' => 'EndTimestamp',
+      'type' => 'LEFT',
+      'conditions' => array(
+        'EndTimestamp.type' => 'END',
+        'EndTimestamp.user_id = Timestamp.user_id',
+        'EndTimestamp.date > Timestamp.date',
+      )
+    )
+  ),
+  'order' => array(
+    'Timestamp.date' => 'ASC'
+  ),
+  'group' => 'Timestamp.date'
+));
 ```
 
 It will fetch all the start timestamp (`fields`) in chronological order

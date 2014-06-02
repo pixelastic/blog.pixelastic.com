@@ -28,10 +28,10 @@ Just apply the following CSS rule to the element you want to hide. It will
 just display it offscreen.
 
 ```css
-.tabHidden {  
-  position:absolute;  
-  top:0px;  
-  left:-9999em;  
+.tabHidden {
+  position:absolute;
+  top:0px;
+  left:-9999em;
 }
 ```
 

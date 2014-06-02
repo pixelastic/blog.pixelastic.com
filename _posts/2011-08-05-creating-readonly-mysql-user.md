@@ -12,7 +12,7 @@ with writing permission to avoid potential issues, I created a readonly user.
 
 First, connect to the mysql server :
 
-    
+
 ```sh
 mysql --user=root -p
 ```
@@ -22,25 +22,25 @@ And type your password when asked
 Now that you are in the mysql prompt, create the 'readonly' user and give him
 `SELECT `permission on all tables
 
-    
+
 ```sql
-CREATE USER 'readonly'@'%' IDENTIFIED BY 'your_password';  
+CREATE USER 'readonly'@'%' IDENTIFIED BY 'your_password';
 GRANT SELECT ON *.* TO 'readonly'@'%';
 ```
 
 Also note that once connected with root, you can see the list of users by
 running :
 
-    
+
 ```sql
-SELECT host,user,pass FROM mysql.user;  
+SELECT host,user,pass FROM mysql.user;
 ```
 
 Nothing fancy here, everything was found after a few minutes of googling.
 
 Also, if you ever need to delete the user :
 
-    
+
 ```sql
 DROP USER 'readonly'@'%';
 ```

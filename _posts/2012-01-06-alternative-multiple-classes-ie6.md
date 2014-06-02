@@ -47,9 +47,9 @@ to anything with the `.dangerous` class.
 The solution I personnaly use to fix IE6 is to use more explicit classes
 instead of using multiple ones. For example, instead of `.button.dangerous {}`
 I'll use `.buttonDangerous {}` and write my html like this :
-    
+
 ```html
-<a href="#" class="button buttonDangerous">I'm a dangerous button, even on IE6</a>  
+<a href="#" class="button buttonDangerous">I'm a dangerous button, even on IE6</a>
 ```
 
 That way, the link will have both the styles of `.button` and

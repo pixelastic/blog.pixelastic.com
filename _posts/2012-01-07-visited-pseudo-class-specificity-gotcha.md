@@ -18,8 +18,8 @@ defauls links (`a { color:blue; }`), one for the default buttons (`.button {
 Now, imagine that you'll want to style all `:visited` links the same way non-
 visited links are styled. You might write something like :
 
-    
-    
+
+
 ```css
 a, a:visited { color:blue; }
 ```

@@ -13,7 +13,7 @@ qu'ils soient biens formés.
 J'ai donc retranscris ce calcul sous une règle de validation pour cakePHP, le
 voici :
 
-    
+
 ```php
 function validateSiret($data, $field) {
   $siret = r(' ', '', $data[$field]);
@@ -37,7 +37,7 @@ Si le résultat final est congru à 10, alors le numero de SIRET est valide.
 
 Il ne reste plus qu'à l'ajouter à mes régles de validation :
 
-    
+
 ```php
 var $validate = array(
   'siret' => array(
@@ -51,7 +51,7 @@ Mais ce n'est pas tout. Comme pour mes tests je crée à la volée des dizaines
 d'enregistrements, j'avais besoin d'un générateur automatique de numero de
 SIRET valides. Voici ce que j'ai fini par écrire :
 
-    
+
 ```php
 public function siret() {
   //On génère le début du numero de siret
@@ -80,7 +80,7 @@ public function siret() {
   return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{5})/", "$1 $2 $3 $4", $siret);
  }
 ```
-    
+
 
 Le principe consiste à générer les 8 premiers nombres de façon complétement
 aléatoire et d'en calculer la "somme" (selon le principe évoqué au dessus).

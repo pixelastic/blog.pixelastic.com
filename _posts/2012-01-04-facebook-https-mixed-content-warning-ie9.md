@@ -96,15 +96,15 @@ I hardcoded the app url because there was no way to get it from js, and I took
 care of keeping any GET parameter passed before the redirect, and I ended up
 with this :
 
-    
+
 ```js
-if (!FB._https) {  
-  var appUrl = 'https://apps.facebook.com/appname/';  
-  var iframeUrl = location.protocol+'//'+location.host+location.pathname;  
-  var redirectUrl = location.href.replace(iframeUrl, appUrl);  
-  top.location.href = redirectUrl;  
-  return;  
-}  
+if (!FB._https) {
+  var appUrl = 'https://apps.facebook.com/appname/';
+  var iframeUrl = location.protocol+'//'+location.host+location.pathname;
+  var redirectUrl = location.href.replace(iframeUrl, appUrl);
+  top.location.href = redirectUrl;
+  return;
+}
 FB.init(options);
 ```
 

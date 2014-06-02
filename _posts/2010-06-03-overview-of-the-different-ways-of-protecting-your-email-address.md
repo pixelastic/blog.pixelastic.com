@@ -82,15 +82,15 @@ of generated content and the :after pseudo class.
 
 Let's look at the following code :
 
-    
+
 ```html
 <span class="email" rel="@pixelastic.com">tim</span>
 ```
 
 ```css
-span.email[rel]:after {  
-  content: attr(rel);  
-}  
+span.email[rel]:after {
+  content: attr(rel);
+}
 ```
 
 You just put your username in the `span`, and the domain name in the `rel
@@ -105,9 +105,9 @@ This one is a clever one that I haven't seen used a lot. Instead of making a
 link to a mailto:, you make the link go to a mail.php page that will only
 contain one php statement :
 
-    
+
 ```php
-header('Location: mailto:user@domain.com');  
+header('Location: mailto:user@domain.com');
 ```
 
 I'm not sure of the browser support of this, however. And it still won't solve

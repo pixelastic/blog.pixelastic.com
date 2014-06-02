@@ -19,16 +19,16 @@ embossed.
 If you have dark text, just add a subtle white shadow at the bottom, while if
 you have light text, just add a subtle black one at the top.
 
-    
+
 ```html
-<a class="emboss light">Lorem ipsum</a>  
-<a class="emboss dark">Lorem ipsum</a>  
+<a class="emboss light">Lorem ipsum</a>
+<a class="emboss dark">Lorem ipsum</a>
 ```
 
 ```css
-.emboss { font-size:1.2em; padding:50px; font-weight:bold; background:#0A539C; display:block; }  
-.light { color:#FFFFFF; text-shadow:0px -1px 0px rgba(0,0,0,0.9); }  
-.dark { color:#000000; text-shadow:0px 1px 0px rgba(255,255,255,0.1); }  
+.emboss { font-size:1.2em; padding:50px; font-weight:bold; background:#0A539C; display:block; }
+.light { color:#FFFFFF; text-shadow:0px -1px 0px rgba(0,0,0,0.9); }
+.dark { color:#000000; text-shadow:0px 1px 0px rgba(255,255,255,0.1); }
 ```
 
 I added an `emboss `class to more easily spot the effect, but the important
@@ -50,31 +50,31 @@ and we're good to go.
 
 This can be easily done with a link and its `title `attribute.
 
-    
+
 ```html
-<a class="emboss lightAgain" title="Lorem ipsum">Lorem ipsum</a>  
-<a class="emboss darkAgain" title="Lorem ipsum">Lorem ipsum</a>  
+<a class="emboss lightAgain" title="Lorem ipsum">Lorem ipsum</a>
+<a class="emboss darkAgain" title="Lorem ipsum">Lorem ipsum</a>
 ```
 
 ```css
-.lightAgain { color:#FFFFFF; position:relative; }  
-.lightAgain:before {  
-  content: attr(title);  
-  position:absolute;  
-  color:rgba(0,0,0,0.1);  
-  top:-1px;  
-  left:-1px;  
-  padding:50px;  
-}  
-.darkAgain { color:#000000; position:relative; }  
-.darkAgain:before {  
-   content: attr(title);  
-   position:absolute;  
-   color:rgba(255,255,255,0.1);  
-   top:1px;  
-   left:1px;  
-   padding:50px;  
-}  
+.lightAgain { color:#FFFFFF; position:relative; }
+.lightAgain:before {
+  content: attr(title);
+  position:absolute;
+  color:rgba(0,0,0,0.1);
+  top:-1px;
+  left:-1px;
+  padding:50px;
+}
+.darkAgain { color:#000000; position:relative; }
+.darkAgain:before {
+   content: attr(title);
+   position:absolute;
+   color:rgba(255,255,255,0.1);
+   top:1px;
+   left:1px;
+   padding:50px;
+}
 ```
 
 The effect is much better with this technique but it also has it share of

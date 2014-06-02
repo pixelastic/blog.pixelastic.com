@@ -51,9 +51,9 @@ sitting on your desktop.
 
 Start a terminal and install the guest additions by doing :
 
-    
+
 ```sh
-cd /media/{name of your VBOX image}  
+cd /media/{name of your VBOX image}
 ./autorun.sh
 ```
 
@@ -68,14 +68,14 @@ you'll correctly see what's installed.
 
 First, lighttpd :
 
-    
+
 ```sh
 sudo apt-get install lighttpd
 ```
 
 Now, memcached
 
-    
+
 ```sh
 sudo apt-get install memcached
 ```
@@ -83,7 +83,7 @@ sudo apt-get install memcached
 And mysql server. This one will prompt you to enter the root password you'll
 want.
 
-    
+
 ```sh
 sudo apt-get install mysql-server
 ```
@@ -91,9 +91,9 @@ sudo apt-get install mysql-server
 Now we will install php5 as CGI (Lighty will run php as cgi), as well as the
 needed dependency so php can connect to both mysql and memcache.
 
-    
+
 ```sh
-sudo apt-get install php5-cgi php5-memcache php5-mysql  
+sudo apt-get install php5-cgi php5-memcache php5-mysql
 ```
 
 Ok, you should now have everything correctly installed. We will configure all
@@ -122,7 +122,7 @@ Knowing that IP, you can define hosts in your Windows
 You should also install openssh server so that you'll be able to connect to
 your guest machine using ssh :
 
-    
+
 ```sh
 sudo apt-get install openssh-server
 ```
@@ -134,9 +134,9 @@ access to a project I coded in my host (let's name it `myproject`).
 
 Here's how I made it available to Lighty :
 
-    
+
 ```sh
-sudo mkdir /var/www/myproject  
+sudo mkdir /var/www/myproject
 sudo mount -t vboxsf -o rw,uid=$(id -u),gid=$(id -g www-data) myproject /var/www/myproject
 ```
 
@@ -157,9 +157,9 @@ cgi.fix_pathinfo=1 line in your php.ini.
 
 Don't forget to reload Lighty after changes to its config files by running:
 
-    
+
 ```sh
-sudo /etc/init.d/lightppd restart  
+sudo /etc/init.d/lightppd restart
 
 ```
 
@@ -168,7 +168,7 @@ installed Apache, causing Lighty to fail on startup because Apache was already
 using the port 80. I fixed it by removing every reference to Apache by running
 :
 
-    
+
 ```sh
 sudo update-rc.d -f apache2 remove
 ```

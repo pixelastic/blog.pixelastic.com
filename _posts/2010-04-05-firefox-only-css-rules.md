@@ -16,8 +16,8 @@ I'd like to find the equivalent rules (using proprietary rules, no parser bug)
 for Safari, Chrome and Opera
 
 ```css
-@-moz-document url-prefix() {   
-  p { color: red; }  
-}  
+@-moz-document url-prefix() {
+  p { color: red; }
+}
 ```
-    
+

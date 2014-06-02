@@ -28,14 +28,14 @@ comment cette adresse : blabla@somewhere.com est écrite.
 
 Cela devrait être quelque chose de la forme :
 
-    
+
 ```html
-<span title="97tasbw84fv6_q3pn5yirchya15nq.p9b_jziggtc40lfolwxxk@meo26m70zj2d-sur@hev8u1-dk.3" class="protectFromSpam">  
-  <span class="noscript">  
-    <span class="icon icon_notice"></span>  
-    Cette adresse mail est protégée contre le spam, vous devez activer Javascript pour pouvoir la voir.  
-  </span>  
-  <span class="cryptedMail">ageh9gxvw1bag4342e</span>  
+<span title="97tasbw84fv6_q3pn5yirchya15nq.p9b_jziggtc40lfolwxxk@meo26m70zj2d-sur@hev8u1-dk.3" class="protectFromSpam">
+  <span class="noscript">
+    <span class="icon icon_notice"></span>
+    Cette adresse mail est protégée contre le spam, vous devez activer Javascript pour pouvoir la voir.
+  </span>
+  <span class="cryptedMail">ageh9gxvw1bag4342e</span>
 </span>
 ```
 

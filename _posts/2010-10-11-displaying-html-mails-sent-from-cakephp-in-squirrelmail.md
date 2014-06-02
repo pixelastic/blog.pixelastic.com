@@ -27,11 +27,11 @@ my problem.
 
 So here's my updated code :
 
-    
+
 ```php
-$this->Email->sendAs = 'both';  
-$this->Email->_createboundary();  
-$this->Email->__header[] = 'MIME-Version: 1.0';  
+$this->Email->sendAs = 'both';
+$this->Email->_createboundary();
+$this->Email->__header[] = 'MIME-Version: 1.0';
 $this->Email->send();
 ```
 

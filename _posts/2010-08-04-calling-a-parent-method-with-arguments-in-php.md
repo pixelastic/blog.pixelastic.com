@@ -18,11 +18,11 @@ Here is what worked for me :
 
 
 ```php
-class TestDocument extends Document {  
-    function foo() {  
-        return $this->fooResult= call_user_func_array(array('parent', 'foo'), func_get_args());  
-    }  
-}  
+class TestDocument extends Document {
+    function foo() {
+        return $this->fooResult= call_user_func_array(array('parent', 'foo'), func_get_args());
+    }
+}
 ```
 
 

@@ -22,16 +22,16 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
+- RSS feed
+- Custom 404 page
+- Tags
+- Search
+- Images from previous posts
+- Favicon
+- Site simple sur www.pixelastic.com (equivalent haveyoumett.im)
+- Comments. Statique, pas d'ajout (next project).
+
 - Update CSS, split base theme and custom rules.
 - Remove underline on title link
-- Import all images from previous blogposts
-- Find a favicon
-- Add tags to link posts together
-- Enable search (google search ?)
-- Add link to the RSS
-- Integrate comments ? I'd like a comment API to be linked in javascript.
 - Try a different default font
-- Add a contact form
-- Put some 304 redirects on the old website to point to the new url. Generate
-  a 304 to redirect ids to new urls.
 

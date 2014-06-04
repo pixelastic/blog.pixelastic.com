@@ -21,8 +21,13 @@ knowledge.
 
 In the past, I've worked in small agencies, done some freelancing work, seen the
 birth and death of a startup and took a year off in New Zealand. Today, I'm
-working as a consultant for Octo Technology.
+working as a consultant for [Octo Technology](http://www.octo.com/).
 
 This website is the third version of my blog, I hope you'll enjoy it.
+
+Feel free to contact me for any comment or question by email : tim@*I'll let
+you guess the domain*.  You can also follow me on
+[Twitter](https://twitter.com/pixelastic) or
+[GitHub](https://github.com/pixelastic).
 
 Thanks for reading !

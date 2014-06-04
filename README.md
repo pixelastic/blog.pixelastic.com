@@ -22,7 +22,6 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
-- RSS feed
 - Custom 404 page
 - Tags
 - Search

@@ -1,15 +1,51 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<!doctype html>
+<html class="no-js" lang="en-us">
 
-  {% include head.html %}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+    {% if page.id == "index" %} {{ site.title }} {% else %} {{ page.title }} - {{ site.title }} {% endif %}
+  </title>
+  <meta name="description" content="{{ site.description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <body class="layout-reverse theme-base-0b">
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
 
-    {% include sidebar.html %}
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
 
-    <div class="content container">
-      {{ content }}
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">{{ site.title }}</a></h1>
+        <p class="lead">{{ site.description }}</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item{% if page.id == " index " %} active{% endif %}">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item{% if page.id == " about " %} active{% endif %}">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item{% if page.id == " archive " %} active{% endif %}">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
     </div>
+  </div>
 
-  </body>
+  <div class="content container">
+    {{ content }}
+  </div>
+
+</body>
+
 </html>

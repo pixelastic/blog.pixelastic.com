@@ -17,16 +17,18 @@ module Jekyll
       " "  => "-"
     }
 
-    attr_accessor :escaped_name, :name
+    attr_accessor :name
 
     def initialize(name)
-      @name = name.downcase.strip
-      @escaped_name = escape_name(@name)
+      @name = escape_name(name.downcase.strip)
+    end
+    
+    def to_s
+      @name
     end
 
-    # Liquid wants a hash, not an object.
     def to_liquid
-      { "name" => @name, "escaped_name" => @escaped_name }
+      @name
     end
 
     private
@@ -84,7 +86,7 @@ module Jekyll
       # Adding an index with all tags
       tag_list = []
       tags.each do |key, value|
-        tag_list << value[:tag].escaped_name
+        tag_list << value[:tag]
       end
       all_tags = AllTagsPage.new(site, tag_list)
       all_tags.render(site.layouts, site.site_payload)
@@ -99,12 +101,12 @@ module Jekyll
       @site = site
       @base = site.source
       @name = 'index.html'
-      @dir = "tags/#{tag.escaped_name}"
+      @dir = "tags/#{tag}"
       self.process(@name)
       self.read_yaml(File.join(site.source, site.config['layouts'], 'tags'), 'tag.html')
       self.data['tag'] = tag.to_liquid
       self.data['posts'] = posts
-      self.data['title'] = "##{tag.escaped_name}"
+      self.data['title'] = "##{tag}"
     end
   end
 

@@ -59,7 +59,7 @@ module Jekyll
       tags = {}
 
       # Building a list of tags, with each associated post
-      site.posts.each do |post|
+      site.posts.sort_by{ |post| post.date }.reverse.each do |post|
         post_tags = post.tags
         post_tags.each do |post_tag|
           if (!tags[post_tag.name]) 

@@ -2,6 +2,7 @@
 layout: post
 title: "Losing session on each request with cakePHP and Chrome"
 custom_v2_id: 273
+tags: cakephp, chrome, session, referer-check
 ---
 
 I finally found solution for one of the more tenacious bug I ever encountered.
@@ -55,5 +56,4 @@ ini_set('session.name', Configure::read('Session.cookie'));    // Using custo
 ini_set('session.cookie_lifetime', $this->cookieLifeTime);    // Cookie like time, depending on security level
 ini_set('session.cookie_path', $this->path);                // Cookie path
 ```
-
 

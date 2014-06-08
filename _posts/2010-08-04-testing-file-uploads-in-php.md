@@ -2,6 +2,7 @@
 layout: post
 title: "Testing file uploads in PHP"
 custom_v2_id: 210
+tags: move-uploaded-file, files, tests, phpt, is-uploaded-file, upload, simpletest, unit-testing, cakephp, php
 ---
 
 I just had to write unit tests for a file upload script I had to write. As it
@@ -52,4 +53,3 @@ specified by your user, you'll ending up putting the `database.php` and
 
 The other good news is that by wrapping those methods around those functions,
 you can create mock objects and test all the various return scenarios.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Improved form spam protection"
 custom_v2_id: 186
+tags: spam, akismet
 ---
 
 My spam protection is really simple. Most spam bots will fill all input fields
@@ -55,4 +56,3 @@ able to extract spam patterns from the information I'll gather.
 I think I'll add a timing system, to block comments that were posted too fast.
 If nothing works I'll use Akismet, but I want to try to defeat them on my own
 first.
-

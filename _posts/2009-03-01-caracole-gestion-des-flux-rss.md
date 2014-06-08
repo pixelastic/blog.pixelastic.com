@@ -2,6 +2,7 @@
 layout: post
 title: "Caracole - Gestion des flux RSS"
 custom_v2_id: 17
+tags: cakephp, caracole, rss
 ---
 
 Cela faisait quelques temps que je souhaitais ajouter une gestion des flux RSS
@@ -30,4 +31,3 @@ En tout cas, il me suffit maintenant d'ajouter une variable $rssFeed à un
 modèle pour qu'un flux RSS lui soit automatiquement généré (on peut préciser
 bien sur les informations devant être affichées pour chaque modèle). Voila qui
 encore un pas de plus pour Caracole :)
-

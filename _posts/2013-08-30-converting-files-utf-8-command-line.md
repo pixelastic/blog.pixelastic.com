@@ -2,6 +2,7 @@
 layout: post
 title: "Converting files to UTF-8 from the command line"
 custom_v2_id: 348
+tags: iso-8859-1, encoding, utf8, iso-8859-2
 ---
 
 Converting to and from charset encoding is boring. Life would be much easier
@@ -38,4 +39,3 @@ I wrapped those methods in two scripts : [encoding](https://github.com/pixelas
 tic/oroshi/blob/master/scripts/bin/encoding) and
 [utf8](https://github.com/pixelastic/oroshi/blob/master/scripts/bin/utf8) that
 respectively output the file encoding and convert the file to utf8.
-

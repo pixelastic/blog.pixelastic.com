@@ -2,6 +2,7 @@
 layout: post
 title: "Aborting an AJAX request with jQuery"
 custom_v2_id: 229
+tags: javascript, jquery, xhr, ajax
 ---
 
 I needed a way to abort a pending AJAX request. I had a dialog box loaded
@@ -30,4 +31,3 @@ On the other hand, it feels strange to consider an abort as a success too. I
 guess the jQuery team didn't have a lot of request for an edge case like abort
 and didn't wrap their API around it, leaving us with the low level XHR object
 instead.
-

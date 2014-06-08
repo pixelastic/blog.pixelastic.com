@@ -2,6 +2,7 @@
 layout: post
 title: "CSS rule to target only Firefox"
 custom_v2_id: 68
+tags: firefox, css, hack
 ---
 
 I just found (via [enure.net](http://enure.net/post/article/serve-css-to-only-
@@ -20,4 +21,3 @@ for Safari, Chrome and Opera
   p { color: red; }
 }
 ```
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Malformed POST request made to an absolute url with Flash"
 custom_v2_id: 262
+tags: swf, post, actionscript, bug, flash
 ---
 
 Sometimes you encounter bugs that smacks you in the face with their
@@ -23,4 +24,3 @@ So we ended by adding a check to see if we were online or local and make an
 absolute or relative call depending on the environment.
 
 So far, no more issues.
-

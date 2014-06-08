@@ -2,6 +2,7 @@
 layout: post
 title: "Tabindexing and inserting tabs with tinyMCE"
 custom_v2_id: 159
+tags: tinymce, javascript, tab, tabfocus, tabindex
 ---
 
 You may have noticed that you can't press tab to jump from field to field in a
@@ -107,4 +108,3 @@ because I still have a lot of other scripts to debug in IE first.
 As said earlier, maybe you could skip the whole tabindex listing if you
 intelligently revert to browser default for the browser that will jump to the
 next field but I have no idea how to test for that.
-

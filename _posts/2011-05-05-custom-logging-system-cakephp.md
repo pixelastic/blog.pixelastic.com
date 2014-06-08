@@ -2,6 +2,7 @@
 layout: post
 title: "Custom logging system for cakePHP"
 custom_v2_id: 275
+tags: syslog, php, filelog, disable-default-error-handling, cakephp, cakelog
 ---
 
 I do love cakePHP, but sometimes it can get tricky to get it to do exactly
@@ -136,4 +137,3 @@ again.
 
 So, to avoid running into the same issue some months from now, I took some
 time to write it down, and hopefully I'll help some of you too.
-

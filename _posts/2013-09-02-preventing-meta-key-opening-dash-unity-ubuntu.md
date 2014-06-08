@@ -2,6 +2,7 @@
 layout: post
 title: "Preventing the Meta key from opening the dash in Unity Ubuntu"
 custom_v2_id: 351
+tags: ubuntu, unity, meta, compiz, ccsm
 ---
 
 Everytime I install Ubuntu on a fresh computer and try to define custom
@@ -15,4 +16,3 @@ install `compizconfig-settings-manager` and launch it using `ccsm`. There, go
 to the Ubuntu Unity Plugin and disable the "Key to show the launcher" binding.
 
 You will now be free to use the meta key in your keybindings, again.
-

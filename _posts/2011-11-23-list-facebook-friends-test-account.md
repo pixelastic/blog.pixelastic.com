@@ -2,6 +2,7 @@
 layout: post
 title: "Getting list of Facebook friends from a test account"
 custom_v2_id: 324
+tags: facebook
 ---
 
 To get the list of friends of a specific user, you are supposed to issue a
@@ -26,4 +27,3 @@ actually.
 
 What is definitely a bug is that the behavior is different for test users that
 for classic users.
-

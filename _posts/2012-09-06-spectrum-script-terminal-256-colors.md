@@ -2,6 +2,7 @@
 layout: post
 title: "Spectrum, a script to see your terminal 256 colors"
 custom_v2_id: 342
+tags: colors, spectrum, ubuntu, linux, terminal
 ---
 
 Here is a little script I hacked together to display in your terminal all the
@@ -79,4 +80,3 @@ done
 
 Oh and one last word. You might want to pipe the output to `less` to make it
 easier to read if you're on a small screen like me.
-

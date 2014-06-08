@@ -2,6 +2,7 @@
 layout: post
 title: "Working on Wednesday #5 : Rails documentation and Zombies"
 custom_v2_id: 298
+tags: ruby-on-rails, wednesday, gem, ruby, rails
 ---
 
 Today I continue on my Rails for Zombie learning. Actually, I wake up kind of
@@ -61,4 +62,3 @@ Rails also uses SQLite3 as the default database for development. As I wasn't
 very familiar with this technology, I made some researchs. Turns out that
 SQLite is a very simple DB system, perfectlynsuited for the development period
 as it does not require a DB server.
-

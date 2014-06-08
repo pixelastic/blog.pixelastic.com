@@ -2,6 +2,7 @@
 layout: post
 title: "Javascript speed tip : reduce variable lookup"
 custom_v2_id: 195
+tags: javascript, performance, closure
 ---
 
 It appears that, according to this video, when inside a Javascript function
@@ -39,4 +40,3 @@ function myTestFunction() {
   var header = doc.getElementById('header');
 }
 ```
-

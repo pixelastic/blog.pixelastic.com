@@ -2,6 +2,7 @@
 layout: post
 title: "Catching PHP errors with simpleTest"
 custom_v2_id: 194
+tags: errors, unit-testing, simpletest, e-notice
 ---
 
 I needed to write a test that should fail if the method I was testing

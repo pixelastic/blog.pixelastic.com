@@ -2,6 +2,7 @@
 layout: post
 title: "Using environment vars in lighttpd config files"
 custom_v2_id: 297
+tags: lighttpd, include-shell
 ---
 
 Our game is hosted on a farm of servers behind a load balancer. All servers
@@ -49,4 +50,3 @@ server.tag = var.serverName
 
 Note that `include_shell` directives are only called when you start lighty and
 not on every request.
-

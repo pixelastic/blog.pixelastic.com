@@ -2,6 +2,7 @@
 layout: post
 title: "UTF-8 encoding for included .jsp files"
 custom_v2_id: 358
+tags: utf8, jsp
 ---
 
 Today I had to split a gigantic `.jsp` file into several smaller files. I used
@@ -40,4 +41,3 @@ configuration :
 ```
 
 And it worked !
-

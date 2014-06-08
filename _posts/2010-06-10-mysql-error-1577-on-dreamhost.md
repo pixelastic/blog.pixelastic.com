@@ -2,6 +2,7 @@
 layout: post
 title: "MySQL Error 1577 on Dreamhost"
 custom_v2_id: 183
+tags: navicat, dreamhost, mysql
 ---
 
 Recently, when connecting to my MySQL databases on Dreamhost through Navicat,
@@ -18,4 +19,3 @@ that they needed to be restarted. Which they do for me.
 
 So if you ever run into the same problem, just contact Dreamhost support and
 they'll fix it for you.
-

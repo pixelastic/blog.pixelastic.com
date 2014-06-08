@@ -2,6 +2,7 @@
 layout: post
 title: "Ergonomie Fail : Gérer son nom de domaine chez Orange Business Service"
 custom_v2_id: 39
+tags: ergonomie, fail, oleane
 ---
 
 Et c'est reparti pour un tour. Cette fois, j'ai besoin de modifier certains
@@ -70,4 +71,3 @@ je parie que pour les DNS je vais encore devoir envoyer en fax.
 
 Tant pis, de toutes façons, le nom de domaine a été migré chez Gandi, tout
 sera bien plus simple là bas.
-

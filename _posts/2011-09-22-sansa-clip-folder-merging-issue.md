@@ -2,6 +2,7 @@
 layout: post
 title: "Sansa Clip+ folder merging issue"
 custom_v2_id: 314
+tags: bug, mp3, sansa
 ---
 
 I own a [Sansa Clip+](http://anythingbutipod.com/2009/08/sandisk-sansa-clip-
@@ -46,4 +47,3 @@ prefix.
 As a temporary fix, waiting for a regular fix in a firmware update, I'll
 update my folder tree to use `Soundtracks/Games/Hitman/Contracts` and
 `Soundtracks/Movies/Kill Bill/Volume 1` but this is far from optimal.
-

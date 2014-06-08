@@ -2,6 +2,7 @@
 layout: post
 title: "Caracole - Référencement"
 custom_v2_id: 7
+tags: cakephp, caracole
 ---
 
 Le référencement est une des préocupations principales de nos clients, tous
@@ -50,4 +51,3 @@ Et pour finir, je vais passer rapidement sur les essentiels : balise <title>
 et meta description différents pour chaque page, fichier robots.txt, texte
 alternatif sur les images et accessibilité du markup HTML mais bien sur,
 Caracole se charge de tout cela aussi.
-

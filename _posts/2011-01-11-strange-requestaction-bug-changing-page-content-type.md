@@ -2,6 +2,7 @@
 layout: post
 title: "Strange requestAction bug changing the page Content-Type"
 custom_v2_id: 257
+tags: requesthandler, requestaction, content-type, cakephp
 ---
 
 Today, I thought my current project was finished. But I had this bug report in
@@ -76,6 +77,5 @@ definition. A first header was telling `text/plain` and a second one`
 text/html`. I guess Firefox uses the first one while other browsers the last.
 This is what made Firebug and the Developer Toolbar return different results
 too.
-
 
 

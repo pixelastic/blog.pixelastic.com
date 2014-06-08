@@ -2,6 +2,7 @@
 layout: post
 title: "Productivity tip #2 : Use a Dropbox"
 custom_v2_id: 335
+tags: doxie, keepass, productivity, dropbox, scanner, tomboy, paperwork
 ---
 
 Here's one more post in my productivity serie. This one is about the Dropbox
@@ -62,4 +63,3 @@ I personnaly only use a fraction of that so I stay on the free plan. I haven't
 mentionned it because I don't use it, but you can also share some folders with
 other Dropbox users, which is a nice addition when working on the same
 project.
-

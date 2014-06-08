@@ -2,6 +2,7 @@
 layout: post
 title: "Selecting checked radio button with jQuery and IE8"
 custom_v2_id: 310
+tags: jquery, radio, ie8, checked
 ---
 
 Ever tried to select the checked `radio `button of a form using jQuery ? Well
@@ -80,4 +81,3 @@ be an easy fix.
 You can test it yourself with [this jsFiddle
 example](http://jsfiddle.net/pixelastic/WS53Q/1/). Don't forget to enable the
 log panel in IE8 by pressing F12 before running the code.
-

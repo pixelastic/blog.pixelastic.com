@@ -2,6 +2,7 @@
 layout: post
 title: "Creating dirs with correct chmod in PHP"
 custom_v2_id: 209
+tags: mkdir, umask, php, chmod
 ---
 
 One trick I've been dragging with me on all this years of PHP programing is a
@@ -24,4 +25,3 @@ umask($tmpUmask);
 I must admit that I've never really understand why it was working better than
 simply calling `mkdir()` but hey, it's been years that I'm using that now and
 I never run into access rights issues since.
-

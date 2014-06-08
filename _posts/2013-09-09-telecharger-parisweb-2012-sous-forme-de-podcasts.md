@@ -2,6 +2,7 @@
 layout: post
 title: "Télécharger ParisWeb 2012 sous forme de podcasts"
 custom_v2_id: 354
+tags: paris-web
 ---
 
 _Note for my English readers : In this post in French, I'm talking about how
@@ -25,4 +26,3 @@ gist](https://gist.github.com/pixelastic/6494754).
 TODO: Actuellement je télécharge la totalité de la vidéo (pouvant atteindre
 plusieurs Go) pour n'en extraire qu'un fichier audio de quelques dizaines de
 Mo. De plus, l'audio ne semble pas correctement reconnaitre le stéréo.
-

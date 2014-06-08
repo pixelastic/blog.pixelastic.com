@@ -2,6 +2,7 @@
 layout: post
 title: "Adding some logic in your MySQL"
 custom_v2_id: 200
+tags: mysql, having, group-by, distinct, timestampdiff, concat
 ---
 
 I'm not an expert in SQL queries, I just know how to do simple queries and the
@@ -26,4 +27,3 @@ combined them
 ```sql
 TIMESTAMPDIFF(SECOND, CONCAT(Timestamp.date, " ", Timestamp.time), CONCAT(Timestamp.date, " ", Timestamp.time)) AS timeSpent
 ```
-

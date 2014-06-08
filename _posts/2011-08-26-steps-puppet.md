@@ -2,6 +2,7 @@
 layout: post
 title: "First steps with puppet"
 custom_v2_id: 308
+tags: lighttpd, php, puppet
 ---
 
 I've never used puppet before this project. It in installed on our main
@@ -108,4 +109,3 @@ and even print a `diff `of the files changed.
 
 I've lost 30mn checking and re-checking my puppet file because my `php.ini`
 changes weren't updated. In fact, I just forgot to reload `lighttpd`...
-

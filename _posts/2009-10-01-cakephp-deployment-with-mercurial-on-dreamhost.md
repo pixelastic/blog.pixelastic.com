@@ -2,6 +2,7 @@
 layout: post
 title: "cakePHP deployment with Mercurial on Dreamhost"
 custom_v2_id: 22
+tags: ssh, mercurial, hg, dreamhost, cakephp
 ---
 
 I now use Mercurial on my daily work flow and have set up some methods on my
@@ -211,4 +212,3 @@ hgInitEnd() {
 That's all. I bet anyone slightly more experienced in shell scripting could do
 better than that, but as I have struggled a little to get this right I thought
 I could share it.
-

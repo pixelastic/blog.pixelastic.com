@@ -2,6 +2,7 @@
 layout: post
 title: "A small note about video encoding and formats"
 custom_v2_id: 339
+tags: video
 ---
 
 Following my previous note on audio files, I made some research on video
@@ -115,4 +116,3 @@ video with an ogg audio stream in an mkv container.
 
 Well, there also is the matter of the video resolution, data rate, fps and
 audio frequency but this might be the subject of another post.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Validation et génération de numero de SIRET"
 custom_v2_id: 13
+tags: cakephp, php, siret
 ---
 
 Pour le projet sur lequel je travaille actuellement, je dois tester la
@@ -96,4 +97,3 @@ Et on fini par retourner le numero de façon lisible, par exemple : 774 082 010
 J'ai fait une petite recherche sur [societe.com](http://www.societe.com/),
 aucun de mes numeros générés ne semble donner de résultat, malgré tout ils
 sont syntaxiquement valides.
-

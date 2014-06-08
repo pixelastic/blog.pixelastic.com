@@ -2,6 +2,7 @@
 layout: post
 title: "-webkit-box-shadow inset value"
 custom_v2_id: 66
+tags: webkit, safari, inset, chrome, box-shadow, border-radius
 ---
 
 Webkit browsers (Safari and Chrome) have the `-webkit-box-shadow` property
@@ -20,4 +21,3 @@ This bug does not occur on Mac, but as I have no way to target a certain OS
 when writing CSS rules, I decided to remove `inset box-shadow` for webkit
 browsers on my actual projects, I may re-insert them later when both issues
 will be fixed.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Quick overview of the Prestashop admin panel"
 custom_v2_id: 54
+tags: prestashop
 ---
 
 One of my client wants to move an old osCommerce site to a new platform.
@@ -63,4 +64,3 @@ custom image upload script, much more useful.
 
 I'll have to use that admin panel anyway. I just hop that I do not
 underestimate the time needed to move the shop to this platform.
-

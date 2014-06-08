@@ -2,6 +2,7 @@
 layout: post
 title: "Reading my own code from 3 years ago"
 custom_v2_id: 45
+tags: php
 ---
 
 Today I had to update an old site I developped some years ago. I had to move
@@ -37,4 +38,3 @@ And some other mistakes :
 To be honest a part of me is horrified of what I wrote some years ago and
 thought was great. On the other hand, I'm quite proud of the progress I have
 made in so little time.
-

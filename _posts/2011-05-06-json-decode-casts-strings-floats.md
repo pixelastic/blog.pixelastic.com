@@ -2,6 +2,7 @@
 layout: post
 title: "json_decode casts strings to floats"
 custom_v2_id: 276
+tags: json, float, json-decode, string, php
 ---
 
 The PHP function [json_decode](http://fr.php.net/manual/en/function.json-
@@ -71,4 +72,3 @@ function my_json_decode($var) {
 This will check that the result of the JSON decoding is an array, and if not
 (meaning the original string was not a JSON string), it will return the
 original string.
-

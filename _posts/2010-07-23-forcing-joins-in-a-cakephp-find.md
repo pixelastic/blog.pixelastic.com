@@ -2,6 +2,7 @@
 layout: post
 title: "Forcing joins in a cakePHP find"
 custom_v2_id: 199
+tags: joins, find, cakephp
 ---
 
 Today I had to setup a complex find relation. Here is the simplifed version of
@@ -68,4 +69,3 @@ because you may need to add several joins.
 
 I had never heard of this joins key before today, but it is quite handy, I
 guess I'll use it again.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Using a fixture with a model using $useTable in cakePHP"
 custom_v2_id: 193
+tags: bug, cakephp, unit-testing, fixture, usetable
 ---
 
 It seems that if you're creating a fixture for a model that uses an
@@ -32,4 +33,3 @@ class ClientFixture extends CakeTestFixture {
 
 I've filed a bug report as well as suggested a fix to allow cake to
 automatically use the correct table.
-

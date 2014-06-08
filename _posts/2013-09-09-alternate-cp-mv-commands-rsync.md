@@ -2,6 +2,7 @@
 layout: post
 title: "Alternate cp and mv commands using rsync"
 custom_v2_id: 355
+tags: linux, zsh, cp, mv, rsync, compdef, completion
 ---
 
 Sometime you need to copy or move files, but preserve their ownership,
@@ -20,4 +21,3 @@ compdef _cp rcp rmv 
 They are defined as functions and not aliases so I can define which completion
 functions zsh will use (that's the `compdef` part). In that case, I want them
 to use the same completion as for the basic `cp` command.
-

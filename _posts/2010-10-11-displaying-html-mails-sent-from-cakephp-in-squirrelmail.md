@@ -2,6 +2,7 @@
 layout: post
 title: "Displaying HTML mails sent from cakePHP in SquirrelMail"
 custom_v2_id: 230
+tags: cakephp, mail, squirrelmail, webmail, headers
 ---
 
 I just stumble upon the fact that my automated multipart (text + html) mails
@@ -38,4 +39,3 @@ $this->Email->send();
 I'll now have to add those two additional line of code everytime I'll have to
 send a multipart (html + text) email in cakePHP, until it get fixed (no
 specified milestone).
-

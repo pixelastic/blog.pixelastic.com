@@ -2,6 +2,7 @@
 layout: post
 title: "Some CSS hacks to target IE6 and IE7"
 custom_v2_id: 232
+tags: csstidy, hack, css, ie6, ie, ie7
 ---
 
 After stopping using ugly IE hacks and moving to conditionnal comments to load
@@ -50,4 +51,3 @@ course, you have absolutly no `class="ie6"` in your code)
 
 To target IE7 I made a custom selector that its parsing engine is the only one
 to understand : `*:first-child + html .mySelector { property:value; }`
-

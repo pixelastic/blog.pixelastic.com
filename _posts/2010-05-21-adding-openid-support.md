@@ -2,6 +2,7 @@
 layout: post
 title: "Using cakePHP OpenId plugin on Windows"
 custom_v2_id: 171
+tags: openid, php, cakephp, windows
 ---
 
 After all the praises I've read about OpenId, I decided to implement it in
@@ -79,5 +80,4 @@ All you have to do is add the following line on line 93 of the
 ```php
 curl_setopt($c, CURLOPT_CAINFO, str_replace('\\', '/', dirname(__FILE__)).'/../OpenID/ca-bundle.crt');
 ```
-
 

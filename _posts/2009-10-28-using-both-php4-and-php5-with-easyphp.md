@@ -2,6 +2,7 @@
 layout: post
 title: "Using both php4 and php5 with Easyphp"
 custom_v2_id: 23
+tags: php5, php4, php, easyphp
 ---
 
 I'm mostly developing on my Windows machine, using EasyPHP (combining Apache,
@@ -50,4 +51,3 @@ parsed by the php.exe file in our /cgi-bin/php4 directory.
 
 Don't forget to edit this php.ini if you want to tweak things, and remember
 that extensions for this version are in the copied extensions/ directory.
-

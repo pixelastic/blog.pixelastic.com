@@ -2,6 +2,7 @@
 layout: post
 title: "How to prevent a FOUC but still gracefully degrade the jQuery UI tabs"
 custom_v2_id: 223
+tags: jquery-ui, tabs, jquery, graceful-degradation, javascript, css, fouc
 ---
 
 I finally managed to fix something that was bugging me for a very long time.
@@ -111,4 +112,3 @@ CSS rules being dependent on the markup used, I haven't yet been able to write
 them in a global form that could be added to the main jQuery UI css files.
 
   *[FOUC]: Flash Of Unstyled Content
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Installing jshint with node v0.6.6"
 custom_v2_id: 331
+tags: jshint, npm, node, nodejs
 ---
 
 Yesterday, I've tried to install nodejs and the jshint package to add
@@ -34,4 +35,3 @@ sudo npm install jshint -g
 
 Source : [https://github.com/isaacs/npm/issues/1888](https://github.com/isaac
 s/npm/issues/1888)
-

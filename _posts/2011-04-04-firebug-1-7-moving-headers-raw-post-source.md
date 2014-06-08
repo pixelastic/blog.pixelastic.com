@@ -2,6 +2,7 @@
 layout: post
 title: "Firebug 1.7 moving headers to raw POST source"
 custom_v2_id: 270
+tags: live-http-headers, flash, php, bug, firebug, post
 ---
 
 _Edit : The issue discussed here has been fixed in [Firebug
@@ -60,4 +61,3 @@ ead/thread/1faabb0d0a8d26f7?hl=en)
 Edit : Seems to be [resolved in
 Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=649338), will be
 available in next release (8.0 I guess).
-

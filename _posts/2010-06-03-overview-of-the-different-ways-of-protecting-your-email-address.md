@@ -2,6 +2,7 @@
 layout: post
 title: "Overview of the different ways of protecting your email address"
 custom_v2_id: 179
+tags: css, javascript, mail, spam
 ---
 
 You surely know that displaying an email address as plain text in a website
@@ -148,4 +149,3 @@ displaying), then adding an obfuscated Javascript layer to create the
 
 This would mean a better user experience for users with Javascript, but that's
 ok, that's what Javascript is for.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Downloading from Youtube for offline watching"
 custom_v2_id: 347
+tags: cli, video, youtube, dailymotion, vimeo
 ---
 
 Call me old fashioned but I do not really like the "always connected" motto
@@ -27,4 +28,3 @@ download from a variety of smaller websites.
 All those scripts accepts the video url as parameter.
 
 Happy scripting and happy viewing !
-

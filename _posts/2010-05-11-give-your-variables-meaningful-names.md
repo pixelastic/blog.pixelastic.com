@@ -2,6 +2,7 @@
 layout: post
 title: "Give your variables meaningful names"
 custom_v2_id: 89
+tags: variables, tinymce, javascript
 ---
 
 I just realized that the fullscreen plugin I was using with tinyMCE (v3.3.5)
@@ -66,4 +67,3 @@ The tinyMCE team released a survey asking user what should be improved on the
 tinyMCE product. I answered it, and my main point was to improve
 documentation, because reading the tinyMCE core to understand its inner goings
 is quite a chore.
-

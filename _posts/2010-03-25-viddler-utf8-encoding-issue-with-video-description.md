@@ -2,6 +2,7 @@
 layout: post
 title: "Viddler utf8 encoding issue with video description"
 custom_v2_id: 61
+tags: viddler, utf8, encoding
 ---
 
 It seems that Viddler changed something on their video API in the middle of
@@ -26,4 +27,3 @@ in no time, seing how trivial it is (in fact, the title field is not affected
 by this bug).
 
 Update 29th March : Viddler support filed a ticket for the issue.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Testing IE6 and IE7 using VirtualBox on Windows"
 custom_v2_id: 243
+tags: virtualbox, ie7, windows, ie6
 ---
 
 Testing various IE version as always been a chore. Back in the days, I managed
@@ -75,4 +76,3 @@ You can find your host ip by doing a `ipconfig /all` in a command prompt.
 You then just have to go to http://www.pixelastic/ in IE6 to display the
 correct website. You can even switch to the Seamless mode to display your IE6
 inside your main host.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Installing Ubuntu in VirtualBox to work as a development server"
 custom_v2_id: 269
+tags: virtualbox, lighttpd, cakephp, ubuntu, server, php5, memcached, php
 ---
 
 I was tired of trying to install Lighttpd on Windows (hint : don't try, it's a
@@ -177,4 +178,3 @@ sudo update-rc.d -f apache2 remove
 
 If you followed this instruction, you should have a server running inside a VM
 that runs your website stored in your host. Isn't that pretty ?
-

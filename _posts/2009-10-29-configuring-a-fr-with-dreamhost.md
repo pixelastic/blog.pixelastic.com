@@ -2,6 +2,7 @@
 layout: post
 title: "Configuring a .fr with Dreamhost"
 custom_v2_id: 24
+tags: zonecheck, gandi, dreamhost, afnic, fr
 ---
 
 Hosting a website on a .fr is a little harder than a simple .com. The
@@ -28,4 +29,3 @@ Create a `mysql A `entry and a `ftp A` entry if you want to use both
 
 I also changed the MX record to the google one, as well as creating a CNAME
 webmail.
-

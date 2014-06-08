@@ -2,6 +2,7 @@
 layout: post
 title: "CSS3 gradients with CSSTidy"
 custom_v2_id: 188
+tags: gradients, csstidy, css3, css
 ---
 
 Gradients are one of the new cool stuff CSS3 brought with it. Like the others
@@ -143,4 +144,3 @@ is just a quick and dirty patch, as I'm not the creator of CSSTidy.
 
 This could surely be improved in a less hacky way, for example by compressing
 the color code used in the gradients...
-

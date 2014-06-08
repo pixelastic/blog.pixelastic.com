@@ -2,6 +2,7 @@
 layout: post
 title: "Caracole - Brouillons"
 custom_v2_id: 4
+tags: caracole, cakephp
 ---
 
 Une des fonctionnalités les plus pratiques de Wordpress, c'est de pouvoir
@@ -26,4 +27,3 @@ le code le plus clair possible.
 Dans l'admin, les brouillons restent bien sur visibles (bien qu'indiqués de
 façon légerement différente), et il suffit d'aller décocher la case pour les
 publier réellement.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Multiple foreach() with references in php"
 custom_v2_id: 271
+tags: php, foreach, reference
 ---
 
 It took me a couple of hours to debug : I had an array with values that
@@ -32,4 +33,3 @@ foreach($list2 as $key => &$data) {
 
 This resulted in the latest index of `$newArray` being set to one of `$list2`
 values (didn't know exactly which). This is really counter intuitive.
-

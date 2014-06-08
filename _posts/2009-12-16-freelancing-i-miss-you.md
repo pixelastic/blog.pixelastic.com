@@ -2,6 +2,7 @@
 layout: post
 title: "Freelancing, I miss you"
 custom_v2_id: 25
+tags: xmp, phpsec, php, metadatas, iptc, google-analytics, gmail, exif, coldfusion, caracole
 ---
 
 Well, it's been one month and a half now that I've put my freelance activites
@@ -38,4 +39,3 @@ possibility to upload photo directly from a mobile phone, etc
 
 The old ideas about my own personal website, a quizz website, or one for
 rating driver's ed are still in my mind. Wait and see.
-

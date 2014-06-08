@@ -2,6 +2,7 @@
 layout: post
 title: "How to select the first element of a given class"
 custom_v2_id: 80
+tags: first-of-type, css
 ---
 
 Imagine the following HTML code :
@@ -26,4 +27,3 @@ inside div.wrapper" as I imagined.
 
 Using jQuery I could do a `$('div.wrapper div.foo:first')` but there's no such
 selector in CSS.
-

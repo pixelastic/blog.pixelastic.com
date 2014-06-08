@@ -2,6 +2,7 @@
 layout: post
 title: "Extra GET request when using SWFUpload"
 custom_v2_id: 60
+tags: swfupload, firebug, button_image_url
 ---
 
 I've been using [SWFUpload ](http://swfupload.org/)for quite a long time now.
@@ -37,4 +38,3 @@ continue to do the request.
 
 Anyway, I upgraded to the latest version (2.5.0 Beta 3), and it solves my
 problem. Now I'm just hoping that all the retro-compatibility will be kept.
-

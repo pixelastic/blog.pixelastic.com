@@ -2,6 +2,7 @@
 layout: post
 title: "tinyMCE mceRemoveNode explained"
 custom_v2_id: 57
+tags: tinymce, mceremovenode
 ---
 
 When writing my image plugin for tinyMCE today I came accross the
@@ -41,4 +42,3 @@ but I thought that sticking to the tinyMCE methods would be a better approach,
 I don't want to mess all this stuff up, maybe "simply" removing html nodes
 like this could interfere with the `textarea `value update, I don't know. And
 in doubt, I prefer to use the methods and command exposed by the API
-

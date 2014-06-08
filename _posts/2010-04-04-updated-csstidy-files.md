@@ -2,6 +2,7 @@
 layout: post
 title: "Updated CSSTidy files"
 custom_v2_id: 67
+tags: css, csstidy, sourceforge
 ---
 
 CSSTidy allows you to optimize your CSS files by aggregating them in one
@@ -26,4 +27,3 @@ also posted two bug reports and one (dummy) patch.
 
 Here's the link, you got a download link at the bottom :
 http://csstidy.svn.sourceforge.net/viewvc/csstidy/trunk/
-

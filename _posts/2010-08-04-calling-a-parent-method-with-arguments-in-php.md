@@ -2,6 +2,7 @@
 layout: post
 title: "Calling a parent method with arguments in PHP"
 custom_v2_id: 211
+tags: php, parent, call-user-func-array, arguments, simpletest, unit-testing
 ---
 
 For testing purpose I just needed to overwrite an existing class to add some
@@ -24,6 +25,5 @@ class TestDocument extends Document {
     }
 }
 ```
-
 
 

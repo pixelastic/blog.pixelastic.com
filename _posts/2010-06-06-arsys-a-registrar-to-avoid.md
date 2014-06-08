@@ -2,6 +2,7 @@
 layout: post
 title: "Arsys, a registrar to avoid"
 custom_v2_id: 181
+tags: registrar, migration, arsys
 ---
 
 When I use great registrars or hosting services, I say so, and loudly. From
@@ -41,4 +42,3 @@ to quit this registrar and moved the domain to Gandi.
 What is the most strange is that when you google them you got lot of praises
 about their wonderful customer service... After having tested it, I just don't
 buy it.
-

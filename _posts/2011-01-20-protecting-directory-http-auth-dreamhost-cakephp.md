@@ -2,6 +2,7 @@
 layout: post
 title: "Protecting a directory using HTTP Auth on Dreamhost with cakePHP"
 custom_v2_id: 258
+tags: dreamhost, htpasswd, router, cakephp, htaccess
 ---
 
 One can protect the browsing of a special directory with a simple set of
@@ -55,4 +56,3 @@ custom failed auth page.
 
 I guess just dropping a `failed_auth.html` file in `app/webroot/ `could have
 done the trick too.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Going to parent folder in Windows 7 Explorer"
 custom_v2_id: 260
+tags: windows-7, classicshell, folder
 ---
 
 At first I thought I missed an option somewhere, but now I have to admit :
@@ -19,4 +20,3 @@ solution.
 I finally installed [ClassicShell
 ](http://sourceforge.net/projects/classicshell/)that adds the missing button
 as well as some other minor cosmetics changes.
-

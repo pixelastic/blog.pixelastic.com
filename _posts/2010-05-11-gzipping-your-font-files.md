@@ -2,6 +2,7 @@
 layout: post
 title: "Gzipping your font files"
 custom_v2_id: 87
+tags: woff, ttf, otf, mod_deflate, gzip, font, eot, apache
 ---
 
 When using `@font-face` to display fonts, you have to create a whole bunch of
@@ -53,4 +54,3 @@ no need to add them here.
 
 I haven't included `.woff` files because `.woff` files are already compressed
 files, so you don't need to gzip them.
-

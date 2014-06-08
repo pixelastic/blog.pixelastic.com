@@ -2,6 +2,7 @@
 layout: post
 title: "Manually changing MX and CNAME resolving for Gmail"
 custom_v2_id: 59
+tags: server, ns, mx, linux
 ---
 
 I don't usually change MX resolving, but when I do, it always almost is using
@@ -47,4 +48,3 @@ haven't find it.
 P.S : I used this [google / DNS Stuff
 page](http://www.google.com/support/a/bin/answer.py?hl=en&answer=116393) to
 help me test my records all along the way
-

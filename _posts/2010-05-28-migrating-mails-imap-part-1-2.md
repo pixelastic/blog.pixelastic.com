@@ -2,6 +2,7 @@
 layout: post
 title: "Migrating mails from IMAP to IMAP (part 1/2)"
 custom_v2_id: 176
+tags: imap, dreamhost, squirrelmail, horde, gmail
 ---
 
 One of my clients wanted to change its hosting provider because of almost
@@ -97,4 +98,3 @@ time. I'll have DNS issues, and the registrar panel that I have is very basic,
 I won't be able to fine tuned it correctly.
 
 It seems that I'll have to migrate mails from one server to the other.
-

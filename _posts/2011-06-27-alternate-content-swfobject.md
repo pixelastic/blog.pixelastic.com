@@ -2,6 +2,7 @@
 layout: post
 title: "Alternate content with SWFObject"
 custom_v2_id: 293
+tags: flash, swf, swfobject
 ---
 
 SWFObject allow a web developer to add an alternate content in place of the
@@ -59,4 +60,3 @@ if (flashVersion.minor=='0') {
 This is not bulletproof : I only test for two cases. And a better solution
 would also have been to put the error message dynamically using Javascript
 instead of polluting the HTML markup with contradictory text.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Another PHP casting weirdness"
 custom_v2_id: 277
+tags: casting, php, boolean, array
 ---
 
 Second weird PHP behavior behavior of the day :
@@ -25,4 +26,3 @@ This time, PHP tells me that the index is not defined and throws an error.
 Wait, what ?
 
 Apparently, this is the intended behavior, but it does seem a bit strange...
-

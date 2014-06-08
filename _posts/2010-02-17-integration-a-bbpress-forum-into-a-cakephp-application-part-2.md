@@ -2,6 +2,7 @@
 layout: post
 title: "Integration of a bbPress forum into a cakePHP application (part 2)"
 custom_v2_id: 47
+tags: cakephp, bbpress
 ---
 
 We've done enough work on the forum for now. The time has come to edit our
@@ -74,4 +75,3 @@ user.
 
 I myself wrote this behavior, but as it is part of a more general bbPress
 plugin it may not work as-is. I'll try to publish it if anyone is interested.
-

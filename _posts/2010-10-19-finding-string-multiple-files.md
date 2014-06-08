@@ -2,6 +2,7 @@
 layout: post
 title: "Finding a string in multiple files"
 custom_v2_id: 233
+
 ---
 
 Lately I was receiving emails with just the text "Blablabla" from an old
@@ -17,4 +18,3 @@ So I connected to the serveur using ssh and ran the following command : grep
 -R Blablabla /path
 
 After some processing, I got the incriminating file and was able to delete it.
-

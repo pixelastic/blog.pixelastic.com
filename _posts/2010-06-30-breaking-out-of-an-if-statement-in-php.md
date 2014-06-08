@@ -2,6 +2,7 @@
 layout: post
 title: "Breaking out of an if statement in PHP"
 custom_v2_id: 189
+tags: php, break
 ---
 
 One pattern I use when writing new method is to put conditions that may end
@@ -42,4 +43,3 @@ do {
 ```
 
 This helped me some times, hope it can help someone else.
-

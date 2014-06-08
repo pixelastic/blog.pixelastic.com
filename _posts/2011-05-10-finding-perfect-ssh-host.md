@@ -2,6 +2,7 @@
 layout: post
 title: "Finding the perfect SSH host"
 custom_v2_id: 279
+tags: hosting, alwaysdata, ovh, ssh, gandi, dreamhost
 ---
 
 I'm trying to find a company providing hosting capabilities. I have a strong
@@ -120,4 +121,3 @@ pretty decent from what I can read and the price is still in my range
 _I'll continue this review later, with more information. If you, reader, have
 any suggestion on a good host filling my need, feel free to post it in the
 comments, I'll review it._
-

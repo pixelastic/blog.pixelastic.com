@@ -2,6 +2,7 @@
 layout: post
 title: "How to fix the Firefox autocomplete 'feature'"
 custom_v2_id: 219
+tags: password, firefox, feature, autocomplete
 ---
 
 Firefox can be quite a pain sometimes. I usually praise this browser features
@@ -75,4 +76,3 @@ password instead of the real one.
 
 Unfortunatly this adds clutter to your markup, but with a little
 `display:none` in CSS it won't ever be seen by your users.
-

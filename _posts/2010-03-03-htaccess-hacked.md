@@ -2,6 +2,7 @@
 layout: post
 title: ".htaccess hacked"
 custom_v2_id: 50
+tags: hack, ftp, htaccess
 ---
 
 Today a client called me telling me that its website was unavailable, or more
@@ -44,4 +45,3 @@ A little search online told me that this IP refer to a malware website
 launching a fake Antivirus software installation.
 
 I have no idea how the `.htacces`s got modified, but I changed the FTP password.
-

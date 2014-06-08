@@ -2,6 +2,7 @@
 layout: post
 title: "Differences between Mercurial and Subversion"
 custom_v2_id: 265
+tags: svn, tortoisehg, mercurial, hg, subversion
 ---
 
 People at my current job are using Subversion, and our project will be tracked
@@ -83,4 +84,3 @@ me.
 Having all history in one dir and all ignore rules in one files seems a better
 approach to me. I guess on some aspects Mercurial is still more centralised
 than Subversion.
-

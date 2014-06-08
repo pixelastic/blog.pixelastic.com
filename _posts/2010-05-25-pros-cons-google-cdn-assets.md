@@ -2,6 +2,7 @@
 layout: post
 title: "Pros and cons of using Google CDN for your assets"
 custom_v2_id: 175
+tags: performance, javascript, google, cdn
 ---
 
 With the recent Google Fonts breakout, much debate surfaces to know if it
@@ -55,4 +56,3 @@ website is hosted in the US, so a CDN really helps.
 
   * http://docs.google.com/document/pub?id=14Xn7kkKwVxSie6xHJwWRAP5mutM7qlWcrHgWtZo63gI
   * http://zoompf.com/blog/2010/01/should-you-use-javascript-library-cdns
-

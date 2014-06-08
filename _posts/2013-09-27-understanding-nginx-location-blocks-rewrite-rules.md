@@ -2,6 +2,7 @@
 layout: post
 title: "Understanding nginx location blocks and rewrite rules"
 custom_v2_id: 357
+tags: htaccess, apache, cakephp, nginx
 ---
 
 I recently moved a cakePHP website from an Apache server to an Nginx one. I
@@ -147,4 +148,3 @@ not easy at first. I hope this post helped you making sense of it.
 Note that there also is the `location ^~` block but I found it to be of very
 limited used as its behavior can be replicated with the more generic `location
 ~` blocks.
-

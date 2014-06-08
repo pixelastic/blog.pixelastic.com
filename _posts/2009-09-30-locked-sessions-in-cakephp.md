@@ -2,6 +2,7 @@
 layout: post
 title: "Locked sessions in cakePHP"
 custom_v2_id: 21
+tags: cakephp, php, sessions
 ---
 
 I was working on a component heavily using session and was having trouble
@@ -20,4 +21,3 @@ was opened for writing, locking it until the process died. What was the
 correct way to halt my script was using exit;
 
 Hope that helped
-

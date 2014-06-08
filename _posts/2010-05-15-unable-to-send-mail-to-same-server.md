@@ -2,6 +2,7 @@
 layout: post
 title: "Unable to send mail to same server"
 custom_v2_id: 166
+tags: postfix, mail
 ---
 
 I just realized that one of my domains was sending mails (in PHP), but I never
@@ -46,4 +47,3 @@ correctly receive mails.
 No you don't, as they are routed by the local delivery system, they should be
 somewhere on your hard drive. In my case it was in the `/home/mailusers/`
 directory
-

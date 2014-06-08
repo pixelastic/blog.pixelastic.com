@@ -2,6 +2,7 @@
 layout: post
 title: "Running multiple Firefox versions side by side on Windows"
 custom_v2_id: 83
+tags: windows, multiple, firefox
 ---
 
 Whenever you upgrade your Firefox, the new version will overwrite the previous
@@ -46,4 +47,3 @@ yet managed to change their title.
 Edit : Now I can't open .html files directly from the explorer nor follow
 links from my IM. I still don't know exactly what of the steps above caused
 that.
-

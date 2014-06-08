@@ -2,6 +2,7 @@
 layout: post
 title: "Selecting node based on namespace in xPath"
 custom_v2_id: 27
+tags: xpath, xmp, xml, namespace, coldfusion
 ---
 
 I'm used to XPath, I use it in my Javascript dev (jQuery) has well as in my
@@ -57,5 +58,4 @@ so it will be enough for now.
 ```xml
 //*[namespace-uri()='http://purl.org/dc/elements/1.1/'][1]/../
 ```
-
 

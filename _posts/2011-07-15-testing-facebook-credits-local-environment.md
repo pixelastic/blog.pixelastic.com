@@ -2,6 +2,7 @@
 layout: post
 title: "Testing Facebook Credits in a local environment"
 custom_v2_id: 300
+tags: fbcredits, facebook, dyndns, curl
 ---
 
 Testing Facebook API has always been a pain for me. Their documentation is
@@ -79,4 +80,3 @@ system that will write on disk or in the DB so your can track the calls.
 Also note that you have to load the page in the iframe canvas, even for your
 tests. You can't simply load an html page and call `FB.ui({method:"pay"})`,
 this will result in error 1151. Always load in the whole FB page.
-

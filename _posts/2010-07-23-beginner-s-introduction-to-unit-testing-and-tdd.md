@@ -2,6 +2,7 @@
 layout: post
 title: "Beginner's introduction to Unit Testing and TDD"
 custom_v2_id: 191
+tags: cakephp, simpletest, tests, unit-testing, tdd
 ---
 
 I first heard of TDD and Unit Testing one year ago, by reading discussions
@@ -162,4 +163,3 @@ $this->model = ClassRegistry::init('User');
 
 As I'm also still discovering Unit Testing in cake, I'll surely post other
 tips as I encounter them.
-

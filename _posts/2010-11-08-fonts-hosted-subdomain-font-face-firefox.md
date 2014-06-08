@@ -2,6 +2,7 @@
 layout: post
 title: "Using fonts hosted on a subdomain with @font-face and Firefox"
 custom_v2_id: 237
+tags: apache, css, htaccess, font-face, firefox, font
 ---
 
 As a security reason, Firefox do not allow an `@font-face` rule to load fonts
@@ -26,4 +27,3 @@ from an other domain, server-side. Here is the little snippet I added to my
   </IfModule>
 </FilesMatch>
 ```
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Use the system trash with ZSH terminal"
 custom_v2_id: 340
+tags: autocomplete, rm, linux, zsh, rmdir
 ---
 
 When you start using the terminal as your main file explorer instead of a GUI
@@ -88,4 +89,3 @@ turn return only directories.
 
 Now I have complete `rm` and `rmdir` commands in my terminal that move files
 to the trash.
-

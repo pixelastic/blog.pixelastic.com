@@ -2,6 +2,7 @@
 layout: post
 title: "Weird PHP behavior when casting as an object"
 custom_v2_id: 327
+tags: object, php, empty
 ---
 
 I've just stumbled upon that weird behavior when force casting the return of a
@@ -26,4 +27,3 @@ become objects with a key `scalar`, set to `false`
 
 This is one of the little things that make me want to ditch PHP for a better
 language.
-

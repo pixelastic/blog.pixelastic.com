@@ -2,6 +2,7 @@
 layout: post
 title: "My new backup strategy for 2011"
 custom_v2_id: 248
+tags: backup, mercurial, mysql, dropbox, keepass, acronis, bitbucket
 ---
 
 My computer was starting to get slower and slower for the past days. And I
@@ -92,4 +93,3 @@ It took me almost two full days to get the right tools, configure them and
 write my custom scripts but now, it is seamlessly integrated with my daily
 workflow. This is a weight off my shoulders, I know I can safely work as usual
 and my files are saved and easily accessible.
-

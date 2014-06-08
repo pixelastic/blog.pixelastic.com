@@ -2,6 +2,7 @@
 layout: post
 title: "The dreaded <noscript> on IE7"
 custom_v2_id: 246
+tags: javascript, noscript, css, ie7, bug
 ---
 
 This `<noscript>` tag on IE7 is making me crazy. Here are some "interesting"
@@ -39,5 +40,4 @@ Internet Options > Security > Custom and setting the "Enable ASP scripts" to
 No.
 
 Yes, this doesn't make any sense.
-
 

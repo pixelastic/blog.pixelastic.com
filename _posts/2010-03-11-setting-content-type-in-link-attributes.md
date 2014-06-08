@@ -2,6 +2,7 @@
 layout: post
 title: "Setting content-type in link attributes"
 custom_v2_id: 56
+tags: link, html4, content-type
 ---
 
 Reading a [comment on
@@ -16,4 +17,3 @@ link.
 
 Unfortunatly, no browser seems to be using it, but I added this support to
 Caracole anyway.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Setting the size of a tab character in a pre element"
 custom_v2_id: 79
+tags: white-space, tab-stops, tab, o-tab-size, moz-tab-size
 ---
 
 When displaying code in an HTML page, you often want it to be correctly
@@ -31,4 +32,3 @@ and I would have liked to style it directly.
 
 Edit : There seems to have a `-moz-tab-size` property on the latest Firefox
 3.7 nightlies
-

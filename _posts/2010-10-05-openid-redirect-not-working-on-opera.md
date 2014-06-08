@@ -2,6 +2,7 @@
 layout: post
 title: "Openid redirect not working on Opera"
 custom_v2_id: 228
+tags: google, openid, opera
 ---
 
 I had a hard time firguring out while my openId login method does not work
@@ -23,4 +24,3 @@ example).
 
 I'll hide the openId login method for my Opera users until this is fixed or I
 find a solution.
-

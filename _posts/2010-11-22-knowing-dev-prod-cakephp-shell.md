@@ -2,6 +2,7 @@
 layout: post
 title: "Knowing dev from prod in a cakePHP shell"
 custom_v2_id: 240
+tags: bash, cakephp, cli, console, database, shell
 ---
 
 I wrote a cakePHP shell to synchronize an IMAP mailbox with a mysql table. I
@@ -69,4 +70,3 @@ if (defined('CAKEPHP_SHELL')) {
 
 Note that I checked if the script was accessed through normal server/php
 delegation or through the CLI using `defined('CAKEPHP_SHELL')`
-

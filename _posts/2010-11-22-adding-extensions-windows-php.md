@@ -2,6 +2,7 @@
 layout: post
 title: "Adding extensions to a Windows PHP"
 custom_v2_id: 241
+tags: cli, imap, easyphp, php
 ---
 
 My development environment is set up thanks to EasyPHP. I've used this app
@@ -20,4 +21,3 @@ failed when launched from the CLI.
 That when I remember that I needed to enabled the `php_imap.dll` extensions in
 both EasyPHP PHP options (for web access) and `C:\windows\php.ini` (for cli
 access)
-

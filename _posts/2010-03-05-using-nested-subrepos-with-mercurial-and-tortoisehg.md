@@ -2,6 +2,7 @@
 layout: post
 title: "Using nested subrepos with Mercurial and TortoiseHg"
 custom_v2_id: 51
+tags: cakephp, caracole, hg, mercurial, tortoisehg, plugins, subrepo
 ---
 
 Nowadays, when I'm developping a new website, I almost always ended using
@@ -75,4 +76,3 @@ all.
 
 Then only was I able to clone my repo from BitBucket, edit the .hgsub file and
 commit my main repo.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "How I want my music files encoded"
 custom_v2_id: 338
+tags: encoding, mp3, ogg, flac
 ---
 
 I have a lot of music files on my computer. Some comes from CDs I encoded,
@@ -60,4 +61,3 @@ encoding.
 
 This will be hard work, but I guess it will be worth it in the long run. At
 least, now I know a bit more about encoding formats and settings.
-

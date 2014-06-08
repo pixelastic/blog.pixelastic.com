@@ -2,6 +2,7 @@
 layout: post
 title: "What would we be studying if our world was a software ?"
 custom_v2_id: 37
+tags: fun, world, software
 ---
 
 > Physics is just reverse-engineering the world
@@ -28,4 +29,3 @@ learning new programming languages.
 Sports would be the fun part, where you are playing you video games.
 
 Did I forgot something ?
-

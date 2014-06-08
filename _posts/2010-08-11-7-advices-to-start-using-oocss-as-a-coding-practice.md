@@ -2,6 +2,7 @@
 layout: post
 title: "7 advices to start using OOCSS as a coding practice"
 custom_v2_id: 201
+tags: css, oocss
 ---
 
 Not long ago, I stumbled across this [video about massive and unmaintainable
@@ -133,4 +134,3 @@ It also helped me separate the various elements of the website, and it is much
 more easier to find the piece I need. Fewer classes to depends on means I know
 where the rules are coming from and I can write more specific selectors if
 need me more easily.
-

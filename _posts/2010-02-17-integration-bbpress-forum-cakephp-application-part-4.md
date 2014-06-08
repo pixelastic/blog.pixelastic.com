@@ -2,6 +2,7 @@
 layout: post
 title: "Integration of a bbPress forum into a cakePHP application (part 4)"
 custom_v2_id: 49
+tags: bbpress, cakephp
 ---
 
 We're almost done. There is just one last thing we must do. We don't want our
@@ -162,4 +163,3 @@ plugin.
 
 So, feel free to browse the files and get what you need, but consider it as a
 part of a bigger app, so you'll have to re-plug what's missing.
-

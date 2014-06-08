@@ -2,6 +2,7 @@
 layout: post
 title: "Productivity tip #1 : Using global hotkeys"
 custom_v2_id: 332
+tags: productivity, tip, keyboard, autohotkey
 ---
 
 This post will be the first of what I hope will be a long serie of posts. I'll
@@ -43,4 +44,3 @@ folder, `W` for `/var/www`, etc, etc.
 
 I've tweaked my keyboard in a few other ways, but this will be the subject of
 another post. Hope this one gave you some ideas.
-

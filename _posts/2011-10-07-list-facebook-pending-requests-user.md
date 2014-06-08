@@ -2,6 +2,7 @@
 layout: post
 title: "Getting the list of Facebook pending requests of a user"
 custom_v2_id: 318
+
 ---
 
 Getting the list of pending facebook requests of a user a few weeks back was
@@ -19,4 +20,3 @@ app access_token as documented does not work (as usual with FB documentation).
 It returns an error.
 
 Instead, the following call wil yield the correct result : `https://graph.facebook.com/{user_id}/apprequests?access_token={app_access_token}`
-

@@ -2,6 +2,7 @@
 layout: post
 title: " swfobject.getObjectById() when flash not installed"
 custom_v2_id: 322
+tags: getobjectbyid, swfobject, getflashplayerversion
 ---
 
 SWFObject is the de-facto library used whenever you need to ember Flash files
@@ -34,4 +35,3 @@ var el = swfobject.getObjectById(id) || document.getElementById(id);
 
 And I've also submitted a [bug report](http://code.google.com/p/swfobject/issu
 es/detail?id=599&thanks=599&ts=1319792868).
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Caracole - Edition directe"
 custom_v2_id: 10
+tags: jquery, cakephp, caracole
 ---
 
 En plus de son interface d'administration complète, Caracole permet un mode
@@ -29,4 +30,3 @@ le champ "text" du 12e post.
 C'est extremement pratique pour modifier des fautes de frappe, ou faire des
 tas de petites modifications, je m'en sers énormément et c'est un pas de plus
 pour faciliter l'administration à l'utilisateur final.
-

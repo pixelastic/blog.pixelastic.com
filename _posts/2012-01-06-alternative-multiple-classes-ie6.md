@@ -2,6 +2,7 @@
 layout: post
 title: "Alternative way for multiple classes in IE6"
 custom_v2_id: 333
+tags: ie6, css, button
 ---
 
 In a pure OOCSS style of writing CSS, let's imagine you created a css class of
@@ -58,4 +59,3 @@ expense of a (arguably) less readable markup.
 
 As of today, I hope that I'll never have to code for IE6 websites again, but
 if you ever need to, that's a little trick that can really help.
-

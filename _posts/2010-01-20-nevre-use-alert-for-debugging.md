@@ -2,6 +2,7 @@
 layout: post
 title: "Never use alert() for debugging"
 custom_v2_id: 31
+tags: keyboard, javascript, browser, alert
 ---
 
 One thing I learned today is to never use alert() for debugging pruposes. When
@@ -26,4 +27,3 @@ thus, the browser will take control again and firing its default shortcut.
 So my advice is that you should never use alert for debugging. Use the
 console.debug() method shipped in firebur or directly write to the DOM but do
 not use alert().
-

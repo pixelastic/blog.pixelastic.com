@@ -2,6 +2,7 @@
 layout: post
 title: "The :visited pseudo-class specificity gotcha"
 custom_v2_id: 334
+tags: css, visited
 ---
 
 In a [previous post](/blog/333:alternative-multiples-classes-ie6), I bloggued
@@ -58,4 +59,3 @@ visited links will use the `a` color.
 
 Of course, if you defined a `background-color` in your `a`, you should define
 a `background-color:inherit` in your `a:visited` too.
-

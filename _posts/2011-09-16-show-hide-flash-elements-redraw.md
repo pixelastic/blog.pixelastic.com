@@ -2,6 +2,7 @@
 layout: post
 title: "Show and hide Flash elements without redraw"
 custom_v2_id: 312
+tags: show, hide, flash, css
 ---
 
 Imagine you have a Flash element in your HTML markup. If you apply any
@@ -65,4 +66,3 @@ the element invisible but still taking space, you just have to put its `height
 
 The `margin:0px` is here to clear any margin you might have defined around
 your element.
-

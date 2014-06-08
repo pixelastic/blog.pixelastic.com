@@ -2,6 +2,7 @@
 layout: post
 title: "Take care of that favicon"
 custom_v2_id: 286
+tags: webperf, favicon, caching
 ---
 
 Even if you are not referencing it in your HTML markup, browsers will try to
@@ -51,4 +52,3 @@ Control:max-age=0 on a refresh to force redownloading it.
 
 Except Safari Win. It fetch it along other downloads and re-dewnload it on a
 page refresh.
-

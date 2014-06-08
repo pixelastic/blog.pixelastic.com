@@ -2,6 +2,7 @@
 layout: post
 title: "Installing mitmproxy"
 custom_v2_id: 345
+tags: pip, http, proxy, python, mitmproxy
 ---
 
 I spend the last hour trying to install [mitmproxy](http://mitmproxy.org/).
@@ -29,4 +30,3 @@ on my part. After running `sudo apt-get install python-dev` I was good to run
 a `sudo pip install mitmproxy` again.
 
 Next step will be to configure the beast and learn how to use it.
-

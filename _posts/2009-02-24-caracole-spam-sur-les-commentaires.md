@@ -2,6 +2,7 @@
 layout: post
 title: "Caracole - Spam sur les commentaires"
 custom_v2_id: 15
+tags: cakephp, caracole
 ---
 
 Les trois derniers sites que j'ai fait avec Caracole avaient tous un
@@ -35,4 +36,3 @@ que je me tourne vers Akismet :)
 Pour le moment, je loggue toutes les demandes de contact avec les informations
 du Header, afin d'identifier certains patterns qui pourraient me permettre de
 trouver plus facilement les spammeurs dans le lot.
-

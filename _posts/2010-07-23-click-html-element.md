@@ -2,6 +2,7 @@
 layout: post
 title: "Allow click through an HTML element"
 custom_v2_id: 198
+tags: pointer-events, css, click
 ---
 
 When one HTML element is over another one (like when positioning an element
@@ -20,4 +21,3 @@ Just use the `pointer-events:none` css property to allow click events to go
 through the element.
 
 This is only supported by Firefox 3.6+, Chrome and Safari for now.
-

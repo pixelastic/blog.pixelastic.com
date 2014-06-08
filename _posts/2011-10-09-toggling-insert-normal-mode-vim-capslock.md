@@ -2,6 +2,7 @@
 layout: post
 title: "Toggling insert/normal mode in vim with CapsLock"
 custom_v2_id: 319
+tags: vim, zsh, xmodmap
 ---
 
 You know that CapsLock key on your keyboard ? The sole usage of this key is to
@@ -96,4 +97,3 @@ bindkey -s "\e[25~" ""
 
 Here it is. You can now press CapsLock anywhere and it won't have any effect.
 Plus, pressing it in vim will toggle insert/normal mode.
-

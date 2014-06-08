@@ -2,6 +2,7 @@
 layout: post
 title: "ZSH autocompletion for git unstage "
 custom_v2_id: 341
+tags: autocomplete, git, zsh, unstage
 ---
 
 I recently switched to git as my main version control system (I used to use
@@ -121,4 +122,3 @@ what I was looking for.
 The `git unstage` alias is quite common, you can find it in a lot of books and
 websites teaching git. But it becomes much more usable once zsh does the
 autocomplete for you and you can easily select files to unstage that way.
-

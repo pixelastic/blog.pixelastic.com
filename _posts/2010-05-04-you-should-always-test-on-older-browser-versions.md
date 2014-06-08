@@ -2,6 +2,7 @@
 layout: post
 title: "You should always test on older browser versions"
 custom_v2_id: 81
+tags: multiple, firefox, firefox, css
 ---
 
 You probably already have installed on your computer various web browsers (FF,
@@ -31,4 +32,3 @@ versions.
 
 Next post will be explaining how to test on multiple Firefox versions side by
 side.
-

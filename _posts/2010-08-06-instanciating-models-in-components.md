@@ -2,6 +2,7 @@
 layout: post
 title: "Correctly instanciating models in components"
 custom_v2_id: 216
+tags: behaviors, cakephp, classregistry, php, setup
 ---
 
 I sometime need access to a specific model in a component. Say a `User `model
@@ -31,4 +32,3 @@ foreach($myModel->Behaviors->_attached as $behaviorName) {
 
 Once again, small fix, but does the trick. I did not file a bug report because
 I'm not really sure this is bug or if that is so by design.
-

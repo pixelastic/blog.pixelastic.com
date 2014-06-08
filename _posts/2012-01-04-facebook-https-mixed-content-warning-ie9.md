@@ -2,6 +2,7 @@
 layout: post
 title: "Facebook https mixed content warning on IE9"
 custom_v2_id: 330
+tags: facebook, fb, https, ie9, javascript
 ---
 
 When browsing the web, you might have seen a "mixed content warning" popup
@@ -114,4 +115,3 @@ I'm not really proud of this solution, as it is mostly a hack and will force a
 useless loading of the http version before loading the https one, but that's
 the best I've found. If any of you have a better solution, feel free to
 comment.
-

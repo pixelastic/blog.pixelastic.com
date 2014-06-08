@@ -2,6 +2,7 @@
 layout: post
 title: "Mysql auto backup"
 custom_v2_id: 63
+tags: mysql, backup
 ---
 
 I'm in the process of automating the backup of all the mysql databases of my
@@ -50,4 +51,3 @@ another database, but I didn't tried that.
 
 One of the main caveats was that it could only save the most recent backup,
 there was no way to save, say, the last 30 days.
-

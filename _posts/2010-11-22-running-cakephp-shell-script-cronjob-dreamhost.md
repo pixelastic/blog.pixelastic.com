@@ -2,6 +2,7 @@
 layout: post
 title: "Running a cakePHP shell script as cronjob on Dreamhost"
 custom_v2_id: 242
+tags: cakephp, dreamhost, shell, cronjob
 ---
 
 Dreamhost as [a wonderful wiki](http://wiki.dreamhost.com/Crontab) on how to
@@ -68,4 +69,3 @@ exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"
 Your cronjob should not work effortlessly. It took me some long hours to track
 all this down (along with other issues on my local dev machine that make
 debugging even more cloudy).
-

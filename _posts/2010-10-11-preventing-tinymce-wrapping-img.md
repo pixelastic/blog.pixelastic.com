@@ -2,6 +2,7 @@
 layout: post
 title: "Preventing tinyMCE from wrapping <img /> in <p>"
 custom_v2_id: 231
+tags: onbeforesetcontent, oninit, tinymce, javascript
 ---
 
 If you just want to add a presentational image in a tinyMCE editor, you'll

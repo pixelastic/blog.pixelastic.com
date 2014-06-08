@@ -2,6 +2,7 @@
 layout: post
 title: "cakePHP : Fatal error: Class 'Controller' not found"
 custom_v2_id: 290
+tags: bug, cakephp, php, controller
 ---
 
 Last Friday, just before turning off my computer and going home, the cake
@@ -23,6 +24,3 @@ class solved the issue.
 
 Hope this blog post will be usefull for anyone else struggling with this error
 message.
-
-
-

@@ -2,6 +2,7 @@
 layout: post
 title: "SWF caching issues accross browsers"
 custom_v2_id: 287
+tags: webperf, ie8, flash, swf, ie7, ie6, firefox, chrome, cache, cache-control
 ---
 
 Here are some quick notes on various browser caching behavior. I was fiddling
@@ -85,7 +86,6 @@ page. Shouldn't happen a lot in the real world, but still nice to know.
 **Link reload, navigational reload and soft reload** : Fetches everything from cache, nice.
 
 **Hard reload** : Re-request jpg and swf files by adding a `Cache-Control: max-age=0` request header. This feels like the expected behavior.
-
 
 
 

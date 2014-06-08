@@ -2,6 +2,7 @@
 layout: post
 title: "Using :after and :before"
 custom_v2_id: 84
+tags: ff3-0, css, only-of-type, before, after
 ---
 
 `:after` and `:before `pseudo-elements allow one to add generated content
@@ -41,4 +42,3 @@ Unfortunatly, it will also filter out IE7 who does not understand `:only-of-
 type` but does understand `:after`/`:before`. I usually remove all fancy form
 styling for IE anyway so that's not a big deal for me, but if you really care,
 you just have to override the rule in a IE7 specific stylesheet.
-

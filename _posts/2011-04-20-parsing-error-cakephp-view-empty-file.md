@@ -2,6 +2,7 @@
 layout: post
 title: "Parsing error in cakePHP view for empty file"
 custom_v2_id: 274
+tags: cakephp, php
 ---
 
 As a convention, I never write the closing PHP tag at the end of my php files.
@@ -37,4 +38,3 @@ cakePHP fail.
 I didn't have time to investigate on it further, nor submit a bug report
 (because it may well be coming from my custom app, not cake itself) but I plan
 to.
-

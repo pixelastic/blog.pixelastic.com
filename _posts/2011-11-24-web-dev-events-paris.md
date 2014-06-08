@@ -2,6 +2,7 @@
 layout: post
 title: "Web and dev events in Paris"
 custom_v2_id: 325
+tags: javascript, parisjs, paris, paris-web, parishacker
 ---
 
 For the past month or so, I've attended quite a bunch of dev and web events,
@@ -46,4 +47,3 @@ Hack Day participants were invited. Along with participant from two other
 events (Designer Weekend and Museomix), the goal was to help all those people
 to meet, and to showcase some of SFR latest innovation. This is clearly the
 event that I liked less.
-

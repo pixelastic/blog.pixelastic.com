@@ -2,6 +2,7 @@
 layout: post
 title: "One thing that may turn me to Ruby : LESS"
 custom_v2_id: 214
+tags: ruby-on-rails, less, php, javascript, css
 ---
 
 I often hear how Ruby is better than PHP, that cakePHP is only a port of the
@@ -42,4 +43,3 @@ them, I'll stick with my rusty CSS.
 _Well, some hours after posting this I just stumbled upon
 [that](http://leafo.net/lessphp/). I guess I'll try LESS in php world after
 all !_
-

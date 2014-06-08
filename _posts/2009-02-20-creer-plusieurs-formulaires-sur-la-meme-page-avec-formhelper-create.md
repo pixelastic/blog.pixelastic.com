@@ -2,6 +2,7 @@
 layout: post
 title: "Créer plusieurs formulaires sur la même page avec FormHelper::create"
 custom_v2_id: 11
+tags: cakephp
 ---
 
 CakePHP permet de créer très facilement des formulaires dont l'action
@@ -25,4 +26,3 @@ rien.
 
 Il faut donc ruser et modifier la variable utilisée par le Helper, c'est à
 dire modifier `$form->data` à partir du second formulaire.
-

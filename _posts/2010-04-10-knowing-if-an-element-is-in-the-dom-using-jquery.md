@@ -2,6 +2,7 @@
 layout: post
 title: "Knowing if an element is in the DOM using jQuery"
 custom_v2_id: 71
+tags: remove, jquery, contains
 ---
 
 If you ever need to know if the element you have a reference to is really in
@@ -15,4 +16,3 @@ with a new one (using .`replaceWith()` and even `.empty()` and `.remove()`)
 
 I added a check to see if the element was really in the DOM before using it,
 and if not requerying it and re-saving it in var
-

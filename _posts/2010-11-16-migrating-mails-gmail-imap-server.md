@@ -2,6 +2,7 @@
 layout: post
 title: "Migrating mails from GMail to other IMAP server"
 custom_v2_id: 239
+tags: google, mail, dreamhost, gmail, squirrelmail, imap, webmail, imapsync, gandi
 ---
 
 I have previously blogged on how [I migrate mails](/blog/176:migrating-mails-
@@ -37,4 +38,3 @@ imapsync --host1 imap.gmail.com --ssl1 --authmech1 LOGIN --user1 foo@domain.fr -
 
 After that, I reloaded my Squirel Mail inbox, and it was populated. I just had
 to do that for every account.
-

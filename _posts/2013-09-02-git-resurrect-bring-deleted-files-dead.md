@@ -2,6 +2,7 @@
 layout: post
 title: "git resurrect to bring back deleted files from the dead"
 custom_v2_id: 350
+tags: resurrect, git
 ---
 
 Ever deleted a file several commits away and then suddenly realizing that you
@@ -32,4 +33,3 @@ git checkout $hash~1 $filename
 ```
 
 I've aliased mine to `git resurrect`.
-

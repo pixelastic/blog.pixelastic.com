@@ -2,6 +2,7 @@
 layout: post
 title: "Debugging a Squirrel webmail"
 custom_v2_id: 36
+tags: webmail, squirrelmail, postfix, mail
 ---
 
 This is a quick blogpost, essentially as a reminder for myself :
@@ -23,4 +24,3 @@ user/group set as `postfix`...
 
 That's it, I just had to not forgot to set the owner/group of the `cur/`
 directory as postfix once cleared.
-

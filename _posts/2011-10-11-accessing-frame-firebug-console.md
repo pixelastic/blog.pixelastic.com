@@ -2,6 +2,7 @@
 layout: post
 title: "Accessing a frame with Firebug console"
 custom_v2_id: 320
+tags: facebook, firebug, frame
 ---
 
 If you want to access the Javascript console of an inner frame of a webpage,
@@ -16,4 +17,3 @@ cd(window.frames[0])
 ```
 
 This proved immensely useful when debugging a Facebook application.
-

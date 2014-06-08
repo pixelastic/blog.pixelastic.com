@@ -2,6 +2,7 @@
 layout: post
 title: "Working on Wednesday #10 : Mercurial improved"
 custom_v2_id: 304
+tags: rails, resurect, hg, zsh, wednesday, backbone, node-js
 ---
 
 Today I enjoyed the nice blue sky and moved to the park at the end of my
@@ -68,4 +69,3 @@ So.. maybe I'll start learning node next week. This is actually something I'd
 love to do, so this might happen. I'm currently refactoring the JS code of my
 work app in Backbone at the moment, so I guess there's no perfect time for
 some JS practice.
-

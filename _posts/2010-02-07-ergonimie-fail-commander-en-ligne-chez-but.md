@@ -2,6 +2,7 @@
 layout: post
 title: "Ergonomie Fail : Commander en ligne chez But"
 custom_v2_id: 38
+tags: fail, ergonomie, but
 ---
 
 Le week-end dernier j'ai vu un joli petit bureau dans un magasin But. Je
@@ -159,5 +160,3 @@ l'adresse est-elle mal enregistrée dans la base de donnée tout simplement.
 Bon, et je me suis arreté là et ai choisi d'aller acheter mon meuble
 directement dans un magasin car clairement leur site n'a fait l'objet d'aucune
 étude ergonomique.
-
-

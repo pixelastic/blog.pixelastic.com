@@ -2,6 +2,7 @@
 layout: post
 title: "The multi-tab admin problem"
 custom_v2_id: 236
+tags: security, tabs, session
 ---
 
 Today I had to update an important zone file at my registrar. Because it was
@@ -46,4 +47,3 @@ person to do that... So I finally accepted the multi-tab restriction.
 Getting back to my registrar : I guess they did it that way because of
 security reasons too, but I found it particularly counter-intuitive in that
 case and that could have led to serious damages.
-

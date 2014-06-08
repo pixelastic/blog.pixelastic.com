@@ -2,6 +2,7 @@
 layout: post
 title: "Downloading all the TEDTalk podcasts"
 custom_v2_id: 336
+tags: wget, tedtalk, podcast, linux
 ---
 
 As I'm about to move for a couple of long months without an internet
@@ -27,4 +28,3 @@ wget --no-clobber -i list.txt
 
 This took a while to download as there are more than 400 files, but that way
 I'll have some interesting talks to listen to during my trip.
-

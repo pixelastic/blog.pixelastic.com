@@ -2,6 +2,7 @@
 layout: post
 title: "Using custom find and paginate methods in cakePHP 1.3"
 custom_v2_id: 88
+tags: php, paginate, paginatecount, custom-find, cakephp
 ---
 
 For the blog plugin I'm writing I needed a way to fetch only blog posts that
@@ -115,4 +116,3 @@ $recursive = null, $extra = array())` method in your `Post `model
 You can now do some `$this->Post->find('published')` magic in your controller.
 And don't forget the `array_unshift()` tip to use the custom find in a
 paginate call, it have to be the first key.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Integration of a bbPress forum into a cakePHP application (part 3)"
 custom_v2_id: 48
+tags: cakephp, bbpress
 ---
 
 Let's go back to bbPress now. With the previous post, you should be able to
@@ -79,4 +80,3 @@ so you should have to convert it before displaying the edit form.
 I also edited my template and added an hidden field in the bbPress login form
 to check if the login was coming from the app or the forum and redirect
 accordingly.
-

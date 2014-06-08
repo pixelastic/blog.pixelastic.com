@@ -2,6 +2,7 @@
 layout: post
 title: "Increasing VirtualBox hard drive size"
 custom_v2_id: 317
+tags: mysql, ubuntu, virtualbox, hard-drive
 ---
 
 While trying to import a huge (1.7Go) mysql dump file into my VM I was blocked
@@ -42,4 +43,3 @@ Then, I closed the VM. Get back to VirtualBox panel and remove the original
 drive, keeping only the new 120Go one.
 
 One reboot later, my Ubuntu was proudly displaying its 120Go.
-

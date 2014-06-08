@@ -2,6 +2,7 @@
 layout: post
 title: "Moving from Delicious to Pinboard"
 custom_v2_id: 253
+tags: pinboard, delicious
 ---
 
 As you may have heard, Yahoo! is closing
@@ -23,4 +24,3 @@ using the service. I payed mine 9.12$.
 The website itself is not as good looking as Delicious (*ahem*), but it does
 provide a cleaner search experience (in my point of view). I really don't care
 about other people bookmark, I only search through mine.
-

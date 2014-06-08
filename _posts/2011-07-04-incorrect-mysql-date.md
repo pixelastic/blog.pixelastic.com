@@ -2,6 +2,7 @@
 layout: post
 title: "Incorrect MySQL date"
 custom_v2_id: 296
+tags: ndb, timezone, date, mysql
 ---
 
 Several ingame time calculation we made in game are based on Paris time. Some
@@ -57,4 +58,3 @@ restart`
 
 Finally, I had to connect to all the servers I saw earlier (with the show
 command) and run `sudo /etc/init.d/mysql-ndb restart `on each of them
-

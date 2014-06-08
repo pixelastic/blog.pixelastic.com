@@ -2,6 +2,7 @@
 layout: post
 title: "SWFObject must be included in the <head>"
 custom_v2_id: 292
+tags: registerobject, flash, javascript, switchoffautohideshow, swfobject
 ---
 
 We just discovered a strange behavior on one of our test VM (one without Flash

@@ -2,6 +2,7 @@
 layout: post
 title: "The all-in-one method to get mimetypes with PHP"
 custom_v2_id: 213
+tags: fileinfo, finfo, mime-content-type, mimetype, php, getimagesize, exec, file
 ---
 
 Getting the correct mimetype from a file in PHP is not an easy task. I used to
@@ -130,4 +131,3 @@ function mimetype($filepath) {
 ```
 
 Hope that helps !
-

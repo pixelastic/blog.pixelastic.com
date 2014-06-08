@@ -2,6 +2,7 @@
 layout: post
 title: "First impressions on my Android powered HTC Legend"
 custom_v2_id: 182
+tags: android, google, htc-legend
 ---
 
 I recently bought an HTC Legend. My old phone was broken and I have plans to
@@ -65,4 +66,3 @@ a whole. Maybe the underlying app is great but as an end-user we are blocked
 from it.
 
 I'll try to root my device and remove the SFR rom to get what I want and need.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "PHP AND / OR differences with && / ||"
 custom_v2_id: 328
+tags: php
 ---
 
 Just found this weird little behavior of PHP today :
@@ -29,4 +30,3 @@ It seems that `AND `and `OR `are weak compared to `&&` and `||`.
 
 Be aware of that, or it might backfire on you. Or just discard all `AND `/ `OR
 `in favor of `&&` /` ||`
-

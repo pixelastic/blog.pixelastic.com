@@ -2,6 +2,7 @@
 layout: post
 title: "A little introduction to image metadata"
 custom_v2_id: 28
+tags: metadatas, iptc, image, xmp, exif, coldfusion
 ---
 
 For the project I'm working on, I have to save numerous[ ](http://en.wikipedia
@@ -67,4 +68,3 @@ specs, recommendation as well as Coldfusion -the language the app is built on-
 I've learn a lot until now and I still have 15 more days to finish it. The
 main app is almost finished (I just have to polish on some edge cases) and
 then I'll have to integrate it in the existing admin panel.
-

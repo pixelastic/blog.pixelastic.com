@@ -2,6 +2,7 @@
 layout: post
 title: "Detecting fullscreen in tinyMCE"
 custom_v2_id: 251
+tags: fullscreen, tinymce, javascript, execcommand
 ---
 
 I wanted one of my tinyMCE plugins to fire a certain set of actions whenever
@@ -39,4 +40,3 @@ if (editor.getParam('fullscreen_is_enabled')) {
   }, 1000);
 }
 ```
-

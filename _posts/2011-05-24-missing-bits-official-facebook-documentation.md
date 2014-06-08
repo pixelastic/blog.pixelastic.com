@@ -2,6 +2,7 @@
 layout: post
 title: "Missing bits of the official Facebook documentation"
 custom_v2_id: 281
+tags: fb, facebook
 ---
 
 As a complement to my post about FB.ui undocumented hard limit, here are some
@@ -24,4 +25,3 @@ the Javascript API use it for some stuff, but I don't really know why.
 
 The Javascript SDK logs an error message asking for this missing element if
 you don't have it.
-

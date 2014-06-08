@@ -2,6 +2,7 @@
 layout: post
 title: "Doing persistent login the right way"
 custom_v2_id: 174
+tags: token, login, cookie, authenticate
 ---
 
 When I was a young web developer, I had to code an admin panel, with username
@@ -103,4 +104,3 @@ attack because even there won't be any more match in the database.
 It is also wise to display a warning message to the user telling him that his
 account may have been compromised and that he should be wary and maybe change
 its password.
-

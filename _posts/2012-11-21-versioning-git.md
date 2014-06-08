@@ -2,6 +2,7 @@
 layout: post
 title: "From no versioning to git"
 custom_v2_id: 343
+tags: git, mercurial, subversion
 ---
 
 When I started working as a professional web developer, I wasn't using any
@@ -159,4 +160,3 @@ from work and just for fun. I know that when I'll get back to Paris and start
 looking for a new job I'd like to find a place where the day-to-day workflow
 involves git because I really want to see the way branching and merging helps
 people work together building bigger things.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Tweaking tinyMCE"
 custom_v2_id: 74
+tags: tinymce, skins, tweak
 ---
 
 I'm in the process of tweaking a tinyMCE install to use a custom set of

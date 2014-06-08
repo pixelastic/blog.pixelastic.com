@@ -2,6 +2,7 @@
 layout: post
 title: "Migrating mails from IMAP to IMAP (part 2/2)"
 custom_v2_id: 180
+tags: linux, imapsync, imap
 ---
 
 I'll finally have to migrate mails from one IMAP server to another because of
@@ -81,4 +82,3 @@ imapsync --host1 mail.domain.com --user1 contact@domain.com --passfile1 /path/to
 It is not an instant process, actually in can be quite long. One of the
 mailbox I had to move had more than 20.000 mails in the sent folder and about
 40.000 in the received one. It took me almost 18h to complete.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Doxie + Dropbox + Ikea = Love"
 custom_v2_id: 346
+tags: dropbox, ikea, doxie
 ---
 
 Thanks to [doxie](http://getdoxie.com/) and
@@ -20,4 +21,3 @@ As a gift, here are the links :
   * [Brimnes bed](https://www.dropbox.com/s/9ja1n497x9h186a/Ikea%20-%20Lit%20Brimnes.pdf)
   * [Sultan Lodingen](https://www.dropbox.com/s/f7l5kw5ox6q45pi/Sommier%20Ikea%20Sultan%20Lodingen%20Booklet.pdf)
   * [Nils chair with armrest](https://www.dropbox.com/s/3agihtb9akad7vm/Ikea%20-%20Fauteuil%20Nils.pdf)
-

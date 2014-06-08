@@ -2,6 +2,7 @@
 layout: post
 title: "Text emboss in CSS"
 custom_v2_id: 222
+tags: after, css, text-shadow, emboss
 ---
 
 I know only two _unperfect _ways of displaying an emboss text in CSS. As we
@@ -85,4 +86,3 @@ drawback :
   * You can't select the text with this effect
 
 Hope those two little techniques helped someone, anyway.
-

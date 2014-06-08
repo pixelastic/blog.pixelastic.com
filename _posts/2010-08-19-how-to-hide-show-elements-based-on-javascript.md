@@ -2,6 +2,7 @@
 layout: post
 title: "How to hide/show elements based on Javascript"
 custom_v2_id: 221
+tags: css, javascript, performance
 ---
 
 Sometimes you have a really great design with some really fancy Javascript
@@ -61,4 +62,3 @@ enabled, here's how to do it :
 ```
 
 Hope all that helps at least someone.
-

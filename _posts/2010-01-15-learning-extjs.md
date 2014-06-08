@@ -2,6 +2,7 @@
 layout: post
 title: "Learning extJs"
 custom_v2_id: 29
+tags: jquery, extjs, coldfusion
 ---
 
 Today, the [jquery 1.4](http://jquery14.com/day-01/jquery-14) version was
@@ -35,6 +36,5 @@ google, you should find a full PDF online). It told me a lot of things about
 the approach of the framework, I sincerely recommend that you read it if you
 want to learn ExtJs. Too bad the book was released before the 3.0 version, but
 by refering to the API whenever you need to use a new class, you should be ok
-
 
 

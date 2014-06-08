@@ -2,6 +2,7 @@
 layout: post
 title: "missing data in jQuery Ajax event ajaxSuccess"
 custom_v2_id: 70
+tags: jquery, httpdata, ajaxsuccess, ajax
 ---
 
 jQuery provides a nifty set of Ajax events that one could define to fire

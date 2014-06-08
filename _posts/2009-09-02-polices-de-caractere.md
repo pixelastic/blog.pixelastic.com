@@ -2,6 +2,7 @@
 layout: post
 title: "Polices de caractère !"
 custom_v2_id: 20
+tags: ttf, otf, font-face, eot, cufon, css
 ---
 
 Ah elles en ont du caractère ces polices ! Elle m'en font voir de toutes les
@@ -31,4 +32,3 @@ des tas de choses, je suis donc passé sous mon Ubuntu, ai téléchargé FontFor
 
 Edit : Et hop, [un autre converter](http://onlinefontconverter.com/) en ligne
 de plus (otf, ttf, dfont)
-

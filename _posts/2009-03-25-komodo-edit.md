@@ -2,6 +2,7 @@
 layout: post
 title: "Komodo Edit"
 custom_v2_id: 19
+tags: php, komodo, intype
 ---
 
 J'ai utilisé de nombreux éditeurs depuis que j'ai commencé à coder, et au fil
@@ -53,5 +54,3 @@ m'en sers :
   * Il enlève automatiquement les espaces qui trainent à la fin d'un fichier. Ca aussi je sens que je vais aimer, vu le nombre de fois où j'ai eu des problèmes de "headers already defined" à cause de problème de ce genre !
   * En passant mon curseur sur une couleur en hexadecimal et en appuyant sur Ctrl, il me donne un apercu de la couleur. Vraiment pratique en CSS
   * ll me prévient en Javascript de mes array qui se terminent par des virgules, ce qui fait bugguer IE. Pratique
-
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Working on Wednesday #3 : The long path to get it done"
 custom_v2_id: 291
+tags: keepass, vim, linux, mono, ruby-on-rails, ubuntu, wednesday
 ---
 
 This morning I started reading a lot of online blog post, framework
@@ -58,4 +59,3 @@ my initial goal that I really looks like it.
 I finally managed to purge my packets, upgrade to 10.10 and then to 11.04. But
 this took me 4 hours, and now it's 11PM and I guess I won't start this rails
 tutorial today, after all.
-

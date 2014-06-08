@@ -2,6 +2,7 @@
 layout: post
 title: "Hard limits using FB.ui to post Requests"
 custom_v2_id: 278
+tags: requests, javascript, fb-ui, facebook
 ---
 
 I hate Facebook documentation. All pages seems out of date, displaying wrong
@@ -71,4 +72,3 @@ In our app, we have a filter of "Neighbors" (as most social games do). But one
 of thoses neighbors removed the user from its friends, and we didn't update
 the neighbor list to reflect that, resulting in our "Neighbors" filter being
 empty.
-

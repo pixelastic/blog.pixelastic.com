@@ -2,6 +2,7 @@
 layout: post
 title: "IE8 ghost :after and :before pseudo elements"
 custom_v2_id: 255
+tags: bug, css, ghost, ie8, before, after
 ---
 
 IE8 has a strange bug (_what bugs aren't strange in IE ?_) when dealing with
@@ -82,4 +83,3 @@ based on a rule selecting its parent.
 
 There seems to have a little lag/delay before the properties gets applied, and
 most of the time they do not.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Working on Wednesday #11 : First steps with my Dreamplug"
 custom_v2_id: 306
+tags: ubuntu, wednesday, dreamplug
 ---
 
 A while back, I ordered a Dreamplug. It's a micro computer more or less the
@@ -121,4 +122,3 @@ from the outside.
 
 I plan to replace Ubuntu for Debian on my Dreamplug, I'll post about that
 later.
-

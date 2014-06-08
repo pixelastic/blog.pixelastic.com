@@ -2,6 +2,7 @@
 layout: post
 title: "Why is my disk full ?"
 custom_v2_id: 53
+tags: imap, squirrelmail, linux
 ---
 
 Ok, so remember when I was writing about that client of mine who had trouble
@@ -40,4 +41,3 @@ find  /var -type f -ls | sort -k 7 -r -n | head -10
 
 I found that the maillog was 1.1Go... I deleted it and hurry the Gmail
 activation process. Problem solved.
-

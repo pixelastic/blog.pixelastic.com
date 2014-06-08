@@ -2,6 +2,7 @@
 layout: post
 title: "Deleting an element from an Array/Object in Javascript"
 custom_v2_id: 245
+tags: object, javascript, delete, array
 ---
 
 I'm going to post that here because it's the second time I stumble upon this
@@ -22,4 +23,3 @@ update the length value.
 Also note that sometimes I accidentally declare an Array when what I really
 want is an Object. I tend to forgot that associative `Arrays `in Javascript do
 not really exists, they just are `Objects`.
-

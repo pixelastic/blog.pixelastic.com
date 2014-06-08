@@ -2,6 +2,7 @@
 layout: post
 title: "Opera bug : border-radius and background-color on an input"
 custom_v2_id: 178
+tags: opera, border-radius, input, css
 ---
 
 The form inputs of this site all have a border-radius and a background-color.
@@ -49,4 +50,3 @@ input {
   background:#375a5e;
 }
 ~~~
-

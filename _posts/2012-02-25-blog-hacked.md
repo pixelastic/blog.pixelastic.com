@@ -2,6 +2,7 @@
 layout: post
 title: "This blog got hacked"
 custom_v2_id: 337
+tags: security, hack
 ---
 
 Today, at about 9pm (GMT+12), I found my own blog hacked. When I wanted to
@@ -44,4 +45,3 @@ security weakness I'm not aware of ?
 EDIT : Got hacked again. Seeing that the cakePHP Cache files were deleted, I
 guess it is a known attack on a cake vulnerability. Got the website up again,
 but will fix it as soon as my holidays allow.
-

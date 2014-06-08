@@ -2,6 +2,7 @@
 layout: post
 title: "Copy/Paste text from Word into tinyMCE"
 custom_v2_id: 227
+tags: word, tinymce, javascript, copy-paste
 ---
 
 What good is building a really nice CMS with top-notch WYSIWYG editor if you
@@ -100,4 +101,3 @@ It occured because tinyMCE used the `event.clipboardData` property that Webkit
 browsers provides and allow for easy retrieving of clipboard data.
 Unfortunatly it returned a really plain text, and I had to apply a little loop
 to replace each new line with a paragraph.
-

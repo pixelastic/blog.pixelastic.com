@@ -2,6 +2,7 @@
 layout: post
 title: "Faire communiquer PHP et Javascript"
 custom_v2_id: 12
+tags: jquery
 ---
 
 Pour un projet sur lequel je suis en ce moment, je dois faire une interface
@@ -36,4 +37,3 @@ J'utilise aussi à coté de ça le [parseur officiel
 JSON](http://json.org/json2.js) pour parser mes éléments JSON. Il ne me reste
 plus qu'à passer mon élément JSON en paramètre aux fonction AJAX de jQuery
 pour mettre à jour mes données.
-

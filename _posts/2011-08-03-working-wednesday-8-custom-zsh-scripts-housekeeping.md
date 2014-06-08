@@ -2,6 +2,7 @@
 layout: post
 title: "Working on Wednesday #8 : Custom zsh scripts for housekeeping"
 custom_v2_id: 301
+tags: ssh, wednesday, zsh, sansa, linux, hosts, dropbox, dingoo
 ---
 
 I made a break of the Ruby/Rails learning this week. Instead I learned a bit
@@ -64,4 +65,3 @@ really appreciate on Linux. I am no longer dependent on the UI my OS gave me,
 and can now really understand how things work. It requires some time to learn,
 but this is not going to drastically change from one version to another like
 it does on each Windows new release.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Changing Firefox language"
 custom_v2_id: 82
+tags: locale, language, general-useragent-locale, firefox, en-us
 ---
 
 I'm French, live in France, but usually prefer having my software in English.
@@ -29,4 +30,3 @@ Changing the language in the options only change the user agent string.
 
 Well, I had to backup my profiles, uninstall FF, download the english version
 and reinstall it.
-

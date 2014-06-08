@@ -2,6 +2,7 @@
 layout: post
 title: "Creating a readonly mysql user"
 custom_v2_id: 302
+tags: select, readonly, mysql
 ---
 
 I wanted to give access to a database to a colleague, so he can connect and
@@ -44,4 +45,3 @@ Also, if you ever need to delete the user :
 ```sql
 DROP USER 'readonly'@'%';
 ```
-

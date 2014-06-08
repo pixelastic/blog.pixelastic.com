@@ -2,6 +2,7 @@
 layout: post
 title: "Working on Wednesday #4 : Rails for Zombies"
 custom_v2_id: 294
+tags: wednesday, ruby-on-rails, ror
 ---
 
 (I finally managed to update Ubuntu to the 10.10 version, configure Unity to
@@ -103,6 +104,5 @@ Weapon.where(:zombie_id => z)
 
 That's all I did today (well I also did some more Mercurial and Dingux testing,
 but that wasn't really work)
-
 
 

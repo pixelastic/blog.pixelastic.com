@@ -2,6 +2,7 @@
 layout: post
 title: "Migrating from Windows to Ubuntu : KeePass"
 custom_v2_id: 266
+tags: ubuntu, mono, windows, xdotool, wine, keepass
 ---
 
 I'm slowly trying to move my development machine from a desktop Windows Xp to
@@ -60,4 +61,3 @@ it only send it to the tray bar.This option does not seem to be working under
 Linux, KeePass still shows in the task bar even when minimized. I spent some
 time trying to fix that too, tetsing AllTray and other tray softs for linux
 but didn't managed to get what I wanted.
-

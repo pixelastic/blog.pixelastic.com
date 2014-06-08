@@ -2,6 +2,7 @@
 layout: post
 title: "Checking potential throttling from Orange"
 custom_v2_id: 316
+tags: ssh, softlayer, orange
 ---
 
 Starting a few weeks back, we started having painfully slow ssh connections at
@@ -40,4 +41,3 @@ SoftLayer.
 So, for the time being, I'm connecting to SoftLayer through OVH and even if it
 made me use one more tunnel, it is still far more fast than a direct
 connection.
-

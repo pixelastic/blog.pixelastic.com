@@ -2,6 +2,7 @@
 layout: post
 title: "SWFUpload and cakePHP"
 custom_v2_id: 208
+tags: swfupload, sessions, php, cakephp, useragent
 ---
 
 One thing that always sent me an awful hours of debugging is the fact that the
@@ -98,4 +99,3 @@ It also appears that if you follow my advice, you'll only have to call
 I just lost some hours finding this out. I add a call to Session in my `I18n
 `component that was rendering this whole fix useless. It was driving me
 crazy...
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Integration of a bbPress forum into a cakePHP application (part 1)"
 custom_v2_id: 46
+tags: cakephp, bbpress
 ---
 
 Today I had to integrate a forum into an existing cakePHP app. I didn't want
@@ -66,4 +67,3 @@ method gets the plain password and the hashed version stored in the database
 and compare them. Cake does its comparison using its own internal salt value
 and applying `sha1()` on it. We just do the same here. That way, we can now
 login using the same password.
-

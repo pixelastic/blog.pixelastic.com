@@ -2,6 +2,7 @@
 layout: post
 title: "Keeping your plugins with any new Firefox version"
 custom_v2_id: 305
+tags: firefox
 ---
 
 The new Firefox cycle version is such that you might lose all your beloved
@@ -18,4 +19,3 @@ The key changes for each version, but is called
 (like `X`=7 and `Y`=0 for the 7.0 release).
 
 Create the key (as a boolean value), and set it to `false`.
-

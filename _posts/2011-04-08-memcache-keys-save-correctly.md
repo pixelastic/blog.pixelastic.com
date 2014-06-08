@@ -2,6 +2,7 @@
 layout: post
 title: "Memcache keys not getting saved correctly"
 custom_v2_id: 272
+tags: memcached, php, cakephp
 ---
 
 _Update : We were initially blaming Memcache not correctly setting/getting
@@ -59,4 +60,3 @@ We were running two different websites using the same memcache server, and
 when doing a clear on one website, it cleared keys on the second one as well.
 
 We finally started one memcache server per site.
-

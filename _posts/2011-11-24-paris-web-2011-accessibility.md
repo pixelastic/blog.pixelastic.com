@@ -2,6 +2,7 @@
 layout: post
 title: "Paris Web 2011 : Accessibility"
 custom_v2_id: 326
+tags: paris-web, accessibility
 ---
 
 In October, I was attending the Paris Web event. For those that haven't heard
@@ -97,4 +98,3 @@ users won't be able to access the content because they don't have the correct
 requirement. This feels absolutly contrary to the open web principles.
 
 ##
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Caracole - Export des adresses mails"
 custom_v2_id: 14
+tags: caracole, cakephp
 ---
 
 Je viens de rajouter une petite fonctionnalité sur Caracole qui permet
@@ -11,4 +12,3 @@ messagerie et les webmail.
 
 La liste peut être exportée sous format vCard, ou encore CSV exploitable par
 Outlook ou GMail.
-

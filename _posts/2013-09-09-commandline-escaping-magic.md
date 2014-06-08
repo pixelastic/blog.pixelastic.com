@@ -2,6 +2,7 @@
 layout: post
 title: "Commandline escaping magic"
 custom_v2_id: 356
+tags: completion, wget, zsh, url-quote-magic
 ---
 
 Aren't your tired of having to wrap your url in quotes when using `wget` so
@@ -21,4 +22,3 @@ zle -N self-insert url-quote-magic
 And now, everytime you type or paste a url in `wget` it will automatically
 escape the needed characters. It is quite clever and works with other commands
 that would otherwise trigger your terminal globbing feature.
-

@@ -2,6 +2,7 @@
 layout: post
 title: "Caracole - Corbeille"
 custom_v2_id: 5
+tags: caracole, cakephp
 ---
 
 Dans la lignée du principe de brouillon j'ai aussi ajouté une fonction de
@@ -21,4 +22,3 @@ fonction de corbeille, Caracole se charge du reste.
 
 Les éléments supprimés ne sont plus retournés par les fonctions de recherche
 habituelle, à moins de préciser l'option 'includeDeleted'.
-

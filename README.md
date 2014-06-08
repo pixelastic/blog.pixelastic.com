@@ -22,14 +22,15 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
-- Custom 404 page
-- Tags
-- Search
+- Améliorer les related posts en mettant ceux dans la même fréquence de temps
+  et avec les même tags ?
 - Images from previous posts
 - Favicon
-- Site simple sur www.pixelastic.com (equivalent haveyoumett.im)
-- Comments. Statique, pas d'ajout (next project).
+- Site simple sur www.pixelastic.com (equivalent haveyoumett.im). Lien vers
+  blog, meetup, github et twitter.
 
+- intégration de grunt/bower ?
+- Comments. Statique, pas d'ajout (next project).
 - Update CSS, split base theme and custom rules.
 - Remove underline on title link
 - Try a different default font

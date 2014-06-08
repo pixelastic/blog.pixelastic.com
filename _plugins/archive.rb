@@ -52,6 +52,7 @@ module Jekyll
       self.read_yaml(File.join(site.source, site.config['layouts'], 'archive'), 'year.html')
       self.data['year'] = year
       self.data['posts'] = posts
+      self.data['title'] = "Archive #{year}"
     end
   end
 
@@ -66,6 +67,7 @@ module Jekyll
       self.data['year'] = year
       self.data['month'] = month
       self.data['posts'] = posts
+      self.data['title'] = "Archive #{Time.new(year, month).strftime("%B %Y")}"
     end
   end
 
@@ -81,6 +83,7 @@ module Jekyll
       self.data['day'] = day
       @dir = File.join(year.to_s(), "%02d" % month.to_s(), "%02d" % day.to_s())
       self.data['posts'] = posts
+      self.data['title'] = "Archive #{Time.new(year, month, day).strftime("%B %d, %Y")}"
     end
   end
 
@@ -93,6 +96,7 @@ module Jekyll
       self.process(@name)
       self.read_yaml(File.join(site.source, site.config['layouts'], 'archive'), 'index.html')
       self.data['years'] = years
+      self.data['title'] = "Archive"
     end
   end
 

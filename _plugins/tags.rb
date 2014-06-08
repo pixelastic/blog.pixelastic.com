@@ -1,0 +1,101 @@
+module Jekyll
+  # Monkeypatching Page to add a way to get the list of tags from a page
+  class Post
+    def tags
+      (self.data['tags'] || '').split(',').map() { |t| Tag.new(t) }
+    end
+  end
+
+  # Adding new Tag object
+  class Tag
+    TAG_NAME_MAP = {
+      "#"  => "sharp",
+      "/"  => "slash",
+      "\\" => "backslash",
+      "."  => "dot",
+      "+"  => "plus",
+      " "  => "-"
+    }
+
+    attr_accessor :escaped_name, :name
+
+    def initialize(name)
+      @name = name.downcase.strip
+      @escaped_name = escape_name(@name)
+    end
+
+    # Liquid wants a hash, not an object.
+    def to_liquid
+      { "name" => @name, "escaped_name" => @escaped_name }
+    end
+
+    private
+
+    # Map a tag to its directory name. Certain characters are escaped,
+    # using the TAG_NAME_MAP constant, above.
+    def escape_name(name)
+      escaped_name = ""
+      name.each_char do |char|
+        if (char =~ /[-A-Za-z0-9_]/) != nil
+          escaped_name += char
+        else
+          converted_char = TAG_NAME_MAP[char]
+          if not converted_char
+            msg = "Bad character '#{char}' in tag '#{name}'"
+            puts("*** #{msg}")
+            raise FatalException.new(msg)
+          end
+          escaped_name += converted_char
+        end
+      end
+      return escaped_name
+    end
+  end
+
+  # Generating /tags/xxx for every tag
+  class TagGenerator < Generator
+    safe true
+    def generate(site)
+      tags = {}
+
+      # Building a list of tags, with each associated post
+      site.posts.each do |post|
+        post_tags = post.tags
+        post_tags.each do |post_tag|
+          if (!tags[post_tag.name]) 
+            tags[post_tag.name] = {
+              :tag => post_tag,
+              :posts => []
+            }
+          end
+
+          tags[post_tag.name][:posts] << post
+        end
+      end
+
+      # Creating index pages for every tag
+      tags.each do |key, value|
+        tag_index = TagIndex.new(site, value[:tag], value[:posts])
+        tag_index.render(site.layouts, site.site_payload)
+        tag_index.write(site.dest)
+        site.pages << tag_index
+      end
+    end
+
+  end
+
+  class TagIndex < Page
+    def initialize(site, tag, posts)
+      @site = site
+      @base = site.source
+      @name = 'index.html'
+      @dir = "tags/#{tag.escaped_name}"
+      self.process(@name)
+      self.read_yaml(File.join(site.source, site.config['layouts']), 'tags.html')
+      self.data['tag'] = tag.to_liquid
+      self.data['posts'] = posts
+      self.data['title'] = "##{tag.escaped_name}"
+    end
+  end
+
+end

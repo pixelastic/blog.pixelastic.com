@@ -75,26 +75,49 @@ module Jekyll
 
       # Creating index pages for every tag
       tags.each do |key, value|
-        tag_index = TagIndex.new(site, value[:tag], value[:posts])
+        tag_index = TagIndexPage.new(site, value[:tag], value[:posts])
         tag_index.render(site.layouts, site.site_payload)
         tag_index.write(site.dest)
         site.pages << tag_index
       end
+
+      # Adding an index with all tags
+      tag_list = []
+      tags.each do |key, value|
+        tag_list << value[:tag].escaped_name
+      end
+      all_tags = AllTagsPage.new(site, tag_list)
+      all_tags.render(site.layouts, site.site_payload)
+      all_tags.write(site.dest)
+      site.pages << all_tags
     end
 
   end
 
-  class TagIndex < Page
+  class TagIndexPage < Page
     def initialize(site, tag, posts)
       @site = site
       @base = site.source
       @name = 'index.html'
       @dir = "tags/#{tag.escaped_name}"
       self.process(@name)
-      self.read_yaml(File.join(site.source, site.config['layouts']), 'tags.html')
+      self.read_yaml(File.join(site.source, site.config['layouts'], 'tags'), 'tag.html')
       self.data['tag'] = tag.to_liquid
       self.data['posts'] = posts
       self.data['title'] = "##{tag.escaped_name}"
+    end
+  end
+
+  class AllTagsPage < Page
+    def initialize(site, tags)
+      @site = site
+      @base = site.source
+      @name = 'index.html'
+      @dir = "tags"
+      self.process(@name)
+      self.read_yaml(File.join(site.source, site.config['layouts'], 'tags'), 'index.html')
+      self.data['tags'] = tags
+      self.data['title'] = "Tags"
     end
   end
 

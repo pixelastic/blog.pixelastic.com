@@ -10,6 +10,7 @@ title:            Pixelastic
 tagline:          'You can cut our wings but we will always remember what it was like to fly.'
 description:      'Personal blog of Tim Carry. Posting mostly on tech-related stuff.'
 url:              http://blog.pixelastic.com
+base_url:         blog.pixelastic.com
 
 author:
   name:           'Tim Carry'

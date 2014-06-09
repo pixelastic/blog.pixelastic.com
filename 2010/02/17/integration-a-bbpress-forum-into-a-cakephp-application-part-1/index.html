@@ -1,0 +1,157 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Integration of a bbPress forum into a cakePHP application (part 1) - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Integration of a bbPress forum into a cakePHP application (part 1)</h1>
+  <span class="post-date">17 Feb 2010</span>
+  <p>Today I had to integrate a forum into an existing cakePHP app. I didn&#39;t want
+to code the whole thing from scratch and wanted to take advantage of one of
+the great opensource forums out there instead.</p>
+
+<p>I wanted to keep the forum as a stand-alone part, with its own admin panel,
+and not mess with its core files, to allow me the possibility of updating it
+if needed. But I didn&#39;t want my user to register twice, for my app and for the
+forum, I wanted the whole register/login thing to be as smooth as possible.</p>
+
+<p>After some trials, I finally choose bbPress, from the makers of WordPress.</p>
+
+<p>I took me some time, digging into the online documentation (pretty much non-
+existent), digging into existing plugins and the source code to finally script
+what I needed. I had to code a cake behavior, a cake component, a bbPress
+plugin, overwriting some bbPress functions but it finally works.</p>
+
+<h2>Installing bbPress on a cakePHP app</h2>
+
+<p>First thing you need to do is installing bbPress. Just drop the files you
+downloaded into <code>app/webroot/forum</code> and follow the installation instruction.
+Set the admin login the same as your own admin login in your app. Type
+anything you want for the password, we&#39;ll change that later.</p>
+
+<p>Once this is done, you should have a working forum, and being able to access
+it on <code>/forum</code>. It&#39;s a good start, isn&#39;t it ?</p>
+
+<p>Now, open your favorite mysql editor (Navicat or phpmyadmin) and connect to
+your database. Make sure the collation of the <code>bb_ tables</code> are the same as the
+collation of your cake tables. It will allow them to correctly communicate. My
+cake tables were set to <code>utf8_unicode_ci</code> and my bbPress tables were set to
+<code>utf8_general_ci</code>. I had to update all the bbPress tables to make sure no
+collation problems arise.</p>
+
+<h2>Using the same password hashing</h2>
+
+<p>Now let&#39;s look at our bb_users table. You should have one entry for your admin
+account. Go to your own cake <code>users</code>table, copy your password hash and paste
+it in place if the bbPress one. Cake and bbPress do not use the same hashing
+algorithm, so we are going to change that.</p>
+
+<p>Open <code>forum/bb-config.php</code> and add the following code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">define(&#39;CAKE_SALT&#39;, &quot;XXXXX&quot;);</span>
+<span class="x">// Check password using sha1</span>
+<span class="x">function bb_check_password( $password, $hash, $user_id = &#39;&#39; ) {</span>
+<span class="x">  // Does it match ?</span>
+<span class="x">  return sha1(CAKE_SALT.$password)==$hash;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Of course, replace the <code>XXXXX</code>value of <code>CAKE_SALT</code> with your own
+<code>Security.Salt</code> value (usually found in <code>app/config/core.php</code>). Also note that
+the default hashing method used by cake is <code>sha1</code>, but if you use an alternate
+<code>md5</code>or <code>sha256</code>, you&#39;ll have to update the method above.</p>
+
+<p>Doing all this, we change the way bbPress checks for a valid password. The
+method gets the plain password and the hashed version stored in the database
+and compare them. Cake does its comparison using its own internal salt value
+and applying <code>sha1()</code> on it. We just do the same here. That way, we can now
+login using the same password.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/bbpress">#bbpress</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

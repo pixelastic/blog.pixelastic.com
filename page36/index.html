@@ -1,0 +1,346 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/04/19/the-blockquote-cite-attribute/">
+        The blockquote cite attribute
+      </a>
+    </h1>
+
+    <span class="post-date">19 Apr 2010</span>
+
+    <p>The HTML blockquote element can accept a cite attribute that is supposed to
+hold the value of the source URI of the quote.</p>
+
+<p>Browsers behave differently when getting this attribute in javascript. Opera
+and Firefox automatically treat it as a URL, prepending the current domain
+host if none is defined and encoding special characters.</p>
+
+<p>Safari and Chrome on the other end just return the value as it is present in
+the HTML.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/chrome">#chrome</a>
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+        <a href="/tags/opera">#opera</a>
+      
+        <a href="/tags/safari">#safari</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/04/19/setting-the-size-of-a-tab-character-in-a-element/">
+        Setting the size of a tab character in a pre element
+      </a>
+    </h1>
+
+    <span class="post-date">19 Apr 2010</span>
+
+    <p>When displaying code in an HTML page, you often want it to be correctly
+indented with tabs. Unfortunatly, setting a <code>white-space:pre</code>(like is the
+default on a <pre> element) to an element will transform any tab in the
+equivalent of 8 space characters.</p>
+
+<p>8 is way more than needed, 4 will be much suited, specially in a website
+design where the horizontal space is limited.</p>
+
+<p>I&#39;ve googled a lot, going from obscure old CSS drafts to proprietary
+implementation mailing lists, browsing CSS codes.</p>
+
+<p>One <a href="http://www.phwinfo.com/forum%0A/comp-inf-authoring-css/365851-change-tab-width-using-css.html">interesting discussion can be found here</a>, there even is
+a <a href="http://www.w3.org/People/howcome/t%0A/970224HTMLERB-CSS/WD-tabs-970117.html">proposal for a tab-stops property</a> on the W3C</p>
+
+<p>Opera has a proprietary <code>-o-tab-size</code>. You just have to pass the number of
+space characters that should be used.</p>
+
+<p>That&#39;s all I have for now...</p>
+
+<p>I know I could replace every<code>\t</code> with 4 <code>&amp;nbsp;</code>, or with a <code>&lt;span&gt;</code> that
+I&#39;ll style to match the desired width but it involves a back-end processing
+and I would have liked to style it directly.</p>
+
+<p>Edit : There seems to have a <code>-moz-tab-size</code> property on the latest Firefox
+3.7 nightlies</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/white-space">#white-space</a>
+      
+        <a href="/tags/tab-stops">#tab-stops</a>
+      
+        <a href="/tags/tab">#tab</a>
+      
+        <a href="/tags/o-tab-size">#o-tab-size</a>
+      
+        <a href="/tags/moz-tab-size">#moz-tab-size</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/04/13/tweaking-tinymce/">
+        Tweaking tinyMCE
+      </a>
+    </h1>
+
+    <span class="post-date">13 Apr 2010</span>
+
+    <p>I&#39;m in the process of tweaking a tinyMCE install to use a custom set of
+plugins and a custom skin to better fit in the Caracole CMS. This would allow
+me to re-use CSS and JS code I&#39;ve already coded.</p>
+
+<p>Fortunatly, I&#39;m getting better and better at understanding the way tinyMCE
+works and the various configuration options and how to tweak them.</p>
+
+<p>I also want the tinyMCE CSS rules to be integrated into the main CSS file of
+my app (packed and minified using CSSTidy). So I defined a custom skin in the
+tinyMCE setup, named &#39;<code>caracole</code>&#39;. This way, all the CSS skinning classes will
+be prefixed with <code>caracole</code>as I don&#39;t want to mess with the default skins.</p>
+
+<p>I also copied the <code>ui.css</code> file from the <code>themes/advanced/skins/default</code> to my
+own css directory, renamed it to <code>tinymce.css</code>, replaced all <code>.default</code>
+occurences to <code>.caracole</code> and added this file to the list of files being
+processed by the main packer.</p>
+
+<p>This way I can easily update any css file from the same directory, without
+having to dive into the tinymce subdirectories.</p>
+
+<p>Unfortunatly, by doing so, tinyMCE continue to load the
+<code>tiny_mce/themes/advanced/skins/caracole/ui.css</code> file (have a look at Firebug
+if you don&#39;t trust me). It took me some time to figure out where that call was
+made from. It is actually on <code>editor_template.js</code> (around line 150 in dev
+version).</p>
+
+<p>As I didn&#39;t want to load this file twice, I tried to disable this call. I
+could have manually patched the source file but I don&#39;t want to, it would make
+any future update a pain. So I tried to find an other way.</p>
+
+<p>Looking at the <code>loadCSS</code>method, it appears that there is a mechanism to
+prevent loading twice the same file. If the file is already present in the
+<code>.files</code> array, it won&#39;t be added. Ok, so now I just have to manually add the
+file before the call is made.</p>
+
+<p>That&#39;s where the setup callback come into play. I just defined in my
+inyMCE.init :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">tinyMCE</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+  <span class="nx">skin</span><span class="o">:</span> <span class="s1">&#39;caracole&#39;</span><span class="p">,</span>
+  <span class="nx">editor_css</span><span class="o">:</span> <span class="s1">&#39;caracoleDoNotInclude&#39;</span><span class="p">,</span>
+  <span class="nx">setup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">tinymce</span><span class="p">.</span><span class="nx">DOM</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="s1">&#39;http://&#39;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="o">+</span><span class="s1">&#39;/caracoleDoNotInclude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Doing so, the <code>loadCSS</code>will try to load the <code>caracoleDoNotInclude</code> file
+(clearly this name is a placeholder, I have no such file). And in the setup
+method I manually tell tinyMCE that this file is already loaded so when it
+will initiate, it won&#39;t load the file at all.</p>
+
+<p>Same goes for the <code>content_css</code>, the file that handle the look and feel of the
+editable zone. I don&#39;t want to have my file in the tinyMCE skin directory, I&#39;d
+rather have it with my other CSS files.</p>
+
+<p>So I defined a custom <code>content_css</code> to point to my file. I also had to update
+the setup method to mark the file as already loaded. But this time, as the
+file is loaded on a per instance basis, this is the <code>editor.dom.files</code> that I
+have to update, not the general <code>tinymce.DOM</code>.</p>
+
+<p>Fortunatly, the latest tinyMCE version expose their event API, so it was just
+a matter of defining the following event in the main setup :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">setup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">tinymce</span><span class="p">.</span><span class="nx">DOM</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="nx">baseUrl</span><span class="o">+</span><span class="s1">&#39;caracoleDoNotInclude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="nx">editor</span><span class="p">.</span><span class="nx">onPreInit</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="nx">baseUrl</span><span class="o">+</span><span class="s1">&#39;js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+   <span class="p">});</span>
+ <span class="p">}</span>
+</code></pre></div>
+<h2>Edit :</h2>
+
+<p>Note that in the latest tinyMCE version, the code is slightly different
+because you have to call a special method on the url before adding it to the
+<code>editor.dom.files</code></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">editor</span><span class="p">.</span><span class="nx">onPreInit</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="nx">editor</span><span class="p">.</span><span class="nx">baseURI</span><span class="p">.</span><span class="nx">toAbsolute</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="o">+</span><span class="s1">&#39;/js/vendors/tiny_mce/themes/advanced/skins/caracole/content.css&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/tinymce">#tinymce</a>
+      
+        <a href="/tags/skins">#skins</a>
+      
+        <a href="/tags/tweak">#tweak</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/04/12/rendering-bug-with-generated-content-on-form-fields-in-opera/">
+        Rendering bug with generated content on form fields in Opera
+      </a>
+    </h1>
+
+    <span class="post-date">12 Apr 2010</span>
+
+    <p>If you try the following code in Opera 10.51, you&#39;ll have some weird rendering
+bug :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+  <span class="nc">.test</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">content</span><span class="o">:</span><span class="s2">&quot;This should be on red background&quot;</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;</span>
+  <span class="p">}</span>
+ <span class="nt">&lt;/style&gt;</span>
+ Text input : <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;I&#39;m unstyled&quot;</span> <span class="na">class=</span><span class="s">&quot;test&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
+<p>The generated content is added to the page, but the background color isn&#39;t
+rendered. Worse, the input lose all styling, it does not have a background
+color nor borders anymore.</p>
+
+<p>The same effect also apply to every <code>input</code>(<code>radio</code>, <code>checkbox</code>and
+<code>password</code>).</p>
+
+<p>On a <code>select</code> tag, the generated content correctly have it&#39;s background color,
+but still lose all styling.</p>
+
+<p>On a <code>textarea</code>, the styling is gone too, and the background color is here.
+Well, sort of, it is actually cropped after a while and the end of the text is
+on transparent background.</p>
+
+<p>I sent a bug report to Opera about that.</p>
+
+<p><img src="files/2010/04/12/4bc2f9103d4c2.jpg" alt="Opera, input  generated content bug"></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/opera">#opera</a>
+      
+        <a href="/tags/input">#input</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/content">#content</a>
+      
+        <a href="/tags/bug">#bug</a>
+      
+        <a href="/tags/after">#after</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/04/12/opening-a-new-tab-using-ctrl-click-on-opera/">
+        Opening a new tab using Ctrl+Click on Opera
+      </a>
+    </h1>
+
+    <span class="post-date">12 Apr 2010</span>
+
+    <p>One thing that bugs me everytime I use Opera are the weird keyboard shortcuts.
+You open link in a new tab by using the middle mouse button (classic) or
+Shift+click (less classic, we are accustomed to use the Ctrl+Click,
+Shift+Click being used to open in a new window).</p>
+
+<p>Today it was bugging me one too many times, so I decided to use the power of
+AutoHotKey to help fix this.</p>
+
+<p>Here is the little snippet I added to my default AutoHotKey script :</p>
+<div class="highlight"><pre><code class="language-ahk" data-lang="ahk"><span class="c-Singleline">;        Open page in new tab in Opera using Ctrl + Click</span>
+<span class="nb">#ifWinActive</span><span class="p">,</span> <span class="n">ahk_class</span> <span class="n">OpWindow</span>
+<span class="o">^</span><span class="n">LButton</span><span class="o">::</span><span class="n">Send</span> <span class="o">+</span><span class="p">{</span><span class="n">LButton</span><span class="p">}</span>
+<span class="nb">#IfWinActive</span>
+</code></pre></div>
+<p>It basically catch every Shift+Click in Opera and return a Ctrl+Click instead,
+allowing me to finally open tabs the way I&#39;m used to.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/opera">#opera</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/autohotkey">#autohotkey</a>
+      
+        <a href="/tags/ahk">#ahk</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page37">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page35">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Configuring a .fr with Dreamhost - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Configuring a .fr with Dreamhost</h1>
+  <span class="post-date">29 Oct 2009</span>
+  <p>Hosting a website on a .fr is a little harder than a simple .com. The
+<a href="http://www.afnic.fr/">Afnic</a> (registry for the .fr domains) makes a check
+whenever you change the DNS of your domain to make sure the new DNS can accept
+the domain.</p>
+
+<p>They run a tool named <a href="http://www.zonecheck.fr/">ZoneCheck</a> to do that. This
+tool will request the new DNS server to test if they can accept the .fr. The
+problem is that they make a request on the port 53, which is not open on
+Dreamhost and thus the test fail and the Afnic refuse to let you change your
+DNS.</p>
+
+<p>The alternative is to not change you DNS, and keep the default one of your
+registrar, but manually edit the zones and copy the zones defined in your
+dreamhost panel (In Domains &gt; Your domain &gt; DNS, at the bottom of the page)
+into your zones.</p>
+
+<p>The most important part is modifying the default <code>A</code> entry to the IP of your
+dreamhost server. You should do the same for the <code>www A</code>entry to.</p>
+
+<p>Create a <code>mysql A</code>entry and a <code>ftp A</code> entry if you want to use both
+<code>ftp.domain.com</code> and <code>mysql.domain.com</code>.</p>
+
+<p>I also changed the MX record to the google one, as well as creating a CNAME
+webmail.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/zonecheck">#zonecheck</a>
+    
+      <a href="/tags/gandi">#gandi</a>
+    
+      <a href="/tags/dreamhost">#dreamhost</a>
+    
+      <a href="/tags/afnic">#afnic</a>
+    
+      <a href="/tags/fr">#fr</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

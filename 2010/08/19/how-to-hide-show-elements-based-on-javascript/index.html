@@ -1,0 +1,155 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     How to hide/show elements based on Javascript - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">How to hide/show elements based on Javascript</h1>
+  <span class="post-date">19 Aug 2010</span>
+  <p>Sometimes you have a really great design with some really fancy Javascript
+goodness, like drag&#39;n&#39;drop and other shiny Ajaxy stuff.</p>
+
+<p>But when you browse the website with Javascript disabled, none of that works
+and you end up with interface elements that should&#39;nt be here because they do
+not work.</p>
+
+<p>In those case, you&#39;d rather display a nice message to your user, telling him
+that he can&#39;t use the feature withou Javascript enabled.</p>
+
+<h2>But how do you do that ?</h2>
+
+<p>Well, I myself load two different stylesheets. Remember that your website
+should be working without Javascript, this is just the last layer you add.</p>
+
+<p>My default stylesheet will load all the rules for when Javascript is not
+enabled. No fancy <code>cursor:move</code> here.</p>
+
+<p>Then I load a second stylesheet using Javascript, using <code>document.write()</code> in
+the <code>&lt;head&gt;</code>. And that&#39;s in this one that I write rules that overload the
+previous one. I add every styling that deals with Javascript-enabled features
+here.</p>
+
+<h2>Limitations</h2>
+
+<p>I may be changing the way I load the JS stylesheet in the future. I don&#39;t
+really like relying on <code>document.write</code> because it is <em>evil</em>. I also don&#39;t
+like the idea of getting one extra request.</p>
+
+<p>I could add a <code>js</code> class to my body element (like
+<a href="http://www.modernizr.com/">modernizr</a> does with all its CSS3 properties) and
+then target elements by prepending <code>.js</code> to the rule.</p>
+
+<p>But it means adding rules in my main CSS file for users without JS that will
+still be downloading those extra useless bytes.</p>
+
+<p>I haven&#39;t yet figured which way was the best (or should I say, the worst)</p>
+
+<h2>Convenient methodes</h2>
+
+<p>Whatever way you choose, one thing that really helped me was two real simple
+classes : <code>jsOn</code>and <code>jsOff</code>that I add to elements.</p>
+
+<p>Elements with <code>jsOn</code>will only be visible if Javascript is enabled and hidden
+otherwise, while element with <code>jsOff</code>will do the opposite.</p>
+
+<p>Assuming you mark your body element with a <code>js</code> class if Javascript is
+enabled, here&#39;s how to do it :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">.</span><span class="nx">jsOn</span> <span class="p">{</span> <span class="nx">display</span><span class="o">:</span><span class="nx">none</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">.</span><span class="nx">js</span> <span class="p">.</span><span class="nx">jsOn</span> <span class="p">{</span> <span class="nx">display</span><span class="o">:</span><span class="nx">block</span><span class="p">;</span>
+<span class="p">.</span><span class="nx">jsOff</span> <span class="p">{</span> <span class="nx">display</span><span class="o">:</span><span class="nx">block</span><span class="p">;</span>
+<span class="p">.</span><span class="nx">js</span> <span class="p">.</span><span class="nx">jsOff</span> <span class="p">{</span> <span class="nx">display</span><span class="o">:</span><span class="nx">none</span><span class="p">;</span>
+</code></pre></div>
+<p>Hope all that helps at least someone.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/performance">#performance</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

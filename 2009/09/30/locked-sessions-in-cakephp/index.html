@@ -1,0 +1,117 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Locked sessions in cakePHP - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Locked sessions in cakePHP</h1>
+  <span class="post-date">30 Sep 2009</span>
+  <p>I was working on a component heavily using session and was having trouble
+debugging it. First I could&#39;nt find where my session files where saved on my
+server.</p>
+
+<p>Well, it was because I hadn&#39;t set the session.save_path value in my php.ini.</p>
+
+<p>But now that is was done, it seems like I had locked sessions files that I
+wasn&#39;t able to access (I couldn&#39;t even read them using a editor). The problem
+was that I was using die() in my component script to help debugging the
+process.</p>
+
+<p>And that was BAD. die() stopped the whole process, even if the session file
+was opened for writing, locking it until the process died. What was the
+correct way to halt my script was using exit;</p>
+
+<p>Hope that helped</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/sessions">#sessions</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Integration of a bbPress forum into a cakePHP application (part 2) - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Integration of a bbPress forum into a cakePHP application (part 2)</h1>
+  <span class="post-date">17 Feb 2010</span>
+  <p>We&#39;ve done enough work on the forum for now. The time has come to edit our
+cake files.</p>
+
+<h2>Creating the cakePHP models</h2>
+
+<p>We will create two models to help in speaking with the bbPress database.</p>
+
+<p>Create a bb_usermeta.php model :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class BbUsermeta extends AppModel {</span>
+<span class="x">  var $useTable = &#39;bb_usermeta&#39;;</span>
+<span class="x">  var $primaryKey = &#39;umeta_id&#39;;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Create a <code>bb_user.php</code> model :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class BbUser extends AppModel {</span>
+<span class="x">  var $primaryKey = &#39;ID&#39;;</span>
+
+<span class="x">  var $hasMany = array(</span>
+<span class="x">     &#39;BbUsermeta&#39; =&gt; array(</span>
+<span class="x">       &#39;className&#39; =&gt; &#39;BbUsermeta&#39;,</span>
+<span class="x">       &#39;foreignKey&#39; =&gt; &#39;user_id&#39;,</span>
+<span class="x">       &#39;dependent&#39; =&gt; true</span>
+<span class="x">    )</span>
+<span class="x">   );</span>
+
+<span class="x">  //We make sure, before saving, that the nicename is url-friendly</span>
+<span class="x">  function beforeSave() {</span>
+<span class="x">    if (!empty($this-&gt;data[$this-&gt;name][&#39;user_nicename&#39;])) {</span>
+<span class="x">      $this-&gt;data[$this-&gt;name][&#39;user_nicename&#39;] = Inflector::slug($this-&gt;data[$this-&gt;name][&#39;user_nicename&#39;]);</span>
+<span class="x">    }</span>
+<span class="x">    return true;</span>
+<span class="x">  }</span>
+
+<span class="x">}</span>
+</code></pre></div>
+<p>So, what was that about ?</p>
+
+<p>We created two models to communicate with bbPress. bbPress stores user-related
+information in <code>bb_users</code> as well as <code>bb_usermeta</code>. We defined the
+<code>$primaryKey</code>, <code>$useTable</code> and <code>$foreignKey</code> of the <code>$hasMany</code> because the
+bbPress tables do not follow the cakePHP convention.</p>
+
+<p>We also add a nifty <code>beforeSave()</code> method to <code>BbUser</code>to make sure its
+<code>user_nicename</code> (used as an url slug) is url-friendly.</p>
+
+<h2>How to save bbPress users from the cakePHP app</h2>
+
+<p>Great. Now you can easily add, edit and delete users from bbPress directly
+from your app.</p>
+
+<p>There are some things you should know about before doing that :</p>
+
+<ul>
+<li><code>first_name</code> and <code>last_name</code> are stored in <code>bb_usermeta</code></li>
+<li>the access rights are defined in <code>bb_usermeta</code> too, using the <code>bb_capabilities</code> key</li>
+</ul>
+
+<p>Now that you know all that, you can easily create a behavior creating a new
+bbPress user when creating a new user, deleting that bbPress user when
+deleting the main user and updating the bbPress user when updating the main
+user.</p>
+
+<p>I myself wrote this behavior, but as it is part of a more general bbPress
+plugin it may not work as-is. I&#39;ll try to publish it if anyone is interested.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/bbpress">#bbpress</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

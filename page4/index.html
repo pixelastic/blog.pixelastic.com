@@ -1,0 +1,597 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/09/06/spectrum-script-terminal-256-colors/">
+        Spectrum, a script to see your terminal 256 colors
+      </a>
+    </h1>
+
+    <span class="post-date">06 Sep 2012</span>
+
+    <p>Here is a little script I hacked together to display in your terminal all the
+colors available in the 256 color spectrum, as well as a visual representation
+of them.</p>
+
+<p><img src="http://s3.pixelastic.com/files/2012/09/06%0A/504834cb-df14-4fa6-a08c-763445a3e447/spectrum2.png" alt="Screenshot of spectrum output"></p>
+
+<p>The <code>oh-my-zsh</code> project actually ships with a method named <code>spectrum</code> that
+does pretty much the same thing, but I found that it was hard to actually get
+a real feel of what the color where with the original output. So I coded this
+one.</p>
+
+<p>It does not display the colors in the range <code>{000..015}</code> because those are
+dependent on your terminal configuration. Also, the output is split in blocks
+of 6 lines, with 2 blocks displayed side by side. You can modify those values
+in the script if you want to make it easier to read on you screen. I use 2 and
+6 because it is what is the more readable on my tiny netbook screen.</p>
+
+<p>Ok, enough talk, here is the script</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/usr/bin/zsh</span>
+<span class="c"># Display the terminal 255 colors by blocks</span>
+
+<span class="c"># Long space is long</span>
+<span class="nb">local </span><span class="nv">space</span><span class="o">=</span><span class="s2">&quot; &quot;</span>
+<span class="k">for </span>i in <span class="o">{</span>0..22<span class="o">}</span><span class="p">;</span> <span class="k">do </span><span class="nv">space</span><span class="o">=</span><span class="nv">$space</span><span class="s2">&quot; &quot;</span><span class="p">;</span> <span class="k">done</span>
+
+<span class="c"># Number of color lines per block</span>
+<span class="nb">local </span><span class="nv">lines</span><span class="o">=</span>6
+<span class="c"># Number of blocks per terminal line</span>
+<span class="nb">local </span><span class="nv">blocks</span><span class="o">=</span>2
+
+<span class="c"># Tmp var to hold the current line in a block</span>
+<span class="nb">local </span><span class="nv">m</span><span class="o">=</span>0
+<span class="c"># Tmp var to hold how many blocks are filled</span>
+<span class="nb">local </span><span class="nv">b</span><span class="o">=</span>0
+<span class="nb">typeset</span> -A grid
+
+<span class="c"># We want to display the blocks side by side, so it means we&#39;ll have to create</span>
+<span class="c"># each line one my one then display all of them, and after that jump to the</span>
+<span class="c"># next set of blocks</span>
+<span class="k">for </span>color in <span class="o">{</span>016..255<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+    <span class="c"># Current line in a block</span>
+    <span class="nv">m</span><span class="o">=</span><span class="k">$((</span><span class="o">(</span><span class="nv">$color</span><span class="o">-</span><span class="m">16</span><span class="o">)%</span><span class="nv">$lines</span><span class="k">))</span>
+
+    <span class="c"># Appending the displayed color to the line</span>
+    grid<span class="o">[</span><span class="nv">$m</span><span class="o">]=</span><span class="nv">$grid</span><span class="o">[</span><span class="nv">$m</span><span class="o">]</span><span class="s2">&quot;^[[01m^[[38;5;${color}m#${color} ^[[48;5;${color}m${space}^[[00m  &quot;</span>
+
+    <span class="c"># Counting how many blocks are filled</span>
+    <span class="o">[[</span> <span class="nv">$m</span> <span class="o">=</span> 5 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">b</span><span class="o">=</span><span class="k">$((</span><span class="nv">$b</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+
+    <span class="c"># Enough blocks for this line, display them</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$b</span> <span class="o">=</span> <span class="nv">$blocks</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="c"># Reset block counter</span>
+        <span class="nv">b</span><span class="o">=</span>0<span class="p">;</span>
+        <span class="c"># Display each line</span>
+        <span class="k">for </span>j in <span class="o">{</span>0..5<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+<span class="k">            </span><span class="nb">echo</span> <span class="nv">$grid</span><span class="o">[</span><span class="nv">$j</span><span class="o">]</span>
+            grid<span class="o">[</span><span class="nv">$j</span><span class="o">]=</span><span class="s2">&quot;&quot;</span>
+        <span class="k">done</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c"># Display each remaining blocks</span>
+<span class="k">for </span>j in <span class="o">{</span>0..5<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="nv">$grid</span><span class="o">[</span><span class="nv">$j</span><span class="o">]</span>
+    grid<span class="o">[</span><span class="nv">$j</span><span class="o">]=</span><span class="s2">&quot;&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Oh and one last word. You might want to pipe the output to <code>less</code> to make it
+easier to read if you&#39;re on a small screen like me.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/colors">#colors</a>
+      
+        <a href="/tags/spectrum">#spectrum</a>
+      
+        <a href="/tags/ubuntu">#ubuntu</a>
+      
+        <a href="/tags/linux">#linux</a>
+      
+        <a href="/tags/terminal">#terminal</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/08/30/zsh-autocompletion-git-unstage/">
+        ZSH autocompletion for git unstage 
+      </a>
+    </h1>
+
+    <span class="post-date">30 Aug 2012</span>
+
+    <p>I recently switched to git as my main version control system (I used to use
+Mercurial before that). I quickly grasped the concept of the staging area and
+used the <code>git add</code> command extensively to add before committing.</p>
+
+<p>And zsh ships with nice git autocompletion features, and suggests files to add
+with <code>git add</code> when you press Tab.</p>
+
+<h2>Git unstage</h2>
+
+<p>What is missing from the basic git commands is a way to unstage a file from
+the staging area. Well, I can do it with <code>git reset HEAD</code>, but this command is
+a bit tedious to type.</p>
+
+<p>So I created an alias, named <code>git unstage</code> that does just that. I just added
+the following lines to my <code>~/.gitconfig</code>, under the <code>[alias]</code> header :</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="na">unstage</span> <span class="o">=</span> <span class="s">reset HEAD</span>
+</code></pre></div>
+<p>I can now easily add files to the staging area with <code>git add</code> and remove them
+with <code>git unstage</code></p>
+
+<h2>Autocompletion</h2>
+
+<p>At this point, <code>git unstage</code> autocompletion does not work. It simply suggest
+all files in the current directory, while I&#39;d like it to suggest only files in
+the staging area.</p>
+
+<p>When you create a git alias, you cannot simply add a zsh autocomplete method
+for that alias (meaning, you cannot create a <code>_git-unstage</code> method), you have
+to hook your custom autocomplete logic to the underlying git method your alias
+refers to. In this case, this is the <code>git reset</code> method.</p>
+
+<p>So, I created my own <code>_git-reset</code> autocompletion function. Actually, I
+borrowed the one already defined in
+<code>/usr/share/zsh/functions/Completion/Unix/_git</code> and tweaked it a little bit.</p>
+
+<p>I created a file named <code>_git-reset</code> and put it in my <code>$FPATH</code> so zsh will load
+it when asked for autocompletion and it will overwrite the <code>_git-reset</code> method
+already defined in <code>_git</code>.</p>
+
+<p>Here is the full content of the file :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#compdef git-reset</span>
+
+_git-reset <span class="o">()</span> <span class="o">{</span>
+    <span class="nb">local </span><span class="nv">curcontext</span><span class="o">=</span><span class="nv">$curcontext</span> state line
+    <span class="nb">typeset</span> -A opt_args
+
+    _arguments -C -S -A <span class="s1">&#39;-*&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(-q --quiet)&#39;</span><span class="o">{</span>-q,--quiet<span class="o">}</span><span class="s1">&#39;[be quiet, only report errors]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;::commit:__git_revisions&#39;</span> <span class="se">\</span>
+        - reset-head <span class="se">\</span>
+            <span class="s1">&#39;(        --soft --hard --merge --keep)--mixed[reset the index but not the working tree (default)]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed        --hard --merge --keep)--soft[do not touch the index file nor the working tree]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed --soft        --merge --keep)--hard[match the working tree and index to the given tree]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed --soft --hard         --keep)--merge[reset out of a conflicted merge]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed --soft --hard --merge       )--keep[like --hard, but keep local working tree changes]&#39;</span> <span class="se">\</span>
+        - reset-paths <span class="se">\</span>
+            <span class="s1">&#39;(-p --patch)&#39;</span><span class="o">{</span>-p,--patch<span class="o">}</span><span class="s1">&#39;[select diff hunks to remove from the index]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;*::file:-&gt;files&#39;</span> <span class="o">&amp;&amp;</span> <span class="nv">ret</span><span class="o">=</span>0
+
+    <span class="k">case</span> <span class="nv">$state</span> in
+        <span class="o">(</span>files<span class="o">)</span>
+            <span class="nb">local </span>commit
+            <span class="k">if</span> <span class="o">[[</span> -n <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> __git_is_committish <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">                </span><span class="nv">commit</span><span class="o">=</span><span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span>
+            <span class="k">else</span>
+<span class="k">                </span><span class="nv">commit</span><span class="o">=</span>HEAD
+            <span class="k">fi</span>
+            <span class="c"># Suggest files in index if `git reset HEAD`</span>
+            <span class="k">if</span> <span class="o">[[</span> <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span> <span class="o">=</span> HEAD <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">                </span>__git_changed_files
+            <span class="k">else</span>
+<span class="k">                </span>__git_tree_files . <span class="nv">$commit</span>
+            <span class="k">fi</span>
+<span class="k">            </span><span class="nv">ret</span><span class="o">=</span>0
+            <span class="p">;;</span>
+    <span class="k">esac</span>
+<span class="o">}</span>
+
+_git-reset <span class="s2">&quot;$@&quot;</span>
+</code></pre></div>
+<p>As you may have noticed this script is an almost exact copy/paste from the
+original <code>_git-reset</code> script. The only modification I&#39;ve done is in those
+lines :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Suggest files in index if `git reset HEAD`</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span> <span class="o">=</span> HEAD <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">    </span>__git_changed_files
+<span class="k">else</span>
+<span class="k">    </span>__git_tree_files . <span class="nv">$commit</span>
+<span class="k">fi</span>
+</code></pre></div>
+<p>What it does is checking the first argument of <code>git reset</code>, and if it&#39;s
+<code>HEAD</code>, it suggests files in the staging area (<code>__git_changed_files</code>) instead
+of files in the current repo (<code>__git_tree_files</code>).</p>
+
+<p>It took me quite a bit of time to figure out which method to use to get files
+in the staging area as I had been looking for a <code>__git_staged_files</code> for quite
+a while and finally discovered that the <code>__git_changed_files</code> was actually
+what I was looking for.</p>
+
+<h2>Conclusion</h2>
+
+<p>The <code>git unstage</code> alias is quite common, you can find it in a lot of books and
+websites teaching git. But it becomes much more usable once zsh does the
+autocomplete for you and you can easily select files to unstage that way.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/autocomplete">#autocomplete</a>
+      
+        <a href="/tags/git">#git</a>
+      
+        <a href="/tags/zsh">#zsh</a>
+      
+        <a href="/tags/unstage">#unstage</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/08/20/system-trash-zsh-terminal/">
+        Use the system trash with ZSH terminal
+      </a>
+    </h1>
+
+    <span class="post-date">20 Aug 2012</span>
+
+    <p>When you start using the terminal as your main file explorer instead of a GUI
+one, you soon discover two important things.</p>
+
+<p>First, it is much faster to browse accross your filesystem, copying and moving
+files in the terminal that it is with your mouse. This is hard to believe at
+first (how can writing text on a dull black screen be faster than
+drag&#39;n&#39;dropping ?) but it is nonetheless true (after a bit of practice, sure).</p>
+
+<p>The second thing is that it is also much much easier to *<em>permanently delete
+very important files *</em>as deleting a file through the terminal has no trash
+bin nor any other safeguard mechanism.</p>
+
+<h2>Scripting a rm replacement</h2>
+
+<p>At first, I scripted my own rm <code>rm</code> replacement that was manually moving files
+to <code>~/.local/share/Trash/files</code> (the common Trash directory) instead of
+deleting them. But it was a bit naive and couldn&#39;t really work on removable
+drives nor provide a &quot;restore&quot; mechanism.</p>
+
+<p>Fortunatly, the <code>trash-cli</code> package on Ubuntu provides a set of methods to
+deal with the trash from the command line. They have very explicit names such
+as <code>trash</code>, <code>list-trash</code>, <code>restore-trash</code> or <code>empty-trash</code>.</p>
+
+<h2>ZSH aliases</h2>
+
+<p>I had to resort to quite a bit of ZSH tweaking to make it a perfect <code>rm</code>
+replacement. First, I added a simple alias for the <code>rm</code> command.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">alias </span><span class="nv">rm</span><span class="o">=</span><span class="s1">&#39;trash&#39;</span>
+</code></pre></div>
+<p>Then I also wanted to change the default <code>rmdir</code> command. I could have used
+the same type of alias (<code>alias rmdir=&#39;trash&#39;</code>) but I would have lost the
+builtin ZSH autocompletion of directories zsh provides with <code>rmdir</code>.</p>
+
+<p>When you define aliases with ZSH, you can choose if you want it to
+autocomplete based on the right hand side of your alias
+(<code>NO_COMPLETE_ALIASES</code>) or the left hand side (<code>COMPLETE_ALIASES</code>). Yes, the
+name of the options seem wrong to me too, but this is actually how it works.</p>
+
+<p>I prefer setting <code>NO_COMPLETE_ALIASES</code> so I can use the correct autocompletion
+on my commands with my aliases, but for the <code>rmdir</code> case this was proving to
+be an issue.</p>
+
+<h2>rmdir autocompletion</h2>
+
+<p>So, I started writing my own <code>rmdir</code> implementation in a custom script. This
+was merely a wrapper to <code>rmdir</code> but putting it in its own script allowed me to
+change its name and thus changing its autocomplete method.</p>
+
+<p>I named it <code>better-rmdir</code>, and put it in my <code>$PATH</code>. Here is the code</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/usr/bin/zsh</span>
+trash <span class="nv">$@</span>
+</code></pre></div>
+<p>As you can see, this is just a wrapper, taking the initial arguments and
+passing them to <code>trash</code>.</p>
+
+<p>But I also created a file named <code>_better-rmdir</code> and put it in my <code>$FPATH</code>
+(this is where ZSH goes looking to autocomplete methods). I just copied the
+code of the original <code>_directories</code> method (that you can probably find in
+<code>/usr/share/zsh/functions/Completion/Unix/</code>), and adapted it to fit my newly
+created <code>better-rmdir</code></p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#compdef better-rmdir</span>
+<span class="nb">local </span>expl
+_wanted directories expl directory _files -/ <span class="s2">&quot;$@&quot;</span> -
+</code></pre></div>
+<p>And finally, I added an alias (<code>alias rmdir=&#39;better-rmdir&#39;</code>) and everytime I
+ask for an autocomplete on <code>rmdir</code> it actually looks for the autocomplete of
+<code>better-rmdir</code>, which is the code contained in <code>_better-rmdir</code> and which in
+turn return only directories.</p>
+
+<p>Now I have complete <code>rm</code> and <code>rmdir</code> commands in my terminal that move files
+to the trash.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/autocomplete">#autocomplete</a>
+      
+        <a href="/tags/rm">#rm</a>
+      
+        <a href="/tags/linux">#linux</a>
+      
+        <a href="/tags/zsh">#zsh</a>
+      
+        <a href="/tags/rmdir">#rmdir</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/08/09/small-note-video-encoding-formats/">
+        A small note about video encoding and formats
+      </a>
+    </h1>
+
+    <span class="post-date">09 Aug 2012</span>
+
+    <p>Following my previous note on audio files, I made some research on video
+files. I have a huge amount of video on my hard drive, so much that I actually
+needed to do a bit of cleaning.</p>
+
+<p>That&#39;s when I discovered that I had a plethora of different file formats
+(<code>avi</code>, <code>mp4</code>, <code>mkv</code>) and in various resolution, quality and filesize. Also,
+filesize was not always dependent on quality. I had some really heavy files
+that were not better looking that smaller one.</p>
+
+<p>So I started some research on the Wikipedia and Google to understand more
+about all those fileformats, and here are my results.</p>
+
+<h2>Containers</h2>
+
+<p>First of all, the <code>avi</code>, <code>mp4</code> or <code>mkv</code> file extension denote a container
+format. This container is just a box that contain video and audio stream. Not
+all boxes are created equal, though.</p>
+
+<p><code>avi</code> is a Microsoft container but gained (in)famous popularity in the first
+days of p2p filesharing. This is a very simple container, able to hold one
+video and one audio stream. Then, was created the <code>mp4</code> container. This one is
+an ISO box, so already much better than the Microsoft one. This actually is a
+good container, allowing the use of several audio and videos streams as well
+as subtitles.</p>
+
+<p>Then, came the <code>mkv</code> container. It is as good as <code>mp4</code>, and even allow more
+customization, but the important point is that it is patent free. The only
+downside to <code>mkv</code> is that it is not as widely supported as the other two
+format, but the specs being public and open, this is slowly changing.</p>
+
+<p>I also had some other extensions, like <code>wmv</code>, <code>mov</code> or <code>divx</code>. <code>divx</code> is only
+an <code>avi</code> in disguise, because of legal reasons. <code>wmv</code> is another Microsoft
+container, this one being an improved <code>avi</code> with DRM. <code>mov</code> is an Apple
+container, aimed to media creation. A <code>mov</code> is actually quite a powerful
+container, that could be used for much more than simply media playback but
+also media creation.</p>
+
+<p>If I had to choose, I&#39;ll pick mkv.</p>
+
+<h2>Video codecs</h2>
+
+<p>Now, what do we put in those boxes ? First, a video stream. We could put an
+uncompressed video stream in it, but this will result in huge filesize, so we
+actually never do that.</p>
+
+<p>Instead, we use codec (short for <em>coder/decoder</em>) to compress this stream in
+something with a more manageable size. The most famous is DivX. DivX started
+as an encoder hacked from Microsoft first avi files and was heavily used to
+encode movies before sharing them online. Because of legal dispute with
+Microsoft, the guys that created DivX had to recode it from scratch. In the
+meantime, an opensource fork of DivX, named Xvid was created and after a few
+version became even better than the original Divx.</p>
+
+<p>MPEG, MPEG2 and MPEG4 are succesive iteration of another codec that compress a
+video stream by looking at its pixels and checking if they changed from one
+frame to another, to avoid redrawing them. With each succesive versions it
+then started to track movement, color and lightning of these pixels. In the
+end, it gave birth to the h264 codec which is used on Blueray (while MPEG2 was
+used on DVD). h264 is the de facto standard of HD video of today. It requires
+more processing power than its MPEG counterparts but deliver a much better
+quality for an equal filesize. Recent hardware is today optimized to handle
+h264 natively.</p>
+
+<p>As for mkv and mp4, there also is the same difference between H264 and Theora.
+Theora got equivalent quality than H264, but is patentfree. On the other end,
+H264 is very widely supported while Theora is not (as can be seen in HTML5).</p>
+
+<p>Microsoft also created a closed source wmv codec to go with its wmv container.
+It is supposed to be based on MPEG4, but there is little known to it, so it of
+absolutly no use to me.</p>
+
+<p>So, as you can see, there is almost no relation between a codec and its
+container. You can have a divx encoded file in an mkv, or a Theora in an avi.
+But, in the real world, some codec are most often found with some container,
+like divx in avi or h264 in mp4.</p>
+
+<p>Here, I&#39;ll pick h264 because of the hardware support.</p>
+
+<h2>Audio codec</h2>
+
+<p>As for the video stream, the audio stream is also compressed using an audio
+codec. The most common audio codec is the mp3. This is a lossy codec, meaning
+it discards information to get the filesize lower. It is based on a method
+that will discard sounds that the human hear will not be able to hear anyway.</p>
+
+<p>mp3 has its drawbacks, like being bloated from succesive mpeg versions and
+still being patented.</p>
+
+<p>A new codec, the AAC succeed to mp3. It will also discard sounds the human
+hear cannot get, but will also encode redundancy in a better way. Even if mp3
+was the de facto standard for a long time, AAC is gaining a huge popularity
+because it is backed up by all the big companies.</p>
+
+<p>Then, the story gĹs on and on. There is an open source, patent free
+equivalent to AAC, being ogg. Once again, its as good as its opponent (even
+better on low bitrates), but there isn&#39;t as many devices able to read ogg as
+they&#39;re are able to read AAC. But once, again, things are slowly changing.</p>
+
+<p>Here, I&#39;ll choose ogg over the alternatives.</p>
+
+<h2>Conclusion</h2>
+
+<p>I have a bunch of files, in different containers, encoded with different
+encoders and I&#39;m going to try to clean a bit all this. First, I&#39;ll get rid of
+all the &quot;bad&quot; containers (<code>mov</code> and <code>wmv</code>) and use <code>mkv</code> instead.</p>
+
+<p>For files that are too big, I&#39;ll try to convert them to a better format. h264
+video with an ogg audio stream in an mkv container.</p>
+
+<p>Well, there also is the matter of the video resolution, data rate, fps and
+audio frequency but this might be the subject of another post.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/video">#video</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/06/04/music-files-encoded/">
+        How I want my music files encoded
+      </a>
+    </h1>
+
+    <span class="post-date">04 Jun 2012</span>
+
+    <p>I have a lot of music files on my computer. Some comes from CDs I encoded,
+other comes from the magic of file sharing. Most of them are in <code>MP3</code> format,
+but I have a few <code>ogg</code> and <code>wma</code> tracks, mixed with even a bit of <code>wav</code> or
+<code>flac</code> files.</p>
+
+<p>Even the <code>mp3</code> files are encoded in a bunch of different settings, with
+various bitrates and frequencies. The only thing that is quite consistent in
+all that is that my tagging of metadatas.</p>
+
+<p>Other than that it&#39;s quite a mess and has my collection grow larger, it starts
+to bother me. No two albums, even for the same music duration, are the same
+filesize.</p>
+
+<p>I decided to clean a bit this whole mess. Let me explain my goal, and how I
+plan on doing that.</p>
+
+<p>First, I want all my files encoded with the same settings, so the music I&#39;m
+listening to and its file size is consistent accross different albums.</p>
+
+<p>Second, I want all the files correctly taggued with track number, artist,
+album and song name. I don&#39;t really care about the year nor the genre. Genre
+is highly subjective, and year can be misleading in mixed albums like
+soundtracks, are we talking about the year of the release of the cd, or the
+year of the release of the individual song?</p>
+
+<p>Third, I want all my files in <code>ogg</code> format. First, because I want to get rid
+of as many proprietary format as I can, and <code>mp3</code> is proprietary. But mainly
+because <code>mp3</code> is an encoding format bloated with the previous layers of MPEG
+layer 2 and MPEG layer 1, resulting in larger file size and more encoding
+complexity.</p>
+
+<p>And finally, I want to have the best sound quality that I can afford, without
+going to extreme like listening to <code>FLAC</code> directly as my ears won&#39;t be able to
+catch the difference anyway.</p>
+
+<p>So, I&#39;m gonna buy a big hard drive, something around 1To I think, and put on
+it all my music files in <code>FLAC</code> format, encoded directly from CD. This <code>FLAC</code>
+files will have all the required metadata saved in them.</p>
+
+<p>Then, I&#39;ll create an <code>ogg</code> subdir in each of my album dirs where I&#39;ll encode
+my FLAC in <code>ogg</code> with a bitrate of 128kbds (as the human hear won&#39;t be able to
+really get the difference with anything higher than that), and using the
+metadata from the <code>FLAC</code> files.</p>
+
+<p>Finally, I&#39;ll put the <code>ogg</code> files on my portable media player and listen to
+them on the go.</p>
+
+<p>I do not need to put the <code>FLAC</code> on the PMP, has my ears won&#39;t be able to hear
+the difference. I only need to put a compressed version. Maybe in a few years,
+when PMP hard drive size will have increase I&#39;ll be able to increase the
+quality of my <code>ogg</code> and use better quality files. If I ever need to do that, I
+won&#39;t have to rip the CDs again as I&#39;ll already have the <code>FLAC</code> to create the
+encoding.</p>
+
+<p>This will be hard work, but I guess it will be worth it in the long run. At
+least, now I know a bit more about encoding formats and settings.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/encoding">#encoding</a>
+      
+        <a href="/tags/mp3">#mp3</a>
+      
+        <a href="/tags/ogg">#ogg</a>
+      
+        <a href="/tags/flac">#flac</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page5">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page3">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

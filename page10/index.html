@@ -1,0 +1,400 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/30/enabling-flash-calls-distant-server-working-locally/">
+        Enabling Flash calls to distant server when working locally
+      </a>
+    </h1>
+
+    <span class="post-date">30 Aug 2011</span>
+
+    <p>Default Flash security config prevents you from loading content from an
+external website when running a Flash file locally.</p>
+
+<p>To prevent this, you have to go to <a href="http://www.macromedia.com/suppo%0Art/documentation/en/flashplayer/help/settings_manager04.html">this link</a> and add the
+directory where your file is located.</p>
+
+<p>Fortunatly, you can specify a top level directory and all subdirectories will
+inherit the authorization.</p>
+
+<p>If you don&#39;t do this step, your Flash file will refuse to download external
+content.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/flash">#flash</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/26/steps-puppet/">
+        First steps with puppet
+      </a>
+    </h1>
+
+    <span class="post-date">26 Aug 2011</span>
+
+    <p>I&#39;ve never used puppet before this project. It in installed on our main
+server, monitoring the whole pool of servers used to host our game. It
+includes php hosts, sql data nodes and sql front servers as well as a couple
+of load balancer.</p>
+
+<p>Puppet keeps a snapshot of the config that must be deployed on each server and
+keep them in sync. We just have to edit the puppet files, and the same config
+is replicated on each server.</p>
+
+<p>I did not install puppet, our sysadmin did it, and I have no idea how he did
+it actually, I&#39;m just fiddling with specific configurations here. But as it
+took me quite a bit to grasp, here is how it works, and some quirks to be
+aware of.</p>
+
+<h2>The puppet files</h2>
+
+<p>Puppet is installed in <code>/etc/puppet</code>. Our different modules are stored in<code>
+/etc/puppet/modules</code>. A module is a set of programs and config files that work
+together.</p>
+
+<p>For example, we have one for the <code>loadbalancers</code>, one for the <code>http</code>part, one
+for <code>mysql</code>, and even one for <code>vim</code>. I&#39;m going to focus on the <code>http</code>one,
+because it contains config files for memcache, lighttpd and php.</p>
+
+<p>Modules are split in two parts : the manifest and the files. You can find each
+in <code>/etc/puppet/modules/{modulename}/manifests</code> and in
+<code>/etc/puppet/modules/{modulename}/files</code>.</p>
+
+<p>As you can imagine, the manifest contains a list of directive telling puppet
+what programs need to be installed, what directories need to be present (with
+specific user and group) as well as what files need to be copied.</p>
+
+<p>The <code>files/</code> directory contains all the files that puppet might need for this
+module. It will copy them from this directory to the final servers, according
+to the manifest config.</p>
+
+<h2>Manifest syntax</h2>
+
+<p>The manifest uses a very simple syntax, using blocks of <code>key =&gt; value</code> to
+define config. I&#39;ve mostly use the simple <code>file</code>directives, to copy files and
+create directories.</p>
+
+<p>One can also use <code>package</code>directories, to install things and handle
+dependencies, but I haven&#39;t messed with that (yet) so I won&#39;t talk about them
+here.</p>
+
+<p>Here are a couple of simple file orders :</p>
+<div class="highlight"><pre><code class="language-puppet" data-lang="puppet"><span class="k">file</span> <span class="p">{</span> <span class="s">&quot;/etc/lighttpd/scripts&quot;</span><span class="p">:</span>
+  <span class="na">ensure</span><span class="err"> </span> <span class="o">=&gt;</span> <span class="k">directory</span><span class="p">,</span>
+  <span class="na">owner</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">group</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">mode</span><span class="err">   </span> <span class="o">=&gt;</span> <span class="mi">550</span>
+<span class="p">}</span>
+<span class="k">file</span> <span class="p">{</span> <span class="s">&quot;/etc/lighttpd/lighttpd.conf&quot;</span><span class="p">:</span>
+  <span class="na">owner</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">group</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">mode</span><span class="err">   </span> <span class="o">=&gt;</span> <span class="mi">644</span><span class="p">,</span>
+  <span class="na">source</span><span class="err"> </span> <span class="o">=&gt;</span> <span class="s">&quot;puppet:///http/$target/lighttpd/lighttpd.conf&quot;</span><span class="p">,</span>
+  <span class="na">require</span> <span class="o">=&gt;</span> <span class="k">Package</span><span class="p">[</span><span class="s">&quot;lighttpd&quot;</span><span class="p">],</span>
+  <span class="k">notify</span><span class="err"> </span> <span class="o">=&gt;</span> <span class="k">Service</span><span class="p">[</span><span class="s">&quot;lighttpd&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The first part will create a<code>/etc/lighttpd/scripts</code> directory on the final
+server, with a user and group <code>root</code>and 550 permissions mode.</p>
+
+<p>The second part will copy the file stored in
+<code>/etc/puppet/modules/http/{target}/lighttpd/lighttpd.conf</code> on the puppet
+server to <code>/etc/lighttpd/lighttpd.conf</code> on the final server. I&#39;m not quite
+sure what the <code>require</code>and <code>notify</code>lines are for.</p>
+
+<p><code>$target</code> is a special variable. In my case it can take either the value
+<code>valid</code> or <code>prod</code>, allowing me to define custom config based on the
+environment. Valid and prod environment are supposed to have the exact same
+config, but separating them allow for testing a config change in one
+environment without potentially breaking the working prod environment. I&#39;m not
+exactly sure how this <code>$target</code> var is set, this is one more thing our
+sysadmin did. Thanks to him.</p>
+
+<h2>Pulling changes</h2>
+
+<p>Puppet is configured to check its servers every 30mn. If some config files
+changed, or a directory isn&#39;t there anymore, it will recreate them, according
+to the manifest. But you can force the pulling of changes from the final
+servers themselves. Just log to one of the servers puppet is monitoring and
+type</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>sudo puppetd --test
+</code></pre></div>
+<p>The <code>--test</code> argument is a bit misleading. It actually does not seem to do any
+test at all, it simply pulls the puppet files from the puppet server and
+updates its files accordingly. It will notify you of any errors it might find,
+and even print a <code>diff</code>of the files changed.</p>
+
+<h2>One last thing</h2>
+
+<p>I&#39;ve lost 30mn checking and re-checking my puppet file because my <code>php.ini</code>
+changes weren&#39;t updated. In fact, I just forgot to reload <code>lighttpd</code>...</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/lighttpd">#lighttpd</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/puppet">#puppet</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/26/php-session-disk-lighttpd-write-access/">
+        PHP session on disk with lighttpd, and write access
+      </a>
+    </h1>
+
+    <span class="post-date">26 Aug 2011</span>
+
+    <p>On HappyLife, we used to use Memcache to handle the php sessions. We
+discovered a while back after much trouble that Memcache might not have been
+the best solution for sessions on a high traffic site. But this will be the
+subject of another post.</p>
+
+<p>Anyway, I switched back to classical session, stored on disk.</p>
+
+<p>Here&#39;s the relevant <code>php.ini</code> config</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[Session]</span>
+<span class="na">session.save_handler</span> <span class="o">=</span> <span class="s">files</span>
+<span class="na">session.save_path</span> <span class="o">=</span> <span class="s">&#39;/tmp/php&#39;</span>
+</code></pre></div>
+<p><code>/tmp/php</code> should be writable by <code>www-data</code>, so</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>chown www-data:www-data /tmp/php
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/lighttpd">#lighttpd</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/sessions">#sessions</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/24/working-wednesday-11-steps-dreamplug/">
+        Working on Wednesday #11 : First steps with my Dreamplug
+      </a>
+    </h1>
+
+    <span class="post-date">24 Aug 2011</span>
+
+    <p>A while back, I ordered a Dreamplug. It&#39;s a micro computer more or less the
+size of a hard drive. It uses very little electricity, has ethernet, usb, sata
+and sd ports as well as bluetooth and wifi connectivity.</p>
+
+<p>I wanted one to primarily work as a git and mercurial server to host my repos,
+as well as host a few websites I might be working on. As it&#39;s not the more
+powerful of device and will be using my home ADSL connection, it&#39;s also a good
+fit for testing web performance optimisations.</p>
+
+<p>Actually, I have a lot of ideas for this plug (ssh tunnel, dropox-like server,
+etc).</p>
+
+<h2>First, let&#39;s establish a connection</h2>
+
+<p>To do any of that, you first have to log into your device. This first step
+might have been the one that caused me the much trouble.</p>
+
+<p>I simply wanted to connect to the plug through SSH. I didn&#39;t want to plug it
+to my router because it would then have emit an open wifi network. Instead, I
+wanted to access it through a simple ethernet cable.</p>
+
+<p>To do that I had to plug the Ethernet cable on the second slot (the one the
+closer to the lights) on the plug, then turn it on. I didn&#39;t manage to connect
+with the cable in the other plug nor if I plugged it after turning the device
+on.</p>
+
+<p>What took me a while to figure is that the Dreamplug have its own ip address :
+<code>10.0.0.1</code>. To enable transfer between your host and the plug, you have to set
+a fixed ip address to your ethernet (mine was <code>eth0</code>)</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>sudo ifconfig eth0 10.0.0.2
+</code></pre></div>
+<p>I chose <code>10.0.0.2</code> because it&#39;s close to the Dreamplug address and I will
+remember it better, but you can actually choose anything you want, it
+absolutely does not matter.</p>
+
+<h2>Connect through ssh</h2>
+
+<p>Once the first step is done, you are now able to connect to the device through
+SSH.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>ssh root@10.0.0.1
+</code></pre></div>
+<p>The default password is <code>nosoup4u</code>. I chose to keep it for now, as I&#39;ll have
+to type it a lot, but I&#39;ll change it once everything is installed.</p>
+
+<p>First thing you should do is create a new user. Using <code>root</code> for the day to
+day activities is a bad habit.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>adduser pixelastic
+</code></pre></div>
+<p>You&#39;ll be prompted for password and other misc informations. Once done, we
+will give sudo power to this user.</p>
+
+<p>On others Ubuntu machines, I usually do a <code>adduser pixelastic admin</code> or
+<code>adduser pixelastic sudo</code>, but this didn&#39;t work here. There wasn&#39;t even an
+<code>admin</code> group, and adding to <code>sudo</code> didn&#39;t seem to change anything.</p>
+
+<p>Instead, I had to edit the <code>/etc/sudoers</code> file, using <code>visudo</code>.</p>
+
+<p><em>If you&#39;ve never used <code>vi</code> before, press <code>i</code> to enter edit mode, and <code>vi</code> will
+acts as a common editor. Press <code>Esc</code> when you&#39;ve finished, then <code>:x</code> to save
+and exit</em></p>
+
+<p>I added a new line just below the one starting with <code>root</code> and copied it,
+simply by changing the user name.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">root    <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> ALL
+pixelastic <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> ALL
+</code></pre></div>
+<p>Your new user should now have the sudo powers.</p>
+
+<p>Unfortunatly, on my build one more thing was missing. It might not be the case
+on your plug, but we&#39;d better check.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>which sudo
+ /usr/bin/sudo
+<span class="nv">$ </span>ls -l /usr/bin/sudo
+ -rwxr-xr-x 1 root root 114976 2011-02-14 08:08 /usr/bin/sudo
+</code></pre></div>
+<p>Check the permissions, if you have this output, then something is wrong. The
+<code>sudo</code> executable should have the <code>s</code> permissions, otherwise it won&#39;t work.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>chmod u+s /usr/bin/sudo
+</code></pre></div>
+<p>Now, we can logout from the <code>root</code> session, and login back with our new user</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>ssh pixelastic@10.0.0.1
+<span class="nv">$ </span>sudo <span class="nb">pwd</span>
+ /home/pixelastic
+</code></pre></div>
+<h2>What next ?</h2>
+
+<p>Now, one last sensible thing to do is to change the root password for
+something stronger, and even disable login as <code>root</code> through ssh. To do that,
+simply edit the <code>/etc/ssh/sshd_config</code> file and set <code>PermitRootLogin</code> to <code>no</code>.</p>
+
+<p>You could also add your keys to the plug to avoid typing your password,
+install your softs, and link the plug to your router to make it accessible
+from the outside.</p>
+
+<p>I plan to replace Ubuntu for Debian on my Dreamplug, I&#39;ll post about that
+later.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ubuntu">#ubuntu</a>
+      
+        <a href="/tags/wednesday">#wednesday</a>
+      
+        <a href="/tags/dreamplug">#dreamplug</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/19/keeping-plugins-firefox-version/">
+        Keeping your plugins with any new Firefox version
+      </a>
+    </h1>
+
+    <span class="post-date">19 Aug 2011</span>
+
+    <p>The new Firefox cycle version is such that you might lose all your beloved
+plugins on each new release.</p>
+
+<p>Fortunatly, most of the plugins still work even when the version updates, so
+you can still use them.</p>
+
+<p>The easiest way to automatically enable them all is to update a boolean value
+in <code>about:config</code> that will tell Firefox to not disable older plugins.</p>
+
+<p>The key changes for each version, but is called
+<code>extensions.checkCompatibility.X.Y</code> where <code>X</code> and <code>Y</code> are the version number
+(like <code>X</code>=7 and <code>Y</code>=0 for the 7.0 release).</p>
+
+<p>Create the key (as a boolean value), and set it to <code>false</code>.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page11">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page9">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

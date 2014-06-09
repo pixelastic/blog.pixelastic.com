@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Caracole - Brouillons - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Caracole - Brouillons</h1>
+  <span class="post-date">16 Feb 2009</span>
+  <p>Une des fonctionnalités les plus pratiques de Wordpress, c&#39;est de pouvoir
+enregistrer un billet comme brouillon lorsqu&#39;on ne l&#39;a pas terminé. Ca permet
+d&#39;y revenir plus tard et de le garder dans un coin sans qu&#39;il ne soit perdu.</p>
+
+<p>J&#39;ai ajouté cette fonctionnalité à Caracole hier, et elle peut s&#39;appliquer à
+n&#39;importe quel modèle (actuellement je l&#39;ai mise sur les pages et les billets
+de blog uniquement, mais comme vous allez le voir, c&#39;est très facile à ajouter
+pour n&#39;importe quel modèle).</p>
+
+<p>Une case à cocher &quot;Enregistrer comme brouillon&quot; permet d&#39;enregistrer l&#39;élement
+comme brouillon, cela signifie qu&#39;il ne sera plus visible sur le site tant
+qu&#39;il restera à l&#39;état de brouillon.</p>
+
+<p>Pour le développeur, c&#39;est très simple à utiliser, il suffit de rajouter un
+champ &#39;is_draft&#39; dans la table correspondante au modèle et Caracole se charge
+du reste. Les brouillons ne sont plus retournés par les recherches, à moins de
+préciser &#39;includeDraft&#39; dans les options de recherche, ce qui permet de garder
+le code le plus clair possible.</p>
+
+<p>Dans l&#39;admin, les brouillons restent bien sur visibles (bien qu&#39;indiqués de
+façon légerement différente), et il suffit d&#39;aller décocher la case pour les
+publier réellement.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/caracole">#caracole</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

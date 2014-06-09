@@ -1,0 +1,409 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/06/firing-cakephp-components-callbacks-error404/">
+        Firing cakePHP components callbacks on error404
+      </a>
+    </h1>
+
+    <span class="post-date">06 Jan 2011</span>
+
+    <p>I often use <code>$this-&gt;cakeError(&#39;error404&#39;)</code> in my controllers to stop
+processing the request (and return a 404 error) when the supplied parameters
+are buggy or incomplete.</p>
+
+<h2>A strange side effect</h2>
+
+<p>I recently spotted a strange side effect on the latest site I was developping.
+It used a pretty large html footer filled with links dynamically fetched from
+my database.</p>
+
+<p>As all pages (no matter what model/controller they were refering to) were
+using the same footer, I created a component with a simple <code>startup</code> method to
+fetch them all and return them to the view. I added this component to my
+<code>AppController</code> so that every controller will inherit it.</p>
+
+<p>This worked nicely until I spotted that on error pages, the footer was left
+mostly empty. I was because my <code>Component</code> callback was never fired.</p>
+
+<h2>How&#39;s that ?</h2>
+
+<p>When detecting an error, cake starts using its <code>ErrorHandler</code>and thus do not
+fire callbacks.</p>
+
+<p>Fortunatly, you can create an <code>AppError</code>class (in <code>app/app_error.php</code>) and
+overwrite the <code>ErrorHandler</code>method. Namely, the <code>error404</code>. I rewrote mine to
+explicitly fire the <code>initialize</code> and <code>startup</code> methods.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class AppError extends ErrorHandler {</span>
+<span class="x">  function error404($params) {</span>
+<span class="x">    $this-&gt;controller-&gt;Component-&gt;initialize($this-&gt;controller);</span>
+<span class="x">    $this-&gt;controller-&gt;Component-&gt;startup($this-&gt;controller);</span>
+<span class="x">    parent::error404($params);</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>I only fired two of the callbacks, but maybe <code>beforeRender</code>and <code>shutdown
+</code>should be fired too.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/errorhandler">#errorhandler</a>
+      
+        <a href="/tags/apperror">#apperror</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/component">#component</a>
+      
+        <a href="/tags/error404">#error404</a>
+      
+        <a href="/tags/errors">#errors</a>
+      
+        <a href="/tags/cakeerror">#cakeerror</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/04/moving-delicious-pinboard/">
+        Moving from Delicious to Pinboard
+      </a>
+    </h1>
+
+    <span class="post-date">04 Jan 2011</span>
+
+    <p>As you may have heard, Yahoo! is closing
+<a href="http://www.delicious.com/">Delicious</a>. I had started to use Delicious a lot
+lately, to work as a decentralised save of all my bookmarks and being able to
+search through them easily.</p>
+
+<p>In my recent attempt to save as much of my work online, losing Delicious would
+meant losing a large part of collective wisdom. So I search for an
+alternative.</p>
+
+<p>I finally registered for <a href="http://pinboard.in/">Pinboard </a>a few days ago. It
+allows an easy way to import Delicious bookmarks in a matter of seconds and
+has all the features of Delicious I wanted.</p>
+
+<p>It is not free however, but the one-time fee depends on the number of people
+using the service. I payed mine 9.12$.</p>
+
+<p>The website itself is not as good looking as Delicious (<em>ahem</em>), but it does
+provide a cleaner search experience (in my point of view). I really don&#39;t care
+about other people bookmark, I only search through mine.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/pinboard">#pinboard</a>
+      
+        <a href="/tags/delicious">#delicious</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/03/detecting-fullscreen-tinymce/">
+        Detecting fullscreen in tinyMCE
+      </a>
+    </h1>
+
+    <span class="post-date">03 Jan 2011</span>
+
+    <p>I wanted one of my tinyMCE plugins to fire a certain set of actions whenever
+the full screen mode was activated.</p>
+
+<p>I search for an <code>onFullScren</code>event or somethin similar but to no avail. I
+finally discovered that the full screen actually creates a whole new tinymce
+editor instance.</p>
+
+<p>So the only thing I had to do was writing my little piece of code in the <code>init
+</code>method of my plugin and check to see if the fullscreen was enabled.</p>
+
+<p>The initial fullscreen plugin exposes a <code>fullscreen_is_enabled</code> param that can
+be checked.</p>
+
+<p>All I had to do was a simple condition like : <code>if
+(editor.getParam(&#39;fullscreen_is_enabled&#39;)) {}.</code> And once in the condition I
+tried to execute my custom code. I needed the <code>editor.execCommand</code> method but
+all I got was an error because <code>t.selection</code> was not set.</p>
+
+<p>It appears that the execCommand can only be executed when the full editor
+instance is loaded (and thus a t.selection is created). So I wrap my little
+piece of code into a <code>setInterval</code> checking for <code>editor.selection</code> and finally
+executed my code when the <code>.selection</code>was set.</p>
+
+<p>Here is my final snippet, to be included in my plugin <code>init</code>method :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="nx">editor</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_is_enabled&#39;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">fullScreenInterval</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">editor</span><span class="p">.</span><span class="nx">selection</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">fullScreenInterval</span><span class="p">);</span>
+    <span class="nx">editor</span><span class="p">.</span><span class="nx">execCommand</span><span class="p">(</span><span class="s1">&#39;anyTinyMCECommand&#39;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/fullscreen">#fullscreen</a>
+      
+        <a href="/tags/tinymce">#tinymce</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/execcommand">#execcommand</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/12/11/adding-hr-tinymce-instance/">
+        Adding a &lt;hr&gt; in a tinyMCE instance
+      </a>
+    </h1>
+
+    <span class="post-date">11 Dec 2010</span>
+
+    <p>When using the default tinyMCE implementation to add an <code>&lt;hr&gt;</code> element to the
+editor content, the <code>&lt;hr&gt;</code> is added inside its parent <code>&lt;p&gt;</code> element (when it
+should be an element on its own, without such a parent).</p>
+
+<p>I&#39;ve added my own plugin to resolve this small issue, here is the code :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">tinymce</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;tinymce.plugins.pixelastic_hrPlugin&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Register the command</span>
+      <span class="nx">editor</span><span class="p">.</span><span class="nx">addCommand</span><span class="p">(</span><span class="s1">&#39;mcepixelastic_hr&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// We get the parent node</span>
+        <span class="kd">var</span> <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">selection</span><span class="p">.</span><span class="nx">getNode</span><span class="p">(),</span>
+        <span class="nx">uniqueId</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">uniqueId</span><span class="p">();</span>
+        <span class="c1">// We insert the hr (with a unique id to select it later)</span>
+        <span class="nx">editor</span><span class="p">.</span><span class="nx">execCommand</span><span class="p">(</span><span class="s1">&#39;mceInsertContent&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s1">&#39;&lt;hr id=&quot;&#39;</span><span class="o">+</span><span class="nx">uniqueId</span><span class="o">+</span><span class="s1">&#39;&quot; /&gt;&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">hr</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">uniqueId</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="c1">// We split the parent element around the hr</span>
+        <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">,</span> <span class="nx">hr</span><span class="p">);</span>
+        <span class="c1">// We remove the temporary id</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">hr</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+      <span class="p">});</span>
+      <span class="c1">// Adding a button</span>
+      <span class="nx">editor</span><span class="p">.</span><span class="nx">addButton</span><span class="p">(</span><span class="nx">pluginName</span><span class="p">,</span> <span class="p">{</span> <span class="nx">title</span> <span class="o">:</span> <span class="s1">&#39;pixelastic_hr.desc&#39;</span><span class="p">,</span> <span class="nx">cmd</span> <span class="o">:</span> <span class="s1">&#39;mcepixelastic_hr&#39;</span> <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="c1">// Register plugin</span>
+  <span class="nx">tinymce</span><span class="p">.</span><span class="nx">PluginManager</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;pixelastic_hr&#39;</span><span class="p">,</span> <span class="nx">tinymce</span><span class="p">.</span><span class="nx">plugins</span><span class="p">[</span><span class="s1">&#39;pixelastic_hrPlugin&#39;</span><span class="p">]);</span>
+<span class="p">})();</span>
+</code></pre></div>
+<p>The trick to use the <code>editor.dom.split</code> method to split the parent element
+around the <code>&lt;hr&gt;</code> element.</p>
+
+<p>The dirty hacks is that there is no way to get a direct reference to a DOM
+element added through <code>mceInsertContent</code>, so we need to set a temporary unique
+id and then select it through this id.</p>
+
+<p>I use jQuery in my example and I strongly suggest you to do the same, the
+selectors it provides are much sexier and helps writing these kind of plugins
+pretty fast.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jquery">#jquery</a>
+      
+        <a href="/tags/tinymce">#tinymce</a>
+      
+        <a href="/tags/hr">#hr</a>
+      
+        <a href="/tags/mceinsertcontent">#mceinsertcontent</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/12/07/backup-strategy-2011/">
+        My new backup strategy for 2011
+      </a>
+    </h1>
+
+    <span class="post-date">07 Dec 2010</span>
+
+    <p>My computer was starting to get slower and slower for the past days. And I
+realized my automatic backup wasn&#39;t backing anything up for the past month.</p>
+
+<p>And I realized I had different versions of the same files on my 2 laptops...</p>
+
+<p>Well, it seems I have to do some cleaning up.</p>
+
+<h2>Synchronizing paperwork</h2>
+
+<p>I started by cleaning up my <a href="http://www.dropbox.com/">Dropbox </a>folder. I
+removed shared folders with past clients, and created a &quot;Paperwork&quot; folder
+where I put all my invoices, contracts and general paperwork.</p>
+
+<p>I also added my private <a href="http://keepass.info/">KeePass </a>file as well as other
+info I may need to access anywhere, anytime.</p>
+
+<p>KeePass allow me to store all my login/password credentials in a secure way
+(protected by a master password). It is really useful to have this file on all
+my computers (and mobile phone).</p>
+
+<p>Dropbox is excellent for storing simple files, that you need everywhere. Being
+able to access invoices and contracts even from my mobile phone proved quite
+valuable when meeting clients.</p>
+
+<h2>Hard backup of personal files</h2>
+
+<p>I&#39;ve also changed my scheduled backups of personal files. I bought an <a href="http://www.acronis.com/">Acronis
+True Image</a> last year, and reconfigured it today.</p>
+
+<p>I have a hard drive whose sole purpose is to save backups. I scheduled for the
+first of each month to save : my system state, my applications configuration,
+and my personal files (photos, saved gamed, writings, etc).</p>
+
+<p>I manually started all this backups to have a clean start. I also forced the
+backup to restart a whole new file every 6 month (opposed to using the
+incremental backup).</p>
+
+<h2>Backing up my music and movies</h2>
+
+<p>I did not spent too much time figuring how to save my hundred of Go of music
+and movies. I rarely watch the same movies twice, so losing them won&#39;t affect
+me too much.</p>
+
+<p>I occasionally re-watch series, though, but as most of my friends have the
+same tastes as I, I could very easily get them back from them, or download
+them (again).</p>
+
+<p>Regarding music, well, I have quite a big collection, but most of it is
+already &quot;backed up&quot; on my portable mp3 player.</p>
+
+<h2>Automatic synchronizing with BitBucket</h2>
+
+<p>On my day work, I now always version my files using Mercurial.
+<a href="http://bitbucket.org/">BitBucket</a> offers unlimited storage, and unlimited
+public repositories. Private repo are limited to 5 users. As I&#39;m mostly alone
+on projects that should stay private, this seems the best deal I could found.</p>
+
+<p>Mercurial being a versionning system, I got all the benefits of a backup here,
+being able to revert to previous versions, update it whenever I want and
+access it from anywhere.</p>
+
+<p>I wrote a custom Hg hook on commit to automatically push my repos to BitBucket
+at least once a day (I&#39;ll post the code in a future post).</p>
+
+<h2>MySQL Backup</h2>
+
+<p>I used to backup mysql databases on my work computer using a windows app. This
+was slowing down my computer on every boot as well and backup was thus only
+effective when I was working and not when I was on vacations.</p>
+
+<p>Today, I wanted something a lot more flexible, so I set a cronjob on my main
+host coupled with a slightly edited <a href="http://sourceforge.net/projects/automysqlbackup/">autoMySQLBackup
+</a>script.</p>
+
+<p>This will automatically run everyday at midnight and make a local save (with
+daily, weekly and monthly rotate) of all my clients databases. Logs are saved
+on disk and gzipped, and will also be sent to a special backup@pixelastic.com
+mail address (stored on GMail).</p>
+
+<p>This way I am sure to have my mysql backups on two different hosts, with daily
+and automatic saves, that I can access from anywhere if anything goes wrong.</p>
+
+<h2>Conclusion</h2>
+
+<p>It took me almost two full days to get the right tools, configure them and
+write my custom scripts but now, it is seamlessly integrated with my daily
+workflow. This is a weight off my shoulders, I know I can safely work as usual
+and my files are saved and easily accessible.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/backup">#backup</a>
+      
+        <a href="/tags/mercurial">#mercurial</a>
+      
+        <a href="/tags/mysql">#mysql</a>
+      
+        <a href="/tags/dropbox">#dropbox</a>
+      
+        <a href="/tags/keepass">#keepass</a>
+      
+        <a href="/tags/acronis">#acronis</a>
+      
+        <a href="/tags/bitbucket">#bitbucket</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page21">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page19">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

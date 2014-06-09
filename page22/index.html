@@ -1,0 +1,441 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/22/running-cakephp-shell-script-cronjob-dreamhost/">
+        Running a cakePHP shell script as cronjob on Dreamhost
+      </a>
+    </h1>
+
+    <span class="post-date">22 Nov 2010</span>
+
+    <p>Dreamhost as <a href="http://wiki.dreamhost.com/Crontab">a wonderful wiki</a> on how to
+set cron jobs and cakePHP has <a href="http://book.cakephp.org/view/846/Running-Shells-as-cronjobs">a cookbook page on how to do
+it</a> too, but
+getting it just right was a little frustrating.</p>
+
+<p>I finally managed to run my shell task as a cronjob, and here is how I did it.</p>
+
+<h2>The magic command</h2>
+
+<p>First, here is the command I wrote in my Dreamhost panel :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">/home/username/domain.com/cake/console/cake -app /home/username/domain.com/app/ shell_name
+</code></pre></div>
+<p>You have to set the full path to the cake console because it obviously is not
+in the pre-saved paths on a default Dreamhost install.</p>
+
+<p>You also have to specify the <code>app</code> directory otherwise cake will search your
+shell in the wrong directories. This is even more important if your shell is
+located in a plugin directory.</p>
+
+<p>But, this won&#39;t work as-is, you&#39;ll have to do several other stuff, mostly
+explained by <a href="http://www.milesj.me/blog/read/83/Setting-Up-%0ACron-Jobs-With-Cake-Shells">Miles Johnson</a>, but I&#39;ll recap them</p>
+
+<h2>Setting the file as executable</h2>
+
+<p>You have to set the <code>cake/console/cake</code> file as executable. It is kind of
+obvious, but you have to do it anyway.</p>
+
+<h2>Set the TERM variable</h2>
+
+<p>Update you <code>cake/console/cake</code> to replace the first lines with :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">LIB</span><span class="o">=</span><span class="k">${</span><span class="nv">0</span><span class="p">/%cake/</span><span class="k">}</span>
+<span class="nv">APP</span><span class="o">=</span><span class="s1">&#39;pwd&#39;</span>
+<span class="nv">TERM</span><span class="o">=</span>linux
+<span class="nb">export </span>TERM
+</code></pre></div>
+<p>If you don&#39;t, you&#39;ll have notice errors in the resulting log. No big deal, but
+it is cleaner that way.</p>
+
+<h2>Forcing using php5</h2>
+
+<p>While in command line, the php command refer to the php4 version. If you need
+to use php5 (and I guess you should), you would have to manually reference the
+binary file. Hence, you have to update your <code>cake/console/cake</code> file one more
+time and change the <code>exec</code>line to :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">exec</span> /usr/local/php5/bin/php -q <span class="k">${</span><span class="nv">LIB</span><span class="k">}</span>cake.php -working <span class="s2">&quot;${APP}&quot;</span> <span class="s2">&quot;$@&quot;</span>
+</code></pre></div>
+<h2>And it&#39;s ok</h2>
+
+<p>Your cronjob should not work effortlessly. It took me some long hours to track
+all this down (along with other issues on my local dev machine that make
+debugging even more cloudy).</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/dreamhost">#dreamhost</a>
+      
+        <a href="/tags/shell">#shell</a>
+      
+        <a href="/tags/cronjob">#cronjob</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/22/knowing-dev-prod-cakephp-shell/">
+        Knowing dev from prod in a cakePHP shell
+      </a>
+    </h1>
+
+    <span class="post-date">22 Nov 2010</span>
+
+    <p>I wrote a cakePHP shell to synchronize an IMAP mailbox with a mysql table. I
+wanted to test my shell on local first, then upload it and make a CRON job of
+it.</p>
+
+<p>Whenever I tried to run the shell from my development environment I was
+greeted with various &quot;<em>Database table is missing</em>&quot; messages.</p>
+
+<p>After some digging, it occurs that the shell was connecting to my prod
+database, not the dev one.</p>
+
+<h2>The culprit</h2>
+
+<p>I wrote a little snippet to automatically switch to the correct database based
+on the current server name. If it was <code>localhost</code>, I used the <code>$dev</code>
+credentials, while keeping the <code>$default</code> credentials for other cases (ie.
+production).</p>
+
+<p>This worked great and I added this little code to my <code>database.php</code> file.</p>
+
+<p>But when running a shell, the <code>env(&#39;SERVER_ADDR&#39;)</code> was empty, thus my test was
+always selecting the prod database.</p>
+
+<p>I couldn&#39;t find anyway to guess if I was running a shell from prod or dev. I
+sure had access to a lot of config informations through <code>env</code> and <code>$_SERVER</code>
+but none seemed to be enough to guess the correct environment.</p>
+
+<h2>Solution</h2>
+
+<p>I finally decided that the only way was to manually pass a flag to my shell
+call to tell if it was to use the dev or prod credentials.</p>
+
+<p>I decided that adding a <code>dev</code> arg to the shell call will switch to dev mode,
+while not adding it will use production mode.</p>
+
+<p>My final shell call looked like :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">cake -app <span class="s2">&quot;path/to/app&quot;</span> mail_import dev
+</code></pre></div>
+<p>And I added the following logic in my database switching logic :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">// Defining the Environment (prod or dev)</span>
+<span class="x">if (defined(&#39;CAKEPHP_SHELL&#39;)) {</span>
+<span class="x">  // Based on the prod/dev flag</span>
+<span class="x">  $args = env(&#39;argv&#39;);</span>
+<span class="x">  $environment = &#39;prod&#39;;</span>
+<span class="x">  foreach($args as $flag) {</span>
+<span class="x">    if ($flag==&#39;dev&#39;) {</span>
+<span class="x">      $environment = &#39;dev&#39;;</span>
+<span class="x">      break;</span>
+<span class="x">    }</span>
+<span class="x">  }</span>
+<span class="x">} else {</span>
+<span class="x">  // Based on the server url</span>
+<span class="x">  $environment = (env(&#39;SERVER_ADDR&#39;)==&#39;127.0.0.1&#39;) ? &#39;dev&#39; : &#39;prod&#39;;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Note that I checked if the script was accessed through normal server/php
+delegation or through the CLI using <code>defined(&#39;CAKEPHP_SHELL&#39;)</code></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/bash">#bash</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/cli">#cli</a>
+      
+        <a href="/tags/console">#console</a>
+      
+        <a href="/tags/database">#database</a>
+      
+        <a href="/tags/shell">#shell</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/22/adding-extensions-windows-php/">
+        Adding extensions to a Windows PHP
+      </a>
+    </h1>
+
+    <span class="post-date">22 Nov 2010</span>
+
+    <p>My development environment is set up thanks to EasyPHP. I&#39;ve used this app
+since the first days that I started to write PHP and it followed me since.</p>
+
+<p>I guess I have a better understanding of what it does under the scenes now and
+could probably work with a clean and custom Apache/MySQL/PHP install. But I
+like simplicity.</p>
+
+<p>Anyway, I just wanted to run my imap script from the CLI but ran into &quot;<em>Fatal
+error : imap</em>open not defined_&quot;.</p>
+
+<p>The same script was perfectly working when accessing it from my browser but
+failed when launched from the CLI.</p>
+
+<p>That when I remember that I needed to enabled the <code>php_imap.dll</code> extensions in
+both EasyPHP PHP options (for web access) and <code>C:\windows\php.ini</code> (for cli
+access)</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cli">#cli</a>
+      
+        <a href="/tags/imap">#imap</a>
+      
+        <a href="/tags/easyphp">#easyphp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/16/migrating-mails-gmail-imap-server/">
+        Migrating mails from GMail to other IMAP server
+      </a>
+    </h1>
+
+    <span class="post-date">16 Nov 2010</span>
+
+    <p>I have previously blogged on how <a href="/blog/176:migrating-mails-%0Aimap-part-1-2">I migrate mails</a> from <a href="/blog/180:migrating-mails-%0Afrom-imap-to-imap-part-2-2">one IMAP server to another.</a> Today I had to migrate some mails again.</p>
+
+<p>My client&#39;s staff wasn&#39;t happy about the GMail webmail we gave them. The lack
+of a true &quot;Draft&quot; feature (one tha could be used and reused) had them drop a
+lot of productivity, so we decided to get back to Squirel Mail.</p>
+
+<p>I started by manually recreating all the email adresses on the back-end on the
+Dreamhost server. Once at least one address is created, Dreamhost
+automatically creates the matching A and MX records.</p>
+
+<p>I had to update my zone file on my registrar to update the previously MX and A
+records that were set to point to Google and updated to point to Dreamhost. I
+have to use an intermediate zone file on my registrar because I&#39;m dealing with
+<a href="/blog/24:configuring-a-fr-with-dreamhost">a limitation of the .fr TLD</a> here.</p>
+
+<p>Once the zone were updated and changes repercuted accross the network, I
+connected to the new Squirel mail. My inbox was empty.</p>
+
+<p>So I ran <code>imapsync</code> to copy all mails from the google hosted service to my new
+server.</p>
+
+<p>The syntax to be used is a little different than the one I mentioned on my
+previous post, so here it is :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">imapsync --host1 imap.gmail.com --ssl1 --authmech1 LOGIN --user1 foo@domain.fr --passfile1 /path/to/pass1 --host2 208.97.*.* --user2 foo@domain.fr --passfile2 /path/to/pass2 --useheader<span class="o">=</span><span class="s2">&quot;X-GMail-Received&quot;</span> --useheader <span class="s1">&#39;Message-Id&#39;</span> --noauthmd5
+</code></pre></div>
+<p>After that, I reloaded my Squirel Mail inbox, and it was populated. I just had
+to do that for every account.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/google">#google</a>
+      
+        <a href="/tags/mail">#mail</a>
+      
+        <a href="/tags/dreamhost">#dreamhost</a>
+      
+        <a href="/tags/gmail">#gmail</a>
+      
+        <a href="/tags/squirrelmail">#squirrelmail</a>
+      
+        <a href="/tags/imap">#imap</a>
+      
+        <a href="/tags/webmail">#webmail</a>
+      
+        <a href="/tags/imapsync">#imapsync</a>
+      
+        <a href="/tags/gandi">#gandi</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/08/performance-improvement-moving-assets-subdomains/">
+        Performance improvement : moving assets to subdomains
+      </a>
+    </h1>
+
+    <span class="post-date">08 Nov 2010</span>
+
+    <p><strong>Disclaimer : What I&#39;m talking about in this blog post can be optimised. Yes,
+having multiple hosts is a great feature for performance improvement, but
+I kind of did it wrong. My recent try at the webperf contest gave me more
+insight on how to do it right.</strong></p>
+
+<p><strong>I&#39;ll post more on the subject or update this post to reflect that.</strong></p>
+
+<p>I&#39;ve just added to this site a performance improvement I read a long time ago
+but never implemented.</p>
+
+<p>I&#39;m talking about the multiple domains to serve static content. There are two
+important things to note here : parallel requests and cookies. Let me explain
+in a little more details what it&#39;s all about.</p>
+
+<h2>Parallell requests</h2>
+
+<p>Your browser is only able to perform a certain number of parallel request at
+the same time. It means that it can only download a certain number of files
+concurrently (usually 4).</p>
+
+<p>In other words, it will start the download of, say, a CSS file, a Javascript
+file, and two images. Then, whenever one of this files is received, it will
+start downloading a new file, and so on.</p>
+
+<p>This means that there is a certain amount of time that is &quot;lost&quot; in the
+process. You have to wait for one of the files to be downloaded before
+starting downloading the next.</p>
+
+<p>The important thing to note is that the limit on the number of parallel
+downloads is set on a per-domain basis. It means that you can download only 4
+files of <code>foo.com</code> while downloading at the same time 4 files from <code>bar.com</code>.
+This is the basic of what we will be using to our advantage.</p>
+
+<p>Splitting your files accross several domains (or subdomains) allows you to get
+the best of parallel download. You do not really need to have your content
+hosted on different servers, you just need them to be accessible through
+different domain names, and subdomains are just perfect for that.</p>
+
+<p>I have created four subdomains : <code>css.pixelastic.com</code>, <code>js.pixelastic.com</code>,
+<code>img.pixelastic.co</code>m and <code>dl.pixelastic.com</code>.</p>
+
+<p>Each one maps to the exact same site as <code>www.pixelastic.com</code> but using
+different names improve the number of possible downloads and thus improve page
+load.</p>
+
+<h2>Cookies</h2>
+
+<p>All this stuff about subdomains brings me to my second point : cookies.</p>
+
+<p>If you host all your files on the same domain, it means that all requests (be
+it a php page or a static css file) will send cookie information without you
+knowing.</p>
+
+<p>Cookie data is usually small, like 100Ko or so, but is added to every single
+request made. And most of the time this information is not even useful.</p>
+
+<p>Apart from the fact that you are slowly killing your website bandwith with
+useless information, your are also decreasing your page speed load for your
+potential user.</p>
+
+<p>The same trick of using a subdomain applies here too, and cookies won&#39;t be
+sent.</p>
+
+<p>There is one caveat that you should be aware of, though. If your site is
+accessible through <code>domain.com</code> and you host your files on <code>files.domain.com</code>,
+cookies will still be sent because <code>domain.com</code> is considered the master
+domain of <code>files.domain.com</code> and thus all cookies set on the main domain will
+also propagate to the subdomains.</p>
+
+<p>On the other hand, if your main domain is <code>www.domain.com</code>, it is not
+considered a parent domain of <code>files.domain.com</code> (but rather a sibling
+domain).</p>
+
+<h2>Configuring Apache</h2>
+
+<p>If you need to edit your <code>httpd.con</code>f file, here is what I put to add my
+different subdomains on my local machine :</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+  <span class="nb">ServerName</span> pixelastic
+  <span class="nb">ServerAlias</span> www.pixelastic
+  <span class="nb">ServerAlias</span> css.pixelastic
+  <span class="nb">ServerAlias</span> js.pixelastic
+  <span class="nb">ServerAlias</span> img.pixelastic
+  <span class="nb">ServerAlias</span> dl.pixelastic
+  <span class="nb">DocumentRoot</span> <span class="s2">&quot;www/pixelastic.com&quot;</span>
+  <span class="nt">&lt;Directory</span> <span class="s">&quot;www/pixelastic.com&quot;</span><span class="nt">&gt;</span>
+    <span class="nb">Options</span> Indexes FollowSymLinks Includes ExecCGI
+    <span class="nb">AllowOverride</span> <span class="k">All</span>
+    <span class="nb">Order</span> allow,deny
+    <span class="nb">Allow</span> from <span class="k">all</span>
+  <span class="nt">&lt;/Directory&gt;</span>
+<span class="nt">&lt;/VirtualHost&gt;</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/subdomains">#subdomains</a>
+      
+        <a href="/tags/performance">#performance</a>
+      
+        <a href="/tags/apache">#apache</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page23">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page21">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

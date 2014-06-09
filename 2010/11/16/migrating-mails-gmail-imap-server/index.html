@@ -1,0 +1,140 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Migrating mails from GMail to other IMAP server - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Migrating mails from GMail to other IMAP server</h1>
+  <span class="post-date">16 Nov 2010</span>
+  <p>I have previously blogged on how <a href="/blog/176:migrating-mails-%0Aimap-part-1-2">I migrate mails</a> from <a href="/blog/180:migrating-mails-%0Afrom-imap-to-imap-part-2-2">one IMAP server to another.</a> Today I had to migrate some mails again.</p>
+
+<p>My client&#39;s staff wasn&#39;t happy about the GMail webmail we gave them. The lack
+of a true &quot;Draft&quot; feature (one tha could be used and reused) had them drop a
+lot of productivity, so we decided to get back to Squirel Mail.</p>
+
+<p>I started by manually recreating all the email adresses on the back-end on the
+Dreamhost server. Once at least one address is created, Dreamhost
+automatically creates the matching A and MX records.</p>
+
+<p>I had to update my zone file on my registrar to update the previously MX and A
+records that were set to point to Google and updated to point to Dreamhost. I
+have to use an intermediate zone file on my registrar because I&#39;m dealing with
+<a href="/blog/24:configuring-a-fr-with-dreamhost">a limitation of the .fr TLD</a> here.</p>
+
+<p>Once the zone were updated and changes repercuted accross the network, I
+connected to the new Squirel mail. My inbox was empty.</p>
+
+<p>So I ran <code>imapsync</code> to copy all mails from the google hosted service to my new
+server.</p>
+
+<p>The syntax to be used is a little different than the one I mentioned on my
+previous post, so here it is :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">imapsync --host1 imap.gmail.com --ssl1 --authmech1 LOGIN --user1 foo@domain.fr --passfile1 /path/to/pass1 --host2 208.97.*.* --user2 foo@domain.fr --passfile2 /path/to/pass2 --useheader<span class="o">=</span><span class="s2">&quot;X-GMail-Received&quot;</span> --useheader <span class="s1">&#39;Message-Id&#39;</span> --noauthmd5
+</code></pre></div>
+<p>After that, I reloaded my Squirel Mail inbox, and it was populated. I just had
+to do that for every account.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/google">#google</a>
+    
+      <a href="/tags/mail">#mail</a>
+    
+      <a href="/tags/dreamhost">#dreamhost</a>
+    
+      <a href="/tags/gmail">#gmail</a>
+    
+      <a href="/tags/squirrelmail">#squirrelmail</a>
+    
+      <a href="/tags/imap">#imap</a>
+    
+      <a href="/tags/webmail">#webmail</a>
+    
+      <a href="/tags/imapsync">#imapsync</a>
+    
+      <a href="/tags/gandi">#gandi</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

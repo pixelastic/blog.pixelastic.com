@@ -1,0 +1,170 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Integration of a bbPress forum into a cakePHP application (part 3) - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Integration of a bbPress forum into a cakePHP application (part 3)</h1>
+  <span class="post-date">17 Feb 2010</span>
+  <p>Let&#39;s go back to bbPress now. With the previous post, you should be able to
+create bbPress user directly from your app.</p>
+
+<h2>Redirecting bbPress to the cakePHP app actions</h2>
+
+<p>What we&#39;ll be doing now is adding some hooks on every user-related action on
+bbPress to redirect them to their equivalent in your app. No need to have two
+different login form, hey ?</p>
+
+<p>Create a new php file in your <code>app/webroot/forum/my-plugins/</code> directory, and
+copy and paste the following code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/*</span>
+<span class="x">Plugin Name: cakePHP User</span>
+<span class="x">Description:  Remaps each login/register/forgotpass action to those of your own application</span>
+<span class="x">Version: 0.1</span>
+<span class="x">Author: Pixelastic</span>
+<span class="x">Author URI: http://www.pixelastic.com/</span>
+
+<span class="x">License: CC-GNU-GPL http://creativecommons.org/licenses/GPL/2.0/</span>
+
+<span class="x">*/</span>
+
+<span class="x">define( &#39;APP_URL&#39;, &#39;http://www.myapp.com/&#39; );</span>
+<span class="x">/**</span>
+<span class="x"> *    __convertToAppUrl</span>
+<span class="x"> *    Convert a given bbPress URI to one mapped to the main application</span>
+<span class="x"> **/</span>
+<span class="x">function cake_convertToAppUrl($uri) {</span>
+<span class="x">   // We explode the path in different subdirs</span>
+<span class="x">   $paths = explode(&#39;/&#39;, $uri);</span>
+<span class="x">   $nbrPath = count($paths);</span>
+
+<span class="x">   // We get the last part of the url</span>
+<span class="x">   $endUri = substr($uri, strrpos($uri, &quot;/&quot;)+1);</span>
+
+<span class="x">   $mappedUrl = array(</span>
+<span class="x">     // Register</span>
+<span class="x">     &#39;register.php&#39; =&gt; &#39;users/add&#39;,</span>
+<span class="x">     // Lost password</span>
+<span class="x">     &#39;password-reset.php&#39; =&gt; &#39;users/pass&#39;,</span>
+<span class="x">     // Login</span>
+<span class="x">     &#39;bb-login.php&#39; =&gt; &#39;users/login&#39;,</span>
+<span class="x">     // Logout</span>
+<span class="x">     &#39;bb-login.php?action=logout&#39; =&gt; &#39;users/logout&#39;,</span>
+<span class="x">     // Profile editing</span>
+<span class="x">     &#39;edit&#39; =&gt; &#39;users/edit/&#39;.$paths[$nbrPath-2]</span>
+<span class="x">   );</span>
+
+<span class="x">   // If there is a mapping, we return it, otherwise we don&#39;t touch the uri</span>
+<span class="x">   return (!empty($mappedUrl[$endUri])) ? APP_URL.$mappedUrl[$endUri] : $uri;</span>
+<span class="x">}</span>
+<span class="x">// We filter both bb_uri and bb_get_uri</span>
+<span class="x">add_filter(&#39;bb_uri&#39;, &#39;cake_convertToAppUrl&#39;, 1);</span>
+<span class="x">add_filter(&#39;bb_get_uri&#39;, &#39;cake_convertToAppUrl&#39;, 1);</span>
+</code></pre></div>
+<p>It will hook every method that ask for a url and convert the result to return
+the corresponding url in your own app.</p>
+
+<p>Don&#39;t forget to enable this plugin in your bbPress admin panel.</p>
+
+<p>Of course, feel free to change the destination url to reflect those of your
+app.</p>
+
+<h2>Additional information</h2>
+
+<p>Note that the<code>users/edit/</code>method takes the bbPress <code>nicename</code>as argument,
+so you should have to convert it before displaying the edit form.</p>
+
+<p>I also edited my template and added an hidden field in the bbPress login form
+to check if the login was coming from the app or the forum and redirect
+accordingly.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/bbpress">#bbpress</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

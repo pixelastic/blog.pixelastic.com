@@ -1,0 +1,428 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/05/the-all-in-one-method-to-get-mimetypes-with-php/">
+        The all-in-one method to get mimetypes with PHP
+      </a>
+    </h1>
+
+    <span class="post-date">05 Aug 2010</span>
+
+    <p>Getting the correct mimetype from a file in PHP is not an easy task. I used to
+find it through extension sniffing of the file combined with a known list of
+mimetypes.</p>
+
+<p>Today I needed to find the correct mimetype to do some security checks on file
+uploaded by users. I couldn&#39;t rely on an extension-based approach because the
+filename could easily be faked by an uploader.</p>
+
+<p>So I needed an other way. In fact, in PHP world there are at least 4 methods
+I&#39;m aware of to get this information.</p>
+
+<h2>mime<em>content</em>type</h2>
+
+<p>The classic PHP function
+<a href="http://fr2.php.net/manual/en/function.mime-content-%0Atype.php">mime<em>content</em>type</a> is supposed to return just that. Unfortunatly, it is deprecated. And
+not supported by Dreamhost, my host.</p>
+
+<h2>The FileInfo functions</h2>
+
+<p>We are now encouraged to use the <a href="http://php.net/manual/en/ref.fileinfo.php">Fileinfo
+functions</a> instead of
+<code>mime_content_type</code>. Unfortunatly, they seems to be returning <a href="http://www.php.net/manual/en/ref.fileinfo.php#79063">strange
+results</a>. Alternatively,
+they are not supported by Dreamhost either (but it seems that you can ask them
+to install it on your server).</p>
+
+<p>It is bundled into EasyPHP for Windows, but you need to enable it by
+uncommenting the line <code>extension=php_fileinfo.dll</code> in your <code>php.ini</code></p>
+
+<p>And you use it like this :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$finfo = finfo_open(FILEINFO_MIME);</span>
+<span class="x">$mimeType = finfo_file($finfo, $filepath);</span>
+<span class="x">finfo_close($finfo);</span>
+</code></pre></div>
+<p>Also note that the mimetype may be returned in a <code>text/plain; charset=us-
+ascii</code> form. You may need to parse the result to get it in the format you
+need.</p>
+
+<h2>The getimagesize function</h2>
+
+<p>The <a href="http://fr2.php.net/manual/en/function.getimagesize.php">getimagesize</a>
+function can be called on any image file. It will return an array containing
+image informations like <code>width</code>, <code>height</code>and of course the <code>mimetype</code>.</p>
+
+<p>Unfortunatly, it will cause a <code>E_WARNING</code> if called on a non-image file. You
+can&#39;t even catch that using a <code>try/catch</code>. You can suppress the error using
+<code>@</code>, tho.</p>
+
+<p>Here&#39;s how I use it :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$imageData = @getimagesize($filepath);</span>
+<span class="x">if (!empty($imageData[&#39;mime&#39;])) {</span>
+<span class="x">  $mimeType = $imageData[&#39;mime&#39;];</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Calling the system file</h2>
+
+<p>The last method I&#39;m aware of is simply calling the <code>file</code>command on a unix
+system through <code>exec</code>.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$mimeType = exec(&quot;/usr/bin/file -i -b $filepath&quot;);</span>
+</code></pre></div>
+<p>Merging all that into one do-it-all method</p>
+
+<p>If you&#39;re not sure what your system is capable of or if you plan on
+distributing your code, you&#39;d better test for all alternatives. Here&#39;s the
+code I&#39;m using :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x">*    mimetype</span>
+<span class="x">*    Returns a file mimetype. Note that it is a true mimetype fetch, using php and OS methods. It will NOT</span>
+<span class="x">*    revert to a guessed mimetype based on the file extension if it can&#39;t find the type.</span>
+<span class="x">*    In that case, it will return false</span>
+<span class="x">**/</span>
+<span class="x">function mimetype($filepath) {</span>
+<span class="x"> // Check only existing files</span>
+<span class="x"> if (!file_exists($filepath) || !is_readable($filepath)) return false;</span>
+
+<span class="x"> // Trying finfo</span>
+<span class="x"> if (function_exists(&#39;finfo_open&#39;)) {</span>
+<span class="x">   $finfo = finfo_open(FILEINFO_MIME);</span>
+<span class="x">   $mimeType = finfo_file($finfo, $filepath);</span>
+<span class="x">   finfo_close($finfo);</span>
+<span class="x">   // Mimetype can come in text/plain; charset=us-ascii form</span>
+<span class="x">   if (strpos($mimeType, &#39;;&#39;)) list($mimeType,) = explode(&#39;;&#39;, $mimeType);</span>
+<span class="x">   return $mimeType;</span>
+<span class="x"> }</span>
+
+<span class="x"> // Trying mime_content_type</span>
+<span class="x"> if (function_exists(&#39;mime_content_type&#39;)) {</span>
+<span class="x">   return mime_content_type($filepath);</span>
+<span class="x"> }</span>
+
+<span class="x"> // Trying exec</span>
+<span class="x"> if (function_exists(&#39;exec&#39;)) {</span>
+<span class="x">   $mimeType = exec(&quot;/usr/bin/file -i -b $filepath&quot;);</span>
+<span class="x">   if (!empty($mimeType)) return $mimeType;</span>
+<span class="x"> }</span>
+
+<span class="x"> // Trying to get mimetype from images</span>
+<span class="x"> $imageData = @getimagesize($filepath);</span>
+<span class="x"> if (!empty($imageData[&#39;mime&#39;])) {</span>
+<span class="x">   return $imageData[&#39;mime&#39;];</span>
+<span class="x"> }</span>
+
+<span class="x"> return false;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Hope that helps !</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/fileinfo">#fileinfo</a>
+      
+        <a href="/tags/finfo">#finfo</a>
+      
+        <a href="/tags/mime-content-type">#mime-content-type</a>
+      
+        <a href="/tags/mimetype">#mimetype</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/getimagesize">#getimagesize</a>
+      
+        <a href="/tags/exec">#exec</a>
+      
+        <a href="/tags/file">#file</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/05/one-thing-that-may-turn-me-to-ruby-less/">
+        One thing that may turn me to Ruby : LESS
+      </a>
+    </h1>
+
+    <span class="post-date">05 Aug 2010</span>
+
+    <p>I often hear how Ruby is better than PHP, that cakePHP is only a port of the
+Ruby on Rail framework and that the original is much more powerful.</p>
+
+<p>Well, I&#39;ve been tempted to try and learn Ruby for some quite time now. But
+I&#39;ve been a little scared by the fact of having to learn a whole new language
+when I&#39;m now getting pretty good with cake.</p>
+
+<p>That and the shortage of hosts with a support for Ruby out there keep me away
+from it.</p>
+
+<h2>LESS, a Ruby only little gem</h2>
+
+<p>But one thing that may change my mind is <a href="http://lesscss.org/">LESS</a>, the CSS
+as it should have been written since day one. It allows, in an extremely
+simple syntax, to define variables, functions, nested definitions, easier
+selectors.</p>
+
+<p>Unfortunatly, the parser only exists as a Ruby gem, too bad for my php apps.</p>
+
+<h2>Why I don&#39;t use the javascript version</h2>
+
+<p>There is <a href="http://fadeyev.net/2010/06/19/lessjs-will-%0Aobsolete-css/">Javascript version</a> of the parser, but I don&#39;t like the idea of having CSS
+rendering based on script execution. It means that if I&#39;m browsing without
+scripts enabled, I won&#39;t have any styling.</p>
+
+<p>Styling and Scripting are two very different things, one should work without
+the other and <em>vice versa</em></p>
+
+<p>So maybe, when the syntax will be parsed directly by browsers (one could
+dream...), or if a PHP parser is released I&#39;ll try it right away, but until
+them, I&#39;ll stick with my rusty CSS.</p>
+
+<h2>LESS in PHP ?</h2>
+
+<p><em>Well, some hours after posting this I just stumbled upon
+<a href="http://leafo.net/lessphp/">that</a>. I guess I&#39;ll try LESS in php world after
+all !</em></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ruby-on-rails">#ruby-on-rails</a>
+      
+        <a href="/tags/less">#less</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/css">#css</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/04/testing-file-uploads-in-php/">
+        Testing file uploads in PHP
+      </a>
+    </h1>
+
+    <span class="post-date">04 Aug 2010</span>
+
+    <p>I just had to write unit tests for a file upload script I had to write. As it
+is not <a href="http://stackoverflow.com/questions/3402765/how-can-i-write-%0Atests-for-file-upload-in-php/3410684#3410684">that easy</a> <a href="http://www.foonews.info%0A/fr-comp-lang-php/10256260-tests-unitaires-formulaire-dupload-de-%0Afichier.html">to do</a>, I&#39;ll share my findings with you.</p>
+
+<p>My problem was on how I was going to simulate a file upload in a test case.
+Sure I could simulate a whole post request either using curl of simpleTest
+webtester. But that would only give me a full overview of the upload process,
+not its inner details.</p>
+
+<p>There was <a href="http://www.mail-%0Aarchive.com/internals@lists.php.net/msg35782.html">a way to do that</a> using
+<a href="http://qa.php.net/phpt_details.php#post_raw_section">PHPT</a>, which seems to be
+the unit tests used by PHP itself. It is supposed to simulate any kind of
+query. Unfortunatly, setting that up seemed a little to complex for me.</p>
+
+<h2>So, how did I do ?</h2>
+
+<p>I finally found a way to do that by :</p>
+
+<ol>
+<li>Spoofing the <code>$_FILES</code> array and putting arbitrary test data inside</li>
+<li>Copying a test file to the <code>tmp/</code> directory for testing purpose. Actually the directory does not matter (see 3.)</li>
+<li>Wrapping all calls to <code>move_uploaded_file</code> and <code>is_uploaded_file</code> to its own methods. Those two php methods won&#39;t work with dummy upload because they weren&#39;t really uploaded through <code>POST</code></li>
+</ol>
+
+<p>So, instead of calling <code>move_uploaded_file</code>, I called
+<code>$this-&gt;moveUploadedFile()</code>, and instead of calling <code>is_uploaded_file()</code>, I
+called <code>$this-&gt;isUploadedFile()</code></p>
+
+<p>And when times comes to test my class, I just extends the class, overwrite
+those two methods with new one that uses <code>rename()</code>and <code>file_exists()</code>
+instead.`</p>
+
+<p>`</p>
+
+<h2>What does that change ?</h2>
+
+<p>The fondamental difference between the former and the latter functions is that
+the former checks that the target really was uploaded through POST while the
+latter does not care.</p>
+
+<p>It is extremely important that you use the correct upload method because it
+provide an additional security check. If you just blindly <code>rename()</code> files
+specified by your user, you&#39;ll ending up putting the <code>database.php</code> and
+<code>config.php</code> files in the webroot renamed as <code>i_want_to_be_hacked.txt</code></p>
+
+<p>The other good news is that by wrapping those methods around those functions,
+you can create mock objects and test all the various return scenarios.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/move-uploaded-file">#move-uploaded-file</a>
+      
+        <a href="/tags/files">#files</a>
+      
+        <a href="/tags/tests">#tests</a>
+      
+        <a href="/tags/phpt">#phpt</a>
+      
+        <a href="/tags/is-uploaded-file">#is-uploaded-file</a>
+      
+        <a href="/tags/upload">#upload</a>
+      
+        <a href="/tags/simpletest">#simpletest</a>
+      
+        <a href="/tags/unit-testing">#unit-testing</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/04/disabling-php-script-in-a-directory/">
+        Disabling PHP scripts in a directory
+      </a>
+    </h1>
+
+    <span class="post-date">04 Aug 2010</span>
+
+    <p>Say you want to disable PHP scripts in a whole directory. Like your <code>upload/</code>
+directory, because you don&#39;t want your users to upload <code>.php</code> files with
+direct webroot access on your server...</p>
+
+<p>Just drop a <code>.htaccess</code> file in it, and add the following rules</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="c"># We don&#39;t want php files from being parsed by the server in this directory, so we will return them as plain text</span>
+<span class="nb">AddType</span> text/plain .php .php3 .php4 .php5 .php6 .phtml
+
+<span class="c"># Or, if the first rule does not work on your server, you may want to completely turn off PHP</span>
+<span class="c">#php_flag engine off</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/htaccess">#htaccess</a>
+      
+        <a href="/tags/upload">#upload</a>
+      
+        <a href="/tags/security">#security</a>
+      
+        <a href="/tags/addtype">#addtype</a>
+      
+        <a href="/tags/php-flag">#php-flag</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/04/creating-dirs-with-correct-chmod-in-php/">
+        Creating dirs with correct chmod in PHP
+      </a>
+    </h1>
+
+    <span class="post-date">04 Aug 2010</span>
+
+    <p>One trick I&#39;ve been dragging with me on all this years of PHP programing is a
+little snippet to correctly create directories with the chmod I want.</p>
+
+<p>By simply calling <code>mkdir(&#39;my_dir&#39;, 0777)</code> I used to often end up with
+directories that I can&#39;t write to nor delete, even if I was correctly setting
+the chmod.</p>
+
+<p>The trick was to reset the mask (using <code>umask(0)</code>) before the <code>mkdir()</code>call
+and then reapplying the old mask after.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$tmpUmask = umask(0);</span>
+<span class="x">mkdir(&#39;my_dir&#39;, 0777);</span>
+<span class="x">umask($tmpUmask);</span>
+</code></pre></div>
+<p>I must admit that I&#39;ve never really understand why it was working better than
+simply calling <code>mkdir()</code> but hey, it&#39;s been years that I&#39;m using that now and
+I never run into access rights issues since.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/mkdir">#mkdir</a>
+      
+        <a href="/tags/umask">#umask</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/chmod">#chmod</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page28">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page26">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Migrating mails from IMAP to IMAP (part 2/2) - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Migrating mails from IMAP to IMAP (part 2/2)</h1>
+  <span class="post-date">04 Jun 2010</span>
+  <p>I&#39;ll finally have to migrate mails from one IMAP server to another because of
+a change in the hosting provider of one of my clients.</p>
+
+<p>Let me first do a quick review of my current config :</p>
+
+<p>I have an IMAP server on a not-so-reliable host. I need to move all the
+mailboxes to a brand new Dreamhost server.</p>
+
+<p>The current host use horde/imp as its webmail, but Dreamhost is running under
+Squirel Mail.</p>
+
+<h2>How to do that ?</h2>
+
+<p>When I first contacted Dreamhost to ask them the better way to copy the
+content of my old IMAP server to their new one, they told me that IMAP to IMAP
+transfer was unfortunatly not possible.</p>
+
+<p>After some digging I found a little linux tool called <code>imapsync</code>that was
+developped to synchronize two IMAP servers. As I only wanted to copy content
+from one server to an empty one, I guess it should work.</p>
+
+<p>And it does.</p>
+
+<h2>Installing the tool</h2>
+
+<p>First of all, you really need to have a Linux machine. I&#39;m sorry for all
+Windows and Mac users out there, but this solution will only work with Linux.</p>
+
+<p>Obviously, you&#39;ll first have to download and install it.</p>
+
+<p>I&#39;m a newbie linux user, and don&#39;t use it at its full potential. It means that
+I rely a lot on the UI, I don&#39;t know most of the more basics commands.</p>
+
+<p>So, I don&#39;t know the correct procedure to install something, I always use the
+Synaptic Packager Manager UI. I just have to type <code>imapsync</code>, check its
+checkbox and start the install.</p>
+
+<p>I guess you, more experienced linux user, would know how to do that anyway.</p>
+
+<h2>Running the command</h2>
+
+<p>Once it&#39;s installed, you&#39;ll just have to run one command. But before typing
+it, you have make sure that you have all the required informations.</p>
+
+<p>You&#39;ll need the server name, login and pass of both the source and destination
+account.</p>
+
+<p>In my case I had previously reset all the password to newly generated one on
+the source server, then created the same email (with same password) on the
+destination server.</p>
+
+<p>For the source server name, you shouldn&#39;t have any problem finding it. It
+usually is something like <code>mail.domain.co</code>m.</p>
+
+<p>But for the destination server, that&#39;s a little more tricky. As I haven&#39;t yet
+changed DNS, I have a Dreamhost server but no domain name pointing to it. So I
+can&#39;t use <code>mail.domain.com</code> there.</p>
+
+<p>I had to go my Dreamhost DNS panel (clicking on DNS under the name of my
+domain in Manage domain) and check for the IP address associated with the
+<code>mail A</code> entry.</p>
+
+<p>Once you have all this, create a file (name it <code>pass</code>) which contain the
+password of your account (or <code>pass1</code>and <code>pass2</code>if source and destination
+password aren&#39;t the same). This is done so you won&#39;t type in clear text the
+password of your accounts, or they could be found in the history files.</p>
+
+<p>Once it&#39;s done, just run the following command</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">imapsync --host1 mail.domain.com --user1 contact@domain.com --passfile1 /path/to/pass1 --host2 208.97.XXX.XXX --user2 contact@domain.com --passfile2 /path/to/pass2 --noauthmd5
+</code></pre></div>
+<p>It is not an instant process, actually in can be quite long. One of the
+mailbox I had to move had more than 20.000 mails in the sent folder and about
+40.000 in the received one. It took me almost 18h to complete.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/linux">#linux</a>
+    
+      <a href="/tags/imapsync">#imapsync</a>
+    
+      <a href="/tags/imap">#imap</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

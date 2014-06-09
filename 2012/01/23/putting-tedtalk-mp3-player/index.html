@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Downloading all the TEDTalk podcasts - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Downloading all the TEDTalk podcasts</h1>
+  <span class="post-date">23 Jan 2012</span>
+  <p>As I&#39;m about to move for a couple of long months without an internet
+connection and a lot of travel hours, I thought of downloading the TEDTalk
+podcasts.</p>
+
+<p>Being a linux user for about a year now, I&#39;m taking the habit of using the
+linux tools to do the boring and repetitive work. Downloading more than a
+hundred files seems like a good candidate for a script.</p>
+
+<p>The complete list of audio podcasts is available <a href="https://spreadsheets.g%0Aoogle.com/pub?key=0Ahz_ZQm7pkwTdFBVWXBLOFNGSkdsVFgxc0Y0bk9lc0E">here</a>. I simply
+selected all text and copied it into a <code>file.txt</code>.</p>
+
+<p>Then, it was simply a matter of extracting only the urls, and feeding them to
+<code>wget</code></p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">cat file.txt <span class="p">|</span> tr <span class="s1">&#39; &#39;</span> <span class="s1">&#39;\n&#39;</span> <span class="p">|</span> tr <span class="s1">&#39;\t&#39;</span> <span class="s1">&#39;\n&#39;</span> <span class="p">|</span> grep http &gt; list.txt
+wget --no-clobber -i list.txt
+</code></pre></div>
+<p>This took a while to download as there are more than 400 files, but that way
+I&#39;ll have some interesting talks to listen to during my trip.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/wget">#wget</a>
+    
+      <a href="/tags/tedtalk">#tedtalk</a>
+    
+      <a href="/tags/podcast">#podcast</a>
+    
+      <a href="/tags/linux">#linux</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

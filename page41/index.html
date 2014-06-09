@@ -1,0 +1,441 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/17/integration-a-bbpress-forum-into-a-cakephp-application-part-3/">
+        Integration of a bbPress forum into a cakePHP application (part 3)
+      </a>
+    </h1>
+
+    <span class="post-date">17 Feb 2010</span>
+
+    <p>Let&#39;s go back to bbPress now. With the previous post, you should be able to
+create bbPress user directly from your app.</p>
+
+<h2>Redirecting bbPress to the cakePHP app actions</h2>
+
+<p>What we&#39;ll be doing now is adding some hooks on every user-related action on
+bbPress to redirect them to their equivalent in your app. No need to have two
+different login form, hey ?</p>
+
+<p>Create a new php file in your <code>app/webroot/forum/my-plugins/</code> directory, and
+copy and paste the following code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/*</span>
+<span class="x">Plugin Name: cakePHP User</span>
+<span class="x">Description:  Remaps each login/register/forgotpass action to those of your own application</span>
+<span class="x">Version: 0.1</span>
+<span class="x">Author: Pixelastic</span>
+<span class="x">Author URI: http://www.pixelastic.com/</span>
+
+<span class="x">License: CC-GNU-GPL http://creativecommons.org/licenses/GPL/2.0/</span>
+
+<span class="x">*/</span>
+
+<span class="x">define( &#39;APP_URL&#39;, &#39;http://www.myapp.com/&#39; );</span>
+<span class="x">/**</span>
+<span class="x"> *    __convertToAppUrl</span>
+<span class="x"> *    Convert a given bbPress URI to one mapped to the main application</span>
+<span class="x"> **/</span>
+<span class="x">function cake_convertToAppUrl($uri) {</span>
+<span class="x">   // We explode the path in different subdirs</span>
+<span class="x">   $paths = explode(&#39;/&#39;, $uri);</span>
+<span class="x">   $nbrPath = count($paths);</span>
+
+<span class="x">   // We get the last part of the url</span>
+<span class="x">   $endUri = substr($uri, strrpos($uri, &quot;/&quot;)+1);</span>
+
+<span class="x">   $mappedUrl = array(</span>
+<span class="x">     // Register</span>
+<span class="x">     &#39;register.php&#39; =&gt; &#39;users/add&#39;,</span>
+<span class="x">     // Lost password</span>
+<span class="x">     &#39;password-reset.php&#39; =&gt; &#39;users/pass&#39;,</span>
+<span class="x">     // Login</span>
+<span class="x">     &#39;bb-login.php&#39; =&gt; &#39;users/login&#39;,</span>
+<span class="x">     // Logout</span>
+<span class="x">     &#39;bb-login.php?action=logout&#39; =&gt; &#39;users/logout&#39;,</span>
+<span class="x">     // Profile editing</span>
+<span class="x">     &#39;edit&#39; =&gt; &#39;users/edit/&#39;.$paths[$nbrPath-2]</span>
+<span class="x">   );</span>
+
+<span class="x">   // If there is a mapping, we return it, otherwise we don&#39;t touch the uri</span>
+<span class="x">   return (!empty($mappedUrl[$endUri])) ? APP_URL.$mappedUrl[$endUri] : $uri;</span>
+<span class="x">}</span>
+<span class="x">// We filter both bb_uri and bb_get_uri</span>
+<span class="x">add_filter(&#39;bb_uri&#39;, &#39;cake_convertToAppUrl&#39;, 1);</span>
+<span class="x">add_filter(&#39;bb_get_uri&#39;, &#39;cake_convertToAppUrl&#39;, 1);</span>
+</code></pre></div>
+<p>It will hook every method that ask for a url and convert the result to return
+the corresponding url in your own app.</p>
+
+<p>Don&#39;t forget to enable this plugin in your bbPress admin panel.</p>
+
+<p>Of course, feel free to change the destination url to reflect those of your
+app.</p>
+
+<h2>Additional information</h2>
+
+<p>Note that the<code>users/edit/</code>method takes the bbPress <code>nicename</code>as argument,
+so you should have to convert it before displaying the edit form.</p>
+
+<p>I also edited my template and added an hidden field in the bbPress login form
+to check if the login was coming from the app or the forum and redirect
+accordingly.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/bbpress">#bbpress</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/17/integration-a-bbpress-forum-into-a-cakephp-application-part-2/">
+        Integration of a bbPress forum into a cakePHP application (part 2)
+      </a>
+    </h1>
+
+    <span class="post-date">17 Feb 2010</span>
+
+    <p>We&#39;ve done enough work on the forum for now. The time has come to edit our
+cake files.</p>
+
+<h2>Creating the cakePHP models</h2>
+
+<p>We will create two models to help in speaking with the bbPress database.</p>
+
+<p>Create a bb_usermeta.php model :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class BbUsermeta extends AppModel {</span>
+<span class="x">  var $useTable = &#39;bb_usermeta&#39;;</span>
+<span class="x">  var $primaryKey = &#39;umeta_id&#39;;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Create a <code>bb_user.php</code> model :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class BbUser extends AppModel {</span>
+<span class="x">  var $primaryKey = &#39;ID&#39;;</span>
+
+<span class="x">  var $hasMany = array(</span>
+<span class="x">     &#39;BbUsermeta&#39; =&gt; array(</span>
+<span class="x">       &#39;className&#39; =&gt; &#39;BbUsermeta&#39;,</span>
+<span class="x">       &#39;foreignKey&#39; =&gt; &#39;user_id&#39;,</span>
+<span class="x">       &#39;dependent&#39; =&gt; true</span>
+<span class="x">    )</span>
+<span class="x">   );</span>
+
+<span class="x">  //We make sure, before saving, that the nicename is url-friendly</span>
+<span class="x">  function beforeSave() {</span>
+<span class="x">    if (!empty($this-&gt;data[$this-&gt;name][&#39;user_nicename&#39;])) {</span>
+<span class="x">      $this-&gt;data[$this-&gt;name][&#39;user_nicename&#39;] = Inflector::slug($this-&gt;data[$this-&gt;name][&#39;user_nicename&#39;]);</span>
+<span class="x">    }</span>
+<span class="x">    return true;</span>
+<span class="x">  }</span>
+
+<span class="x">}</span>
+</code></pre></div>
+<p>So, what was that about ?</p>
+
+<p>We created two models to communicate with bbPress. bbPress stores user-related
+information in <code>bb_users</code> as well as <code>bb_usermeta</code>. We defined the
+<code>$primaryKey</code>, <code>$useTable</code> and <code>$foreignKey</code> of the <code>$hasMany</code> because the
+bbPress tables do not follow the cakePHP convention.</p>
+
+<p>We also add a nifty <code>beforeSave()</code> method to <code>BbUser</code>to make sure its
+<code>user_nicename</code> (used as an url slug) is url-friendly.</p>
+
+<h2>How to save bbPress users from the cakePHP app</h2>
+
+<p>Great. Now you can easily add, edit and delete users from bbPress directly
+from your app.</p>
+
+<p>There are some things you should know about before doing that :</p>
+
+<ul>
+<li><code>first_name</code> and <code>last_name</code> are stored in <code>bb_usermeta</code></li>
+<li>the access rights are defined in <code>bb_usermeta</code> too, using the <code>bb_capabilities</code> key</li>
+</ul>
+
+<p>Now that you know all that, you can easily create a behavior creating a new
+bbPress user when creating a new user, deleting that bbPress user when
+deleting the main user and updating the bbPress user when updating the main
+user.</p>
+
+<p>I myself wrote this behavior, but as it is part of a more general bbPress
+plugin it may not work as-is. I&#39;ll try to publish it if anyone is interested.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/bbpress">#bbpress</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/17/integration-a-bbpress-forum-into-a-cakephp-application-part-1/">
+        Integration of a bbPress forum into a cakePHP application (part 1)
+      </a>
+    </h1>
+
+    <span class="post-date">17 Feb 2010</span>
+
+    <p>Today I had to integrate a forum into an existing cakePHP app. I didn&#39;t want
+to code the whole thing from scratch and wanted to take advantage of one of
+the great opensource forums out there instead.</p>
+
+<p>I wanted to keep the forum as a stand-alone part, with its own admin panel,
+and not mess with its core files, to allow me the possibility of updating it
+if needed. But I didn&#39;t want my user to register twice, for my app and for the
+forum, I wanted the whole register/login thing to be as smooth as possible.</p>
+
+<p>After some trials, I finally choose bbPress, from the makers of WordPress.</p>
+
+<p>I took me some time, digging into the online documentation (pretty much non-
+existent), digging into existing plugins and the source code to finally script
+what I needed. I had to code a cake behavior, a cake component, a bbPress
+plugin, overwriting some bbPress functions but it finally works.</p>
+
+<h2>Installing bbPress on a cakePHP app</h2>
+
+<p>First thing you need to do is installing bbPress. Just drop the files you
+downloaded into <code>app/webroot/forum</code> and follow the installation instruction.
+Set the admin login the same as your own admin login in your app. Type
+anything you want for the password, we&#39;ll change that later.</p>
+
+<p>Once this is done, you should have a working forum, and being able to access
+it on <code>/forum</code>. It&#39;s a good start, isn&#39;t it ?</p>
+
+<p>Now, open your favorite mysql editor (Navicat or phpmyadmin) and connect to
+your database. Make sure the collation of the <code>bb_ tables</code> are the same as the
+collation of your cake tables. It will allow them to correctly communicate. My
+cake tables were set to <code>utf8_unicode_ci</code> and my bbPress tables were set to
+<code>utf8_general_ci</code>. I had to update all the bbPress tables to make sure no
+collation problems arise.</p>
+
+<h2>Using the same password hashing</h2>
+
+<p>Now let&#39;s look at our bb_users table. You should have one entry for your admin
+account. Go to your own cake <code>users</code>table, copy your password hash and paste
+it in place if the bbPress one. Cake and bbPress do not use the same hashing
+algorithm, so we are going to change that.</p>
+
+<p>Open <code>forum/bb-config.php</code> and add the following code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">define(&#39;CAKE_SALT&#39;, &quot;XXXXX&quot;);</span>
+<span class="x">// Check password using sha1</span>
+<span class="x">function bb_check_password( $password, $hash, $user_id = &#39;&#39; ) {</span>
+<span class="x">  // Does it match ?</span>
+<span class="x">  return sha1(CAKE_SALT.$password)==$hash;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Of course, replace the <code>XXXXX</code>value of <code>CAKE_SALT</code> with your own
+<code>Security.Salt</code> value (usually found in <code>app/config/core.php</code>). Also note that
+the default hashing method used by cake is <code>sha1</code>, but if you use an alternate
+<code>md5</code>or <code>sha256</code>, you&#39;ll have to update the method above.</p>
+
+<p>Doing all this, we change the way bbPress checks for a valid password. The
+method gets the plain password and the hashed version stored in the database
+and compare them. Cake does its comparison using its own internal salt value
+and applying <code>sha1()</code> on it. We just do the same here. That way, we can now
+login using the same password.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/bbpress">#bbpress</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/15/looking-at-my-own-code-4-years-ago/">
+        Reading my own code from 3 years ago
+      </a>
+    </h1>
+
+    <span class="post-date">15 Feb 2010</span>
+
+    <p>Today I had to update an old site I developped some years ago. I had to move
+it from one host to another and make sure all the configuration followed.</p>
+
+<p>It scares me. What I wrote 3 years ago scares me. My code was... well there
+was some huge mistakes, things I would never ever do again. Today, I would
+severly frown upon any coder who wrote horribles things like that.</p>
+
+<p>For the php part, here is a very good list of what NOT to do :</p>
+
+<ul>
+<li>I used shorthand notation for my php tags : <code>&lt;?</code> instead of <code>&lt;?php</code>.</li>
+<li>My server was set as <code>register_global</code> off, but I was circumventing it by doing my own <code>register_global</code> on :</li>
+</ul>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">extract($_SERVER);</span>
+<span class="x">extract($_COOKIE);</span>
+<span class="x">extract($_GET);</span>
+<span class="x">extract($_POST);</span>
+</code></pre></div>
+<ul>
+<li>My files were encoded in Latin-1, my database was in <code>latin1_swedish_ci</code> and my html head was set to <code>iso-8859-1</code>. At least, that was consistent.</li>
+<li>I wasn&#39;t EVER testing if my variables were set, so I had notices popping everywhere. I had the error_reporting set to disable them, hiding the error instead of writing better code.</li>
+<li>The password of my users were stored UNCRYPTED in the database... And stored uncrypted in the cookie as well.</li>
+<li>I was doing something that was supposed to be OOP, but I never used heritage, so all my classes were containing the same methods, copied and pasted from one file to another, and changing only some variable names...</li>
+</ul>
+
+<p>And some other mistakes :</p>
+
+<ul>
+<li>I included a whole bunch of Javascript files (like 15 or so) and was NOT using any js framework. Well, technically I was using a js framework, but one I developped. And let be honest, I can&#39;t really call it a framework today.</li>
+<li>I used <code>letter-spacing:-1000em</code> to hide text (when using an image as a header for example). It broke on Firefox, I&#39;m now using <code>text-indent:-1000em;</code> (really, I don&#39;t know if this is better).</li>
+<li>There was a flash animation with sound, enabled by default and with auto-play. For my defense, I remember having told by ex boss that it was a bad idea but he insisted.</li>
+</ul>
+
+<p>To be honest a part of me is horrified of what I wrote some years ago and
+thought was great. On the other hand, I&#39;m quite proud of the progress I have
+made in so little time.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/09/dns-caching-flushing/">
+        DNS caching and flushing
+      </a>
+    </h1>
+
+    <span class="post-date">09 Feb 2010</span>
+
+    <p>Yesterday I moved this domain from one server to another on my Dreamhost
+account (actually, I moved the whole domain from one Dreamhost account to
+another, but that&#39;s the same).</p>
+
+<p>The DNS saved at the registrar where the same (<code>ns1.dreamhost.com</code>,
+<code>ns2.dreamhost.com</code> and <code>ns3.dreamhost.com</code>). The transfer went seamlessly and
+I was able to access my website on the new server in an invisible way.</p>
+
+<p>But, strangely, some hours laters I started to experience slow down when
+accessing the website and finaly all my requests timed out, be it either from
+Firefox or a direct ping.</p>
+
+<p>I tried with my windows xp and my Ubuntu 8.04. I even change the DNS on xp to
+use opendns, run an <code>ipconfig /flushdns</code>, rebooted. On Ubuntu I&#39;ve done a
+<code>/etc/init.d/dns-clean start</code>. I even rebooted my adsl box, thinking there was
+something wrong with the DNS cache on my side.</p>
+
+<p>I even contacted both Dreamhost and Gandi with a complete traceroute to know
+if they could help me, as I thought having done everything that I could think
+of to resolve the issue. They assure me that their configuration was fine and
+the problem wasn&#39;t on their side.</p>
+
+<p>When asking friends, or testing with
+<a href="http://downforeveryoneorjustme.com/">http://downforeveryoneorjustme.com/</a> it
+occured that the problem really was on my side.</p>
+
+<p>Everyone were true. The problem lied somewhere in between, in the DNS cache
+hold by my ISP that wasn&#39;t correctly up to date. I don&#39;t really understand how
+that could happen, I thought rebooting my Freebox would clear its cache, and
+specifying dns addresses of opendns would bypass the dns resolve of my ISP but
+it seems not to be the case.</p>
+
+<p>Anyway, after waiting for some more hours, my website was again reachable
+through <code>ssh</code>and <code>ftp</code>.</p>
+
+<p>So, if you&#39;re sure your dns configuration is correct both on your register and
+on your hosting service, make sure to clear every DNS cache you can have on
+your own side. That include windows inner dns cache, those of your browser,
+those of your router, and those of your specified preferred DNS resolving
+server.</p>
+
+<p>If all that failed, it should be caching issue with your ISP, and there is
+nothing you can do about that, except waiting.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/dreamhost">#dreamhost</a>
+      
+        <a href="/tags/gandi">#gandi</a>
+      
+        <a href="/tags/cache">#cache</a>
+      
+        <a href="/tags/dns">#dns</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page42">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page40">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

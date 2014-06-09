@@ -1,0 +1,468 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/21/adding-openid-support/">
+        Using cakePHP OpenId plugin on Windows
+      </a>
+    </h1>
+
+    <span class="post-date">21 May 2010</span>
+
+    <p>After all the praises I&#39;ve read about OpenId, I decided to implement it in
+this CMS. My goal was to set an easy way for readers to leave comments without
+the need for registering to anything.</p>
+
+<p>I thought it would also be great to add as a secondary, and easiest, mechanism
+for logging in.</p>
+
+<p>So I downloaded and installed the openID component by cakebaker. As I&#39;m
+running my dev environment under Windows, I had to set some settings.</p>
+
+<h2>Fixing the pluginPath</h2>
+
+<p>I&#39;ve save the OpenId component in a plugin, and it has a clever mechanism to
+import the PHP OpenId library based on the folder it is saved.</p>
+
+<p>Unfortunatly, the regexp used to know the name of the current plugin was
+throwing errors on Windows, due to the backslashes used in the file path.</p>
+
+<p>I updated the <code>getPluginName()</code> method to this new one and it did the trick :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">private function getPluginName() {</span>
+<span class="x">  $result = array();</span>
+<span class="x">  $ds = (Folder::isWindowsPath(__FILE__)) ? &#39;\\\\&#39; : DS;</span>
+<span class="x">  if (preg_match(&#39;#&#39;.$ds.&#39;plugins&#39;.$ds.&#39;(.*)&#39;.$ds.&#39;controllers#&#39;, __FILE__, $result)) {</span>
+<span class="x">      return $result[1];</span>
+<span class="x">  }</span>
+
+<span class="x">  return false;</span>
+<span class="x">  }</span>
+</code></pre></div>
+<p>Basically it makes sure that the backslashes are correctly escaped under
+Windows.</p>
+
+<p>Edit : I&#39;ve sent this patch to the OpenId component author and it is now fixed
+in the latest versions.</p>
+
+<h2>Generating randomness</h2>
+
+<p>The second fix was to change the <code>Auth_OpenID_RAND_SOURCE</code> constant to <code>null</code>.
+This constant enable the library to generate randomness (AFAIK), by using the
+<code>/dev/urandom</code>.</p>
+
+<p>This does not exists on Windows, so I added the following lines in my
+<code>bootstrap.php</code></p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">if (Folder::isWindowsPath(__FILE__)) {</span>
+<span class="x">    define(&#39;Auth_OpenID_RAND_SOURCE&#39;, null);</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Connecting to SSL servers</h2>
+
+<p>The PHP bundle on Windows comes with <code>cURL</code>already builtin, but without the
+bundle of the X.509 certificates of public CA. It means that the OpenId PHP
+library will refuse to connect to any CA using an SSL connection because it
+won&#39;t be able to check the certificate.</p>
+
+<p>This does not happens on Linux, the list is correctly built in.</p>
+
+<p>Fortunatly, we can pass a <code>CURLOPT_CAINFO</code> option to <code>cURL</code> to manually set a
+pre-defined bundle, and there already is one shipped with the PHP OpenId
+library.</p>
+
+<p>All you have to do is add the following line on line 93 of the
+<code>vendors/Auth/Yadis/ParanoidHTTPFetcher.php</code> file :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">curl_setopt($c, CURLOPT_CAINFO, str_replace(&#39;\\&#39;, &#39;/&#39;, dirname(__FILE__)).&#39;/../OpenID/ca-bundle.crt&#39;);</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/openid">#openid</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/windows">#windows</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/19/paginated-search-results-and-custom-url/">
+        Paginated search results and custom url
+      </a>
+    </h1>
+
+    <span class="post-date">19 May 2010</span>
+
+    <p>I wanted for this blog a search feature, but I had some prerequisites for it :</p>
+
+<ul>
+<li>The search url could be bookmarked</li>
+<li>It should be paginated</li>
+<li>It should play well with my custom url starting with /blog</li>
+</ul>
+
+<h2>Defining custom urls</h2>
+
+<p>Here are the two routes I defined in my routes.php</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">Router::connect(&#39;/blog/search/:keyword&#39;,</span>
+<span class="x">    array(&#39;controller&#39; =&gt; &#39;posts&#39;, &#39;action&#39; =&gt; &#39;search&#39;),</span>
+<span class="x">    array(</span>
+<span class="x">        &#39;pass&#39; =&gt; array(&#39;keyword&#39;),</span>
+<span class="x">        &#39;keyword&#39; =&gt; &#39;[^/]+&#39;</span>
+<span class="x">    )</span>
+<span class="x">);</span>
+<span class="x">Router::connect(&#39;/blog/search/*&#39;, array(&#39;controller&#39; =&gt; &#39;posts&#39;, &#39;action&#39; =&gt; &#39;search&#39;));</span>
+</code></pre></div>
+<p>Going to<code>/blog/search/*keyword*</code> will start a search on the keyword, while
+going to <code>/blog/search/</code>would display a search form.</p>
+
+<h2>Writing the method</h2>
+
+<p>I started by creating a <code>search</code>action in my <code>PostController</code>, then creating
+a form submitting to this action, with a <code>keyword</code>input field.</p>
+
+<p>In the <code>search</code>method, the first thing I do is checking if some POST data is
+submitted (coming from the search form). If so, I redirect to the same page,
+but passing the <code>keyword</code>as first parameter.</p>
+
+<p>If no <code>keyword</code>is passed nor data submitted, I&#39;ll display a simple search
+form.</p>
+
+<p>And finally if a <code>keyword</code>is specified, I&#39;ll do a paginated search on every
+posts whose <code>name</code>or <code>text</code>contains the <code>keyword</code>.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function search() {</span>
+<span class="x">  // We redirect to get it in GET mode</span>
+<span class="x">  if (!empty($this-&gt;data)) {</span>
+<span class="x">    return $this-&gt;redirect(array(&#39;keyword&#39; =&gt; urlencode($this-&gt;data[&#39;Post&#39;][&#39;keyword&#39;])));</span>
+<span class="x">  }</span>
+
+<span class="x">  // Search index</span>
+<span class="x">  if (empty($keyword)) {</span>
+<span class="x">    return $this-&gt;render(&#39;search_index&#39;);</span>
+<span class="x">  }</span>
+
+<span class="x">  // Adding conditions to name and text</span>
+<span class="x">  $keyword = urldecode($keyword);</span>
+<span class="x">  $this-&gt;paginate = Set::merge(</span>
+<span class="x">    $this-&gt;paginate,</span>
+<span class="x">    array(</span>
+<span class="x">      &#39;conditions&#39; =&gt; array(</span>
+<span class="x">        &#39;AND&#39; =&gt; array(</span>
+<span class="x">          &#39;OR&#39; =&gt; array(</span>
+<span class="x">            &#39;Post.name LIKE&#39; =&gt; &#39;%&#39;.$keyword.&#39;%&#39;,</span>
+<span class="x">            &#39;Post.text LIKE&#39; =&gt; &#39;%&#39;.$keyword.&#39;%&#39;</span>
+<span class="x">          )</span>
+<span class="x">        )</span>
+<span class="x">      )</span>
+<span class="x">    )</span>
+<span class="x">  );</span>
+<span class="x">  // Getting paginated result</span>
+<span class="x">  $itemList = $this-&gt;paginate();</span>
+
+<span class="x">  $this-&gt;set(array(</span>
+<span class="x">    &#39;keyword&#39; =&gt; $keyword,</span>
+<span class="x">    &#39;itemList&#39; =&gt; $itemList</span>
+<span class="x">  ));</span>
+<span class="x">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/paginate">#paginate</a>
+      
+        <a href="/tags/router">#router</a>
+      
+        <a href="/tags/search">#search</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/15/unable-to-send-mail-to-same-server/">
+        Unable to send mail to same server
+      </a>
+    </h1>
+
+    <span class="post-date">15 May 2010</span>
+
+    <p>I just realized that one of my domains was sending mails (in PHP), but I never
+actually received them.</p>
+
+<p>I first tested the mail adress, sending mails from a personal adress. I then
+tested the <code>mail()</code> php function, sending mail to a personal adress. But all
+that was working fine.</p>
+
+<p>But sending mails in PHP on www.server.com to name@server.com did nothing. No
+mail, no error.</p>
+
+<h2>Damn you Gmail</h2>
+
+<p>After some digging it appears that local mails (to addresses on the same
+server) were using some sort of special local delivery.</p>
+
+<p>I recently moved the whole mail handling stuff from this server to Google
+Apps, but I forgot to remove/edit the postfix configuration file so the local
+delivery routine was still up and local mails where internally routed.</p>
+
+<p>So, I just had to edit the <code>/etc/postfix/main.cf</code> file, find the
+<code>mydestination</code>line and remove any reference to my server here.</p>
+
+<p>Then, just restart postfix by doing a</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">postfix restart
+</code></pre></div>
+<h2>It still doesn&#39;t work</h2>
+
+<p>In my case, it still didn&#39;t change anything... That&#39;s when I understood that
+postfix was using a <code>vmail</code> mysql database to check for existing domains.</p>
+
+<p>I renamed the <code>domain</code>field value in the <code>domains</code>table, and I can now
+correctly receive mails.</p>
+
+<h2>But, I have lost a lot of mails !</h2>
+
+<p>No you don&#39;t, as they are routed by the local delivery system, they should be
+somewhere on your hard drive. In my case it was in the <code>/home/mailusers/</code>
+directory</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/postfix">#postfix</a>
+      
+        <a href="/tags/mail">#mail</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/14/failed-to-import-extension-hgext-imerge-warning-on-dreamhost/">
+        &quot;failed to import extension hgext.imerge&quot; warning on Dreamhost
+      </a>
+    </h1>
+
+    <span class="post-date">14 May 2010</span>
+
+    <p>Trying to push some new code to a Hg repository on my Dreamhost account, I had
+the following error message :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">remote: *** failed to import extension hgext.imerge: No module named imerge
+</code></pre></div>
+<p>I used to have the same kind of issues with an other extensions,
+<code>hgext/hbisect</code> a while ago and I fixed it by forcing Hg to not use this
+extension.</p>
+
+<p>Here&#39;s how :</p>
+
+<p>Edit your <code>.hgrc</code> file and under the <code>[extensions]</code> category, add
+<code>hgext.imerge=!</code>, like this</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[extensions]</span>
+<span class="na">hgext/hbisect</span> <span class="o">=</span> <span class="s">!</span>
+<span class="na">hgext.imerge</span><span class="o">=</span><span class="s">!</span>
+</code></pre></div>
+<p>This should stop the warning.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/dreamhost">#dreamhost</a>
+      
+        <a href="/tags/hgext-imerge">#hgext-imerge</a>
+      
+        <a href="/tags/hg">#hg</a>
+      
+        <a href="/tags/hgrc">#hgrc</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/12/tabindexing-and-inserting-tabs-with-tinymce/">
+        Tabindexing and inserting tabs with tinyMCE
+      </a>
+    </h1>
+
+    <span class="post-date">12 May 2010</span>
+
+    <p>You may have noticed that you can&#39;t press tab to jump from field to field in a
+form that uses tinyMCE. There is a plugin named <code>tabfocus</code>in the core that is
+here to allow just that.</p>
+
+<p>But it does not seem to work correctly if you already have tabindex values
+defined on your inputs. So I decided to code my own.</p>
+
+<p>I choose the easiest way, letting the browser do most of the job. I only
+copied the textarea <code>tabindex</code>value to the create iframe and it did the
+trick.</p>
+
+<p>I created a tinyMCE for that, here the code of the init() method. By the way,
+I&#39;m using the jQuery version of tinyMCE.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// We set a tabindex value to the iframe instead of the initial textarea</span>
+  <span class="nx">editor</span><span class="p">.</span><span class="nx">onInit</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">editorId</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">editorId</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">textarea</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">editorId</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">editorId</span><span class="o">+</span><span class="s1">&#39;_ifr&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span> <span class="nx">textarea</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">));</span>
+    <span class="nx">textarea</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>What it does is grabbing the initial <code>tabindex</code>value of your textarea and
+setting it to the tinyMCE iframe. You have to wrap this in <code>onInit.add</code>
+because at the time the plugin <code>init</code>method is called, the iframe is not yet
+created. I also removed the <code>tabindex</code>value from the original textarea, two
+elements aren&#39;t supposed to have the same <code>tabindex</code>value.</p>
+
+<p>This method does not work in Chrome. Chrome always add a tab character when
+you press the tab key in a tinyMCE editor, it does not jump to the next
+tabindexed element. Is that a good behavior ? I don&#39;t know, it surely is
+useful to be able to insert tab characters, but it also is useful to tab
+through the whole form.</p>
+
+<h2>Listening to the tab key</h2>
+
+<p>Anyway, I decided to hook on the <code>keyDown</code>event and listen to the tab key
+being pressed. This way I could manually jump focus to the next field when tab
+is pressed, or insert a tab character when Shift+Tab is pressed (for example).</p>
+
+<p>I used the tinyMCE event helper methods and wrote this (just add it right
+after the previous <code>editor.onInit.add</code> code) :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// We hook on the tab key. One press will jump to the next focusable field. Maj+tab will insert a tab</span>
+<span class="nx">editor</span><span class="p">.</span><span class="nx">onKeyDown</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// We only listen for the tab key</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">!=</span><span class="mi">9</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+<span class="err">   </span> <span class="err">   </span>
+  <span class="c1">// Shift + tab will insert a tab</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">editor</span><span class="p">.</span><span class="nx">execCommand</span><span class="p">(</span><span class="s1">&#39;mceInsertContent&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s2">&quot;\t&quot;</span><span class="p">);</span>
+    <span class="nx">tinymce</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Just pressing tab will jump to the next element</span>
+  <span class="kd">var</span> <span class="nx">tabindex</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">editor</span><span class="p">.</span><span class="nx">editorId</span><span class="o">+</span><span class="s1">&#39;_ifr&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">);</span>
+  <span class="c1">// We get all the tabindexed elements of the page</span>
+  <span class="kd">var</span> <span class="nx">inputs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;:input[tabindex]&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">inputs</span><span class="p">[</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">});</span>
+  <span class="c1">// We find the next after our element and focus it</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">position</span> <span class="k">in</span> <span class="nx">inputs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">position</span><span class="o">&lt;=</span><span class="nx">tabindex</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+    <span class="nx">inputs</span><span class="p">[</span><span class="nx">position</span><span class="p">].</span><span class="nx">focus</span><span class="p">();</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">tinymce</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>First, we discard any key press that is not a tab key.</p>
+
+<p>Then we check if the Shift key is pressed, and if so we add a tab character
+and stop there.</p>
+
+<p>The biggest part is jumping to the next field. I can&#39;t revert to the browser
+default for that because every browser default behavior is different and I
+surely don&#39;t want to do some browser sniffing.</p>
+
+<p>I first get the list of all the input fields that have a <code>tabindex</code>value
+(your fields should have one), then I sort them in <code>tabindex</code>order and then
+loop through the list and stop when I&#39;ve found one with a bigger <code>tabindex
+</code>that the actual field. I focus this one and stop the loop.</p>
+
+<h2>One final word</h2>
+
+<p>I&#39;ve tested under Firefox 3.6, Chrome, Safari and Opera. Haven&#39;t tested IE yet
+because I still have a lot of other scripts to debug in IE first.</p>
+
+<p>As said earlier, maybe you could skip the whole tabindex listing if you
+intelligently revert to browser default for the browser that will jump to the
+next field but I have no idea how to test for that.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/tinymce">#tinymce</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/tab">#tab</a>
+      
+        <a href="/tags/tabfocus">#tabfocus</a>
+      
+        <a href="/tags/tabindex">#tabindex</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page34">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page32">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

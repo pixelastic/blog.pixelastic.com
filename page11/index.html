@@ -1,0 +1,565 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/17/working-wednesday-10-mercurial-improved/">
+        Working on Wednesday #10 : Mercurial improved
+      </a>
+    </h1>
+
+    <span class="post-date">17 Aug 2011</span>
+
+    <p>Today I enjoyed the nice blue sky and moved to the park at the end of my
+street to finish reading the Mercurial guide.</p>
+
+<p>I skipped the last chapters about patches and queues. I know this would be
+useful, but I&#39;d rather get back to them when I&#39;ll need them instead of try
+them without any real world example.</p>
+
+<h2>Tweaking Mercurial</h2>
+
+<p>I updated my <code>.hgrc</code> to configure it as best as I could.</p>
+
+<p>I set <code>vimdiff</code> to handle the conflicted merge. <code>vim</code> is quite hard to get
+(but it is coming easier the more you use it), but it seems so powerful that
+I&#39;m willing to spend some time learning it.</p>
+
+<p>I&#39;ve also added a <code>cm</code> alias to <code>commit -Am</code>. This basically is the same as
+calling <code>hg addremove; hg commit</code> which I happen to do all the time before.</p>
+
+<p>I&#39;ve create two simple styles and matching templates for my new two aliases
+<code>peek</code> and <code>hist</code> that repectively display a peek at the last 4 commits, and
+display the latest 10 commits in history in a concise way. I still have to
+manage to find how I could add coloring to those.</p>
+
+<p>I&#39;ve also added a <code>discardlocal</code> alias to remove all local commit and get the
+repo back as it is on the remote repo. I never actually had to use it, but I
+found the code on Stack Overflow and thought I might need it later.</p>
+
+<p>I finally wrote a custom <code>resurect</code> method. It will bring back a deleted file
+(obviously, the file needs to be tracked by hg). I simply find the changeset
+that deleted the file, and then revert the file to the parent changeset of
+that changeset. I might post the exact code later as I&#39;m quite happy with the
+result.</p>
+
+<h2>A note on laptop screens</h2>
+
+<p>Also, I&#39;ve spent the last few weeks working on my netbook when at home. This
+is very tiny thing, the screen is really small (compared to my two 21&quot; at work
+for example). But (and I was the first surprised of it), you actually get
+accustomed to it after a while.</p>
+
+<p>Now that I&#39;m writing this post on my 13&quot; other laptop, I feel like it&#39;s huge.
+The more I use the netbook, the more I like it. I didn&#39;t quite use it back
+when it was running Windows because it was way too slow. Now with Ubuntu on
+it, it&#39;s a whole new story !</p>
+
+<h2>Next week</h2>
+
+<p>I still have some zsh to learn. I still don&#39;t quite get the quote and double
+quote differences, and a few other quirks (arithmetic, arrays, etc).</p>
+
+<p>I&#39;ve kinda dropped the Rails tutorial. I liked it. Really, I liked it a lot.
+But I&#39;m not sure I want to start again learning a framework for making
+websites. I&#39;ve made a living doing websites for clients, I still do partly
+that today, and I&#39;d like to change.</p>
+
+<p>I have a lot of personnal project on my mind that I&#39;d like to achieve. Almost
+all of them could be achieved using the traditional way of making websites
+that both cake and Rails would allow. But one of them might need another way
+to look at things. And for this one, I might better need node.</p>
+
+<p>So.. maybe I&#39;ll start learning node next week. This is actually something I&#39;d
+love to do, so this might happen. I&#39;m currently refactoring the JS code of my
+work app in Backbone at the moment, so I guess there&#39;s no perfect time for
+some JS practice.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/rails">#rails</a>
+      
+        <a href="/tags/resurect">#resurect</a>
+      
+        <a href="/tags/hg">#hg</a>
+      
+        <a href="/tags/zsh">#zsh</a>
+      
+        <a href="/tags/wednesday">#wednesday</a>
+      
+        <a href="/tags/backbone">#backbone</a>
+      
+        <a href="/tags/node-js">#node-js</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/11/working-wednesday-9-mercurial/">
+        Working on Wednesday #9 : Mercurial
+      </a>
+    </h1>
+
+    <span class="post-date">11 Aug 2011</span>
+
+    <p><em>I&#39;m feeling like I&#39;m getting more and more behind schedule for what I
+intended to do at first. I still haven&#39;t tried Rails more than that and have
+gone on different learning side projects.</em></p>
+
+<p>_I&#39;ve been reading the _<a href="http://hgbook.red-%0Abean.com/read/">Mercurial : Definite Guide</a> the past few days to get a correct grasp of the soft.</p>
+
+<p>I&#39;ve been using Mercurial for the pas two years, but through a GUI and without
+using any &quot;advanced&quot; features. I never branched a project, and always worked
+alone.</p>
+
+<h2>Commands</h2>
+
+<p>Now that I&#39;m working on a Linux machine every day, I can use hg through the
+command line.</p>
+
+<p><code>hg commit -Am &quot;commit message&quot;</code> is the same as <code>hg addremove; hg commit -m
+&quot;commit message&quot;.</code></p>
+
+<p><code>hg rollback</code> will remove the last local commit. Useful if you forgot files in
+the commit, or if you inserted a typo in your commit message</p>
+
+<p><code>hg revert</code> can revert a file or set of files to the state they were at the
+last commit. This can also cancel a <code>hg add</code> or <code>hg remove</code></p>
+
+<p><code>hg backout</code> can &quot;forget&quot; a commit in the history. It will not really forget
+the commit (ie. will not let you alter the history). Instead, it will create a
+new commit where the specified changeset is removed (through a merge). It can
+easily backout the tip, but may involve more merge work if we want to backout
+an old changeset.</p>
+
+<h2>Automation</h2>
+
+<p>Also, I&#39;ve learned about two great tools of Mercurial.</p>
+
+<p><code>hg bisect</code> let you isolate a specified commit in your history where you
+introduced a specific bug. You write a piece of code that, given a changeset,
+returns <code>true</code> or <code>false</code> based on the bug presence, and <code>hg bisect</code> will
+cleverly scan the history to find the revision that introduced the bug.</p>
+
+<p>hooks where also very interesting. One can script automatic command on
+specific hg command like <code>commit</code>, <code>pull</code>, <code>push</code>. Or even before those
+commande to refuse the command if something does not work as expected.</p>
+
+<p>The classical examples where running a build process after a commit, refusing
+a commit if no bug id where specified, or if the tests didn&#39;t pass. Another
+use case would be to push changes to a remote server on commit.</p>
+
+<h2>Git</h2>
+
+<p>Why am I learning Mercurial while all the cool guys are using git ?</p>
+
+<p>Well, I&#39;ve read a lot of papers comparing hg to git. What I&#39;ve read the more
+is that git is an awesome toolbox that lets you do whatever you want with your
+version control, through its 100+ tools.</p>
+
+<p>On the other hand, Mercurial is far easier to learn and has built-in command
+for the day to day work. As I was already quite familiar with Mercurial, I
+stick with it, but know that I&#39;ll learn git also eventually.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/git">#git</a>
+      
+        <a href="/tags/hg">#hg</a>
+      
+        <a href="/tags/mercurial">#mercurial</a>
+      
+        <a href="/tags/wednesday">#wednesday</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/05/creating-readonly-mysql-user/">
+        Creating a readonly mysql user
+      </a>
+    </h1>
+
+    <span class="post-date">05 Aug 2011</span>
+
+    <p>I wanted to give access to a database to a colleague, so he can connect and
+extract some useful stats from our database.</p>
+
+<p>As I didn&#39;t want to give him nor the root, nor my access nor even an access
+with writing permission to avoid potential issues, I created a readonly user.</p>
+
+<p>First, connect to the mysql server :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">mysql --user<span class="o">=</span>root -p
+</code></pre></div>
+<p>And type your password when asked</p>
+
+<p>Now that you are in the mysql prompt, create the &#39;readonly&#39; user and give him
+<code>SELECT</code>permission on all tables</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;readonly&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;your_password&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span> <span class="k">SELECT</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;readonly&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Also note that once connected with root, you can see the list of users by
+running :</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="k">host</span><span class="p">,</span><span class="k">user</span><span class="p">,</span><span class="n">pass</span> <span class="k">FROM</span> <span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">;</span>
+</code></pre></div>
+<p>Nothing fancy here, everything was found after a few minutes of googling.</p>
+
+<p>Also, if you ever need to delete the user :</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">DROP</span> <span class="k">USER</span> <span class="s1">&#39;readonly&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/select">#select</a>
+      
+        <a href="/tags/readonly">#readonly</a>
+      
+        <a href="/tags/mysql">#mysql</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/08/03/working-wednesday-8-custom-zsh-scripts-housekeeping/">
+        Working on Wednesday #8 : Custom zsh scripts for housekeeping
+      </a>
+    </h1>
+
+    <span class="post-date">03 Aug 2011</span>
+
+    <p>I made a break of the Ruby/Rails learning this week. Instead I learned a bit
+more about the basic Linux command, and made a few scripts to help me in my
+day to day work (and fun) with my Linux environment.</p>
+
+<p>I currently use two laptops. One is a tiny netbook while the other a Dell XPS.
+I mostly use the XPS for everything work related (like posting this), while
+the netbook is dedicated to casual use : browsing, playing, etc.</p>
+
+<p>Last week, during my vacations, I only took the netbook with me, and while not
+strictly speaking working on it I still had to code a little bit. I installed
+<code>ScummVM</code>, <code>CortixTH</code> and managed to run Carmageddon 2 under <code>wine</code>. I also
+downloaded and tried a few old emulator games on my
+<a href="http://en.wikipedia.org/wiki/Dingoo_A320">Dingoo</a>.</p>
+
+<p>As you may have guessed, I wrote a bunch of scripts during that week to help
+me in some of the more tedious aspects of this task.</p>
+
+<h2>Dingoo deployment</h2>
+
+<p>Downloading roms, copying them to the Dingoo, and then testing the games to
+make sure they are working was tedious. I wrote a little script that
+automatically mount the Dingoo when plugged to the computer, and copy my games
+to it, removing old version along the way while still keeping my saved games.</p>
+
+<p>I had to parse <code>dmesg</code> (thanks to <code>grep</code>, <code>tail</code> and <code>sed</code>) as well as use
+<code>rsync</code> for the copy.</p>
+
+<h2>Sansa Clip cleaning</h2>
+
+<p>I also wrote a simple script to clean my <a href="http://anythingbutipod.com/2009/08/sandisk-sansa-clip-plus-review/">Sansa
+Clip</a> of
+all the useless files I had put on it. As I only have a text screen, I don&#39;t
+need the <code>jpg</code> covers, torrent <code>txt</code> files, auto-generated <code>m3u</code> files and
+other <code>thumbs.db</code> and <code>.DS_Store</code> useless files.</p>
+
+<p>Here, <code>find</code> to the rescue with some <code>zsh</code> scripting, and here we go.</p>
+
+<h2>Shared config files</h2>
+
+<p>As I&#39;m working on several computers (two laptops and the one at work at
+least), I found myself spending time reconfiguring stuff multiple times.</p>
+
+<p>Here, thanks to Dropbox and some clever <code>ln -s</code> calls, I managed to replicate
+the same config on the 3 machines easily.</p>
+
+<p>From my freelance time, I also have a pretty big <code>/etc/hosts</code> and
+<code>~/.ssh/config</code> file. At work, I have another one for the work servers. But I
+sometimes had to connect to the work server from home.</p>
+
+<p>So once again, thanks to Dropbox, some <code>ln -s</code> once more and <code>cat</code> I wrote two
+functions to regenerate those two files based on config files. That way,
+whenever I change one of those files, it is updated on the other machines too.</p>
+
+<p>That was it. It took most of my day.</p>
+
+<p>Being able to script those little repetitive tedious task is something I
+really appreciate on Linux. I am no longer dependent on the UI my OS gave me,
+and can now really understand how things work. It requires some time to learn,
+but this is not going to drastically change from one version to another like
+it does on each Windows new release.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ssh">#ssh</a>
+      
+        <a href="/tags/wednesday">#wednesday</a>
+      
+        <a href="/tags/zsh">#zsh</a>
+      
+        <a href="/tags/sansa">#sansa</a>
+      
+        <a href="/tags/linux">#linux</a>
+      
+        <a href="/tags/hosts">#hosts</a>
+      
+        <a href="/tags/dropbox">#dropbox</a>
+      
+        <a href="/tags/dingoo">#dingoo</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/07/20/working-wednesday-6-7-correctly-installing-ruby-rails/">
+        Working on Wednesday #6-#7 : Correctly installing Ruby on Rails
+      </a>
+    </h1>
+
+    <span class="post-date">20 Jul 2011</span>
+
+    <p><em>This post spans two weeks because I couldn&#39;t manage to have a clean
+Ruby/Rails install on my first try. I read a lot, installed ruby using various
+methods, but finally managed to get it to work corretly.</em></p>
+
+<h2>Cleaning up</h2>
+
+<p>First of all, you have to remove any ruby version you might have already
+installed, just to be sure.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get remove ruby <span class="o">&amp;&amp;</span> sudo apt-get autoremove
+</code></pre></div>
+<h2>Installing RVM</h2>
+
+<p>Then, you have to install RVM before installing Ruby. My biggest mistake in my
+various shots at installing Ruby was to install RVM last.</p>
+
+<p>RVM is a very important part of the whole Ruby process. This is a little piece
+of genius that allow you to create Ruby sandboxes. You can install various
+Ruby versions side by side, even various gem versions and you simply tell RVM
+which sandbox you want to use.</p>
+
+<p>If you are absolutly positive that you will never ever work on more than one
+Ruby project in your entire life, you can skip installing RVM and simply
+install Ruby globally on your system. But you know that this will never
+happen, so, avoid future troubles and install RVM first.</p>
+
+<p>To install RVM, simply execute the following command</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">bash &lt; &lt;<span class="o">(</span>curl -s https://rvm.beginrescueend.com/install/rvm<span class="o">)</span>
+</code></pre></div>
+<p>This will download and execute the install script. Once it&#39;s finished, edit
+your <code>.bashrc</code> or <code>.zshrc</code> to include the rvm config file whenever a shell is
+launched.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="o">[[</span> -r <span class="nv">$HOME</span>/.rvm/scripts/rvm <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">source</span> <span class="nv">$HOME</span>/.rvm/scripts/rvm
+</code></pre></div>
+<p>Just to sure to have the latest version, I also ran</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rvm get head
+rvm reload
+</code></pre></div>
+<h2>Updating your system</h2>
+
+<p>RVM depends on some binaries to work, so be sure to install them all. They are
+listed when running <code>rvm notes</code>, but as the time of writing this was the list
+for me :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev
+</code></pre></div>
+<h2>Installing Ruby</h2>
+
+<p>Once RVM is installed, installing the latest (1.9.2 as the time of writing)
+Ruby version is as easy as :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rvm install 1.9.2
+</code></pre></div>
+<p>This will take some time, downloading and compiling Ruby. Next, tell RVM that
+this is the version we are gonna use.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rvm use 1.9.2
+</code></pre></div>
+<p>You can always switch back to your system-wide ruby install by doing</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rvm use system
+</code></pre></div>
+<h2>Creating a gemset</h2>
+
+<p>Plugins in Ruby world are named gems. They can easily be installed/uninstalled
+to a project to provide advanced features. Rails itself is a gem.</p>
+
+<p>The traditional way of using gem is to simpy using the RubyGem command <code>gem.</code></p>
+
+<p>When using RVM and its sandboxed mode however, the best way is to create a
+gemset, and install gems in that gemset. This will allow us in the future to
+switch between multiple gemset easily.</p>
+
+<p>I suggest creating a gemset for each project you start. You can also install
+gems in the global gemset so they get available to each project. As I&#39;m new to
+the Ruby world and still don&#39;t really know which gems ar &quot;must-have&quot;, I&#39;ll
+skip this part for now.</p>
+
+<p>Let&#39;s create a new gemset for our new project. I&#39;ll name mine <code>pixelastic</code>,
+but change the name to fit your project name</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rvm gemset create pixelastic
+rvm gemset use pixelastic 
+</code></pre></div>
+<p>You&#39;ll be now using the gemset <code>pixelastic</code>. You can list all available gems
+in your current gemset by doing</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">gem list
+</code></pre></div>
+<p>Or list all the available gemsets by doing :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rvm gemset list
+</code></pre></div>
+<p>The one you are currently using will be prefixed by <code>=&gt;</code></p>
+
+<h2>What is Rake ?</h2>
+
+<p>You might have noticed that your new gemset contains only one gem, named Rake.
+You do not need too spend to much time on that. You simply have to know that
+Rake is more or less the Ruby compiler. Your Ruby code will go through this
+gem to became a running app.</p>
+
+<h2>Installing Rails</h2>
+
+<p>As I said above, Rails is a gem like many other, so you can simply install it
+by doing :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">gem install rails
+</code></pre></div>
+<p>Note that because we are using RVM, the gem will only be installed in this
+gemset and not globally. If you switch gemset, rails will no longer be
+available.</p>
+
+<p>If we weren&#39;t using RVM, the gem would have been installed globally. RVM is
+actually wrapping itself around the <code>gem</code> command to sandbox it inside its own
+gemset.</p>
+
+<h2>Handling dependencies with Bundler</h2>
+
+<p>Installing Rails will install a bunch of other gems. One of them is Bundler.</p>
+
+<p>Bundler is a Rails specific gem dependencies handler. Its features seems to
+overlap thoses of RVM. At the time of writing, I haven&#39;t yet used it, but its
+main use still seems to be its gemfile.</p>
+
+<p>The goal of a gemfile (located in your project directory) is to list all the
+gems your project will need (along with respective versions if provided).
+Then, whenever you drop your project in a new environment, Bundler will be
+able to download and install your gems for you.</p>
+
+<p>If said environment uses RVM, then the gems will be saved in the gemset, if
+not they will be installed globally. Bundler is absolutly not linked to RVM
+and can be used independently.</p>
+
+<p>The syntax of a gem file will not be discussed here as I have no previous
+experience with them, but the command to read the gemfile and update the
+project accordingly is :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">bundle install
+</code></pre></div>
+<h2>Automatic switching gemset</h2>
+
+<p>One nice bit of RVM is that it is able to automatically detect the gemset to
+use on a per project basis. You simply have to create a .rvmrc file in a
+project, and RVM will execute it.</p>
+
+<p>For example, to use my <code>pixelastic</code> gemset and Ruby 1.9.2, simply add the
+following to your <code>.rvmrc</code></p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rvm use 1.9.2@pixelastic
+</code></pre></div>
+<h2>References</h2>
+
+<p>I read a lot on the subject, to finally get it right. Here are the various
+sources :</p>
+
+<ul>
+<li><a href="http://marcgrabanski.com/articles/gem-management-with-rvm-and-bundler">Mark Grabanski</a></li>
+<li><a href="http://www.railway.at/2010/02/13/avoiding-rails-3-dependency-hell-with-rvm/">Railway.at</a></li>
+<li><a href="http://guides.rubyonrails.org/getting_started.html">The official Get Started guide</a></li>
+<li><a href="http://stackoverflow.com/questions/4604064/ruby-gems-bundler-and-rvm-confusion">A Stack Overflow question about RVM, Gems and Bundler</a></li>
+</ul>
+
+<h2>Update : Sqlite3</h2>
+
+<p>If you got error complaining about Sqlite3 missing, just</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install libsqlite3-0 libsqlite3-dev
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/wednesday">#wednesday</a>
+      
+        <a href="/tags/ruby-on-rails">#ruby-on-rails</a>
+      
+        <a href="/tags/rvm">#rvm</a>
+      
+        <a href="/tags/bundler">#bundler</a>
+      
+        <a href="/tags/ruby">#ruby</a>
+      
+        <a href="/tags/gem">#gem</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page12">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page10">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

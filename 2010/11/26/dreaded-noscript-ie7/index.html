@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     The dreaded <noscript> on IE7 - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">The dreaded &lt;noscript&gt; on IE7</h1>
+  <span class="post-date">26 Nov 2010</span>
+  <p>This <code>&lt;noscript&gt;</code> tag on IE7 is making me crazy. Here are some &quot;interesting&quot;
+facts about it :</p>
+
+<h2>No content through Javascript</h2>
+
+<p>You can&#39;t get its content though javascript. It can be targeted but neither
+<code>.innerHTML</code> nor <code>.textContent</code> is set. It does not have any <code>.childNodes</code>
+either.</p>
+
+<h2>Gets displayed even when scripts are enabled</h2>
+
+<p>If you set <code>noscript { display:block; border:15px solid red;},</code> it will get
+displayed even if Javascript is enabled. But with no content inside, you&#39;ll
+only have borders and background...</p>
+
+<h2>Styling it anyway</h2>
+
+<p>If you want to style it, just add an inner element and style this one :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;noscript&gt;&lt;p&gt;</span>Lorem ipsum<span class="nt">&lt;/p&gt;&lt;/noscript&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">noscript</span> <span class="nt">p</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">blue</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<h2>Disabling Javascript on IE7</h2>
+
+<p>If you want to disable Javascript on IE7, you&#39;ll have to go to Tools &gt;
+Internet Options &gt; Security &gt; Custom and setting the &quot;Enable ASP scripts&quot; to
+No.</p>
+
+<p>Yes, this doesn&#39;t make any sense.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/noscript">#noscript</a>
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/ie7">#ie7</a>
+    
+      <a href="/tags/bug">#bug</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

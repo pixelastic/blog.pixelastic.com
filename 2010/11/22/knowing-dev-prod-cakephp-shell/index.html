@@ -1,0 +1,163 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Knowing dev from prod in a cakePHP shell - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Knowing dev from prod in a cakePHP shell</h1>
+  <span class="post-date">22 Nov 2010</span>
+  <p>I wrote a cakePHP shell to synchronize an IMAP mailbox with a mysql table. I
+wanted to test my shell on local first, then upload it and make a CRON job of
+it.</p>
+
+<p>Whenever I tried to run the shell from my development environment I was
+greeted with various &quot;<em>Database table is missing</em>&quot; messages.</p>
+
+<p>After some digging, it occurs that the shell was connecting to my prod
+database, not the dev one.</p>
+
+<h2>The culprit</h2>
+
+<p>I wrote a little snippet to automatically switch to the correct database based
+on the current server name. If it was <code>localhost</code>, I used the <code>$dev</code>
+credentials, while keeping the <code>$default</code> credentials for other cases (ie.
+production).</p>
+
+<p>This worked great and I added this little code to my <code>database.php</code> file.</p>
+
+<p>But when running a shell, the <code>env(&#39;SERVER_ADDR&#39;)</code> was empty, thus my test was
+always selecting the prod database.</p>
+
+<p>I couldn&#39;t find anyway to guess if I was running a shell from prod or dev. I
+sure had access to a lot of config informations through <code>env</code> and <code>$_SERVER</code>
+but none seemed to be enough to guess the correct environment.</p>
+
+<h2>Solution</h2>
+
+<p>I finally decided that the only way was to manually pass a flag to my shell
+call to tell if it was to use the dev or prod credentials.</p>
+
+<p>I decided that adding a <code>dev</code> arg to the shell call will switch to dev mode,
+while not adding it will use production mode.</p>
+
+<p>My final shell call looked like :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">cake -app <span class="s2">&quot;path/to/app&quot;</span> mail_import dev
+</code></pre></div>
+<p>And I added the following logic in my database switching logic :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">// Defining the Environment (prod or dev)</span>
+<span class="x">if (defined(&#39;CAKEPHP_SHELL&#39;)) {</span>
+<span class="x">  // Based on the prod/dev flag</span>
+<span class="x">  $args = env(&#39;argv&#39;);</span>
+<span class="x">  $environment = &#39;prod&#39;;</span>
+<span class="x">  foreach($args as $flag) {</span>
+<span class="x">    if ($flag==&#39;dev&#39;) {</span>
+<span class="x">      $environment = &#39;dev&#39;;</span>
+<span class="x">      break;</span>
+<span class="x">    }</span>
+<span class="x">  }</span>
+<span class="x">} else {</span>
+<span class="x">  // Based on the server url</span>
+<span class="x">  $environment = (env(&#39;SERVER_ADDR&#39;)==&#39;127.0.0.1&#39;) ? &#39;dev&#39; : &#39;prod&#39;;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Note that I checked if the script was accessed through normal server/php
+delegation or through the CLI using <code>defined(&#39;CAKEPHP_SHELL&#39;)</code></p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/bash">#bash</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/cli">#cli</a>
+    
+      <a href="/tags/console">#console</a>
+    
+      <a href="/tags/database">#database</a>
+    
+      <a href="/tags/shell">#shell</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

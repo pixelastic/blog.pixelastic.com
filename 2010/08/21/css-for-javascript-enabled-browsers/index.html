@@ -1,0 +1,124 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     CSS for Javascript enabled browsers - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">CSS for Javascript enabled browsers</h1>
+  <span class="post-date">21 Aug 2010</span>
+  <p>In a previous post I was wondering if my way of loading js-specific CSS rules
+was right. I was loading a specific css file for js overrides.</p>
+
+<p>This allow for lighter stylesheets for users without Javascript (they won&#39;t
+load useless rules), but also resulted in slower rendering for other users
+because they needed to load two stylesheets instead of one.</p>
+
+<p>After much pondering, I now think that loading all the rules in one stylesheet
+is the way to go.</p>
+
+<p>In addition with the number of request mentionned, keeping all your rules in
+the same file is much more easier to maintain. Js-specific rules aren&#39;t that
+big either so the small additional bytes are usually better than a full http
+request.</p>
+
+<p>I now prefix all my Javascript rules by <code>.js</code>. I add a <code>js</code> class to the <code>html
+</code>element directly from the <code>head</code>, this helps in preventing any FOUC that may
+occur because we add the class before the <code>body</code> rendering.</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;script&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">className</span><span class="o">+=</span><span class="s1">&#39; js&#39;</span><span class="p">;</span><span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/performance">#performance</a>
+    
+      <a href="/tags/html">#html</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,337 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/04/you-should-always-test-on-older-browser-versions/">
+        You should always test on older browser versions
+      </a>
+    </h1>
+
+    <span class="post-date">04 May 2010</span>
+
+    <p>You probably already have installed on your computer various web browsers (FF,
+IE, Safari, Opera and Chrome) to test your websites. You most certainly also
+have multiple installs of IE (or are using IETester) because the underlying
+engine of those browser is very different from one version to another.</p>
+
+<p>Firefox, Safari, Opera and Chrome users are more educated to the &quot;always
+update to latest version&quot; paradygm so you rarely have to debug old and obscure
+version of those browsers.</p>
+
+<p>At least it was what I thought until I was stucked with an old 3.0 version of
+Firefox on my laptop (mostly due to my inability to upgrade to the latest
+version. I&#39;m still new to the linux world and my laptop is running ubuntu).
+Anyway, it made me understand that even if you are willing to upgrade you
+can&#39;t always do it and old browser versions should be supported too.</p>
+
+<p>In a recent CSS experiment, I managed to style checkboxes and radio buttons in
+pure CSS. Unfortunatly, because I was using some &quot;advanced&quot; CSS selectors,
+FF3.0 wasn&#39;t able to render it correctly, in fact it was able to render only
+half the rules, making the whole thing totally unusable.</p>
+
+<p>That was a perfect example of an old browser I had to debug. I will not dive
+into the details of the CSS (mostly because I haven&#39;t fixed it completly), and
+this post was only to remind you (and me) to always check on previous browser
+versions.</p>
+
+<p>Next post will be explaining how to test on multiple Firefox versions side by
+side.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/multiple">#multiple</a>
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+        <a href="/tags/css">#css</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/04/using-after-and-before/">
+        Using :after and :before
+      </a>
+    </h1>
+
+    <span class="post-date">04 May 2010</span>
+
+    <p><code>:after</code> and <code>:before</code>pseudo-elements allow one to add generated content
+before or after an other element. It can be used to add quotes around text,
+icons after a link to specify the language of the target page and a lot of
+other useful stuff like that.</p>
+
+<p>It can also be mastered to create more powerful styling. I&#39;ll post more about
+that later.</p>
+
+<p>Anyway, IE6 and IE7 don&#39;t support it. Firefox is supposed to support it from
+the 3.0 version but in fact it is still buggy in this release.</p>
+
+<p>Pseudo-elements must be inline elements and can&#39;t be absolutly positionned in
+FF3.0, thus greatly reducing the number of fun things we could do with them in
+this browser.</p>
+
+<p>It faced me with a challenge. If I wrote <code>:before</code> and <code>:after</code> rules, they
+would be only understood by FF3.0 but badly rendered, resulting in half the
+styling I expected.</p>
+
+<p>Browsers that don&#39;t understand the rules would not apply them and keep the
+default rendering, compliant browsers will render all the rules, but the grey
+area in between is filled with FF3.0 that will think it can handle them and
+will finally badly render them.</p>
+
+<p>I haven&#39;t found a way to specificaly target FF3.0, so I used an alternate
+method.</p>
+
+<p>All the browsers that understand the <code>:only-of-type</code> selector also understand
+<code>:before</code>/<code>:after</code>. But FF3.0 and IE7 do not understand <code>:only-of-type</code>. So if
+I wrote a rule starting with <code>body:only-of-type</code>, it will only be applied to
+browsers with complete <code>:after</code> and <code>:before</code>support (excluding FF3.0). This
+solved my problem.</p>
+
+<p>Unfortunatly, it will also filter out IE7 who does not understand <code>:only-of-
+type</code> but does understand <code>:after</code>/<code>:before</code>. I usually remove all fancy form
+styling for IE anyway so that&#39;s not a big deal for me, but if you really care,
+you just have to override the rule in a IE7 specific stylesheet.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ff3-0">#ff3-0</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/only-of-type">#only-of-type</a>
+      
+        <a href="/tags/before">#before</a>
+      
+        <a href="/tags/after">#after</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/04/running-multiple-firefox-versions-side-by-side-on-windows/">
+        Running multiple Firefox versions side by side on Windows
+      </a>
+    </h1>
+
+    <span class="post-date">04 May 2010</span>
+
+    <p>Whenever you upgrade your Firefox, the new version will overwrite the previous
+one. If you want to open multiple Firefox versions side by side, here&#39;s my way
+:</p>
+
+<ul>
+<li>First, uninstall all your previous Firefox installation(s). Make sure to backup any important data beforehand (I personnaly use MozBackup to do that).</li>
+<li>Then install the latest available stable version. This will be the main Firefox version, the one you&#39;ll be using on your dayjob and the one you&#39;ll always update.</li>
+<li>Now run the Firefox ProfileManager.
+To do that, create a shortcut to your <code>firefox.exe</code> file, then edit this
+shortcut. In the &quot;Target&quot; field, add <code>-Profilemanager</code>.</li>
+</ul>
+
+<p>My field looks like : <code>&quot;C:\Program Files\Internet\Firefox\firefox.exe&quot;
+-Profilemanager</code></p>
+
+<ul>
+<li>You now have to create one new profile for each FF version you plan on testing. Give them meaningful names. I named mine &quot;FF3.0&quot;.</li>
+<li>Now download the corresponding Firefox version from <a href="http://www.oldversion.com/Mozilla-Firefox.html">oldversion.com</a></li>
+<li>Do not install it, but extract its content (using a archiving tool like winrar or 7-zip) in a tmp directory. Remove the <code>optional</code>directory as well as <code>removed-files.log</code> and <code>setup.exe</code>.</li>
+<li>Copy the content of <code>localized/</code> into <code>nonlocalized/</code> (overwrite files if asked).</li>
+<li><p>You can now rename the <code>nonlocalized/</code> directory and move it around on your hard drive.
+I renamed mine to <code>Firefox 3.0/</code> and put it alongside the main Firefox, in
+<code>C:\Program Files\Internet\Firefox 3.0\</code></p></li>
+<li><p>Create a shortcut to the <code>firefox.exe</code> file in this directory and edit the target field.
+This time, we have to specify which profile to use. Just add <code>-P &quot;FF3.0&quot; -no-
+remote</code> in the target field.</p></li>
+</ul>
+
+<p>Mine now looks like <code>C:\Program Files\Internet\Firefox 3.0\firefox.exe&quot; -P
+&quot;FF3.0&quot; -no-remote</code></p>
+
+<p>That&#39;s it.</p>
+
+<p>Now, just run your classic Firefox shortcut to open the most up to date
+Firefox version, and use the custom shortcuts to open previous versions.</p>
+
+<p>I personnaly also rename the different <code>firefox.exe</code> to <code>firefox30.exe</code>, or
+<code>firefox35.exe</code> to more easily spot them in the taskmanager.</p>
+
+<p>I also edit each <code>.exe</code> with ResHack to change their taskbar icons. I haven&#39;t
+yet managed to change their title.</p>
+
+<p>Edit : Now I can&#39;t open .html files directly from the explorer nor follow
+links from my IM. I still don&#39;t know exactly what of the steps above caused
+that.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/windows">#windows</a>
+      
+        <a href="/tags/multiple">#multiple</a>
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/04/changing-firefox-languages/">
+        Changing Firefox language
+      </a>
+    </h1>
+
+    <span class="post-date">04 May 2010</span>
+
+    <p>I&#39;m French, live in France, but usually prefer having my software in English.</p>
+
+<p>This is so because english words are generally shorter (and thus fits more
+easily in a GUI) and most of the time french translations aren&#39;t optimal.</p>
+
+<p>I just download the latest Firefox version from their website, and without
+knowing it, it was a French localized one. They do some sniffing on the user
+agent string and automatically download the corresponding file.</p>
+
+<p>That seems a great idea, but I prefer my software in english, so I searched
+for a <code>en-US.xpi</code> file to update firefox. It does exists for any other
+language, but not for <code>en-US</code>, this being the default language, as stated in
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=485860">this bug report</a>.</p>
+
+<p>It seems the only way to have an english Firefox is to download the english
+version, there is no way to change it afterwards.</p>
+
+<p>You can type <code>about:config</code> and change the <code>general.useragent.locale</code> value to
+<code>en-US</code> but it does not update the main language, only tell plugins to use
+that language (AFAIK).</p>
+
+<p>Changing the language in the options only change the user agent string.</p>
+
+<p>Well, I had to backup my profiles, uninstall FF, download the english version
+and reinstall it.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/locale">#locale</a>
+      
+        <a href="/tags/language">#language</a>
+      
+        <a href="/tags/general-useragent-locale">#general-useragent-locale</a>
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+        <a href="/tags/en-us">#en-us</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/04/20/how-to-select-the-first-element-of-a-given-class/">
+        How to select the first element of a given class
+      </a>
+    </h1>
+
+    <span class="post-date">20 Apr 2010</span>
+
+    <p>Imagine the following HTML code :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;wrapper&quot;</span><span class="nt">&gt;</span>
+[... various HTML elements ...]
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;bar&quot;</span><span class="nt">&gt;</span>bar<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;foo&quot;</span><span class="nt">&gt;</span>foo<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;bar&quot;</span><span class="nt">&gt;</span>bar<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;foo&quot;</span><span class="nt">&gt;</span>foo<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<p>How would one style the first <code>div.foo</code> ?</p>
+
+<p>I&#39;ve tried <code>div.wrapper div.foo:first-of-type</code> but unfortunatly it does not
+work. In fact the previous rule can be translated into &quot;select the first child
+of div.wrapper only if it is a div.foo&quot; and not &quot;select the first div.foo
+inside div.wrapper&quot; as I imagined.</p>
+
+<p>Using jQuery I could do a <code>$(&#39;div.wrapper div.foo:first&#39;)</code> but there&#39;s no such
+selector in CSS.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/first-of-type">#first-of-type</a>
+      
+        <a href="/tags/css">#css</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page36">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page34">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

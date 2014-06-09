@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pixelastic</title>
+    <description>Personal blog of Tim Carry. Posting mostly on tech-related stuff.</description>
+    <link>http://blog.pixelastic.com/</link>
+    <atom:link href="http://blog.pixelastic.com/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>UTF-8 encoding for included .jsp files</title>
+        <description>&lt;p&gt;Today I had to split a gigantic &lt;code&gt;.jsp&lt;/code&gt; file into several smaller files. I used
+the &lt;code&gt;&amp;lt;@include file=&amp;quot;./path/to/file.jsp&amp;quot;&amp;gt;&lt;/code&gt; syntax in order to do this.&lt;/p&gt;
+
+&lt;p&gt;Unfortunatly, all the included files were displayed with garbage instead of
+UTF-8 characters.&lt;/p&gt;
+
+&lt;p&gt;So I ran the list of usual suspects : - &lt;code&gt;Content-Type:text/html;
+charset=utf-8&lt;/code&gt; is correctly returned by my server. - &lt;code&gt;&amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;&lt;/code&gt;
+is the first element of my &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt;. - No data is being fetched from a
+database, so it cannot come from there. - All my files are correctly encoded
+in UTF-8.&lt;/p&gt;
+
+&lt;p&gt;Also, I added a &lt;code&gt;&amp;lt;%@ page contentType=&amp;quot;text/html; charset=UTF-8&amp;quot;
+pageEncoding=&amp;quot;UTF-8&amp;quot;%&amp;gt;&lt;/code&gt; as the very first line of my main &lt;code&gt;index.jsp&lt;/code&gt;. I also
+added the following code to &lt;code&gt;pom.xml&lt;/code&gt; to make &lt;code&gt;UTF-8&lt;/code&gt; the default encoding :
+[...] UTF-8&lt;/p&gt;
+
+&lt;p&gt;Any &lt;code&gt;UTF-8&lt;/code&gt; in the main &lt;code&gt;index.jsp&lt;/code&gt; was fine, but as soon as it was in an
+included it was displayed as garbaged. At first, I manually added &lt;code&gt;&amp;lt;%@ page
+pageEncoding=&amp;quot;UTF-8&amp;quot;%&amp;gt;&lt;/code&gt; to every included page and it fixed the issue. But as
+I was dealing with dozen of included files, I needed a more generic solution.&lt;/p&gt;
+
+&lt;p&gt;Turns out that I had to edit my &lt;code&gt;web.xml&lt;/code&gt; file and add the following
+configuration :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;jsp-config&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;jsp-property-group&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;url-pattern&amp;gt;&lt;/span&gt;*.jsp&lt;span class=&quot;nt&quot;&gt;&amp;lt;/url-pattern&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;page-encoding&amp;gt;&lt;/span&gt;UTF-8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/page-encoding&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/jsp-property-group&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/jsp-config&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And it worked !&lt;/p&gt;
+</description>
+        <pubDate>Tue, 07 Jan 2014 00:00:00 +0100</pubDate>
+        <link>http://blog.pixelastic.com/2014/01/07/utf-8-encoding-included-jsp-files/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2014/01/07/utf-8-encoding-included-jsp-files/</guid>
+      </item>
+    
+      <item>
+        <title>Understanding nginx location blocks and rewrite rules</title>
+        <description>&lt;p&gt;I recently moved a cakePHP website from an Apache server to an Nginx one. I
+had to translate url rewriting rules from one syntax to the other, and here is
+what I learned.&lt;/p&gt;
+
+&lt;p&gt;First of all, Nginx internal logic for processing rewrite rules is not as
+straightforward as Apache. In Apache, rules are processed in the order in
+which they appear in your config file/&lt;code&gt;.htaccess&lt;/code&gt;. In Nginx, they follow a
+more complex pattern.&lt;/p&gt;
+
+&lt;h2&gt;Initial Apache rules&lt;/h2&gt;
+
+&lt;p&gt;First of all, here are the (simplified) set of rules I had to convert :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-apache&quot; data-lang=&quot;apache&quot;&gt;&lt;span class=&quot;nb&quot;&gt;RewriteRule&lt;/span&gt; ^(css|js)/packed_(.*)$ $1/packed/$2 [L]
+
+&lt;span class=&quot;nb&quot;&gt;RewriteRule&lt;/span&gt; ^files/([0-9]{4})/([0-9]{2})/([0-9]{2})/([[:alnum:]]{8}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{12})/(.*)\.(.{3,4})    &lt;span class=&quot;sx&quot;&gt;/files/&lt;/span&gt;$1/$2/$3/$4.$6 [L]
+
+&lt;span class=&quot;nb&quot;&gt;RewriteCond&lt;/span&gt; %{REQUEST_FILENAME} !-d
+&lt;span class=&quot;nb&quot;&gt;RewriteCond&lt;/span&gt; %{REQUEST_FILENAME} !-f
+&lt;span class=&quot;nb&quot;&gt;RewriteRule&lt;/span&gt; ^(.*)$ index.php?url=$1 [QSA,L]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The first rule deals with compressed &lt;code&gt;css&lt;/code&gt; and &lt;code&gt;js&lt;/code&gt; files. Minified &lt;code&gt;css&lt;/code&gt; and
+&lt;code&gt;js&lt;/code&gt; files are saved in &lt;code&gt;/css/packed/&lt;/code&gt; with a filename made of a md5 hash of
+the original filenames and a timestamp. So a url of
+&lt;code&gt;/css/packed_6e4f31ffc48b6_1330851887.css&lt;/code&gt; will actually return the file
+located in &lt;code&gt;/css/packed/6e4f31ffc48b6_1330851887.css&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The second rule is about media files uploaded on the server. Each uploaded
+file is stored in the &lt;code&gt;/files/&lt;/code&gt; directory, in a subfolder made from the
+uploading date (like &lt;code&gt;/files/2012/08/25/&lt;/code&gt;). The actual file is given a UUID
+when saved, and this UUID is used as its filename on disk. The rewrite rule
+allow the use of any custom filename when linking the file. This helps for SEO
+purposes as well as making it more user-friendly when we present a download to
+our users. So
+&lt;code&gt;/files/2012/08/25/50483446-4b00-4d5b-8498-763e45a3e447/Subscription_form.pdf&lt;/code&gt;
+actually returns the file at
+&lt;code&gt;/files/2012/09/06/50483446-4b00-4d5b-8498-763e45a3e447.pdf&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;And the last rule is the default cakePHP rewrite rule. It first checks if the
+requested url points to an existing directory or file, and if not dispatch it
+to the main entry point : &lt;code&gt;index.php&lt;/code&gt; with the requested url as a parameter.&lt;/p&gt;
+
+&lt;h2&gt;Converting it to Nginx&lt;/h2&gt;
+
+&lt;p&gt;Rewrite rules in Nginx are usually found in &lt;code&gt;location&lt;/code&gt; blocks. There are
+several ways you can define a &lt;code&gt;location&lt;/code&gt; block, and it affects the order in
+which the rules will be parsed.&lt;/p&gt;
+
+&lt;p&gt;Nginx first checks for &lt;code&gt;location =&lt;/code&gt; blocks. Those blocks are used to catch an
+exact match of the requested url. Once such a block is found, its content is
+applied, and Nginx stops looking for more matches.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/my-exact-file.html&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/my-exact-file.html&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://external-website.com/&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In this example, a request for &lt;code&gt;/my-exact-file.html&lt;/code&gt; will be redirected to
+&lt;code&gt;http://external-website.com.&lt;/code&gt; Note that you need to repeat the url in both
+the &lt;code&gt;location =&lt;/code&gt; block and the &lt;code&gt;rewrite&lt;/code&gt; rule.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;location =&lt;/code&gt; is of very limited use as it only accepts an exact match on a
+string. Much more useful are the &lt;code&gt;location ~&lt;/code&gt; blocks that performs matches on
+regex (and the &lt;code&gt;location ~*&lt;/code&gt; for a case-insensitive version).&lt;/p&gt;
+
+&lt;p&gt;Such blocks are tested after the &lt;code&gt;location =&lt;/code&gt;ones, in the order they appear
+in your configuration file. Once a block matches, Nginx applies its content
+but does not stop. It keeps looking for other blocks that might match and
+apply them. It&amp;#39;s up to you, in the block content, to define if the parsing
+should stop, using the &lt;code&gt;break&lt;/code&gt; command.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/(css|js)/packed_&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;^/(css|js)/packed_(.*)&lt;/span&gt;$ &lt;span class=&quot;s&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1/packed/$2&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/files&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;rewrite&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;^/files/(.*)/(.*)/(.*)\.(.*)&lt;/span&gt;$ &lt;span class=&quot;s&quot;&gt;/files/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1/$2.$4&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In the first rule I&amp;#39;m looking for any &lt;code&gt;/css/packed_*&lt;/code&gt; or &lt;code&gt;/js/packed_*&lt;/code&gt;
+request, and converting them to &lt;code&gt;/css/packed/*&lt;/code&gt; or &lt;code&gt;/js/packed/*&lt;/code&gt;. Note the
+use of backreferences in the rewrite using &lt;code&gt;$x&lt;/code&gt; variables. In the second rule
+I simplified the original regex from Apache to catch the &lt;code&gt;/2012/08/23/&lt;/code&gt; in
+&lt;code&gt;$1&lt;/code&gt;, the UUID in &lt;code&gt;$2&lt;/code&gt;, the filename in &lt;code&gt;$3&lt;/code&gt; and the extension in &lt;code&gt;$4&lt;/code&gt; and
+rewriting the request to the correct file on disk.&lt;/p&gt;
+
+&lt;p&gt;Both rewrites ends with the &lt;code&gt;break&lt;/code&gt; flag. It tells Nginx that it should stop
+looking for other &lt;code&gt;location ~&lt;/code&gt; blocks matching the requested url and just
+serve the file. Another useful flag is &lt;code&gt;last&lt;/code&gt;, which tells Nginx to restart
+its whole url matching process from the beginning but this time using the
+newly rewritten url.&lt;/p&gt;
+
+&lt;p&gt;There is one last &lt;code&gt;location&lt;/code&gt; block that we can use, and it&amp;#39;s the simple
+&lt;code&gt;location&lt;/code&gt;, without any prefix. These &lt;code&gt;location&lt;/code&gt; blocks will be checked last,
+if no &lt;code&gt;location =&lt;/code&gt; or &lt;code&gt;location ~&lt;/code&gt; had stopped the processing. They are
+especially good for a last &amp;quot;catch all&amp;quot; solution, and we are going to use them
+to dispatch urls to &lt;code&gt;index.php&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;try_files&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$uri&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/index.php?url=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$request_uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Using &lt;code&gt;location /&lt;/code&gt;, we&amp;#39;ll catch any remaining requests. The &lt;code&gt;try_files&lt;/code&gt;
+command will test every one of its arguments in order to see if they exist on
+disk and serve them if they do. So in our example it will first check for the
+requested uri, and if such a file exists, will serve it. Otherwise it will
+simply dispatch it to the main &lt;code&gt;index.php&lt;/code&gt; with the requested url as an
+argument and cakePHP will do the rest.&lt;/p&gt;
+
+&lt;p&gt;There is one last thing we must do, it&amp;#39;s telling Nginx to pass any &lt;code&gt;.php&lt;/code&gt; file
+to the PHP fastcgi. This is quite easy using a &lt;code&gt;location ~&lt;/code&gt; block matching any
+&lt;code&gt;.php&lt;/code&gt; file. This will even apply to files served through &lt;code&gt;try_files&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;\.php$&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;fastcgi_pass&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;127.0.0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;fastcgi_index&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;index.php&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;fastcgi_intercept_errors&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;fastcgi.conf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Wrapping your mind around the order in which Nginx applies your rewrites is
+not easy at first. I hope this post helped you making sense of it.&lt;/p&gt;
+
+&lt;p&gt;Note that there also is the &lt;code&gt;location ^~&lt;/code&gt; block but I found it to be of very
+limited used as its behavior can be replicated with the more generic &lt;code&gt;location
+~&lt;/code&gt; blocks.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 27 Sep 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/</guid>
+      </item>
+    
+      <item>
+        <title>Télécharger ParisWeb 2012 sous forme de podcasts</title>
+        <description>&lt;p&gt;&lt;em&gt;Note for my English readers : In this post in French, I&amp;#39;m talking about how
+to download the audio version of the ParisWeb 2012 talks. As those talks are
+mostly in French, it wouldn&amp;#39;t make much sense for me to write about it in
+English.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;J&amp;#39;ai raté ParisWeb 2012, mais comme je n&amp;#39;ai pas envie de complétement rater
+tout ce qui a pu s&amp;#39;y être dit, j&amp;#39;ai décidé de télécharger l&amp;#39;ensemble des
+vidéos des conférences, les convertir en audio et les écouter sous forme de
+podcast sur mon lecteur mp3.&lt;/p&gt;
+
+&lt;p&gt;Heureusement, les gens de ParisWeb ont déjà fait 90% du travail en proposant
+sur le site officiel des liens vers l&amp;#39;ensemble des conférences en vidéo sur
+Dailymotion. Après, je n&amp;#39;ai eu qu&amp;#39;à scripter rapidement un crawler qui
+télécharge et convertit tout cela automatiquement.&lt;/p&gt;
+
+&lt;p&gt;Vous pouvez trouver le code sur &lt;a href=&quot;https://gist.github.com/pixelastic/6494754&quot;&gt;ce
+gist&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;TODO: Actuellement je télécharge la totalité de la vidéo (pouvant atteindre
+plusieurs Go) pour n&amp;#39;en extraire qu&amp;#39;un fichier audio de quelques dizaines de
+Mo. De plus, l&amp;#39;audio ne semble pas correctement reconnaitre le stéréo.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 09 Sep 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/</guid>
+      </item>
+    
+      <item>
+        <title>Commandline escaping magic</title>
+        <description>&lt;p&gt;Aren&amp;#39;t your tired of having to wrap your url in quotes when using &lt;code&gt;wget&lt;/code&gt; so
+the various &lt;code&gt;&amp;amp;&lt;/code&gt; and &lt;code&gt;?&lt;/code&gt; do not mess up your terminal ?&lt;/p&gt;
+
+&lt;p&gt;Well, I was, until I stumbled upon this god-send zsh magic : &lt;code&gt;url-quote-
+magic&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Just initiate it in your &lt;code&gt;.zshrc&lt;/code&gt; with the following lines :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And now, everytime you type or paste a url in &lt;code&gt;wget&lt;/code&gt; it will automatically
+escape the needed characters. It is quite clever and works with other commands
+that would otherwise trigger your terminal globbing feature.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 09 Sep 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/09/09/commandline-escaping-magic/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/09/09/commandline-escaping-magic/</guid>
+      </item>
+    
+      <item>
+        <title>Alternate cp and mv commands using rsync</title>
+        <description>&lt;p&gt;Sometime you need to copy or move files, but preserve their ownership,
+timestamp or simply want to update the changing bits instead of blindly moving
+whole chunks of data.&lt;/p&gt;
+
+&lt;p&gt;I have two simple aliases to do just that. Meet &lt;code&gt;rcp&lt;/code&gt; and &lt;code&gt;rmv&lt;/code&gt; :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;rcp&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; rsync -rahP --modify-window&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;rmv&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; rsync -rahP --modify-window&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1 --prune-empty-dirs --remove-sent-files &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+compdef _cp rcp rmv 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;They are defined as functions and not aliases so I can define which completion
+functions zsh will use (that&amp;#39;s the &lt;code&gt;compdef&lt;/code&gt; part). In that case, I want them
+to use the same completion as for the basic &lt;code&gt;cp&lt;/code&gt; command.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 09 Sep 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/09/09/alternate-cp-mv-commands-rsync/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/09/09/alternate-cp-mv-commands-rsync/</guid>
+      </item>
+    
+      <item>
+        <title>Converting html files to pdf from the commandline</title>
+        <description>&lt;p&gt;When you need to convert an &lt;code&gt;html&lt;/code&gt; file to a &lt;code&gt;pdf&lt;/code&gt;, often the default &lt;code&gt;pdf&lt;/code&gt;
+printer of your OS is enough. For those times when you need a much better
+rendering, you need a better tool.&lt;/p&gt;
+
+&lt;p&gt;I had to convert my &lt;code&gt;html&lt;/code&gt;/&lt;code&gt;css&lt;/code&gt; resume to a &lt;code&gt;pdf&lt;/code&gt; file today. The default
+&lt;code&gt;pdf&lt;/code&gt; printer on Ubuntu was discarding the background color and adding useless
+margins.&lt;/p&gt;
+
+&lt;p&gt;I finally resorted to using
+&lt;a href=&quot;http://code.google.com/p/wkhtmltopdf/&quot;&gt;wkhtmltopdf&lt;/a&gt;. It does the job, but
+needs a few tweaks. First, you have to add &lt;code&gt;-T 0 -R 0 -B 0 -L 0&lt;/code&gt; to remove the
+margins. Then, you have to use the &lt;code&gt;file://&lt;/code&gt; notation to target a local file.
+Also, it does not understand the css properties &lt;code&gt;page-break-after&lt;/code&gt; nor &lt;code&gt;page-
+break-before&lt;/code&gt;. I had to manually add padding in my elements to stop them from
+being cut in between two pages. But worst of all, it chokes on UTF-8
+characters in filenames.&lt;/p&gt;
+
+&lt;p&gt;In the end, I wrote a small ruby wrapper around wkhtmltopdf to work around all
+those issues for me and called it &lt;a href=&quot;https://github.com/pixelastic/oro%0Ashi/blob/master/scripts/bin/html2pdf&quot;&gt;html2pdf&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 05 Sep 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/09/05/converting-html-files-pdf-commandline/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/09/05/converting-html-files-pdf-commandline/</guid>
+      </item>
+    
+      <item>
+        <title>Preventing the Meta key from opening the dash in Unity Ubuntu</title>
+        <description>&lt;p&gt;Everytime I install Ubuntu on a fresh computer and try to define custom
+keybindings that use the meta (ie. Windows) key, I run into issues.&lt;/p&gt;
+
+&lt;p&gt;The Ubuntu UI uses the meta key to open what they call the &amp;quot;Dash&amp;quot;. I never use
+it and want my meta key back to define my own keybindings.&lt;/p&gt;
+
+&lt;p&gt;There is no way to disable it from the default Ubuntu options. You have to
+install &lt;code&gt;compizconfig-settings-manager&lt;/code&gt; and launch it using &lt;code&gt;ccsm&lt;/code&gt;. There, go
+to the Ubuntu Unity Plugin and disable the &amp;quot;Key to show the launcher&amp;quot; binding.&lt;/p&gt;
+
+&lt;p&gt;You will now be free to use the meta key in your keybindings, again.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 02 Sep 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/09/02/preventing-meta-key-opening-dash-unity-ubuntu/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/09/02/preventing-meta-key-opening-dash-unity-ubuntu/</guid>
+      </item>
+    
+      <item>
+        <title>git resurrect to bring back deleted files from the dead</title>
+        <description>&lt;p&gt;Ever deleted a file several commits away and then suddenly realizing that you
+actually need it ? Well, here&amp;#39;s an easy way to get your file back.&lt;/p&gt;
+
+&lt;p&gt;First of all, we&amp;#39;ll get the commit in which the file has been deleted with :
+&lt;code&gt;git log --diff-filter=D --format=format:%H -- {your_filename}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--diff-filter=D&lt;/code&gt; will only keep commits where files gets deleted,
+&lt;code&gt;--format=format:%H&lt;/code&gt; will only display the commit hash and finally the &lt;code&gt;--&lt;/code&gt;
+is a separator between your options and the argument. Argument should be your
+filename, and it even accepts &lt;code&gt;*&lt;/code&gt; as a wildcard.&lt;/p&gt;
+
+&lt;p&gt;Once you got the commit hash, it&amp;#39;s just a matter of checking the file out
+using &lt;code&gt;git checkout {hash}~1 {your_filename}&lt;/code&gt;. The &lt;code&gt;~1&lt;/code&gt; targets the previous
+commit, right before the file gets deleted.&lt;/p&gt;
+
+&lt;p&gt;All wrapped up in a nice shell script, here is what it looks like :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# We first find the commit where the file was deleted&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;git log --diff-filter&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;D --format&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;format:%H -- &lt;span class=&quot;nv&quot;&gt;$filename&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# We then bring it back from the dead&lt;/span&gt;
+git checkout &lt;span class=&quot;nv&quot;&gt;$hash&lt;/span&gt;~1 &lt;span class=&quot;nv&quot;&gt;$filename&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I&amp;#39;ve aliased mine to &lt;code&gt;git resurrect&lt;/code&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 02 Sep 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/09/02/git-resurrect-bring-deleted-files-dead/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/09/02/git-resurrect-bring-deleted-files-dead/</guid>
+      </item>
+    
+      <item>
+        <title>Renaming files to fit on a FAT32 drive</title>
+        <description>&lt;p&gt;When moving files from my hard-drive (formatted in ext3) to my mp3 music
+player or to any drive formatted in FAT32, some files never get to the
+destination due to illegal characters in their filename.&lt;/p&gt;
+
+&lt;p&gt;Those includes characters like question marks, colons or quotes which can be
+quite common in media filenames.&lt;/p&gt;
+
+&lt;p&gt;So I wrote myself a &lt;a href=&quot;https://github.com/pixelastic/oroshi/blob/master/scripts/bin/rename-%0Afat32&quot;&gt;tiny command-line
+script&lt;/a&gt; to make the filenames FTA32 compliant. Note that this is a destructive
+operation as it will simply remove the illegal characters.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 31 Aug 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/08/31/renaming-files-fit-fat32-drive/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/08/31/renaming-files-fit-fat32-drive/</guid>
+      </item>
+    
+      <item>
+        <title>Converting files to UTF-8 from the command line</title>
+        <description>&lt;p&gt;Converting to and from charset encoding is boring. Life would be much easier
+if everything was saved in proper UTF-8.&lt;/p&gt;
+
+&lt;p&gt;I just coded a couple of scripts that will help be read file encoding from
+files and convert them to UTF-8.&lt;/p&gt;
+
+&lt;p&gt;First, not all encoding can be easily read. Some uses markers that are easy to
+check, other requires heuristic and guessing. I won&amp;#39;t deal with the second
+part. Most of the files I&amp;#39;m currently handling are either Latin1 (ISO-8859-1)
+or Latin2 (ISO-8859-2), so I&amp;#39;ll limit the scope of my scripts to those two
+sets.&lt;/p&gt;
+
+&lt;p&gt;Fortunatly, the default &lt;code&gt;file&lt;/code&gt; command can do that.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;file -bi file.txt
+text/plain&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;us-ascii
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;file -bi bad.html
+text/html&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;iso-8859-1
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;file -bi good.html
+text/html&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;utf-8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now that we have a way to know the input encoding, we can use &lt;code&gt;recode&lt;/code&gt; to
+convert to UTF-8. You can install &lt;code&gt;recode&lt;/code&gt; easily with &lt;code&gt;sudo apt-get install
+recode&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once done, it is just a matter of &lt;code&gt;convert latin1..utf8 bad.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;I wrapped those methods in two scripts : &lt;a href=&quot;https://github.com/pixelas%0Atic/oroshi/blob/master/scripts/bin/encoding&quot;&gt;encoding&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/pixelastic/oroshi/blob/master/scripts/bin/utf8&quot;&gt;utf8&lt;/a&gt; that
+respectively output the file encoding and convert the file to utf8.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 30 Aug 2013 00:00:00 +0200</pubDate>
+        <link>http://blog.pixelastic.com/2013/08/30/converting-files-utf-8-command-line/</link>
+        <guid isPermaLink="true">http://blog.pixelastic.com/2013/08/30/converting-files-utf-8-command-line/</guid>
+      </item>
+    
+  </channel>
+</rss>

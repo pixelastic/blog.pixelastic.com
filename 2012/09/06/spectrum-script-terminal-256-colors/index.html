@@ -1,0 +1,175 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Spectrum, a script to see your terminal 256 colors - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Spectrum, a script to see your terminal 256 colors</h1>
+  <span class="post-date">06 Sep 2012</span>
+  <p>Here is a little script I hacked together to display in your terminal all the
+colors available in the 256 color spectrum, as well as a visual representation
+of them.</p>
+
+<p><img src="http://s3.pixelastic.com/files/2012/09/06%0A/504834cb-df14-4fa6-a08c-763445a3e447/spectrum2.png" alt="Screenshot of spectrum output"></p>
+
+<p>The <code>oh-my-zsh</code> project actually ships with a method named <code>spectrum</code> that
+does pretty much the same thing, but I found that it was hard to actually get
+a real feel of what the color where with the original output. So I coded this
+one.</p>
+
+<p>It does not display the colors in the range <code>{000..015}</code> because those are
+dependent on your terminal configuration. Also, the output is split in blocks
+of 6 lines, with 2 blocks displayed side by side. You can modify those values
+in the script if you want to make it easier to read on you screen. I use 2 and
+6 because it is what is the more readable on my tiny netbook screen.</p>
+
+<p>Ok, enough talk, here is the script</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/usr/bin/zsh</span>
+<span class="c"># Display the terminal 255 colors by blocks</span>
+
+<span class="c"># Long space is long</span>
+<span class="nb">local </span><span class="nv">space</span><span class="o">=</span><span class="s2">&quot; &quot;</span>
+<span class="k">for </span>i in <span class="o">{</span>0..22<span class="o">}</span><span class="p">;</span> <span class="k">do </span><span class="nv">space</span><span class="o">=</span><span class="nv">$space</span><span class="s2">&quot; &quot;</span><span class="p">;</span> <span class="k">done</span>
+
+<span class="c"># Number of color lines per block</span>
+<span class="nb">local </span><span class="nv">lines</span><span class="o">=</span>6
+<span class="c"># Number of blocks per terminal line</span>
+<span class="nb">local </span><span class="nv">blocks</span><span class="o">=</span>2
+
+<span class="c"># Tmp var to hold the current line in a block</span>
+<span class="nb">local </span><span class="nv">m</span><span class="o">=</span>0
+<span class="c"># Tmp var to hold how many blocks are filled</span>
+<span class="nb">local </span><span class="nv">b</span><span class="o">=</span>0
+<span class="nb">typeset</span> -A grid
+
+<span class="c"># We want to display the blocks side by side, so it means we&#39;ll have to create</span>
+<span class="c"># each line one my one then display all of them, and after that jump to the</span>
+<span class="c"># next set of blocks</span>
+<span class="k">for </span>color in <span class="o">{</span>016..255<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+    <span class="c"># Current line in a block</span>
+    <span class="nv">m</span><span class="o">=</span><span class="k">$((</span><span class="o">(</span><span class="nv">$color</span><span class="o">-</span><span class="m">16</span><span class="o">)%</span><span class="nv">$lines</span><span class="k">))</span>
+
+    <span class="c"># Appending the displayed color to the line</span>
+    grid<span class="o">[</span><span class="nv">$m</span><span class="o">]=</span><span class="nv">$grid</span><span class="o">[</span><span class="nv">$m</span><span class="o">]</span><span class="s2">&quot;^[[01m^[[38;5;${color}m#${color} ^[[48;5;${color}m${space}^[[00m  &quot;</span>
+
+    <span class="c"># Counting how many blocks are filled</span>
+    <span class="o">[[</span> <span class="nv">$m</span> <span class="o">=</span> 5 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nv">b</span><span class="o">=</span><span class="k">$((</span><span class="nv">$b</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+
+    <span class="c"># Enough blocks for this line, display them</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$b</span> <span class="o">=</span> <span class="nv">$blocks</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="c"># Reset block counter</span>
+        <span class="nv">b</span><span class="o">=</span>0<span class="p">;</span>
+        <span class="c"># Display each line</span>
+        <span class="k">for </span>j in <span class="o">{</span>0..5<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+<span class="k">            </span><span class="nb">echo</span> <span class="nv">$grid</span><span class="o">[</span><span class="nv">$j</span><span class="o">]</span>
+            grid<span class="o">[</span><span class="nv">$j</span><span class="o">]=</span><span class="s2">&quot;&quot;</span>
+        <span class="k">done</span>
+<span class="k">        </span><span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c"># Display each remaining blocks</span>
+<span class="k">for </span>j in <span class="o">{</span>0..5<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="nv">$grid</span><span class="o">[</span><span class="nv">$j</span><span class="o">]</span>
+    grid<span class="o">[</span><span class="nv">$j</span><span class="o">]=</span><span class="s2">&quot;&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Oh and one last word. You might want to pipe the output to <code>less</code> to make it
+easier to read if you&#39;re on a small screen like me.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/colors">#colors</a>
+    
+      <a href="/tags/spectrum">#spectrum</a>
+    
+      <a href="/tags/ubuntu">#ubuntu</a>
+    
+      <a href="/tags/linux">#linux</a>
+    
+      <a href="/tags/terminal">#terminal</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

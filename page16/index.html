@@ -1,0 +1,445 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/05/06/php-casting-strangeness/">
+        Another PHP casting weirdness
+      </a>
+    </h1>
+
+    <span class="post-date">06 May 2011</span>
+
+    <p>Second weird PHP behavior behavior of the day :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = false;</span>
+<span class="x">echo $foo[&#39;bar&#39;]; // Ouptuts nothing, but doesn&#39;t throw an error either</span>
+</code></pre></div>
+<p>Strange. I try to read an undefined index (<code>false</code>is not an array), but PHP
+doesn&#39;t complain. That&#39;s weird.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = true;</span>
+<span class="x">echo $foo[&#39;bar&#39;]; // Throws an error</span>
+</code></pre></div>
+<p>This time, PHP tells me that the index is not defined and throws an error.
+Wait, what ?</p>
+
+<p>Apparently, this is the intended behavior, but it does seem a bit strange...</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/casting">#casting</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/boolean">#boolean</a>
+      
+        <a href="/tags/array">#array</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/05/06/json-decode-casts-strings-floats/">
+        json_decode casts strings to floats
+      </a>
+    </h1>
+
+    <span class="post-date">06 May 2011</span>
+
+    <p>The PHP function <a href="http://fr.php.net/manual/en/function.json-%0Adecode.php">json_decode</a> takes a JSON string as argument and return a decoded array/object
+.</p>
+
+<p>However, when passing an argument that has nothing to do with a JSON string,
+the function was supposed to return null. But, in practice, this didn&#39;t go so
+well.</p>
+
+<h2>Passing a string</h2>
+
+<p>Here&#39;s an example :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = &#39;foo&#39;;</span>
+<span class="x">$bar = json_decode($foo);</span>
+<span class="x">// $bar is nothing,</span>
+<span class="x">echo (is_null($bar)) ? &quot;This is null&quot; : &quot;This is not null&quot;;</span>
+</code></pre></div>
+<h2>Passing a float</h2>
+
+<p>Here, we try to decode a string. The function rejects it and returns null.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = 0.4;</span>
+<span class="x">$bar = json_decode($foo);</span>
+<span class="x">// $bar is a float</span>
+<span class="x">echo (is_float($bar)) ? &quot;This is a float&quot; : &quot;This is not a float&quot;;</span>
+</code></pre></div>
+<p>Here, we pass a floating number. And the function returns... a floating
+number. Wait, what ?</p>
+
+<p>This is weird, I expected it to return null, once again. But maybe it&#39;s
+correct and the JSON specs says so. I didn&#39;t check, actually.</p>
+
+<h2>Passing a string thats looks like a float</h2>
+
+<p>But the next example is even better :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = &#39;0.4&#39;;</span>
+<span class="x">$bar = json_decode($foo);</span>
+<span class="x">// $bar is also a float, even if $foo was a string</span>
+<span class="x">echo (is_float($bar)) ? &quot;This is a float&quot; : &quot;This is not a float&quot;;</span>
+</code></pre></div>
+<p>This time I pass a string as a parameter (like example 1) but got a float as a
+result (like example 2).</p>
+
+<p>Well, this time I&#39;m sure that can&#39;t be the correct behavior.</p>
+
+<h2>How to deal with it</h2>
+
+<p>I finally wrote a little wrapper for json_decode to handle those strange cases
+:</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function my_json_decode($var) {</span>
+<span class="x">  $decodedValue = json_decode($var, true);</span>
+<span class="x">  return is_array($decodedValue) ? $decodedValue : $var;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>This will check that the result of the JSON decoding is an array, and if not
+(meaning the original string was not a JSON string), it will return the
+original string.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/json">#json</a>
+      
+        <a href="/tags/float">#float</a>
+      
+        <a href="/tags/json-decode">#json-decode</a>
+      
+        <a href="/tags/string">#string</a>
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/05/05/custom-logging-system-cakephp/">
+        Custom logging system for cakePHP
+      </a>
+    </h1>
+
+    <span class="post-date">05 May 2011</span>
+
+    <p>I do love cakePHP, but sometimes it can get tricky to get it to do exactly
+what you want.</p>
+
+<p>For our big app, we needed to stop using the builtin logging system to take
+advantage of the syslog and log analyzer tools we had.</p>
+
+<p>At first I got confused by the various log files, but after reading the cake
+core code, it (kinda) makes sense. Let me explain it to you.</p>
+
+<h2>CakeLog and FileLog</h2>
+
+<p><code>CakeLog</code>is the cake static class that handles all the log actions. You can
+call it yourself statically using <code>CakeLog::write()</code>, but cake also calls it
+itself when an error is reported.</p>
+
+<p><code>CakeLog</code>internally write its content using the FileLog. This <code>FileLog
+</code>writes its content to files located in <code>app/tmp/logs</code>.</p>
+
+<h2>Writing errors to the syslog instead</h2>
+
+<p>We didn&#39;t want our logs to be saved in <code>app/tmp/logs</code> for three mains reasons
+:</p>
+
+<ol>
+<li>Those files gets deleted on every deploy we did (this was how our deployment system works)</li>
+<li>Those files can get very big very fast</li>
+<li>Our app was distributed accross several servers, meaning that each server had its own set of log files</li>
+</ol>
+
+<p>Instead, we wanted them to be written to the syslog where they would be
+intercepted and stored in our main log analyzer.</p>
+
+<p>To do so, we wrote a simple <code>SysLog</code>class to use instead of the <code>FileLog</code>.
+Here it is :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class SysLog {</span>
+<span class="x">  /**</span>
+<span class="x">  *    Writes a log to the syslog</span>
+<span class="x">  *    \param    $type    Either a numerical constant or a string</span>
+<span class="x">  *    \param    $message    Message to log</span>
+<span class="x">  **/</span>
+<span class="x">  public function write($type, $message) {</span>
+<span class="x">    // We &quot;fix&quot; CakeLog that passes severity as a string</span>
+<span class="x">    if (is_string($type)) {</span>
+<span class="x">      // Mapping string to syslog priorities</span>
+<span class="x">      $priorities = array(</span>
+<span class="x">        &#39;debug&#39;    =&gt; LOG_DEBUG,</span>
+<span class="x">        &#39;info&#39;        =&gt; LOG_INFO,</span>
+<span class="x">        &#39;notice&#39;    =&gt; LOG_NOTICE,</span>
+<span class="x">        &#39;warning&#39;    =&gt; LOG_WARNING,</span>
+<span class="x">        &#39;error&#39;    =&gt; LOG_ERR,</span>
+<span class="x">        &#39;default&#39;    =&gt; LOG_NOTICE</span>
+<span class="x">      );</span>
+<span class="x">      $type = (array_key_exists($type, $priorities)) ? $priorities[$type] : $priorities[&#39;default&#39;];</span>
+<span class="x">    }</span>
+<span class="x">    // Writing to syslog</span>
+<span class="x">    openlog(false, 0, LOG_LOCAL7);</span>
+<span class="x">    syslog($type, trim($message));</span>
+<span class="x">    closelog();</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Place this file in <code>app/lib/log/sys_log.php</code>. Then, in
+<code>app/config/bootstrap.php</code>, place the following code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">CakeLog::config(&#39;default&#39;, array(&#39;engine&#39; =&gt; &#39;SysLog&#39;));</span>
+</code></pre></div>
+<p>It is important that you place the <code>CakeLog::config()</code> call in<code>bootstrap.php</code>
+and not in <code>core.php</code> because of the way cake actually loads its internal. I
+also manually defined the syslog facility as LOCAL7, but you can change it to
+whatever you want or even update the code so the actual facility can be passed
+as a parameter of the <code>CakeLog::config()</code> call (actually, that&#39;s how it&#39;s done
+in my real code, but I didn&#39;t want to overcomplicate the example).</p>
+
+<p>Also, note that I added a special code to handle the way CakeLog passes
+parameters to the SysLog. CakeLog passes the severity as a string, so we
+convert it back to the PHP constants.</p>
+
+<p>With this code, all your logs will now be routed to the syslog, and your
+<code>app/tmp/logs</code> directory will no longer grow in size (instead, that will be
+your <code>/var/logs/syslog</code> :) )</p>
+
+<h2>Where are my errors loggued now ?</h2>
+
+<p>Well, your errors are loggued to the syslog. But cake defines its own error
+handler that will reformat the error thrown by PHP, and reroute it to the
+<code>CakeLog</code>. In effect, it means that all errors with similar severity will be
+grouped (<code>E_PARSE</code>, <code>E_ERROR</code>, <code>E_CORE_ERROR</code>, etc will be loggued as<code>
+LOG_ERROR</code>). Also, cake will parse and reformat the message to log. It can be
+problematic if you rely on your PHP config to correctly parse your logs
+because you won&#39;t have the expected output.</p>
+
+<p>Hopefully, cake provides a way to disable this error handler, but it was very
+tricky to find and even more tricky to correctly use. I won&#39;t spend too much
+time on all the details, but what you have to know is :</p>
+
+<ol>
+<li>You have to define a <code>define(&#39;DISABLE_DEFAULT_ERROR_HANDLING&#39;, true);</code> in order to disable the cake error handler and use the default PHP one</li>
+<li>This call MUST be done before your <code>Configure::write(&#39;debug&#39;)</code> call otherwise it won&#39;t work</li>
+<li>You also have to define a <code>Configure::write(&#39;log&#39;, E_ALL &amp; ~E_DEPRECATED);</code> for this to work but...</li>
+<li>You can&#39;t define both the debug and the log value in the same call using an array, you have to define them in two different calls <code>debug</code>then <code>log</code></li>
+</ol>
+
+<p>So, finally, here is the final working configuration :</p>
+
+<p>In <code>app/config/core.ph</code>p :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">Configure::write(&#39;log&#39;, E_ALL &amp; ~E_DEPRECATED);</span>
+<span class="x">define(&#39;DISABLE_DEFAULT_ERROR_HANDLING&#39;, true);</span>
+</code></pre></div>
+<p>And in<code>app/config/bootstrap.php</code> :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">CakeLog::config(&#39;default&#39;, array(&#39;engine&#39; =&gt; &#39;SysLog&#39;));</span>
+</code></pre></div>
+<h2>Final words</h2>
+
+<p>I wrote this blog post because I got hit by this problem. Twice. I didn&#39;t
+bloggued about it the first time, so a few weeks later when I had to change
+some config values in my bootstrap.php and core.php I forgot about the
+specific order of loading things. It took me a couple hours to figure it out
+again.</p>
+
+<p>So, to avoid running into the same issue some months from now, I took some
+time to write it down, and hopefully I&#39;ll help some of you too.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/syslog">#syslog</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/filelog">#filelog</a>
+      
+        <a href="/tags/disable-default-error-handling">#disable-default-error-handling</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/cakelog">#cakelog</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/04/20/parsing-error-cakephp-view-empty-file/">
+        Parsing error in cakePHP view for empty file
+      </a>
+    </h1>
+
+    <span class="post-date">20 Apr 2011</span>
+
+    <p>As a convention, I never write the closing PHP tag at the end of my php files.
+It helps in avoiding the &quot;header already sent&quot; error when dealing with
+cookie/sessions.</p>
+
+<p>However, today cake complains about</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">Parse error: syntax error, unexpected $end in /var/www/website/app/views/players/default.ctp on line 1</span>
+</code></pre></div>
+<p>My <code>default.ctp file</code> only contain the following content :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+</code></pre></div>
+<p>It took me a couple of minutes to fix it. I only added an empty line after the
+opening tag, so it now read :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+</code></pre></div>
+<p>The first statement was a perfectly valid php file, but somehow it makes
+cakePHP fail.</p>
+
+<p>I didn&#39;t have time to investigate on it further, nor submit a bug report
+(because it may well be coming from my custom app, not cake itself) but I plan
+to.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/04/13/losing-session-request-cakephp-chrome/">
+        Losing session on each request with cakePHP and Chrome
+      </a>
+    </h1>
+
+    <span class="post-date">13 Apr 2011</span>
+
+    <p>I finally found solution for one of the more tenacious bug I ever encountered.
+Share the joy !</p>
+
+<p>I had a website working perfectly under Firefox but when browsing using
+Chrome, I noticed that my Session gets regenerated on each page load.
+<strong>Constantly</strong>. Creating hundred and hundred of useless session files.</p>
+
+<h2>And only with Chrome.</h2>
+
+<p>Since when using a browser should change the server behavior ? Well I don&#39;t
+exactly know what Chrome is doing with the <code>referer</code> but it seems that it is
+altering it in some ways.</p>
+
+<p>And cakePHP forces the setting of <code>session.referer_check</code> to <code>true</code>, thus
+checking that multiple requests with the same PHPSESSID comes from the same
+url.</p>
+
+<p>As one posted on php.net :</p>
+
+<blockquote>
+<p>If you have a value specified for session.referer<em>check you may run into
+difficulty when someone accesses your site and attempts to log in with a mis-
+capitalized URL.  The logon will fail because any calls to session</em>start()
+will result in the existing session being trashed and a new one being created.
+This becomes a bigger problem when the logon is followed by a
+header(&quot;Location: ...&quot;) redirect, because the session_start() at the top of
+the page will fail.</p>
+</blockquote>
+
+<p>Those two settings combined, and you got a hell of a mess. I first found a
+quick fix by forcing the setting of <code>session_start()</code> in
+<code>app/webroot/index.php</code>. But after more <a href="http://www.nirvaat.com/blog%0A/web-development/session-issue-in-iis-with-cakephp/">reading </a>and <a href="http://freetofeel.com/page15/">debugging
+</a>I finally found the culprit.</p>
+
+<h2>Hacking your way through the fix</h2>
+
+<p>There is no easy way to prevent cake from setting this setting, but you can
+define your own session handler in the <code>Session.save</code> configure key.</p>
+
+<p>Just create file named <code>session_custom.php</code> in <code>app/config/</code> and set
+<code>Configure::write(&#39;Session.save&#39;, &#39;session_custom&#39;);</code> in your <code>core.php</code> file.</p>
+
+<p>And in that file, just drop the following lines (copy/paste from
+<code>cake_session.php</code>)</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">ini_set(&#39;session.referer_check&#39;, &#39;&#39;);                    // Killing this f***ing config that was causing so much trouble with Chrome</span>
+<span class="x">ini_set(&#39;session.use_trans_sid&#39;, 0);                    // No session id in url</span>
+<span class="x">ini_set(&#39;session.name&#39;, Configure::read(&#39;Session.cookie&#39;));    // Using custom cookie name instead of PHPSESSID</span>
+<span class="x">ini_set(&#39;session.cookie_lifetime&#39;, $this-&gt;cookieLifeTime);    // Cookie like time, depending on security level</span>
+<span class="x">ini_set(&#39;session.cookie_path&#39;, $this-&gt;path);                // Cookie path</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/chrome">#chrome</a>
+      
+        <a href="/tags/session">#session</a>
+      
+        <a href="/tags/referer-check">#referer-check</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page17">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page15">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

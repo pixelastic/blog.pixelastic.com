@@ -1,0 +1,171 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Working on Wednesday #8 : Custom zsh scripts for housekeeping - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Working on Wednesday #8 : Custom zsh scripts for housekeeping</h1>
+  <span class="post-date">03 Aug 2011</span>
+  <p>I made a break of the Ruby/Rails learning this week. Instead I learned a bit
+more about the basic Linux command, and made a few scripts to help me in my
+day to day work (and fun) with my Linux environment.</p>
+
+<p>I currently use two laptops. One is a tiny netbook while the other a Dell XPS.
+I mostly use the XPS for everything work related (like posting this), while
+the netbook is dedicated to casual use : browsing, playing, etc.</p>
+
+<p>Last week, during my vacations, I only took the netbook with me, and while not
+strictly speaking working on it I still had to code a little bit. I installed
+<code>ScummVM</code>, <code>CortixTH</code> and managed to run Carmageddon 2 under <code>wine</code>. I also
+downloaded and tried a few old emulator games on my
+<a href="http://en.wikipedia.org/wiki/Dingoo_A320">Dingoo</a>.</p>
+
+<p>As you may have guessed, I wrote a bunch of scripts during that week to help
+me in some of the more tedious aspects of this task.</p>
+
+<h2>Dingoo deployment</h2>
+
+<p>Downloading roms, copying them to the Dingoo, and then testing the games to
+make sure they are working was tedious. I wrote a little script that
+automatically mount the Dingoo when plugged to the computer, and copy my games
+to it, removing old version along the way while still keeping my saved games.</p>
+
+<p>I had to parse <code>dmesg</code> (thanks to <code>grep</code>, <code>tail</code> and <code>sed</code>) as well as use
+<code>rsync</code> for the copy.</p>
+
+<h2>Sansa Clip cleaning</h2>
+
+<p>I also wrote a simple script to clean my <a href="http://anythingbutipod.com/2009/08/sandisk-sansa-clip-plus-review/">Sansa
+Clip</a> of
+all the useless files I had put on it. As I only have a text screen, I don&#39;t
+need the <code>jpg</code> covers, torrent <code>txt</code> files, auto-generated <code>m3u</code> files and
+other <code>thumbs.db</code> and <code>.DS_Store</code> useless files.</p>
+
+<p>Here, <code>find</code> to the rescue with some <code>zsh</code> scripting, and here we go.</p>
+
+<h2>Shared config files</h2>
+
+<p>As I&#39;m working on several computers (two laptops and the one at work at
+least), I found myself spending time reconfiguring stuff multiple times.</p>
+
+<p>Here, thanks to Dropbox and some clever <code>ln -s</code> calls, I managed to replicate
+the same config on the 3 machines easily.</p>
+
+<p>From my freelance time, I also have a pretty big <code>/etc/hosts</code> and
+<code>~/.ssh/config</code> file. At work, I have another one for the work servers. But I
+sometimes had to connect to the work server from home.</p>
+
+<p>So once again, thanks to Dropbox, some <code>ln -s</code> once more and <code>cat</code> I wrote two
+functions to regenerate those two files based on config files. That way,
+whenever I change one of those files, it is updated on the other machines too.</p>
+
+<p>That was it. It took most of my day.</p>
+
+<p>Being able to script those little repetitive tedious task is something I
+really appreciate on Linux. I am no longer dependent on the UI my OS gave me,
+and can now really understand how things work. It requires some time to learn,
+but this is not going to drastically change from one version to another like
+it does on each Windows new release.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/ssh">#ssh</a>
+    
+      <a href="/tags/wednesday">#wednesday</a>
+    
+      <a href="/tags/zsh">#zsh</a>
+    
+      <a href="/tags/sansa">#sansa</a>
+    
+      <a href="/tags/linux">#linux</a>
+    
+      <a href="/tags/hosts">#hosts</a>
+    
+      <a href="/tags/dropbox">#dropbox</a>
+    
+      <a href="/tags/dingoo">#dingoo</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

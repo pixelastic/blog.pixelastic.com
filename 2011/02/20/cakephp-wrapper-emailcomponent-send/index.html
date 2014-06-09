@@ -1,0 +1,161 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     cakePHP wrapper for EmailComponent::send() - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">cakePHP wrapper for EmailComponent::send()</h1>
+  <span class="post-date">20 Feb 2011</span>
+  <p>As I already wrote in a <a href="/blog/230:displaying-html-mails-sent-%0Afrom-cakephp-in-squirrelmail">previous post</a>, the cakePHP <code>EmailComponent</code>seems to have some
+quirks, forcing me to add more code to send an email.</p>
+
+<p>I stumbled upon one more issue today : a <code>View</code> poisoning coming from the
+<code>EmailComponent</code>. Some vars I was passing to my view through the use of a
+custom <code>Helper</code>were wipe away if I send a mail in the same request.</p>
+
+<p>It took me some time to track it down, but I finally decided that I&#39;ll now
+wrap calls to <code>$this-&gt;Email-&gt;send()</code> into a <code>__sendEmail()</code> custom method
+where I&#39;ll add my tweaks.</p>
+
+<p>This will help migrating to a newer cake version easier when those bugs will
+be fixed.</p>
+
+<h2>Easy debug</h2>
+
+<p>Debugging emails is not an easy task, but is greatly eased by cake. One can
+set the delivery type to <code>debug</code>and the mail will be generated like a normal
+mail, but won&#39;t be sent. Instead, its content will be saved in <code>Session</code>.</p>
+
+<p>My wrapper will allow switching from normal to debug mail thanks to an
+argument.</p>
+
+<h2>View cleaning</h2>
+
+<p>I&#39;ll also clear the <code>ClassRegistry</code>from the <code>View</code>created by the
+<code>EmailComponent</code>. The <code>Email</code>view is shared with the display view and this
+can result in vars being lost or not correctly set. I think all those troubles
+are gone in cake 2.0 but I haven&#39;t tested it yet.</p>
+
+<h2>The __sendMail method</h2>
+
+<p>Here is the method code. You should add it to your AppController :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function __sendMail($sendAsDebug = false) {</span>
+<span class="x">  if (empty($this-&gt;Email)) {</span>
+<span class="x">    return false;</span>
+<span class="x">  }</span>
+<span class="x">  // Debug mode</span>
+<span class="x">  if (!empty($sendAsDebug)) {</span>
+<span class="x">    $this-&gt;Email-&gt;delivery = &#39;debug&#39;;</span>
+<span class="x">  }</span>
+<span class="x">  // We force adding the boundaries and header otherwise some webmail (like SquirelMail) won&#39;t correctly display them</span>
+<span class="x">  $this-&gt;Email-&gt;_createboundary();</span>
+<span class="x">  $this-&gt;Email-&gt;__header[] = &#39;MIME-Version: 1.0&#39;;</span>
+<span class="x">  $this-&gt;Email-&gt;send();</span>
+<span class="x">  // We display debug info</span>
+<span class="x">  if (!empty($sendAsDebug)) {</span>
+<span class="x">    debug($this-&gt;Session-&gt;read(&#39;Message.email.message&#39;), true);</span>
+<span class="x">  }</span>
+<span class="x">  // We also need to clear the generated view so our display does not get poisoned by the Email display</span>
+<span class="x">  ClassRegistry::removeObject(&#39;view&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/classregistry">#classregistry</a>
+    
+      <a href="/tags/component">#component</a>
+    
+      <a href="/tags/email">#email</a>
+    
+      <a href="/tags/squirrelmail">#squirrelmail</a>
+    
+      <a href="/tags/emailcomponent">#emailcomponent</a>
+    
+      <a href="/tags/view">#view</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

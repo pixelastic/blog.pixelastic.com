@@ -1,0 +1,130 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Changing Firefox language - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Changing Firefox language</h1>
+  <span class="post-date">04 May 2010</span>
+  <p>I&#39;m French, live in France, but usually prefer having my software in English.</p>
+
+<p>This is so because english words are generally shorter (and thus fits more
+easily in a GUI) and most of the time french translations aren&#39;t optimal.</p>
+
+<p>I just download the latest Firefox version from their website, and without
+knowing it, it was a French localized one. They do some sniffing on the user
+agent string and automatically download the corresponding file.</p>
+
+<p>That seems a great idea, but I prefer my software in english, so I searched
+for a <code>en-US.xpi</code> file to update firefox. It does exists for any other
+language, but not for <code>en-US</code>, this being the default language, as stated in
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=485860">this bug report</a>.</p>
+
+<p>It seems the only way to have an english Firefox is to download the english
+version, there is no way to change it afterwards.</p>
+
+<p>You can type <code>about:config</code> and change the <code>general.useragent.locale</code> value to
+<code>en-US</code> but it does not update the main language, only tell plugins to use
+that language (AFAIK).</p>
+
+<p>Changing the language in the options only change the user agent string.</p>
+
+<p>Well, I had to backup my profiles, uninstall FF, download the english version
+and reinstall it.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/locale">#locale</a>
+    
+      <a href="/tags/language">#language</a>
+    
+      <a href="/tags/general-useragent-locale">#general-useragent-locale</a>
+    
+      <a href="/tags/firefox">#firefox</a>
+    
+      <a href="/tags/en-us">#en-us</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

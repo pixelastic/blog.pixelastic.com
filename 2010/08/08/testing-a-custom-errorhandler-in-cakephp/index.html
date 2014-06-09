@@ -1,0 +1,263 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Testing a custom ErrorHandler in cakePHP - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Testing a custom ErrorHandler in cakePHP</h1>
+  <span class="post-date">08 Aug 2010</span>
+  <p>I just finished writing the test case for a custom <code>AppError</code>class. Writing
+the tests case was indeed much more difficult than writing the class itself.</p>
+
+<p>Here are some things I&#39;ve found that may interest anyone wanting to test their
+own <code>ErrorHandlers</code>. Most of the ideas are taken from the core
+<code>ErrorHandlerTest</code>.</p>
+
+<h2>Anatomy of an error</h2>
+
+<p>Every class in cakePHP extends <code>Object</code>. And in <code>Object</code>is defined a method
+named <code>cakeError</code>. It means that anywhere in your app you can call
+<code>$this-&gt;cakeError(</code>) and the whole app will stop and display the specified
+error.</p>
+
+<p>What <code>cakeError</code>does is instantly create an instance of either <code>Controller
+</code>or <code>CakeErrorController</code>, find the correct view, render it, and stop.</p>
+
+<p>Because of the use of static variables, <code>exit</code>calls and other happyness,
+testing several errors in a test case needs us to define some new classes to
+shortcircuit most of the logic.</p>
+
+<h2>Preparing the test</h2>
+
+<p>This step is actually pretty short. Just load the default <code>ErrorHandler</code>by
+calling <code>App::import(&#39;Core&#39;,&#39;Error&#39;);</code></p>
+
+<h2>Creating a dummy AppController</h2>
+
+<p>Then, you&#39;ll have to create a new <code>AppController</code>class that extends
+<code>Controller</code>.</p>
+
+<p>We will override the <code>header</code>method to prevent &#39;<em>Headers already set</em>&#39; error
+when calling several errors in a row.</p>
+
+<p>We will also override the <code>render</code> method to store in an inner property the
+name of the rendered action. It will help test that the correct error is
+rendered.</p>
+
+<p>You may also need to define a custom list of helpers if your custom views are
+using any custom helpers.</p>
+
+<p>Here is what it looks like on my side :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class AppController extends Controller {</span>
+<span class="x">  // Helpers used in the view. If not set, will generate a fatal error</span>
+<span class="x">  var $helpers = array(&#39;Caracole.Fastcode&#39;, &#39;CaracolePacker.Packer&#39;);</span>
+<span class="x">  // Overriding the header method. If not set, will generate &#39;Headers already set&#39; errors;</span>
+<span class="x">  function header($header) {</span>
+<span class="x">    $this-&gt;header = $header;</span>
+<span class="x">  }</span>
+<span class="x">  // Overriding render method to keep track of the rendered error</span>
+<span class="x">  function render($action) {</span>
+<span class="x">          $this-&gt;renderedAction = $action;</span>
+<span class="x">          return parent::render($action);</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Creating a TestErrorHandler</h2>
+
+<p>This class will extends your <code>AppError</code>. It will just overwrite two methods to
+make it correctly work in a test case.</p>
+
+<p>First, we&#39;ll need to overwrite the <code>__construct</code>. The default construct will
+set the inner <code>$this-&gt;controller</code> property to either a <code>Controller</code>or a
+<code>CakeErrorController</code>instance depending if its the first error fired or not.
+I must admit that I haven&#39;t really understand the difference between the two.
+But I know that <code>CakeErrorController</code>extends <code>AppController</code>while
+<code>Controller</code>extends <code>Object</code>.</p>
+
+<p>And as we need to overwrite methods of this property, it being a
+<code>CakeErrorController</code>is great, while it being a <code>Controller</code>is bad. Anyway,
+what I did was copy/paste the parent <code>__construct</code> into <code>TestErrorHandler</code>and
+just force it to always create a <code>CakeErrorController</code>instance.</p>
+
+<p>The other method we need to overwrite is the <code>_stop</code>. If we don&#39;t, the whole
+script will halt after the first error you&#39;ll test.</p>
+
+<p>So, enough talk, here&#39;s the code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class TestErrorHandler extends AppError {</span>
+<span class="x">  // Copy/paste of ErrorHandler construct method, but force a new instance of CakeErrorController as $this-&gt;controller each time</span>
+<span class="x">  // CakeErrorController extends AppController, so we can overwrite its methods</span>
+<span class="x">  function __construct($method, $messages) {</span>
+<span class="x">    App::import(&#39;Core&#39;, &#39;Sanitize&#39;);</span>
+
+<span class="x">    // Forcing CakeErrorController</span>
+<span class="x">    $this-&gt;controller =&amp; new CakeErrorController();</span>
+<span class="x">    $options = array(&#39;escape&#39; =&gt; false);</span>
+<span class="x">    $messages = Sanitize::clean($messages, $options);</span>
+
+<span class="x">    if (!isset($messages[0])) {</span>
+<span class="x">      $messages = array($messages);</span>
+<span class="x">    }</span>
+
+<span class="x">    if (method_exists($this-&gt;controller, &#39;apperror&#39;)) {</span>
+<span class="x">      return $this-&gt;controller-&gt;appError($method, $messages);</span>
+<span class="x">    }</span>
+
+<span class="x">    if (!in_array(strtolower($method), array_map(&#39;strtolower&#39;, get_class_methods($this)))) {</span>
+<span class="x">      $method = &#39;error&#39;;</span>
+<span class="x">    }</span>
+<span class="x">    if ($method !== &#39;error&#39;) {</span>
+<span class="x">      if (Configure::read(&#39;debug&#39;) == 0) {</span>
+<span class="x">        $parentClass = get_parent_class($this);</span>
+<span class="x">        if (strtolower($parentClass) != &#39;errorhandler&#39;) {</span>
+<span class="x">          $method = &#39;error404&#39;;</span>
+<span class="x">        }</span>
+<span class="x">        $parentMethods = array_map(&#39;strtolower&#39;, get_class_methods($parentClass));</span>
+<span class="x">        if (in_array(strtolower($method), $parentMethods)) {</span>
+<span class="x">          $method = &#39;error404&#39;;</span>
+<span class="x">        }</span>
+<span class="x">        if (isset($code) &amp;&amp; $code == 500) {</span>
+<span class="x">          $method = &#39;error500&#39;;</span>
+<span class="x">        }</span>
+<span class="x">      }</span>
+<span class="x">    }</span>
+<span class="x">    $this-&gt;dispatchMethod($method, $messages);</span>
+<span class="x">    $this-&gt;_stop();</span>
+<span class="x">  }</span>
+
+<span class="x">  // Preventing the error from stopping all the request</span>
+<span class="x">  function _stop() {</span>
+<span class="x">    return;</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Writing your tests</h2>
+
+<p>Ok, your almost done. You just have now to write your tests. They have to
+follow a special syntax to correctly work.</p>
+
+<p>First, you&#39;ll have to wrap your <code>ErrorHandler</code>creation between <code>ob_start()</code>
+and <code>$output= ob_get_content()</code>, otherwise you&#39;ll end up with error popping
+right into your test case because the <code>ErrorHandler</code>force the controller to
+render the view.</p>
+
+<p>You&#39;ll be able to access interesting properties through
+<code>$errorHandler-&gt;controller-&gt;renderedAction</code> and
+<code>$errorHandler-&gt;controller-&gt;header</code>. You can also directly test the view
+output through <code>$output</code>.</p>
+
+<p>Ok, so here&#39;s one of my tests :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">// DEV : Error will use the error layout</span>
+<span class="x">function testCallingErrorInDevWillUseErrorLayout() {</span>
+<span class="x">  ob_start();</span>
+<span class="x">  $errorHandler = new TestErrorHandler(&#39;missingController&#39;, $this-&gt;errorParams);</span>
+<span class="x">  $result = ob_get_clean();</span>
+<span class="x">  $this-&gt;assertEqual($errorHandler-&gt;controller-&gt;layout, &#39;error&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Conclusion</h2>
+
+<p>It took me some hours to glue all this pieces together, I hope it may be
+useful to others, too. Writing the <code>AppError</code>itself was way easier, but as
+I&#39;m now test infected I don&#39;t imagine writing code without the corresponding
+tests.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/unit-testing">#unit-testing</a>
+    
+      <a href="/tags/errorhandler">#errorhandler</a>
+    
+      <a href="/tags/tests">#tests</a>
+    
+      <a href="/tags/simpletest">#simpletest</a>
+    
+      <a href="/tags/apperror">#apperror</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

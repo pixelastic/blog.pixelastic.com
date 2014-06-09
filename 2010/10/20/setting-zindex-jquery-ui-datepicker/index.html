@@ -1,0 +1,141 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Setting the z-index of a jQuery UI datepicker - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Setting the z-index of a jQuery UI datepicker</h1>
+  <span class="post-date">20 Oct 2010</span>
+  <p>I ran into a collision issue with two of my absolutly positionned elements on
+a form page. I had an invisible flash buttun (used to launch an upload
+process) as well as jQuery UI datepicker.</p>
+
+<p>The form was built in a way that when the datepicker was displayed, it was
+supposed to be on top of the invisible Flash button. Unfortunatly the button
+was in fact &quot;on top&quot; of the datepicker, but being invisible you do not notice
+it until you click.</p>
+
+<p>This resulted in an upload dialog popping up and many confused users.</p>
+
+<h2>The fix</h2>
+
+<p>The Flash <code>z-index</code> is fixed in my CSS (10), so I thought that adding a
+greater <code>z-index</code> to the jQuery UI datepicker in CSS would be enough.</p>
+
+<p>It is not. The jQuery UI datepicker seems to automatically set the <code>z-index</code>
+to 1, whatever you specified.</p>
+
+<p>I checked the <a href="http://jqueryui.com/demos/datepicker/">datepicker options</a>,
+looking for a <code>zIndex</code> key, but found nothing...</p>
+
+<p>I tried the <code>beforeShow</code>event, to manually set the <code>z-index</code>, but it seems
+that jQuery still update my value to 1 AFTER the event.</p>
+
+<p>So I finally resorted to adding a small timeout to re-add my value after
+jQuery. This is a bit of a hack but given the context this is the only way I
+found.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Set the datepicker zIndex on load</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">datepicker</span><span class="p">({</span>
+<span class="p">[...]</span>
+  <span class="s1">&#39;beforeShow&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">datepicker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nx">datepicker</span><span class="p">.</span><span class="nx">dpDiv</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;zIndex&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+  <span class="p">},</span>
+<span class="p">[...]</span>
+<span class="p">});</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/jquery-ui">#jquery-ui</a>
+    
+      <a href="/tags/index">#index</a>
+    
+      <a href="/tags/datepicker">#datepicker</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

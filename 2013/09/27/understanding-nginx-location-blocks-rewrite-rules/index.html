@@ -1,0 +1,224 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Understanding nginx location blocks and rewrite rules - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Understanding nginx location blocks and rewrite rules</h1>
+  <span class="post-date">27 Sep 2013</span>
+  <p>I recently moved a cakePHP website from an Apache server to an Nginx one. I
+had to translate url rewriting rules from one syntax to the other, and here is
+what I learned.</p>
+
+<p>First of all, Nginx internal logic for processing rewrite rules is not as
+straightforward as Apache. In Apache, rules are processed in the order in
+which they appear in your config file/<code>.htaccess</code>. In Nginx, they follow a
+more complex pattern.</p>
+
+<h2>Initial Apache rules</h2>
+
+<p>First of all, here are the (simplified) set of rules I had to convert :</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nb">RewriteRule</span> ^(css|js)/packed_(.*)$ $1/packed/$2 [L]
+
+<span class="nb">RewriteRule</span> ^files/([0-9]{4})/([0-9]{2})/([0-9]{2})/([[:alnum:]]{8}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{4}-[[:alnum:]]{12})/(.*)\.(.{3,4})    <span class="sx">/files/</span>$1/$2/$3/$4.$6 [L]
+
+<span class="nb">RewriteCond</span> %{REQUEST_FILENAME} !-d
+<span class="nb">RewriteCond</span> %{REQUEST_FILENAME} !-f
+<span class="nb">RewriteRule</span> ^(.*)$ index.php?url=$1 [QSA,L]
+</code></pre></div>
+<p>The first rule deals with compressed <code>css</code> and <code>js</code> files. Minified <code>css</code> and
+<code>js</code> files are saved in <code>/css/packed/</code> with a filename made of a md5 hash of
+the original filenames and a timestamp. So a url of
+<code>/css/packed_6e4f31ffc48b6_1330851887.css</code> will actually return the file
+located in <code>/css/packed/6e4f31ffc48b6_1330851887.css</code></p>
+
+<p>The second rule is about media files uploaded on the server. Each uploaded
+file is stored in the <code>/files/</code> directory, in a subfolder made from the
+uploading date (like <code>/files/2012/08/25/</code>). The actual file is given a UUID
+when saved, and this UUID is used as its filename on disk. The rewrite rule
+allow the use of any custom filename when linking the file. This helps for SEO
+purposes as well as making it more user-friendly when we present a download to
+our users. So
+<code>/files/2012/08/25/50483446-4b00-4d5b-8498-763e45a3e447/Subscription_form.pdf</code>
+actually returns the file at
+<code>/files/2012/09/06/50483446-4b00-4d5b-8498-763e45a3e447.pdf</code></p>
+
+<p>And the last rule is the default cakePHP rewrite rule. It first checks if the
+requested url points to an existing directory or file, and if not dispatch it
+to the main entry point : <code>index.php</code> with the requested url as a parameter.</p>
+
+<h2>Converting it to Nginx</h2>
+
+<p>Rewrite rules in Nginx are usually found in <code>location</code> blocks. There are
+several ways you can define a <code>location</code> block, and it affects the order in
+which the rules will be parsed.</p>
+
+<p>Nginx first checks for <code>location =</code> blocks. Those blocks are used to catch an
+exact match of the requested url. Once such a block is found, its content is
+applied, and Nginx stops looking for more matches.</p>
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">=</span> <span class="s">/my-exact-file.html</span> <span class="p">{</span>
+  <span class="kn">rewrite</span> <span class="s">/my-exact-file.html</span> <span class="s">http://external-website.com/</span>
+<span class="err">}</span>
+</code></pre></div>
+<p>In this example, a request for <code>/my-exact-file.html</code> will be redirected to
+<code>http://external-website.com.</code> Note that you need to repeat the url in both
+the <code>location =</code> block and the <code>rewrite</code> rule.</p>
+
+<p>The <code>location =</code> is of very limited use as it only accepts an exact match on a
+string. Much more useful are the <code>location ~</code> blocks that performs matches on
+regex (and the <code>location ~*</code> for a case-insensitive version).</p>
+
+<p>Such blocks are tested after the <code>location =</code>ones, in the order they appear
+in your configuration file. Once a block matches, Nginx applies its content
+but does not stop. It keeps looking for other blocks that might match and
+apply them. It&#39;s up to you, in the block content, to define if the parsing
+should stop, using the <code>break</code> command.</p>
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">~</span> <span class="sr">/(css|js)/packed_</span> <span class="p">{</span>
+  <span class="kn">rewrite</span> <span class="s">^/(css|js)/packed_(.*)</span>$ <span class="s">/</span><span class="nv">$1/packed/$2</span> <span class="s">break</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">location</span> <span class="p">~</span> <span class="sr">/files</span> <span class="p">{</span>
+  <span class="kn">rewrite</span> <span class="s">^/files/(.*)/(.*)/(.*)\.(.*)</span>$ <span class="s">/files/</span><span class="nv">$1/$2.$4</span> <span class="s">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In the first rule I&#39;m looking for any <code>/css/packed_*</code> or <code>/js/packed_*</code>
+request, and converting them to <code>/css/packed/*</code> or <code>/js/packed/*</code>. Note the
+use of backreferences in the rewrite using <code>$x</code> variables. In the second rule
+I simplified the original regex from Apache to catch the <code>/2012/08/23/</code> in
+<code>$1</code>, the UUID in <code>$2</code>, the filename in <code>$3</code> and the extension in <code>$4</code> and
+rewriting the request to the correct file on disk.</p>
+
+<p>Both rewrites ends with the <code>break</code> flag. It tells Nginx that it should stop
+looking for other <code>location ~</code> blocks matching the requested url and just
+serve the file. Another useful flag is <code>last</code>, which tells Nginx to restart
+its whole url matching process from the beginning but this time using the
+newly rewritten url.</p>
+
+<p>There is one last <code>location</code> block that we can use, and it&#39;s the simple
+<code>location</code>, without any prefix. These <code>location</code> blocks will be checked last,
+if no <code>location =</code> or <code>location ~</code> had stopped the processing. They are
+especially good for a last &quot;catch all&quot; solution, and we are going to use them
+to dispatch urls to <code>index.php</code></p>
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+  <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="s">/index.php?url=</span><span class="nv">$request_uri</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Using <code>location /</code>, we&#39;ll catch any remaining requests. The <code>try_files</code>
+command will test every one of its arguments in order to see if they exist on
+disk and serve them if they do. So in our example it will first check for the
+requested uri, and if such a file exists, will serve it. Otherwise it will
+simply dispatch it to the main <code>index.php</code> with the requested url as an
+argument and cakePHP will do the rest.</p>
+
+<p>There is one last thing we must do, it&#39;s telling Nginx to pass any <code>.php</code> file
+to the PHP fastcgi. This is quite easy using a <code>location ~</code> block matching any
+<code>.php</code> file. This will even apply to files served through <code>try_files</code>.</p>
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">~</span> <span class="sr">\.php$</span> <span class="p">{</span>
+  <span class="kn">fastcgi_pass</span>   <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">9000</span><span class="p">;</span>
+  <span class="kn">fastcgi_index</span>  <span class="s">index.php</span><span class="p">;</span>
+  <span class="kn">fastcgi_intercept_errors</span> <span class="no">on</span><span class="p">;</span>
+  <span class="kn">include</span> <span class="s">fastcgi.conf</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2>Conclusion</h2>
+
+<p>Wrapping your mind around the order in which Nginx applies your rewrites is
+not easy at first. I hope this post helped you making sense of it.</p>
+
+<p>Note that there also is the <code>location ^~</code> block but I found it to be of very
+limited used as its behavior can be replicated with the more generic <code>location
+~</code> blocks.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/htaccess">#htaccess</a>
+    
+      <a href="/tags/apache">#apache</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/nginx">#nginx</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/commandline-escaping-magic/"> -->
+<!--             Commandline escaping magic -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

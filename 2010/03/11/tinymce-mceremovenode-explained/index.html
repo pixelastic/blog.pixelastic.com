@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     tinyMCE mceRemoveNode explained - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">tinyMCE mceRemoveNode explained</h1>
+  <span class="post-date">11 Mar 2010</span>
+  <p>When writing my image plugin for tinyMCE today I came accross the
+<code>mceRemoveNode</code>command that one can use to alter the tinyMCE editor content.</p>
+
+<p>It has to be used with <code>editor.execCommand(&#39;mceRemoveNode&#39;, true/false,
+node)</code>.</p>
+
+<p>I don&#39;t really get what the <code>true</code>/<code>false</code>argument was about, setting either
+one or the other didn&#39;t change anything (that I could tell) in my case. The
+node argument is the DOM node you want to remove from the editor.</p>
+
+<p>At first I thought that the command would allow me to remove a node from the
+editor area. I needed it in my plugin. But it was not exactly what it really
+does.</p>
+
+<p>In fact it only removes the wrapping node, but keep the content intact. In
+other words if you have</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.domain.com/&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://www.domain.com/picture.jpg&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+</code></pre></div>
+<p>And you remove the <code>&lt;a&gt;</code> node using <code>mceRemoveNode</code>, you&#39;ll end up with</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://www.domain.com/picture.jpg&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
+<p>in place of your link.</p>
+
+<p>I had to manually (well, with the great help of jQuery) remove the content of
+the link before removing it. I could have remove the node itself using jQuery
+but I thought that sticking to the tinyMCE methods would be a better approach,
+I don&#39;t want to mess all this stuff up, maybe &quot;simply&quot; removing html nodes
+like this could interfere with the <code>textarea</code>value update, I don&#39;t know. And
+in doubt, I prefer to use the methods and command exposed by the API</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/tinymce">#tinymce</a>
+    
+      <a href="/tags/mceremovenode">#mceremovenode</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

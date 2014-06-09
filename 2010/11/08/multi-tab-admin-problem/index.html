@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     The multi-tab admin problem - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">The multi-tab admin problem</h1>
+  <span class="post-date">08 Nov 2010</span>
+  <p>Today I had to update an important zone file at my registrar. Because it was
+quite important, and because I already did an almost identical job a few
+months ago, I decided to copy-paste the old work.</p>
+
+<p>So I started by opening the <code>domain A</code> zone edit page. Then  I opened a new
+tab, and loaded the <code>domain B</code> zone edit page.</p>
+
+<p>I selected the <code>domain B</code> content and copied it in the <code>domain A</code> page. I had
+to update some values, mostly IP addresses, and then validate the page.</p>
+
+<p>Instead of updating the <code>domain A</code> zones as I expected, it updated the <code>domain
+B</code> zones and left the <code>domain A</code> unchanged. Can you guess why ?</p>
+
+<h2>Session handling</h2>
+
+<p>My guess is that everytime I opened a new page, a Session was tracking my
+&quot;current&quot; domain, the one I was editing. So opening a new tab to a new domain
+changed my current domain from <code>domain A</code> to <code>domain B</code>.</p>
+
+<p>Therefore, when I updated the <code>domain A</code> zone, the next page was assuming I
+was editing the <code>domain B</code> page. If I had opened the tabs in reverse order, it
+would have worked seamlessly.</p>
+
+<h2>Why doing that ?</h2>
+
+<p>I have encountered a similar behavior in my own apps. By using the cakePHP
+Security behavior, a special security token is generated for each form. Its
+integrity is checked whenever a form is posted, and verify that no field has
+been tampered (no mandatory field has been deleted, no new field has been
+added).</p>
+
+<p>This is a great security component, but because a special key is stored on the
+Session side, it also means that whenever you open several tabs, only the
+latest can be correctly checked and all other one will get rejected.</p>
+
+<p>It bugs me at first, because I used to open several tabs whenever I need to
+&quot;batch add&quot; a lot of items. In real life, I found that I was almost the only
+person to do that... So I finally accepted the multi-tab restriction.</p>
+
+<p>Getting back to my registrar : I guess they did it that way because of
+security reasons too, but I found it particularly counter-intuitive in that
+case and that could have led to serious damages.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/security">#security</a>
+    
+      <a href="/tags/tabs">#tabs</a>
+    
+      <a href="/tags/session">#session</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

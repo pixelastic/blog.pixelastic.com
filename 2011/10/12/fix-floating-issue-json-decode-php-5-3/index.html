@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Fix the floating issue with json_decode in PHP 5.3 - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Fix the floating issue with json_decode in PHP 5.3</h1>
+  <span class="post-date">12 Oct 2011</span>
+  <p>When dealing with online API that are handling a lot of items (like Twitter or
+Facebook), you&#39;d better be aware of a PHP limitation with <code>json_decode</code>.</p>
+
+<p><code>json_decode</code> is supposed to take a JSON string and return a PHP array or a
+PHP object from it.</p>
+
+<p>Unfortunatly if one of the key is an int and is bigger than the max int value,
+it will be cast as float instead. And you&#39;ll lose precision in the process.</p>
+
+<p>In my case it resulted in a complete unability to find a user in the database
+as the id didn&#39;t match anything. This was quite hard to find as I couldn&#39;t
+reproduce it on my local machine.</p>
+
+<h2>Know your system</h2>
+
+<p>My local system was a 64bits machine while the production servers were 32bits.
+And of course, max int precision is far bigger on 64bits machines so the error
+didn&#39;t pop in my tests.</p>
+
+<p>If you&#39;re running PHP 5.4, the fix is easy. Just add the
+<code>JSON_BIGINT_AS_STRING</code> bitmask as 4th option like this</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$decoded = json_decode($encoded, true, null, JSON_BIGINT_AS_STRING);</span>
+</code></pre></div>
+<p>If you&#39;re running a 32bits machine with PHP 5.3 like me, it&#39;s a little more
+tricky.</p>
+
+<h2>The regexp</h2>
+
+<p>My solution is to parse the original JSON string and add quotes around ints so
+<code>json_decode</code> will keep them as string.</p>
+
+<p>My first attempt was naive</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/&quot;:([0-9]+),/&#39;, &#39;&quot;:$1,&#39;, $encoded)</span>
+</code></pre></div>
+<p>This will find any int between <code>&quot;:</code> (marking the end of a key) and <code>,</code>
+(marking the start of the next key), and replace it with the same string but
+enclosed in quotes.</p>
+
+<p>I soon found out that this did not cover all the cases, especially if the int
+key was the last of the JSON, it won&#39;t be followed by a <code>,</code> but by a <code>}</code>
+instead.</p>
+
+<p>So, I adapted it a little bit :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/&quot;:([0-9]+)(,|})/&#39;, &#39;&quot;:&quot;$1&quot;$2&#39;, $encoded)</span>
+</code></pre></div>
+<p>Ok, it worked better. Any int key in the JSON, anywhere will be enclosed in
+quotes.</p>
+
+<p>It was a little overkill so I decided to limit it to keys of at least 10
+digits</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/&quot;:([0-9]{10,})(,|})/&#39;, &#39;&quot;:&quot;$1&quot;$2&#39;, $encoded)</span>
+</code></pre></div>
+<p>Better. But still not perfect.</p>
+
+<p>As I soon discovered, sometimes Facebook returned JSON containing JSON itself
+(in Request <code>data</code>or Credit <code>order_info</code> for example).</p>
+
+<p>The previous approach would add quotes around ints in JSON escaped string and
+would thus corrupt the whole key.</p>
+
+<p>This time, I added a final touch. I only added quotes around int that were not
+in an escaped JSON string themselves, by checking that the closing quote of
+the key wasn&#39;t escaped.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/([^\\\])&quot;:([0-9]{10,})(,|})/&#39;, &#39;$1&quot;:&quot;$2&quot;$3&#39;, $encoded)</span>
+</code></pre></div>
+<p>Here it is, the final fix. I might have forgotten some corner cases, but at
+least it works for my current application.</p>
+
+<p>Hope it helps !</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/facebook">#facebook</a>
+    
+      <a href="/tags/float">#float</a>
+    
+      <a href="/tags/json-decode">#json-decode</a>
+    
+      <a href="/tags/regexp">#regexp</a>
+    
+      <a href="/tags/php">#php</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Rendering bug with generated content on form fields in Opera - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Rendering bug with generated content on form fields in Opera</h1>
+  <span class="post-date">12 Apr 2010</span>
+  <p>If you try the following code in Opera 10.51, you&#39;ll have some weird rendering
+bug :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+  <span class="nc">.test</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">content</span><span class="o">:</span><span class="s2">&quot;This should be on red background&quot;</span><span class="p">;</span>
+    <span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;</span>
+  <span class="p">}</span>
+ <span class="nt">&lt;/style&gt;</span>
+ Text input : <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">value=</span><span class="s">&quot;I&#39;m unstyled&quot;</span> <span class="na">class=</span><span class="s">&quot;test&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
+<p>The generated content is added to the page, but the background color isn&#39;t
+rendered. Worse, the input lose all styling, it does not have a background
+color nor borders anymore.</p>
+
+<p>The same effect also apply to every <code>input</code>(<code>radio</code>, <code>checkbox</code>and
+<code>password</code>).</p>
+
+<p>On a <code>select</code> tag, the generated content correctly have it&#39;s background color,
+but still lose all styling.</p>
+
+<p>On a <code>textarea</code>, the styling is gone too, and the background color is here.
+Well, sort of, it is actually cropped after a while and the end of the text is
+on transparent background.</p>
+
+<p>I sent a bug report to Opera about that.</p>
+
+<p><img src="files/2010/04/12/4bc2f9103d4c2.jpg" alt="Opera, input  generated content bug"></p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/opera">#opera</a>
+    
+      <a href="/tags/input">#input</a>
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/content">#content</a>
+    
+      <a href="/tags/bug">#bug</a>
+    
+      <a href="/tags/after">#after</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

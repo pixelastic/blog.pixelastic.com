@@ -1,0 +1,166 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Hard limits using FB.ui to post Requests - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Hard limits using FB.ui to post Requests</h1>
+  <span class="post-date">10 May 2011</span>
+  <p>I hate Facebook documentation. All pages seems out of date, displaying wrong
+function signature, obsolete parameters, documentation link pointing to 404
+pages, etc, etc.</p>
+
+<p>I&#39;ve lost some hours debugging those calls, finding whatever hard limit
+Facebook forced on some of the arguments.</p>
+
+<p>Let us write a very basic example code :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">FB</span><span class="p">.</span><span class="nx">ui</span><span class="p">({</span>
+  <span class="s1">&#39;method&#39;</span> <span class="o">:</span> <span class="s1">&#39;apprequests&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;display&#39;</span><span class="o">:</span> <span class="s1">&#39;iframe&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;message&#39;</span> <span class="o">:</span> <span class="s2">&quot;Hey, this Request is awesome, just accept it, ok ?&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;title&#39;</span> <span class="o">:</span> <span class="s2">&quot;Awesome request incoming&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;filters&#39;</span> <span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s2">&quot;name&quot;</span> <span class="o">:</span> <span class="s2">&quot;Some friends&quot;</span><span class="p">,</span> <span class="s2">&quot;user_ids&quot;</span> <span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;97841578&quot;</span><span class="p">,</span> <span class="s2">&quot;548673131&quot;</span><span class="p">,</span> <span class="s2">&quot;[...]&quot;</span><span class="p">]</span><span class="err"> </span> <span class="p">},</span>
+    <span class="p">{</span> <span class="s2">&quot;name&quot;</span> <span class="o">:</span> <span class="s2">&quot;Some other friends&quot;</span><span class="p">,</span> <span class="s2">&quot;user_ids&quot;</span> <span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;97841578&quot;</span><span class="p">,</span> <span class="s2">&quot;56867134&quot;</span><span class="p">,</span> <span class="s2">&quot;[...]&quot;</span><span class="p">]</span><span class="err"> </span> <span class="p">},</span>
+  <span class="p">]</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>This should open a Request popup with the custom title and message, as well as
+provide a list of friends that you can filter based on two criterias : &quot;Some
+friends&quot; and &quot;Some other friends&quot;.</p>
+
+<h2>What will go wrong</h2>
+
+<p>First, you have to know that both the message and title have a character
+limit. If you go over it, the popup will simply display something like &quot;An
+error occurred, blah blah blah&quot;.</p>
+
+<p>After some fiddling, I discovered that the limit is 50 chars for the title and
+255 for the message.</p>
+
+<p><del>Also, there is no limit (as far as I know) to the limit of custom filters
+you can set.</del> See update below. But there is one to the max number of
+users you can define in a filter. And that number is 1000.</p>
+
+<p>This means that if my <code>user_ids</code> list for any of my custom filters contains
+more than 1000 users, the popup will fail. However, you can have as many
+filters with 999 users as you want.</p>
+
+<p>Took me a little while to find, and I thought that this could be shared.</p>
+
+<h2>Update</h2>
+
+<p>I found a new hard limit : You can&#39;t set more than 5 filters at a time. If you
+add one more, the Request popup will fail.</p>
+
+<h2>New Update</h2>
+
+<p>Also, if you define a callback, don&#39;t forget to <code>return true</code>. Otherwise
+Webkit will refuse to close the FB popup and you&#39;ll have to click twice for it
+to really close itself.</p>
+
+<h2>Update (bis repetita)</h2>
+
+<p>This one was pretty hard to find but if your filter contains a facebook id of
+someone that is not a friend of the currently loggued user, the filter will
+display nothing.</p>
+
+<p>In our app, we have a filter of &quot;Neighbors&quot; (as most social games do). But one
+of thoses neighbors removed the user from its friends, and we didn&#39;t update
+the neighbor list to reflect that, resulting in our &quot;Neighbors&quot; filter being
+empty.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/requests">#requests</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/fb-ui">#fb-ui</a>
+    
+      <a href="/tags/facebook">#facebook</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

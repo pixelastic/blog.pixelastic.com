@@ -1,0 +1,195 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     How to prevent a FOUC but still gracefully degrade the jQuery UI tabs - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">How to prevent a FOUC but still gracefully degrade the jQuery UI tabs</h1>
+  <span class="post-date">21 Aug 2010</span>
+  <p>I finally managed to fix something that was bugging me for a very long time.
+I&#39;m talking about the jQuery UI tabs.</p>
+
+<p>They are pretty useful actually, but I always hated that FOUC they produce.
+For one split second, you&#39;ll see all your tabs content, then they&#39;ll be neatly
+re-arranged in tabs.</p>
+
+<p>What I want are my tabs displayed correctly right away, on first load.</p>
+
+<h2>First, the markup</h2>
+
+<p>Here&#39;s a typical tabs markup :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;tabs&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#firstTab&quot;</span><span class="nt">&gt;</span>First tab<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#secondTab&quot;</span><span class="nt">&gt;</span>Second tab<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;tabPanel&quot;</span> <span class="na">id=</span><span class="s">&quot;firstTab&quot;</span><span class="nt">&gt;</span>
+        First tab content
+    <span class="nt">&lt;/div&gt;</span>
+   
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;tabPanel&quot;</span> <span class="na">id=</span><span class="s">&quot;secondTab&quot;</span><span class="nt">&gt;</span>
+        Second tab content
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<h2>CSS to hide all tabs if Javascript is disabled</h2>
+
+<p>If your Javascript is disabled, so will jQuery UI. We will then hide the
+<code>&lt;ul&gt;</code> because it serves no purpose here. We will only show it if js is
+enabled</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.tabs</span> <span class="nt">ul</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.js</span> <span class="nc">.tabs</span> <span class="nt">ul</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<h2>Applying jQuery UI tabs</h2>
+
+<p>By doing a<code>$(&#39;.tabs&#39;).tabs();</code> jQuery UI will treat your <code>&lt;ul&gt;</code> as your tab
+menu and all your <code>.tabPanel</code> as their corresponding contents. It will hide
+all your panels, except for the first one. It does so by adding a<code>.ui-tabs-
+panel</code> class to every <code>.tabPanel</code> as well as a <code>.ui-tabs-hide</code> to every panel
+it hides.</p>
+
+<p>Right now, you should add another CSS rule to hide the unused panels :</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.ui-tabs-hide</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<p>But if you look at your page now, you&#39;ll see all your tabs content before they
+get hidden. That is the FOUC I was talking about. The jQuery UI documentation
+indicate that to remove it, you should directly add the <code>.ui-tabs-hide</code> class
+to panels you&#39;ll want to hide.</p>
+
+<p>As also pointed in the doc, it will not gracefully degrade because users
+without Javascript won&#39;t even be able to see your other tabs. Also, it asks
+you to add server-side logic (HTML markup with jQuery specific classes) for
+something that should be handled entirely client-side.</p>
+
+<h2>Removing the FOUC while gracefully degrade</h2>
+
+<p>Ok, so what I did was writing two simple rules that will directly hide all
+unused panels while still displaying the active one, even before jQuery UI
+takes action.</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.js</span> <span class="nc">.tabPanel</span> <span class="o">+</span> <span class="nc">.tabPanel</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;}</span>
+</code></pre></div>
+<p>That way, no FOUC, and users without Javascript still see all the content.
+Unfortunatly, if you now try clicking on your tabs, you&#39;ll see that nothing
+happens and you get stuck with your default panel always visible.</p>
+
+<h2>Fixing the jQuery UI tabs</h2>
+
+<p>As jQuery will add new classes to my elements, I&#39;ll just have to write more
+specific rules that use those classes. Here&#39;s the little piece of logic I came
+up with :</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.js</span> <span class="nc">.tabPanel.ui-tabs-panel</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;}</span>
+<span class="nc">.js</span> <span class="nc">.tabPanel.ui-tabs-panel.ui-tabs-hide</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;}</span>
+</code></pre></div>
+<p>All the jQuery panels are shown, except for the one hidden by jQuery. All
+those rules being more and more specific, they will get applied once the tabs
+are activated but still override the previous <code>display:</code> declarations.</p>
+
+<h2>Conclusion</h2>
+
+<p>This is how I fixed an issue that was bugging me for years. Unfortunatly the
+CSS rules being dependent on the markup used, I haven&#39;t yet been able to write
+them in a global form that could be added to the main jQuery UI css files.</p>
+
+<p>*[FOUC]: Flash Of Unstyled Content</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/jquery-ui">#jquery-ui</a>
+    
+      <a href="/tags/tabs">#tabs</a>
+    
+      <a href="/tags/jquery">#jquery</a>
+    
+      <a href="/tags/graceful-degradation">#graceful-degradation</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/fouc">#fouc</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

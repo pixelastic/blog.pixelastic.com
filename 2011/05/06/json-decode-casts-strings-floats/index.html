@@ -1,0 +1,159 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     json_decode casts strings to floats - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">json_decode casts strings to floats</h1>
+  <span class="post-date">06 May 2011</span>
+  <p>The PHP function <a href="http://fr.php.net/manual/en/function.json-%0Adecode.php">json_decode</a> takes a JSON string as argument and return a decoded array/object
+.</p>
+
+<p>However, when passing an argument that has nothing to do with a JSON string,
+the function was supposed to return null. But, in practice, this didn&#39;t go so
+well.</p>
+
+<h2>Passing a string</h2>
+
+<p>Here&#39;s an example :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = &#39;foo&#39;;</span>
+<span class="x">$bar = json_decode($foo);</span>
+<span class="x">// $bar is nothing,</span>
+<span class="x">echo (is_null($bar)) ? &quot;This is null&quot; : &quot;This is not null&quot;;</span>
+</code></pre></div>
+<h2>Passing a float</h2>
+
+<p>Here, we try to decode a string. The function rejects it and returns null.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = 0.4;</span>
+<span class="x">$bar = json_decode($foo);</span>
+<span class="x">// $bar is a float</span>
+<span class="x">echo (is_float($bar)) ? &quot;This is a float&quot; : &quot;This is not a float&quot;;</span>
+</code></pre></div>
+<p>Here, we pass a floating number. And the function returns... a floating
+number. Wait, what ?</p>
+
+<p>This is weird, I expected it to return null, once again. But maybe it&#39;s
+correct and the JSON specs says so. I didn&#39;t check, actually.</p>
+
+<h2>Passing a string thats looks like a float</h2>
+
+<p>But the next example is even better :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$foo = &#39;0.4&#39;;</span>
+<span class="x">$bar = json_decode($foo);</span>
+<span class="x">// $bar is also a float, even if $foo was a string</span>
+<span class="x">echo (is_float($bar)) ? &quot;This is a float&quot; : &quot;This is not a float&quot;;</span>
+</code></pre></div>
+<p>This time I pass a string as a parameter (like example 1) but got a float as a
+result (like example 2).</p>
+
+<p>Well, this time I&#39;m sure that can&#39;t be the correct behavior.</p>
+
+<h2>How to deal with it</h2>
+
+<p>I finally wrote a little wrapper for json_decode to handle those strange cases
+:</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function my_json_decode($var) {</span>
+<span class="x">  $decodedValue = json_decode($var, true);</span>
+<span class="x">  return is_array($decodedValue) ? $decodedValue : $var;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>This will check that the result of the JSON decoding is an array, and if not
+(meaning the original string was not a JSON string), it will return the
+original string.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/json">#json</a>
+    
+      <a href="/tags/float">#float</a>
+    
+      <a href="/tags/json-decode">#json-decode</a>
+    
+      <a href="/tags/string">#string</a>
+    
+      <a href="/tags/php">#php</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

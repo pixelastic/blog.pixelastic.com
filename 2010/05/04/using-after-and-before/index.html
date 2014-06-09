@@ -1,0 +1,142 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Using :after and :before - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Using :after and :before</h1>
+  <span class="post-date">04 May 2010</span>
+  <p><code>:after</code> and <code>:before</code>pseudo-elements allow one to add generated content
+before or after an other element. It can be used to add quotes around text,
+icons after a link to specify the language of the target page and a lot of
+other useful stuff like that.</p>
+
+<p>It can also be mastered to create more powerful styling. I&#39;ll post more about
+that later.</p>
+
+<p>Anyway, IE6 and IE7 don&#39;t support it. Firefox is supposed to support it from
+the 3.0 version but in fact it is still buggy in this release.</p>
+
+<p>Pseudo-elements must be inline elements and can&#39;t be absolutly positionned in
+FF3.0, thus greatly reducing the number of fun things we could do with them in
+this browser.</p>
+
+<p>It faced me with a challenge. If I wrote <code>:before</code> and <code>:after</code> rules, they
+would be only understood by FF3.0 but badly rendered, resulting in half the
+styling I expected.</p>
+
+<p>Browsers that don&#39;t understand the rules would not apply them and keep the
+default rendering, compliant browsers will render all the rules, but the grey
+area in between is filled with FF3.0 that will think it can handle them and
+will finally badly render them.</p>
+
+<p>I haven&#39;t found a way to specificaly target FF3.0, so I used an alternate
+method.</p>
+
+<p>All the browsers that understand the <code>:only-of-type</code> selector also understand
+<code>:before</code>/<code>:after</code>. But FF3.0 and IE7 do not understand <code>:only-of-type</code>. So if
+I wrote a rule starting with <code>body:only-of-type</code>, it will only be applied to
+browsers with complete <code>:after</code> and <code>:before</code>support (excluding FF3.0). This
+solved my problem.</p>
+
+<p>Unfortunatly, it will also filter out IE7 who does not understand <code>:only-of-
+type</code> but does understand <code>:after</code>/<code>:before</code>. I usually remove all fancy form
+styling for IE anyway so that&#39;s not a big deal for me, but if you really care,
+you just have to override the rule in a IE7 specific stylesheet.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/ff3-0">#ff3-0</a>
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/only-of-type">#only-of-type</a>
+    
+      <a href="/tags/before">#before</a>
+    
+      <a href="/tags/after">#after</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

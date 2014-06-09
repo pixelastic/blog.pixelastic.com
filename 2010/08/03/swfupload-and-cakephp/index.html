@@ -1,0 +1,185 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     SWFUpload and cakePHP - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">SWFUpload and cakePHP</h1>
+  <span class="post-date">03 Aug 2010</span>
+  <p>One thing that always sent me an awful hours of debugging is the fact that the
+Flash player identify itself as a whole different browser that the one it is
+integrated into.</p>
+
+<p>I&#39;ve ran into this issue multiple times when dealing with SWFUpload and today
+was one more. As I always spent quite a lot of time debugging issues arising
+from this, I guess I should post about it here.</p>
+
+<h2>The Flash player uses a different userAgent that your browser</h2>
+
+<p>Most of the time, this is not a problem. But when dealing with restricted
+areas of a website built on top of cakePHP, it can become one.</p>
+
+<p>The thing is that as the <code>userAgent</code>string used by the Flash player is not
+the same as the one used by your browser. So, when you make a request to your
+site, cake will see that as whole new request and you won&#39;t be able to access
+your current session variables.</p>
+
+<p>As you can&#39;t overwrite the <code>userAgent</code>hash sent, you need to send the
+<code>sessionId</code>along with your flash request. That way, you&#39;ll be able to call a</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;Session-&gt;id($sessionId);</span>
+<span class="x">$this-&gt;Session-&gt;start();</span>
+</code></pre></div>
+<p>in your controller <code>beforeFilter</code>(or component <code>initialize</code>)</p>
+
+<p><em>In cake 1.2, you&#39;ll also have to call <code>$this-&gt;Session-&gt;destroy()</code> before to
+delete the Flash session created.</em></p>
+
+<h2>The Flash player uses a different cookie pool that your browser</h2>
+
+<p><em>This used to be an issue in 1.2 but not longer is.</em></p>
+
+<p>Cake stores in a cookie the name of the session you&#39;re supposed to use. Flash
+having its own cookie pool, it will save its own cookie (usually somewhere you
+don&#39;t even know) and will always check for the session specified inside.</p>
+
+<p>This took me quite a long time to found out why the flash request where
+reading an other request that the one I was setting.</p>
+
+<p>In 1.2, you needed to delete the cookie created by cake whenever you made a
+flash request to avoid conflicts</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">setcookie(Configure::read(&#39;Session.cookie&#39;), &#39;&#39;, time() - 42000, $this-&gt;Session-&gt;path);</span>
+</code></pre></div>
+<h2>cakePHP used to overwrite the userAgent string in session</h2>
+
+<p>In cake 1.2, when you manually change the current session, cake would update
+the inner <code>userAgent</code>hash saved to your current userAgent hash.</p>
+
+<p>This meant that whenever you were moving from the Flash session to the correct
+session, you had to overwrite the <code>userAgent</code>hash to the correct one.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;Session-&gt;write(&#39;Config.userAgent&#39;, $userAgent);</span>
+</code></pre></div>
+<p><em>This is no longer the case in 1.3, changing the current session does not
+alter it anymore.</em></p>
+
+<h2>Doesn&#39;t all that stuff alter security ?</h2>
+
+<p>Well, most of the answers I found online were among the lines of &quot;Just disable
+the check of the <code>userAgent</code>&quot;, so I think my method is a little bit more
+secure.</p>
+
+<p>Anyway, passing a <code>sessionId</code>as a parameter seems a little risky, even to me.
+I guess there should be a way of encrypting it to not pass it as clear text</p>
+
+<h2>UPDATE !</h2>
+
+<p>I had to fiddle with this script some more. It appears that, as we are
+changing the <code>sessionId</code>, we need to do that BEFORE we access the session. It
+means that any call to <code>Session::read()</code> or <code>Session::check()</code>, or almost any
+other Session method BEFORE setting the id will block this trick from working.
+So, make sure that this code is executed before anything else, put it in a
+component that will be loaded first.</p>
+
+<p>It also appears that if you follow my advice, you&#39;ll only have to call
+<code>id($sessionId)</code>, and none of the hocum pocum about <code>destroy</code>, <code>write</code>and
+<code>userAgent</code>hashes I talked about...</p>
+
+<p>I just lost some hours finding this out. I add a call to Session in my <code>I18n
+</code>component that was rendering this whole fix useless. It was driving me
+crazy...</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/swfupload">#swfupload</a>
+    
+      <a href="/tags/sessions">#sessions</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/useragent">#useragent</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

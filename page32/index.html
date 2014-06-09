@@ -1,0 +1,490 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/06/01/opera-bug-border-radius-and-background-color-on-an-input/">
+        Opera bug : border-radius and background-color on an input
+      </a>
+    </h1>
+
+    <span class="post-date">01 Jun 2010</span>
+
+    <p>The form inputs of this site all have a border-radius and a background-color.
+Unfortunatly, the latest Opera version just don&#39;t like that (9.5 works like a
+charm).</p>
+
+<p>When you apply the following rules to an input element, Opera will discard
+your background color and render it as transparent instead.</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">input</span> <span class="p">{</span>
+<span class="err">   </span> <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span><span class="m">5px</span><span class="p">;</span>
+<span class="err">   </span> <span class="k">border</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+<span class="err">   </span> <span class="k">background</span><span class="o">:</span><span class="m">#375a5e</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>All three rules causes the bug. Remove one of them and the bug disappear.</p>
+
+<h2>Solution</h2>
+
+<p>At first I thought that I could just as well remove the border-radius rule and
+I won&#39;t have any more bugs. But a slightly decreased user experience for my
+Opera readers.</p>
+
+<p>Then I&#39;ll try to come up with a better solution. One can add a background-
+image instead of a background-color. Odd enough, this won&#39;t trigger the bug.</p>
+
+<p>But I wanted to avoid that, that&#39;s one more useless request to the server and
+it&#39;s far more easier to change a color code in a css file that to edit an
+image file.</p>
+
+<p>The solution I choose was to not set a <code>border:none;</code> but to simulate it by
+adding invisible border. That would add 1px around the input element, so we&#39;ll
+limit it by only adding the border on one of the sides. Adding it on the right
+side seemed to be the more convenient method.</p>
+
+<p>So here&#39;s my updated code :</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">input</span> <span class="p">{</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span><span class="m">5px</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+  <span class="k">border-right</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+  <span class="k">background</span><span class="o">:</span><span class="m">#375a5e</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/opera">#opera</a>
+      
+        <a href="/tags/border-radius">#border-radius</a>
+      
+        <a href="/tags/input">#input</a>
+      
+        <a href="/tags/css">#css</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/31/new-website/">
+        New website
+      </a>
+    </h1>
+
+    <span class="post-date">31 May 2010</span>
+
+    <p>I just uploaded the new version of the website. The old one was severely
+needing a fresh new look, so here it is.</p>
+
+<p>As I want to showcase my skills as a web developer I didn&#39;t want a website
+with a too awesome design, so I decided to do it all by myself. I&#39;m quite
+happy with the result.</p>
+
+<p>The &quot;Work&quot; page is still in progress, images from the old site aren&#39;t yet
+available and I haven&#39;t yet tested it with IE.</p>
+
+<p>I&#39;ve added a comment section (a feature that was lacking from the previous
+site). I plan to translate the site in French to have something fully
+bilingual, but that too is a work in progress.</p>
+
+<p>If you ever spot a bug, just drop a comment, I&#39;m hunting them right now.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/skin">#skin</a>
+      
+        <a href="/tags/pixelastic">#pixelastic</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/28/migrating-mails-imap-part-1-2/">
+        Migrating mails from IMAP to IMAP (part 1/2)
+      </a>
+    </h1>
+
+    <span class="post-date">28 May 2010</span>
+
+    <p>One of my clients wanted to change its hosting provider because of almost
+constant downtime. I suggested that we move the whole site and the associated
+email addresses to Dreamhost.</p>
+
+<p>He is heavily using its webmail, with a dozen of different accounts, all with
+custom address book and drafts to reuse.</p>
+
+<p>I had already moved a previous site of the same client to a GMail powered
+webmail and he wasn&#39;t so satisfied of it because of the lack of a &quot;draft&quot;
+feature that would allow him to reuse the same message templates.</p>
+
+<p>Its current webmail is powered by Imp (Horde) and the default Dreamhost
+webmail is Squirel Mail.</p>
+
+<p>So now I&#39;m faced with a challenge. Which webmail should I choose and how will
+I initiate the migration ?</p>
+
+<h2>Contestant 1 : Horde</h2>
+
+<p>The easiest way would have been to reuse Horde. Horde has a nifty
+export/import function. It means that I could have exported the settings on
+the current host and imported them back in the new host.</p>
+
+<p>Unfortunatly, Horde is not pre-installed on Dreamhost. It means I would have
+to install it and I don&#39;t really want to do it. This is not my area of
+expertise and if something goes wrong it will take me ages to fix.</p>
+
+<p>Additionnaly, the default php5 install on Dreamhost lacks the IMAP extension
+needed and SSL connection requires an additional monthly fee.</p>
+
+<p>That would be the better solution for the client, but I don&#39;t feel capable of
+doing it.</p>
+
+<h2>Contestant 2 : Squirel Mail</h2>
+
+<p>Squirel Mail is the default webmail on Dreamhost. It means that they do handle
+all the heavy stuff of configuring it and making sure it does not crash.</p>
+
+<p>They assure me that I can have unlimited hosting of my mails, the only limits
+are a maximum of 100 SMTP sending per hour and no attached filed &gt; 7Mo.</p>
+
+<p>Those are almost no issues at all, we can handle that. I just have to check if
+the 100 sending per hour is for each mail address or for the entire account.</p>
+
+<p>The only problem will be that I can&#39;t export/import the horde feature into
+Squirel.</p>
+
+<p>What I could do however is synchronize the two IMAP servers, effectively
+copying all the mail from the current one to the new. Unfortunatly, there is
+no easy way to do that.</p>
+
+<p>The Dreamhost support even told me that it was impossible. I found a linux
+command named imapsynch however that maybe could help, but I&#39;ll need to know
+the name of the dreamhost imap server and needed credentials to connect to it.
+I&#39;ll sort this out with them.</p>
+
+<h2>Contestant 3 : GMail</h2>
+
+<p>I&#39;ve already set mails up with GMail a couple of times in the past so this
+won&#39;t be too hard. Could take some times, but nothing difficult about that.</p>
+
+<p>I may be able to copy the current mails to the GMail server, I&#39;ve seen some
+articles on the subject floating on the network, but I&#39;ll definitly won&#39;t be
+able to copy drafts.</p>
+
+<h2>Conclusion</h2>
+
+<p>I&#39;m still in contact with the Dreamhost support to choose the better option. I
+don&#39;t think I&#39;ll install Horde, this will be too much work. I guess I&#39;ll go
+with the second option of migrating mails to Squirel Mail.</p>
+
+<p>Whatever solution I&#39;ll pick, I&#39;ll be sure to post the whole details here for
+others to follow.</p>
+
+<h2>Update</h2>
+
+<p><del>I finally won&#39;t have to migrate mails, the client makes regular POP
+backup of its mails so he will just do one more right before the transfer and
+will start over with a brand new mail boxes. Concerning the drafts, he will
+manually copy-paste them from one webmail to the other and he told me that he
+wasn&#39;t using the address book...</del></p>
+
+<p><del>So it appears that I&#39;ll just have to change the DNS to point to the new
+webmail and create a temporary CNAME to still access the old webmail on the
+old server until the migration is totally over.</del></p>
+
+<p>Re-update</p>
+
+<p>In fact, it appears that I won&#39;t be able to access both webmail at the same
+time. I&#39;ll have DNS issues, and the registrar panel that I have is very basic,
+I won&#39;t be able to fine tuned it correctly.</p>
+
+<p>It seems that I&#39;ll have to migrate mails from one server to the other.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/imap">#imap</a>
+      
+        <a href="/tags/dreamhost">#dreamhost</a>
+      
+        <a href="/tags/squirrelmail">#squirrelmail</a>
+      
+        <a href="/tags/horde">#horde</a>
+      
+        <a href="/tags/gmail">#gmail</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/25/pros-cons-google-cdn-assets/">
+        Pros and cons of using Google CDN for your assets
+      </a>
+    </h1>
+
+    <span class="post-date">25 May 2010</span>
+
+    <p>With the recent Google Fonts breakout, much debate surfaces to know if it
+really was useful to use Google CDN to deliver your assets to your users.</p>
+
+<p>I used to think it was a goog thing because it allowed for parallelized
+download, but after reading really good articles on the subject I&#39;m not so
+sure.</p>
+
+<p>I&#39;ll try to list the pros and cons of using Google CDN instead of serving your
+files locally.</p>
+
+<h2>Pros</h2>
+
+<ul>
+<li>Using a CDN assure you that your users will get content from the closest server around them, no matter where they are.</li>
+<li>The more websites will use Google CDN, the biggest the chance of your user already having the file in its cache</li>
+<li>Downloading from a CDN assure that you won&#39;t be sending useless cookies along the request. You shouldn&#39;t send cookies when fetching your static files anyway, but sometime -Google Analytics for example-, some script create domain-wide cookies that still get sent.</li>
+<li>Many niched major websites (ArmorGames.com, StackOverflow.com, etc) uses the CDN, so if a large part of your trafic is coming from one of those, using the CDN and the exact same library version will have no perfomance downsides for you.</li>
+</ul>
+
+<h2>Cons</h2>
+
+<ul>
+<li>Using a CDN create a new connection to access the ressource on an other server instead of using the already open connection to your website. Creating a new connection is slow.</li>
+<li>Caching of the files will only be possible if the exact same version url is used. E. using <code>/jquery/1.4.0/</code> instead of <code>/jquery/1.4/</code></li>
+<li>If you already are using your own CDN for your images, you should also use it for your javascript and in this case the google one is worthless because you already have all the advantages.</li>
+<li>An Internet connection is required. This may seem obvious but if you have to work on a project while on a trip, you&#39;ll need a local copy of the library.</li>
+</ul>
+
+<h2>Stalemate</h2>
+
+<ul>
+<li>Using a CDN force a DNS lookup. This lookup can be cached if the user already visited your website or another that use the same CDN however.</li>
+<li>Browsers have a limit of paralels downloads on the same host. Using a CDN allow for more parallelization. But creating dummy subdomains like <code>static.domain.com</code> would also defeat this limitation.</li>
+<li>In the case of Javascript/CSS, packing all your files (scripts and libraries) in one big file on your server and serving it gzipped will result in a better compression that serving the library from a CDN and your scripts from your server. On the other hand, the user would have to re-download the whole package whenever you make a tiny change to your scripts, even if you didn&#39;t changed the library.</li>
+<li>Downloading script usually block page execution. So reducing the number of scripts to load (by packing them in one file instead of downloading one locally and one on the CDN) will reduce the blocking time. On the other hand, merging two files will result in a longer download time (because the file is larger) while using the CDN would allow the two scripts to download in parallel.</li>
+<li>What happen if your CDN is down ? Well, when using Google that&#39;s not much a risk but still. As a side effect, you should&#39;nt even consider using a CDN if your application is for an intranet.</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>As a conclusion, all I can answer to the &quot;Should I use the Google CDN for my
+javascript libraries ?&quot; is &quot;Well... it depends...&quot;.</p>
+
+<p>Really it depends on your configuration. Run some tests, try with a CDN or by
+compressing the library into your main file. Check where your users are coming
+from and the average loading time. Test various configuration until you found
+the one that works the best for you.</p>
+
+<p>On a personal note I do use Google CDN for my websites. The cost of the DNS
+lookup and connection to the Google server is really worth the parallelized
+download in my case. But it may be so because I&#39;m living in France and my
+website is hosted in the US, so a CDN really helps.</p>
+
+<h2>Source links</h2>
+
+<ul>
+<li>http://docs.google.com/document/pub?id=14Xn7kkKwVxSie6xHJwWRAP5mutM7qlWcrHgWtZo63gI</li>
+<li>http://zoompf.com/blog/2010/01/should-you-use-javascript-library-cdns</li>
+</ul>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/performance">#performance</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/google">#google</a>
+      
+        <a href="/tags/cdn">#cdn</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/05/25/doing-persistent-login-the-right-way/">
+        Doing persistent login the right way
+      </a>
+    </h1>
+
+    <span class="post-date">25 May 2010</span>
+
+    <p>When I was a young web developer, I had to code an admin panel, with username
+and login. I also added the well-known &quot;Remember me&quot; checkbox.</p>
+
+<p>I wasn&#39;t really educated to the security concerns of developing such a
+feature. In fact, I was even storing the passwords as plain text in the
+database.</p>
+
+<p>And to allow the user to auto-login, I stored the user and password, in plain
+text, in a cookie and requested a login with those credentials whenever its
+session expired.</p>
+
+<h2>That&#39;s insane !</h2>
+
+<p>Yes it was, but I remember thinking &quot;Well, nobody can even have access to the
+database so there&#39;s no risk&quot; and &quot;I can store the password in the cookie, it
+is only accessible by the user, and he surely already know its password.
+There&#39;s no harm in that&quot;</p>
+
+<p>Well, XSS and CSRF weren&#39;t so common back in those days.</p>
+
+<p>Since then I&#39;ve learned a lot. There&#39;s just no way I&#39;ll ever store a plain
+text or uncrypted password in a database again. Hashing and salting is the way
+to go.</p>
+
+<p>But I kept implementing the persistent login feature following the same
+pattern : saving the username and hashed password in the cookie.</p>
+
+<p>I was thinking &quot;The password is not stored as plain text but as a hash,
+there&#39;s no way an attacker would even be able to guess the password from
+that&quot;.</p>
+
+<h2>That&#39;s better, but still...</h2>
+
+<p>I haven&#39;t thought that the cookie was like an open sesame to my app. One would
+just have to steal the file and place it in its browser cookie list and he
+would have exactly the same access to the website, without having to know my
+password.</p>
+
+<p>In the meantime I was also implementing OpenId authentication and as it is
+passwordless (at least from the website point of view), I couldn&#39;t save the
+username and password in the cookie.</p>
+
+<p>Clearly, something was broken in my persistent login implementation.</p>
+
+<h2>Here come the tokens</h2>
+
+<p>After some research, I finally get it the right way.</p>
+
+<p>Whenever a user authenticate, be it from a classical user/pass login form or
+using OpenId, I keep it loggued using session vars. When the session var
+expires, the user is loggued out. If he had checked the &quot;Remember me&quot;
+checkbox, I would try to re-authenticate him automatically.</p>
+
+<p>In order to do that, I had to change my implementation. The first thing to do
+was creating a <code>UserToken</code>table with 3 fields : <code>user_id</code>, <code>token</code><code></code>and
+<code>duration</code>.</p>
+
+<p>Then, when the user authenticate I generate a random token and save it along
+the <code>user_id</code> in a cookie.</p>
+
+<p>I&#39;ll also populate the <code>UserToken</code>table with the <code>user_id</code>, a hashed version
+of the token,  and matching the <code>duration</code>to the expires date of the cookie.</p>
+
+<p>That way, the next time that the user comes to my website without a session I
+check its cookie. If he has a <code>user_id</code> and a token, I&#39;ll try to authenticate
+him.</p>
+
+<p>I&#39;ll find a matching <code>user_id</code> and hashed token. If there are no results, then
+the cookie is not valid. Either it has been already used or it is a cookie
+forgery attempt. In that case, I&#39;ll do nothing.</p>
+
+<p>If there&#39;s a match, I still check that the token is not expired. If it is,
+I&#39;ll delete it in the database, as well as clearing the cookie. On the other
+hand, if the cookie is still valid, I log the user in.</p>
+
+<p>Once the user is loggued in I generate a new token, update the cookie and
+update the table with a hashed version of it.</p>
+
+<p>That way each token can only be used once and are generated only when the user
+correctly authenticate and are only used once the session expires.</p>
+
+<h2>But one can still steal cookies</h2>
+
+<p>Yes, a malicious user can still steal my cookie, copy it to its computer and
+use the token to login. That&#39;s true and as we can&#39;t do anything against that,
+we could still try to mitigate it.</p>
+
+<p>First precaution would be to disable any sensitive information edition while
+loggued in using the cookie. Like bank account, personnal information,
+password changing, etc.</p>
+
+<p>The second thing would be to check for any hacking attempt. Whenever I guess
+for a forgery attempt (trying to login with a bad set of id / hashed token), I
+delete all UserToken associated for this user. This will block any bruteforce
+attack because even there won&#39;t be any more match in the database.</p>
+
+<p>It is also wise to display a warning message to the user telling him that his
+account may have been compromised and that he should be wary and maybe change
+its password.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/token">#token</a>
+      
+        <a href="/tags/login">#login</a>
+      
+        <a href="/tags/cookie">#cookie</a>
+      
+        <a href="/tags/authenticate">#authenticate</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page33">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page31">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

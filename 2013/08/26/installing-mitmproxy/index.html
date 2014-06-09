@@ -1,0 +1,125 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Installing mitmproxy - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Installing mitmproxy</h1>
+  <span class="post-date">26 Aug 2013</span>
+  <p>I spend the last hour trying to install <a href="http://mitmproxy.org/">mitmproxy</a>.
+This is supposed to be a commandline proxy to intercept, read, edit and replay
+HTTP(S) requests. I say &quot;supposed&quot; because I haven&#39;t had the chance to try it
+so far as I was blocked on a compilation error.</p>
+
+<p>According to <a href="http://mitmproxy.org/doc/install.html">the official
+documentation</a>, installing mitmproxy
+should be as easy as <code>pip install mitmproxy</code>. Being new to using <code>pip</code>, I
+first had to install it (<code>sudo apt-get install python-pip</code>) and figure out
+that one need to install stuff with <code>pip</code> using <code>sudo</code>.</p>
+
+<p>But <code>sudo pip install mitmproxy</code> resulted in charming compilation errors in my
+case. Something along the lines of :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">src/lxml/lxml.etree.c:16:20: fatal error: Python.h: No such file or directory
+</code></pre></div>
+<p>After a bit of googling, I understood that the issue was some missing headers
+on my part. After running <code>sudo apt-get install python-dev</code> I was good to run
+a <code>sudo pip install mitmproxy</code> again.</p>
+
+<p>Next step will be to configure the beast and learn how to use it.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/pip">#pip</a>
+    
+      <a href="/tags/http">#http</a>
+    
+      <a href="/tags/proxy">#proxy</a>
+    
+      <a href="/tags/python">#python</a>
+    
+      <a href="/tags/mitmproxy">#mitmproxy</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

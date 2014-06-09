@@ -1,0 +1,357 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/01/20/nevre-use-alert-for-debugging/">
+        Never use alert() for debugging
+      </a>
+    </h1>
+
+    <span class="post-date">20 Jan 2010</span>
+
+    <p>One thing I learned today is to never use alert() for debugging pruposes. When
+the javascript alert() function is called it blocks every other action until
+the OK button is pressed. It means that your javascript code that is
+immediatly after the alert() call is delayed until you press OK.</p>
+
+<p>It also means that the thread your browser gave to the javascript engine is
+halted during all this time.</p>
+
+<p>Imagine you are binding keyboard shortcuts on your website to specific
+actions. Like pressing Ctrl+S will submit the current form. Of course, Ctrl+S
+is already defined as a shortcut in the browser, so you will take care of
+preventing the default behavior in your custom function (using return false,
+e.preventDefault(), e.stopPropagation() or any method defined in your
+framework to do that)</p>
+
+<p>The problem is that is you call alert() in your function, the Javascript
+thread will be halted before you can make the call to stop the propagation and
+thus, the browser will take control again and firing its default shortcut.</p>
+
+<p>So my advice is that you should never use alert for debugging. Use the
+console.debug() method shipped in firebur or directly write to the DOM but do
+not use alert().</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/keyboard">#keyboard</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/browser">#browser</a>
+      
+        <a href="/tags/alert">#alert</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/01/18/writing-a-class-in-javascript/">
+        Writing a class in Javascript
+      </a>
+    </h1>
+
+    <span class="post-date">18 Jan 2010</span>
+
+    <p>I always have to refer to a manual or a webpage to remember the correct syntax
+for creating a new class in Javascript. Here it is :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">myClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Here I can define private variables and methods</span>
+    <span class="kd">var</span> <span class="nx">myPrivateVar</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myPrivateMethod</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">};</span>
+    <span class="c1">// And now I will return an object, so it is the place</span>
+    <span class="c1">// to put public variables and methods</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">publicVariable</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
+        <span class="nx">publicMethod</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="p">};</span>
+<span class="p">}();</span> <span class="c1">// Note that this function is executed and so the object is returned.</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/class">#class</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/01/15/learning-extjs/">
+        Learning extJs
+      </a>
+    </h1>
+
+    <span class="post-date">15 Jan 2010</span>
+
+    <p>Today, the <a href="http://jquery14.com/day-01/jquery-14">jquery 1.4</a> version was
+released, and today is the day where I start to learn extJs (don&#39;t ask me
+why).</p>
+
+<p><a href="http://www.extjs.com/">EXTJs</a> seems to be promising, it seems really easy to
+make powerful and professional-looking interfaces for handling data with it.</p>
+
+<p>When learning Coldfusion I was often horrified by the <a href="http://help.adobe.com/en_US/ColdFusion/9.0/CFMLRef/WSc3ff6d0ea77%0A859461172e0811cbec22c24-79f9.html">really poor html
+example code</a> shipped with the Coldfusion example :
+<font>, <span align="left">, multiple nested tables.</p>
+
+<p>With EXTJs, it seems to be the same, the <a href="http://www.extjs.com/learn/Tutorial:Basic_Page_Setup">basic page
+setup</a> tell me not to
+put a Doctype to my page to &quot;avoid IE problems&quot;, as well as putting my
+javascript in the head of the page...</p>
+
+<p>That is simply horrible advices. I hope the rest of the framewok is not of the
+same kind or learning it will be painful.</p>
+
+<p>One thing that is quite frustrating with their documentation is that it is
+absolutly not up to date. It is refering to 1.0 or 2.0 version even if the
+current one is 3.0.</p>
+
+<p>I resort to reading the &quot;Learning EXTJs&quot; book (if you know how to properly use
+google, you should find a full PDF online). It told me a lot of things about
+the approach of the framework, I sincerely recommend that you read it if you
+want to learn ExtJs. Too bad the book was released before the 3.0 version, but
+by refering to the API whenever you need to use a new class, you should be ok</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jquery">#jquery</a>
+      
+        <a href="/tags/extjs">#extjs</a>
+      
+        <a href="/tags/coldfusion">#coldfusion</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/01/14/a-little-introduction-to-image-metadata/">
+        A little introduction to image metadata
+      </a>
+    </h1>
+
+    <span class="post-date">14 Jan 2010</span>
+
+    <p>For the project I&#39;m working on, I have to save numerous<a href="http://en.wikipedia%0A.org/wiki/International_Press_Telecommunications_Council"> </a>data in image files.
+The <a href="http://en.wikipedia.org/wiki/Metadata">metadata </a>I have to write can be
+in different languages and uses different encoding (mainly French, English,
+Spanish and Chinese).</p>
+
+<h2>A little history</h2>
+
+<p>There is mainly three formats to store data inside an image. The main one is
+called <a href="http://en.wikipedia.org/wiki/Exif">EXIF</a>, its main goal is to store
+techical data about the image like the operture, is the flash was fired, the
+resolution, the iso settings and so on.</p>
+
+<p>The second one is called
+<a href="http://en.wikipedia.org/wiki/IPTC_Information_Interchange_Model">IPTC</a>. Its
+main goal was to store more subjective information about the file like its
+description, its author, copyright informations, etc.</p>
+
+<p>IPTC is an old standard and is more or less replaced with <a href="http://en.wikipedia.org/wiki/Extensible_Metadata_Platform">XMP
+</a>nowadays becuase
+of numerous restrictions on it (mainly no UTF8 and internationalisation
+support). (A later version named IPTC-IIM was created to correct some of the
+minor restrictions, but it was still far from perfect).</p>
+
+<p>It is now more or less replaced with XMP. XMP is based on XML and uses the
+Dublin Core tags. It is the future of metadatas because its structure allows
+it to be extended.</p>
+
+<h2>And now, the problems</h2>
+
+<p>The problem is that with this three formats, it is quite difficult to know
+where to store or read the information we want. Additionnaly the XMP support
+is not very mainstrean on the software, even Adobe (creator of the XMP format)
+does not support it totally accross its products.</p>
+
+<p>A <a href="http://www.metadataworkinggroup.org/">Metadata Working Group</a> had been
+formed to tell all the good people of Metadata-land what to do when faced with
+an image filled with metadatas. They wrote a recommendation guide telling us
+how to handle reconciliation (a same information is stored in more than one
+format, but with different values) and make our software the most compatible
+with existing software.</p>
+
+<h2>What about me ?</h2>
+
+<p>That&#39;s when I can talk about me again. I&#39;m working on a project where I have
+to read a full database of images, parse their metadatas, store them in a
+database, and build an interface to search accross the database based on
+criterias like keywords, author, etc.</p>
+
+<p>I also have to handle the web side of this and allow for easy creation of
+thumbnails, large and medium version with metadatas correctly written inside
+the file.</p>
+
+<p>The admin panel should also allow anyone to modify one file metadata and
+rewrite it back into the file as well as inside the database.</p>
+
+<p>This is kind of a big project for me, it&#39;s been 2.5 months that I&#39;m on it and
+I had to learn everything from scrath : all the historical stuff, format
+specs, recommendation as well as Coldfusion -the language the app is built on-</p>
+
+<p>I&#39;ve learn a lot until now and I still have 15 more days to finish it. The
+main app is almost finished (I just have to polish on some edge cases) and
+then I&#39;ll have to integrate it in the existing admin panel.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/metadatas">#metadatas</a>
+      
+        <a href="/tags/iptc">#iptc</a>
+      
+        <a href="/tags/image">#image</a>
+      
+        <a href="/tags/xmp">#xmp</a>
+      
+        <a href="/tags/exif">#exif</a>
+      
+        <a href="/tags/coldfusion">#coldfusion</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/01/11/selecting-node-based-on-namespace-in-xpath/">
+        Selecting node based on namespace in xPath
+      </a>
+    </h1>
+
+    <span class="post-date">11 Jan 2010</span>
+
+    <p>I&#39;m used to XPath, I use it in my Javascript dev (jQuery) has well as in my
+cakePHP dev (the Set::extract() method), and I&#39;ve always thought it was really
+fast, powerful and readable.</p>
+
+<p>Today I had to parse a real-world XML file, and I discovered that when dealing
+with namespaces, all became suddenly much more difficult in the XPath world.</p>
+
+<p>Here is my xml source (shortened for the sake of clarity) :</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xpacket begin=&quot;﻿&quot; id=&quot;W5M0MpCehiHzreSzNTczkc9d&quot;?&gt;</span>
+ <span class="nt">&lt;x:xmpmeta</span> <span class="na">xmlns:x=</span><span class="s">&quot;adobe:ns:meta/&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;rdf:RDF</span> <span class="na">xmlns:rdf=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span><span class="nt">&gt;</span>
+
+ <span class="nt">&lt;rdf:Description</span> <span class="na">rdf:about=</span><span class="s">&quot;&quot;</span> <span class="na">xmlns:dc=</span><span class="s">&quot;http://purl.org/dc/elements/1.1/&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;dc:creator&gt;</span>Igor Gosstroff<span class="nt">&lt;/dc:creator&gt;</span>
+ <span class="nt">&lt;dc:description</span> <span class="na">xml:lang=</span><span class="s">&quot;x-default&quot;</span><span class="nt">&gt;</span>Awesome picture<span class="nt">&lt;/dc:description&gt;</span>
+ <span class="nt">&lt;/rdf:Description&gt;</span>
+
+ <span class="nt">&lt;rdf:Description</span> <span class="na">rdf:about=</span><span class="s">&quot;&quot;</span> <span class="na">xmlns:xmp=</span><span class="s">&quot;http://ns.adobe.com/xap/1.0/&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;xmp:Rating&gt;</span>4<span class="nt">&lt;/xmp:Rating&gt;</span>
+ <span class="nt">&lt;/rdf:Description&gt;</span>
+
+ <span class="nt">&lt;/rdf:RDF&gt;</span>
+ <span class="nt">&lt;/x:xmpmeta&gt;</span>                                            
+<span class="cp">&lt;?xpacket end=&quot;w&quot;?&gt;</span>
+</code></pre></div>
+<p>I wanted to select the first <code>&lt;rdf:Description&gt;</code> (Dublin Core).</p>
+
+<p>First of all, you have to know that you can&#39;t do //rdf:description, you have
+to use a special syntax because the : is a reserved character. The solution is
+using the name() method : //*[name()=&#39;rdf:Description&#39;].</p>
+
+<p>It will return both rdf:Description nodes. I can easily get the one i&#39;m
+interested in by doing //*[name()=&#39;rdf:Description&#39;][1] but I would have liked
+to use a much more simple syntax and select the one with an xmlns:dc
+attribute.</p>
+
+<p>And I did not find out how to do that. All the syntaxes I tried either
+returned nothing, threw and exception and even crash my app once.</p>
+
+<p>I finally found a devious way to find it. I search for any xmlField whose
+namespace uri was http://purl.org/dc/elements/1.1/ and then get its parent. I
+still feel like its a dirty hack but I&#39;ve allready spent too much time on it,
+so it will be enough for now.</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">//*[namespace-uri()=&#39;http://purl.org/dc/elements/1.1/&#39;][1]/../
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/xpath">#xpath</a>
+      
+        <a href="/tags/xmp">#xmp</a>
+      
+        <a href="/tags/xml">#xml</a>
+      
+        <a href="/tags/namespace">#namespace</a>
+      
+        <a href="/tags/coldfusion">#coldfusion</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page44">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page42">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

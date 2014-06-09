@@ -1,0 +1,386 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/01/05/productivity-tip-1-global-hotkeys/">
+        Productivity tip #1 : Using global hotkeys
+      </a>
+    </h1>
+
+    <span class="post-date">05 Jan 2012</span>
+
+    <p>This post will be the first of what I hope will be a long serie of posts. I&#39;ll
+blog about some of the little tricks I&#39;ve learn in the past years that make me
+go faster on my daily job.</p>
+
+<p>I&#39;ll start with something I can no longer work without : my global hotkeys.</p>
+
+<p>The concept is pretty simple, I&#39;ve binded some keys combinations to launch
+specific applications or directories. It might not seem very important, but it
+does make you gain a tremendous amount of time for those apps you launch
+pretty often like browser, IDE, or project directory.</p>
+
+<p>I used to work on Windows, and I then used a little script named
+<a href="http://www.autohotkey.com/">AutoHotKey</a> to bind my keys. The script even
+comes packaged with its own language if you ever want to script complicated
+stuff.</p>
+
+<p>I&#39;m now working under Ubuntu, and the global hotkeys can be defined directly
+from the System Settings (in 11.10 it&#39;s <code>System Settings &gt; Keyboard &gt;
+Shortcuts &gt; Custom Shortcuts</code>)</p>
+
+<h2>Opening apps</h2>
+
+<p>I choose a key combination hard enough to type so I won&#39;t type it by mistake,
+but easy enough to remember that I could type it whenever I want.</p>
+
+<p>For example, I binded all the app I use the most to a <code>Ctrl+Win+{Letter}</code>
+combination. <code>Ctrl+Win+C</code> opens Chromium, <code>Ctrl+Win+F</code> opens Firefox,
+<code>Ctrl+Win+T</code> opens Trillian, etc.</p>
+
+<h2>Opening folders</h2>
+
+<p>I used a close combination for opening directories : <code>Ctrl+Win+Alt+{Letter}</code>.
+Those three keys are side by side on most keyboards so pressing them is easy.</p>
+
+<p>This time I used the letter <code>H</code> for my home folder, <code>D</code> for the Dropbox
+folder, <code>W</code> for <code>/var/www</code>, etc, etc.</p>
+
+<p>I&#39;ve tweaked my keyboard in a few other ways, but this will be the subject of
+another post. Hope this one gave you some ideas.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/productivity">#productivity</a>
+      
+        <a href="/tags/tip">#tip</a>
+      
+        <a href="/tags/keyboard">#keyboard</a>
+      
+        <a href="/tags/autohotkey">#autohotkey</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/01/04/installing-jshint-node-v0-6/">
+        Installing jshint with node v0.6.6
+      </a>
+    </h1>
+
+    <span class="post-date">04 Jan 2012</span>
+
+    <p>Yesterday, I&#39;ve tried to install nodejs and the jshint package to add
+automatic jshint parsing to my vim.</p>
+
+<p>Well, it wasn&#39;t so simple due to a bug in the npm version shipped with node.</p>
+
+<p>Here are the complete commands to run to make it work, in case I had to do it
+again :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Download and extract node</span>
+<span class="nb">cd</span> ~/local/src
+wget http://nodejs.org/dist/v0.6.6/node-v0.6.6.tar.gz
+tar xvzf node-v0.6.6.tar.gz
+rm node-v0.6.6.tar.gz
+<span class="c"># Compile and install</span>
+<span class="nb">cd </span>node-v0.6.6
+./configure
+make
+sudo make install
+<span class="c"># Update npm</span>
+sudo npm install npm@alpha -g
+<span class="c"># (Optional) Clear npm cache</span>
+npm cache clean jshint
+<span class="c"># Install jshint</span>
+sudo npm install jshint -g
+</code></pre></div>
+<p>Source : <a href="https://github.com/isaac%0As/npm/issues/1888">https://github.com/isaacs/npm/issues/1888</a></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jshint">#jshint</a>
+      
+        <a href="/tags/npm">#npm</a>
+      
+        <a href="/tags/node">#node</a>
+      
+        <a href="/tags/nodejs">#nodejs</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/01/04/facebook-https-mixed-content-warning-ie9/">
+        Facebook https mixed content warning on IE9
+      </a>
+    </h1>
+
+    <span class="post-date">04 Jan 2012</span>
+
+    <p>When browsing the web, you might have seen a &quot;mixed content warning&quot; popup
+show in your browser. They are most of the time poorly worded and their
+meaning is quite obscure.</p>
+
+<p>What it means is that your are currently browsing a page with both <code>http</code>and
+<code>https</code>content. Typically, if your page is <code>https</code>but one of the css, js or
+image file it contains is requested through <code>http</code>, the warning will pop.</p>
+
+<p><em>(It&#39;s interesting to note here that not all assets are treated equal. Loading
+a flash movie through <code>http</code>does not trigger the warning).</em></p>
+
+<h2>The IE special case</h2>
+
+<p>Now, what&#39;s special about IE is that it also trigger the mixed content warning
+when content is the other way around. If you&#39;re serving a page through <code>http
+</code>and load assets through <code>https</code>, it will consider it a mixed content too.</p>
+
+<p>In a sense, that&#39;s logical, but it needlessly prompt the user with a dialog
+that block downloading of all <code>https</code>assets until confirmed.</p>
+
+<p>The solution is to make sure that all your assets are loaded with the same
+protocol as the host page. An easy way to do so is to use the <code>//</code> relative
+protocol url. This will use <code>http</code>or <code>https</code>automatically based on the page
+protocol.</p>
+
+<h2>And adding Facebook to the mix</h2>
+
+<p>A few months ago, Facebook forced all apps to serve content through <code>https</code>.
+In the meantime, they suggested that all their users browse their website
+using <code>https</code>too.</p>
+
+<p>Unfortunatly for us, some of our own users had bookmarks in their browsers and
+Facebook pages referencing our old
+<a href="http://apps.facebook.com/appname/">http://apps.facebook.com/appname/</a> url.
+And following that link triggered the dreaded mixed content warning in IE.</p>
+
+<p>When accessing this page, Facebook was loaded in classic <code>http</code>but our inner
+iframe was loaded through <code>https</code>. So far, so good.</p>
+
+<p>The problem came from one of Facebook own javascript SDK included in our app.
+This script loaded other scripts based on what it needed.</p>
+
+<p>Unfortunatly, it loaded the other scripts from an <code>http</code>(not <code>https</code>) server.
+The SDK has two distinct sets of urls, based on the current page protocol.</p>
+
+<p>It was wrongly considering being in an <code>http</code>page, not an <code>https</code>one, and
+thus used the wrong set of urls. This confusing comes from the fact that it
+checks the top page protocol instead of checking the current page protocol.</p>
+
+<p>After some googling, I found a solution that consisted in forcing the SDK to
+consider that we are in <code>https</code>mode by calling : <code>FB._https = true</code> before
+the call to<code>FB.init()</code></p>
+
+<h2>Almost there</h2>
+
+<p>If correctly forced FB to use the correct set of urls, thus removing the mixed
+content warning. And I almost thought it would be that easy.</p>
+
+<p>It was not.</p>
+
+<p>This did not fixed the payment popup. All Facebook UI element loaded correctly
+(feeds, permissions, requests), but the payment popup.</p>
+
+<p>I couldn&#39;t find a way to fix that, so I reverted to a more brutal approach.</p>
+
+<h2>Final and brutal solution</h2>
+
+<p>All my problems came from the fact that FB thought we were serving <code>http
+</code>while in fact we were serving <code>https</code>. So the solution, might be to force FB
+to serve <code>https</code>from start to end.</p>
+
+<p>I wanted to detect if the page was loaded through
+<a href="http://apps.facebook.com/appname/">http://apps.facebook.com/appname/</a> or
+<a href="https://apps.facebook.com/appname/">https://apps.facebook.com/appname/</a>.</p>
+
+<p>Unfortunatly, due to cross domain restrictions in Javascript, we are not able
+to read, from inside and iframe, the parent frame properties. So I couldn&#39;t
+read <code>top.location.protocol</code> to easily check if I needed to redirect.</p>
+
+<p>But, as I mentionned earlier, <code>FB._https</code> incorrectly report that we are not
+in <code>https</code>because it checks the top protocol. So I used this var, to know if
+the parent frame was in the correct protocol or not. Using this own FB bug to
+fix itself.</p>
+
+<p>Now, for the redirect : even if I couldn&#39;t read the<code>top.location</code>, I could
+modify it. I just had to call <code>top.location.url =
+&#39;https://apps.facebook.com/appname/&#39;</code> to redirect the whole page.</p>
+
+<p>I hardcoded the app url because there was no way to get it from js, and I took
+care of keeping any GET parameter passed before the redirect, and I ended up
+with this :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">FB</span><span class="p">.</span><span class="nx">_https</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">appUrl</span> <span class="o">=</span> <span class="s1">&#39;https://apps.facebook.com/appname/&#39;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">iframeUrl</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span><span class="o">+</span><span class="s1">&#39;//&#39;</span><span class="o">+</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span><span class="o">+</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">redirectUrl</span> <span class="o">=</span> <span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">iframeUrl</span><span class="p">,</span> <span class="nx">appUrl</span><span class="p">);</span>
+  <span class="nx">top</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">redirectUrl</span><span class="p">;</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">FB</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+</code></pre></div>
+<h2>Conclusion</h2>
+
+<p>I&#39;m not really proud of this solution, as it is mostly a hack and will force a
+useless loading of the http version before loading the https one, but that&#39;s
+the best I&#39;ve found. If any of you have a better solution, feel free to
+comment.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/facebook">#facebook</a>
+      
+        <a href="/tags/fb">#fb</a>
+      
+        <a href="/tags/https">#https</a>
+      
+        <a href="/tags/ie9">#ie9</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/12/02/php-differences/">
+        PHP AND / OR differences with &amp;&amp; / ||
+      </a>
+    </h1>
+
+    <span class="post-date">02 Dec 2011</span>
+
+    <p>Just found this weird little behavior of PHP today :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$a = false;</span>
+<span class="x">$b = true;</span>
+<span class="x">$c = $a OR $b;</span>
+<span class="x">$d = ($a OR $b);</span>
+<span class="x">var_dump(compact(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;));</span>
+<span class="x">array(4) {</span>
+<span class="x">  [&quot;a&quot;]=&gt;    bool(false)</span>
+<span class="x">  [&quot;b&quot;]=&gt;    bool(true)</span>
+<span class="x">  [&quot;c&quot;]=&gt;    bool(false)</span>
+<span class="x">  [&quot;d&quot;]=&gt;    bool(true)</span>
+<span class="x">}</span>
+</code></pre></div>
+<p><code>$a OR $b</code> in fact returns <code>$a</code>, while <code>($a OR $b)</code> returns the result of the
+parenthesis. On the other hand, <code>$a || $b</code> correctly returns the result of the
+expression.</p>
+
+<p>It seems that <code>AND</code>and <code>OR</code>are weak compared to <code>&amp;&amp;</code> and <code>||</code>.</p>
+
+<p>Be aware of that, or it might backfire on you. Or just discard all <code>AND</code>/ <code>OR
+</code>in favor of <code>&amp;&amp;</code> /<code>||</code></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/11/28/weird-php-behavior-casting-object/">
+        Weird PHP behavior when casting as an object
+      </a>
+    </h1>
+
+    <span class="post-date">28 Nov 2011</span>
+
+    <p>I&#39;ve just stumbled upon that weird behavior when force casting the return of a
+function to an object. The PHP result was not what I expected.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$a = null;</span>
+<span class="x">echo empty($a) ? &quot;Yes, I&#39;m empty&quot; : &quot;You should not see this&quot;</span>
+</code></pre></div>
+<p>This is pretty straighforward code. Now, we test it with an object.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$a = (object) null;</span>
+<span class="x">echo empty($a) ? &quot;Yes, I&#39;m empty&quot; : &quot;You should not see this but, actually, you do.&quot;</span>
+</code></pre></div>
+<p>Note that it even gets weirder when <code>(object) false</code> and <code>(object) true</code>
+become objects with a key <code>scalar</code>, set to <code>false</code></p>
+
+<p>This is one of the little things that make me want to ditch PHP for a better
+language.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/object">#object</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/empty">#empty</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page7">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page5">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

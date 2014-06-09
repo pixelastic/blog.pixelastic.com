@@ -1,0 +1,274 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     cakePHP deployment with Mercurial on Dreamhost - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">cakePHP deployment with Mercurial on Dreamhost</h1>
+  <span class="post-date">01 Oct 2009</span>
+  <p>I now use Mercurial on my daily work flow and have set up some methods on my
+dev machine to ease the pain of installing mercurial and make it work on any
+new webserver.</p>
+
+<p>Here are some snippets that automate all that stuff. You may have to change
+one thing or two to accomodate your own setup.</p>
+
+<p>First, I create a custom <code>.bashrc</code> file that I will put on the webserver and
+create into the following method :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">hgInstall<span class="o">()</span> <span class="o">{</span>
+ mkdir -p ~/.packages/src
+ <span class="nb">cd</span> ~/.packages/src
+ wget http://www.selenic.com/mercurial/release/mercurial-1.2.tar.gz
+ tar xvzf mercurial-1.2.tar.gz
+ <span class="nb">cd </span>mercurial-1.2
+ python setup.py install --home<span class="o">=</span>~/.packages/
+ <span class="nb">echo</span> -e <span class="s2">&quot;[ui]\nusername = Pixelastic &lt;tim@mailastic.com&gt;&quot;</span> &gt;&gt; ~/.hgrc
+ <span class="nb">echo</span> -e <span class="err">&quot;</span><span class="o">[</span>extensions<span class="o">]</span><span class="se">\n</span>hgext/hbisect<span class="o">=</span>!<span class="se">\n</span>hgext.imerge<span class="o">=</span>! &gt;&gt; ~/.hgrc
+
+ . ~/.hgrc
+ <span class="nb">cd</span> ~/
+ hg version
+<span class="o">}</span>
+</code></pre></div>
+<p>Let me explain. I first create a directory to store the packages I will
+download (in this example I will only download one package, but as I don&#39;t
+like to have files all around my server, I just keep them in this place). I
+will then download Mercurial 1.2 in this new directory, unzip it and install
+it.</p>
+
+<p>Next step is configuring the default user and correcting some bugs with
+Dreamhost trying to load non-existing extensions (<code>hgext/hbisec</code>t and
+<code>hgext.imerge</code>). As I&#39;ve made a change to <code>.hgrc</code>, I reload it and get back to
+the default directory while displaying hg version.</p>
+
+<p>That&#39;s almost done, I also have to edit the .bash_profile and add the
+following lines</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>~/.packages/lib/python
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>~/.packages/bin:<span class="nv">$PATH</span>
+</code></pre></div>
+<p>Ok, so this method will download, install on configure Hg on the Dreamhost
+server. That&#39;s all very well, but I had to manually setup the .bashrc, let&#39;s
+see if we cannot automate that as well.</p>
+
+<p>Now, I&#39;m editing my .zsh<em>aliases on my local machine (or your .bash</em>aliases if
+you&#39;re using bash) to add the following method</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">dreamhost<span class="o">()</span> <span class="o">{</span>
+ scp ~/Documents/Config/Dreamhost/.bashrc ~/Documents/Config/Dreamhost/.bash_profile <span class="nv">$1</span>:~/
+ ssh <span class="nv">$1</span> <span class="s1">&#39;. ~/.bashrc&#39;</span>
+ scp ~/.ssh/id_rsa.pub ~/Documents/Config/Dreamhost/.ssh/xpsfixe.pub <span class="nv">$1</span>:~/
+ ssh <span class="nv">$1</span> <span class="s1">&#39;addKeys&#39;</span>
+ scp ~/Documents/Config/Dreamhost/cakeClearCache.sh <span class="nv">$1</span>:~/
+ ssh <span class="nv">$1</span> <span class="s1">&#39;chmod +x ~/cakeClearCache.sh&#39;</span>
+ ssh <span class="nv">$1</span> <span class="s1">&#39;hgInstall&#39;</span>
+ ssh <span class="nv">$1</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Ok, so this one is a little more complex. You have to call this method with
+one paremeter, being the user@domain credentials to connect to your Dreamhost
+server. What it will do is upload (using ssh) files from your local machine to
+the server and then apply some commands on the machine using ssh.</p>
+
+<p>First it will upload both the local version .bashrc and .bash_profile that are
+sitting on your dev machine and &quot;reload&quot; the .bashrc, allowing you to use the
+previously defined hgInstall directly in the shell</p>
+
+<p>Then, it will upload your ssh key(s) to the server and add them to the list of
+allowed keys (more on that later, just skip the addKeys line for now.)</p>
+
+<p>The next step is uploading (and giving the correct chmod) a special script
+that will clear cakePHP cache (more on that later too)</p>
+
+<p>And the final step is calling the previously explained hgInstall method. So
+the only thing you have to do is put this method in your .zsh_aliases (and the
+corresponding keys, .bashrc and scripts in their corresponding places) then
+run dreamhost() and Hg will be installed on your server.</p>
+
+<p>So now let me get back a little on the two details I skipped. The first is the
+key stuff. What I&#39;m doing is uploading your ssh key(s) to the server and then
+calling addKeys. It will authorize those keys to connect using ssh without
+having to type login/pass on each request. Here is the addKeys code (you have
+to put it in your .bashrc file and modify the filename to your own)</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">addKeys<span class="o">()</span> <span class="o">{</span>
+ mkdir .ssh
+ cat id_rsa.pub &gt;&gt; .ssh/authorized_keys
+ cat xpsfixe.pub &gt;&gt; .ssh/authorized_keys
+ rm id_rsa.pub
+ rm xpsfixe.pub
+ chmod go-w ~
+ chmod 700 ~/.ssh
+ chmod 600 ~/.ssh/authorized_keys
+<span class="o">}</span>
+</code></pre></div>
+<p>It will basically create the .ssh dir and authorized_keys file with your keys
+info. It will then delete the files and set the correct chmod.</p>
+
+<p>And the second part was about that cache clearing thing. When you update your
+app using Hg, you do not want to update the cache files created by Cake as
+they contain filepath reference and are likely to be different between your
+test and prod environment and would surely broke your whole app. So, you set
+an ignore rule in the .hgignore about them like the following :</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">syntax:glob
+app/tmp/cache/cake_*
+app/tmp/cache/views/*.php
+app/tmp/cache/models/cake_*
+app/tmp/cache/persistent/cake_*
+</code></pre></div>
+<p>It does work fine almost all the time, but it sometimes lead to errors as the
+cache is not regenerated between each hg update. Sometimes you have to alter a
+model schema or the way a value is stored in cache and if you don&#39;t clear your
+cache, it can yield to unexpected results as the data will be wrongly parsed
+and used.</p>
+
+<p>So what i did to avoid that was to create a script that will clear the cache
+for you. Here is the code (you have to be inside the project dir for this to
+work)</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">cd </span>app/tmp/cache
+rm -f cake_*
+rm -f views/*<span class="se">\.</span>php
+rm -f models/cake_*
+rm -f persistent/cake_*
+<span class="nb">cd</span> ../../../
+</code></pre></div>
+<p>It will remove all the cache files generated by cake that could interfere
+after an update. You just have to wrap thoses lines in a method in your
+.bashrc (mine is called cakeClearCache) and execute it after each update or
+when you have caching issues.</p>
+
+<p>Well, I think you guessed that I did not stop here. Manually applying the
+method after each update can be a little tedious. So I put the previous code
+in a file named cakeClearCache.sh (you can spot that I uploaded this file in
+the dreamhost() method earlie)r. I also added the following line to my
+/project/.hg/hgrc on my server (if you don&#39;t have this file, just create it,
+it&#39;s a project-based hg configuration file)</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[hooks]</span>
+<span class="na">update</span> <span class="o">=</span> <span class="s">~/cakeClearCache.sh</span>
+</code></pre></div>
+<p>It means that everytime an hg update is done, the specified script is fired.
+That&#39;s really fine for us, it means that cache will be cleared on each update.
+Sounds good.</p>
+
+<p>One last thing to do was creating the hgrc file automatically. That&#39;s why I
+created the following method (add it to the .bashrc file in the server). It is
+just a wrapper that will create the hgrc file after doing an hg init</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">hgInitStart<span class="o">()</span> <span class="o">{</span>
+ hg init
+ <span class="nb">echo</span> -e <span class="s2">&quot;[hooks]\nupdate = ~/cakeClearCache.sh&quot;</span> &gt;&gt; ./.hg/hgrc
+<span class="o">}</span>
+</code></pre></div>
+<p>So instead of doing hg init, just do hgInitStart. You can then start cloning
+your project here.</p>
+
+<p>And one last thing, I also created a method that will set correct chmod to
+app/tmp and app/webroot/files</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">cakeCorrectChmod<span class="o">()</span> <span class="o">{</span>
+ chmod 777 ./app/tmp -R
+ chmod 777 ./app/webroot/files -R
+<span class="o">}</span>
+</code></pre></div>
+<p>And created a wrapper around it to call just after having cloned the project
+that will update it and set the correct chmods</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">hgInitEnd<span class="o">()</span> <span class="o">{</span>
+ hg update tip
+ cakeCorrectChmod
+<span class="o">}</span>
+</code></pre></div>
+<p>That&#39;s all. I bet anyone slightly more experienced in shell scripting could do
+better than that, but as I have struggled a little to get this right I thought
+I could share it.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/ssh">#ssh</a>
+    
+      <a href="/tags/mercurial">#mercurial</a>
+    
+      <a href="/tags/hg">#hg</a>
+    
+      <a href="/tags/dreamhost">#dreamhost</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Show and hide Flash elements without redraw - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Show and hide Flash elements without redraw</h1>
+  <span class="post-date">16 Sep 2011</span>
+  <p>Imagine you have a Flash element in your HTML markup. If you apply any
+<code>show</code>/<code>hide</code>logic to it, the flash will be reset and played back to its
+first frame.</p>
+
+<p>Actually, as soon as you change the <code>display</code>property of an element, if
+forces all inner Flash element to be restarted.</p>
+
+<p>There are a few ways you can work around that, and here are the two main I&#39;m
+using</p>
+
+<h2>Your Flash file is in a tab</h2>
+
+<p>Fairly common scenario, you have tabs on your page (maybe using jQuery UI or a
+custom code). When you display your Flash tab, all others are hidden, and when
+you display another tab, the Flash one is hidden.</p>
+
+<p>Instead of using <code>display:none</code> / <code>display:block</code>, we&#39;ll be a little more
+sneaky and not really &quot;hide&quot; the element, but simply put it out of the user
+view.</p>
+
+<p>Just apply the following CSS rule to the element you want to hide. It will
+just display it offscreen.</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.tabHidden</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:-</span><span class="m">9999em</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Don&#39;t forget to add a <code>position:relative</code> to the HTML parent of your tab for
+the absolute positionning to work.</p>
+
+<h2>You have multiple Flash files in a list</h2>
+
+<p>This one is trickier. Imagine you have a list of elements, and each row
+contains a Flash file. You want to filter the list based on various criterias
+and only show the rows matching.</p>
+
+<p>You can&#39;t use the previous technique here because some elements of your list
+will be in relative positionning while others will be in absolute
+positionning. And everytime you change the <code>position</code>property of your
+element, the Flash will be reset.</p>
+
+<p>The trick here is to play with your element dimensions and visibility. You can
+change the <code>visibility</code>without triggering a redraw. As this will only make
+the element invisible but still taking space, you just have to put its <code>height
+</code>and <code>width</code>to <code>0</code> to make it effectively disappear.</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.listElementHidden</span> <span class="p">{</span>
+  <span class="k">visibility</span><span class="o">:</span><span class="k">hidden</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">0px</span><span class="o">:</span>
+  <span class="k">margin</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>margin:0px</code> is here to clear any margin you might have defined around
+your element.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/show">#show</a>
+    
+      <a href="/tags/hide">#hide</a>
+    
+      <a href="/tags/flash">#flash</a>
+    
+      <a href="/tags/css">#css</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,419 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/06/29/working-wednesday-4-rails-zombies/">
+        Working on Wednesday #4 : Rails for Zombies
+      </a>
+    </h1>
+
+    <span class="post-date">29 Jun 2011</span>
+
+    <p>(I finally managed to update Ubuntu to the 10.10 version, configure Unity to
+make it more usable, and I&#39;m not ready to start the RoR tutorial I wanted to
+start last week.)</p>
+
+<p>I used <code>vim</code> this week (instead of <code>nano</code>) for very simple file editing. I
+will force myself to use only <code>vim</code> on wednesday to really learn it. I plan to
+completly drop Komodo Edit once I&#39;ll be familar enough with vim to gain more
+time than I lose.</p>
+
+<h2>Rails for Zombies</h2>
+
+<p>Anyway. I finally get to start the Rails for Zombies tutorial. And here is
+what I learned.</p>
+
+<p>There are two distinct things I&#39;m going to learn here : Ruby and Rails. I
+discovered that I was already familiar with a lot of basic concepts of Rails,
+thanks to cakePHP. Model and table convention, model relationships (belongs
+to, has many, etc) were exactly the same.</p>
+
+<p>Ruby on the other hand was new. But also very interesting. No need to add <code>()</code>
+after a method to call it when no args are passed, possibility to chain method
+of the same object (much like jQuery) and the use of dynamic (yet strongly
+typed) vars.</p>
+
+<p>The first part of the tutorial (basic CRUD) was easy. I didn&#39;t find how to
+make a complex SQL query like this (cake) one :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$Zombie-&gt;find(&#39;all&#39;, array(</span>
+<span class="x">&#39;order&#39; =&gt; array(&#39;Zombie.graveyard&#39; =&gt; &#39;ASC&#39;, &#39;Zombie.name&#39; =&gt; &#39;DESC&#39;</span>
+<span class="x">));</span>
+</code></pre></div>
+<p>I guess it&#39;s just a matter of time before I learn how to to do in Rails
+anyway. I saw that there was more &quot;advanced&quot; method (much like the cake <code>find</code>
+method) that would surely allow such finding.</p>
+
+<h2>Part 2 : Validation and Relationships</h2>
+
+<p>The second part of the tutorial was more about models. Validation rules were
+pretty much the same as those of cakePHP. But the Ruby syntax makes it more
+concise.</p>
+
+<p>I couldn&#39;t find how to retrieve the validation errors when saving an object
+using the <code>create</code> method (no problem when manually calling <code>save</code>, though).</p>
+
+<p>I enjoyed being able to create binded instances by simply adding the binded
+element to the model. Not very clear isn&#39;t it ? Here some code to explain it
+better. The last two lines have exactly the same effect :</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Zombie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="k">end</span>
+<span class="k">class</span> <span class="nc">Weapon</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="n">belongs_to</span> <span class="ss">:zombie</span>
+<span class="k">end</span>
+<span class="no">Weapon</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Rocket Launcher&quot;</span><span class="p">,</span> <span class="ss">:zombie_id</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">)</span>
+<span class="no">Weapon</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Rocket Launcher&quot;</span><span class="p">,</span> <span class="ss">:zombie</span> <span class="o">=&gt;</span> <span class="no">Zombie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<p>Later on, I had to select all weapons binded to a specific Zombie. I was able
+to find the a specific zombie using any of the two following commands :</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">z</span> <span class="o">=</span> <span class="no">Zombie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Ash&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="n">z</span> <span class="o">=</span> <span class="no">Zombie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="ss">:first</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Ash&quot;</span> <span class="p">})</span>
+</code></pre></div>
+<p>Then, I wanted to find the weapons binded to this zombie. First I tried the
+following command :</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Weapon</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:zombie_id</span> <span class="o">=&gt;</span> <span class="n">z</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</code></pre></div>
+<p>Obviously, this worked. But I wanted to test some more of the Rails magic. So
+I tried something along the lines of what I did in the previous chapter and
+tried to use my <code>z</code> var directly instead of <code>z.id</code>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Weapon</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:zombie</span> <span class="o">=&gt;</span> <span class="n">z</span><span class="p">)</span>
+</code></pre></div>
+<p>This didn&#39;t worked. Well, I guess I&#39;ll also learn why later on. But one even
+more weird thing is that the following command did work even I&#39;m not really
+sur why ?</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Weapon</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:zombie_id</span> <span class="o">=&gt;</span> <span class="n">z</span><span class="p">)</span>
+</code></pre></div>
+<p>That&#39;s all I did today (well I also did some more Mercurial and Dingux testing,
+but that wasn&#39;t really work)</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/wednesday">#wednesday</a>
+      
+        <a href="/tags/ruby-on-rails">#ruby-on-rails</a>
+      
+        <a href="/tags/ror">#ror</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/06/27/alternate-content-swfobject/">
+        Alternate content with SWFObject
+      </a>
+    </h1>
+
+    <span class="post-date">27 Jun 2011</span>
+
+    <p>SWFObject allow a web developer to add an alternate content in place of the
+<code>swf</code> file is the user doesn&#39;t have flash installed.</p>
+
+<p>In the case of a web app this is great to provide your user with a link to the
+Adobe website. You then tell your users Flash is needed and provide a link for
+them to install it.</p>
+
+<p>Unfortunatly, if for one reason or another the <code>swf</code> file you try to load is
+unreachable (maybe your host is down ?), SWFObject will display the same
+alternate content. Meaning that a user with a perfectly correct Flash version
+will see an error message telling him that he does not have Flash when in fact
+the error is on your side.</p>
+
+<p>That&#39;s not very user friendly and makes you look bad.</p>
+
+<p>So, to fix this, I added two error messages as alternate content :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;alternateContent&quot;</span> <span class="na">class=</span><span class="s">&quot;alternateContent&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;noFlash message&quot;</span><span class="nt">&gt;</span>It seems that you do not have the Flash player installed. Please install it, by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.adobe.com/go/getflashplayer&quot;</span> <span class="na">target=</span><span class="s">&quot;_parent&quot;</span><span class="nt">&gt;</span>following this link<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;error404 message&quot;</span><span class="nt">&gt;</span>Sorry, we were unable to load the game. Please try again in a few moments.<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<p>Then, in CSS I decided to hide them both :</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.alternateContent</span> <span class="nc">.message</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.alternateContent.noFlash</span> <span class="nc">.noFlash</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.alternateContent.error404</span> <span class="nc">.error404</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<p>And finally, in Javascript I checked for the current Flash version. If it&#39;s
+equal to zero, it means that Flash is not installed, so I display the <code>noFlash
+</code>error message, otherwise, I guess it&#39;s a 404 error and display the other
+message.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">flashVersion</span> <span class="o">=</span> <span class="nx">swfobject</span><span class="p">.</span><span class="nx">getFlashPlayerVersion</span><span class="p">(),</span>
+  <span class="nx">alternateContent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#alternateContent&#39;</span><span class="p">)</span>
+<span class="p">;</span>
+<span class="c1">// Displaying one message or the other</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">flashVersion</span><span class="p">.</span><span class="nx">minor</span><span class="o">==</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alternateContent</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;noFlash&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">alternateContent</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;error404&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This is not bulletproof : I only test for two cases. And a better solution
+would also have been to put the error message dynamically using Javascript
+instead of polluting the HTML markup with contradictory text.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/flash">#flash</a>
+      
+        <a href="/tags/swf">#swf</a>
+      
+        <a href="/tags/swfobject">#swfobject</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/06/23/swfobject-display-alternate-content-head/">
+        SWFObject must be included in the &lt;head&gt;
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jun 2011</span>
+
+    <p>We just discovered a strange behavior on one of our test VM (one without Flash
+installed). I don&#39;t know how we&#39;ve missed it before.</p>
+
+<p>When embedding the main flash file of our application, the alternate content
+wasn&#39;t displayed to players. In fact it seemed to be displayed very briefly
+then disappear.</p>
+
+<p>I had correctly embeded it with the static publishing method and added a call
+to <code>swfobject.registerObject</code> to soften the edges. I remembered it working
+correctly in my tests, so I quickly made a small test case.</p>
+
+<p>It occurs that the alternate content was corretcly displayed if I removed the
+<code>swfobject.registerObject</code> call and only used the static publishing.</p>
+
+<p>I also found that everything worked fine if I called the <code>swfobject.js</code> file
+in the <code>head</code>, but started to bug when I moved it at the end of the page.</p>
+
+<p>As I didn&#39;t want to add a call to a .js file in my <code>head</code>, I google a bit and
+I finally found that one have to call <code>swfobject.switchOffAutoHideShow();</code>
+right before the<code>swfobject.registerObject</code> call. This seems to fix things by
+not hiding the alternate text</p>
+
+<h2>Edit</h2>
+
+<p>I spent some more hours trying to debug the last corner cases. We had a user
+using Firefox 3.5.3 with Flash 10.0.42.34. Using SWFObject, we required at
+least version 10.1. Unfortunatly, the app was still loading, but was buggy
+because of features not present in the user flash version.</p>
+
+<p>After some tests, I discovered that the <code>swfobject.js</code> code MUST be included
+in the <code>&lt;head&gt;</code> of the document (well, before any <code>.swf</code> in the page, so
+better put it in the <code>&lt;head&gt;</code>).</p>
+
+<p>Doing so, you won&#39;t even need the previous fix
+(<code>swfobject.switchOffAutoHideShow()</code>).</p>
+
+<p>I would have loved putting it at the end of the page, with the others JS
+files, but I guess I won&#39;t have a choice here.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/registerobject">#registerobject</a>
+      
+        <a href="/tags/flash">#flash</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/switchoffautohideshow">#switchoffautohideshow</a>
+      
+        <a href="/tags/swfobject">#swfobject</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/06/22/working-wednesday-3-long-path/">
+        Working on Wednesday #3 : The long path to get it done
+      </a>
+    </h1>
+
+    <span class="post-date">22 Jun 2011</span>
+
+    <p>This morning I started reading a lot of online blog post, framework
+description and other webdev material online I had in my bookmarks. After
+reading them, I saved them on my pinboard account to find them easily later.</p>
+
+<p>Lot of good JS and CSS framework/libraries in there, I hope to be able to test
+them soon.</p>
+
+<p>I also check my mailbox and respond to mails from my normal job. I shouldn&#39;t.
+I&#39;m on a day off, I have to force myself to completly cut out those external
+calls.</p>
+
+<h2>Now, let&#39;s the work begin</h2>
+
+<p>Anyway, I finally finished the vimtutor. I still have a some difficulties to
+remember the mapping of the basic hjkl movement keys (I always want use k to
+move down instead of j). However, I feel confident enough in it to try writing
+my new code in it.</p>
+
+<p>So, I headed to the Rails for Zombies tutorial. I thought it was free but the
+&quot;win $5 worth of online teaching&quot; / &quot;next course costs $5&quot; make me doubt it a
+little. Well, we&#39;ll see.</p>
+
+<p>After registering to it, I wanted to save my login and password to KeePass as
+I always do.</p>
+
+<p>Unfortunatly, KeePass on my Ubuntu machine works by using mono, and the
+keyboard interaction weren&#39;t that good (caret is slightly misplaced, inputs
+lags before getting displayed, text selection is weird). So I thought &quot;Hey,
+let&#39;s see if there is a new version&quot;. Big mistake.</p>
+
+<p>It appears that there was indeed a new version, a real one, with <code>apt-get</code> and
+stuff while mine was some hackish install I manually made a few month ago.</p>
+
+<p>But wait, this means manually adding a ppa directory. No big deal, I trust the
+author. What ? Still doesn&#39;t work ? Hmm, I see. I need <code>mono</code> 2.6, and I only
+have 2.4.</p>
+
+<p>What ? 2.4 is the latest available version on Ubuntu 10.10 ? You mean I must
+upgrade to 11.04 ? Hmm. Why not. I&#39;ll have to do it eventually, so let&#39;s go.</p>
+
+<p>So I ran all my updates, to have the most up to date system. Unfortunatly,
+<code>language-pack-gnome-fr</code> doesn&#39;t want to upgrade so the OS upgrade isn&#39;t
+displayed.</p>
+
+<h2>Wait, what am I doing ?</h2>
+
+<p>And that&#39;s when I remember that my initial wish was to learn Ruby on Rails and
+that I was now on the road to upgrading my whole operating system. That is not
+exactly speaking procrastination, but it makes me do so much other things that
+my initial goal that I really looks like it.</p>
+
+<p>I finally managed to purge my packets, upgrade to 10.10 and then to 11.04. But
+this took me 4 hours, and now it&#39;s 11PM and I guess I won&#39;t start this rails
+tutorial today, after all.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/keepass">#keepass</a>
+      
+        <a href="/tags/vim">#vim</a>
+      
+        <a href="/tags/linux">#linux</a>
+      
+        <a href="/tags/mono">#mono</a>
+      
+        <a href="/tags/ruby-on-rails">#ruby-on-rails</a>
+      
+        <a href="/tags/ubuntu">#ubuntu</a>
+      
+        <a href="/tags/wednesday">#wednesday</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/06/20/cakephp-fatal-error-class-controller/">
+        cakePHP : Fatal error: Class &#39;Controller&#39; not found
+      </a>
+    </h1>
+
+    <span class="post-date">20 Jun 2011</span>
+
+    <p>Last Friday, just before turning off my computer and going home, the cake
+project I&#39;m working on was displaying a scary <code>Fatal error: Class &#39;Controller&#39;
+not found in /var/www/project/app/app_controller.php on line 5</code></p>
+
+<p>Today, I&#39;m getting back to work and here&#39;s what happened. After a morning of
+trial and error, I finally reverted back to a previous svn commit, then re-
+updated to the latest one and it seemed to solve the issue.</p>
+
+<p>But later on the day, after another update, it started bugging again and the
+error message wasn&#39;t very helpful.</p>
+
+<p>After much googling, this <a href="http://cakephp.lighthouseapp.com/projects/43067/tickets/26-class-%0Acontroller-not-found">bug
+report</a> gave me a hint : I had new models but didn&#39;t create the
+corresponding tables. Strangely, creating the missing logs table for my Log
+class solved the issue.</p>
+
+<p>Hope this blog post will be usefull for anyone else struggling with this error
+message.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/bug">#bug</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/controller">#controller</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page14">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page12">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Selecting node based on namespace in xPath - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Selecting node based on namespace in xPath</h1>
+  <span class="post-date">11 Jan 2010</span>
+  <p>I&#39;m used to XPath, I use it in my Javascript dev (jQuery) has well as in my
+cakePHP dev (the Set::extract() method), and I&#39;ve always thought it was really
+fast, powerful and readable.</p>
+
+<p>Today I had to parse a real-world XML file, and I discovered that when dealing
+with namespaces, all became suddenly much more difficult in the XPath world.</p>
+
+<p>Here is my xml source (shortened for the sake of clarity) :</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xpacket begin=&quot;﻿&quot; id=&quot;W5M0MpCehiHzreSzNTczkc9d&quot;?&gt;</span>
+ <span class="nt">&lt;x:xmpmeta</span> <span class="na">xmlns:x=</span><span class="s">&quot;adobe:ns:meta/&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;rdf:RDF</span> <span class="na">xmlns:rdf=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span><span class="nt">&gt;</span>
+
+ <span class="nt">&lt;rdf:Description</span> <span class="na">rdf:about=</span><span class="s">&quot;&quot;</span> <span class="na">xmlns:dc=</span><span class="s">&quot;http://purl.org/dc/elements/1.1/&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;dc:creator&gt;</span>Igor Gosstroff<span class="nt">&lt;/dc:creator&gt;</span>
+ <span class="nt">&lt;dc:description</span> <span class="na">xml:lang=</span><span class="s">&quot;x-default&quot;</span><span class="nt">&gt;</span>Awesome picture<span class="nt">&lt;/dc:description&gt;</span>
+ <span class="nt">&lt;/rdf:Description&gt;</span>
+
+ <span class="nt">&lt;rdf:Description</span> <span class="na">rdf:about=</span><span class="s">&quot;&quot;</span> <span class="na">xmlns:xmp=</span><span class="s">&quot;http://ns.adobe.com/xap/1.0/&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;xmp:Rating&gt;</span>4<span class="nt">&lt;/xmp:Rating&gt;</span>
+ <span class="nt">&lt;/rdf:Description&gt;</span>
+
+ <span class="nt">&lt;/rdf:RDF&gt;</span>
+ <span class="nt">&lt;/x:xmpmeta&gt;</span>                                            
+<span class="cp">&lt;?xpacket end=&quot;w&quot;?&gt;</span>
+</code></pre></div>
+<p>I wanted to select the first <code>&lt;rdf:Description&gt;</code> (Dublin Core).</p>
+
+<p>First of all, you have to know that you can&#39;t do //rdf:description, you have
+to use a special syntax because the : is a reserved character. The solution is
+using the name() method : //*[name()=&#39;rdf:Description&#39;].</p>
+
+<p>It will return both rdf:Description nodes. I can easily get the one i&#39;m
+interested in by doing //*[name()=&#39;rdf:Description&#39;][1] but I would have liked
+to use a much more simple syntax and select the one with an xmlns:dc
+attribute.</p>
+
+<p>And I did not find out how to do that. All the syntaxes I tried either
+returned nothing, threw and exception and even crash my app once.</p>
+
+<p>I finally found a devious way to find it. I search for any xmlField whose
+namespace uri was http://purl.org/dc/elements/1.1/ and then get its parent. I
+still feel like its a dirty hack but I&#39;ve allready spent too much time on it,
+so it will be enough for now.</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">//*[namespace-uri()=&#39;http://purl.org/dc/elements/1.1/&#39;][1]/../
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/xpath">#xpath</a>
+    
+      <a href="/tags/xmp">#xmp</a>
+    
+      <a href="/tags/xml">#xml</a>
+    
+      <a href="/tags/namespace">#namespace</a>
+    
+      <a href="/tags/coldfusion">#coldfusion</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

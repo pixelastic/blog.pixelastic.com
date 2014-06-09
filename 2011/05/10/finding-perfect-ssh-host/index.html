@@ -1,0 +1,222 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Finding the perfect SSH host - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Finding the perfect SSH host</h1>
+  <span class="post-date">10 May 2011</span>
+  <p>I&#39;m trying to find a company providing hosting capabilities. I have a strong
+set of pre-requisites.</p>
+
+<h2>Connected through SSH</h2>
+
+<p>I want the server to be accessible through SSH. I don&#39;t need http nor ftp
+acces on it.</p>
+
+<p>I&#39;ll host git, mercurial and subversion repositories on it, and will
+push(/pull) from(/to) them using ssh.</p>
+
+<p>So, I will need those softs installed, or at least enough power to install
+them (even locally).</p>
+
+<h2>Serving as an SSL tunnel</h2>
+
+<p>I also want to be able to create an SSH tunnel through this server. That way I
+could be securely connected from any wifi connection using SSL.</p>
+
+<p>The server should have a pretty reasonable bandwidth. I&#39;d also wish to avoid
+having it hosted in France. Peering agreement between providers in France are
+getting uglier and uglier.</p>
+
+<h2>Secondary accounts for holding websites</h2>
+
+<p>If the same company also provides more conventional hosting, that also could
+be an important part of my choice.</p>
+
+<p>What I would like is something as flexible as allowing some websites to use
+Apache, and others Lighttpd. Even being able to configure it per subdomain.</p>
+
+<p>Some sites would be running PHP, others Rails, even node.js. I want enough
+freedom to configure it and the associated inner config (lighttpd.conf,
+php.ini).</p>
+
+<p>I also want to be able to install secondary parts like mongoDB or memcache and
+having a full access to their configuration.</p>
+
+<h2>Pricing</h2>
+
+<p>Of course, the cheaper the better, but I know that such an amount of freedom
+and features comes with its own price.</p>
+
+<p>Now, let&#39;s review some of the contestants I&#39;ve picked</p>
+
+<h2>Alwaysdata</h2>
+
+<p>They were the first I <a href="http://www.alwaysdata.com/">checked</a>. I heard quite a
+good thing about their service and reliability. They really seem to know what
+they&#39;re doing.</p>
+
+<p>I&#39;ve tried their free 10Mo plan and am quite satisfied with it. Mercurial,
+git, subversion and quite a batch of others softs are already installed. They
+also have a pretty 10Mo/s awesome bandwith.</p>
+
+<p>I haven&#39;t tried their hosting plans, but they also seems nice. All default
+(shared) hosting provides php, perl, ruby and python.</p>
+
+<p>Their custom (managed dedicated server) provides almost anything you could
+want from lightty to memcache, but the price goes high with it to. 350€/month
+that is way too much I can afford for what I have in mind.</p>
+
+<p>On the other hand, they not only provide hosting but the whole support package
+along with hotline and custom installation.</p>
+
+<h2>Dreamhost</h2>
+
+<p>I&#39;m fond of Dreamhost. I&#39;ve used them for years. They do provide a very nice
+shared hosting, with a lot of options to configure. They even allow cronjob
+for their admin panel.</p>
+
+<p>And they are cheap, with a customer support very professional, I highly
+recommend them for your simple hosting needs.</p>
+
+<p>I haven&#39;t tested their dedicated server version, so can&#39;t really talk about
+it.</p>
+
+<p>However, the SSH capabilities of the shared hosting are quite small. They have
+git, svn and mercurial installed, but the version are quite outdated. Even the
+python version running mercurial was out of date.</p>
+
+<p>You can however download and install them yourself on your account (which I
+did), but it is not as full featured as alwaysdata.</p>
+
+<p>Their bandwith is also capped to 1Mo/s.</p>
+
+<h2>OVH</h2>
+
+<p>Haven&#39;t tested yet, but their <a href="https://www.ovh.com/fr/vps/">VPS offer</a> seems
+nice for as low as 60€/year.</p>
+
+<p>I have tried the shared hosting offer of OVH before and am mitigated. On one
+hand I like some of their features like the automatic backup of your ftp
+files, on the other hand their administration panel is a total mess and
+accessing the server through SSH is not that simple.</p>
+
+<p>I&#39;ve heard they have a 10Mo/s bandwith. I&#39;ll try to get more information on
+this.</p>
+
+<h2>Gandi</h2>
+
+<p>Gandi is an amazing registrar (both technically and ethically). I&#39;ve never had
+any issues with their service and can only praise their technical support.</p>
+
+<p>Some years ago, they started doing hosting too. I tested it back then and was
+quite disapointed. This was horribly slow and crashed.</p>
+
+<p>I never tried it again since then. I think they improved their service, and I
+just asked a test account. Their VPS offer is interesting, the server is
+pretty decent from what I can read and the price is still in my range
+(12€/month).</p>
+
+<p><em>I&#39;ll continue this review later, with more information. If you, reader, have
+any suggestion on a good host filling my need, feel free to post it in the
+comments, I&#39;ll review it.</em></p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/hosting">#hosting</a>
+    
+      <a href="/tags/alwaysdata">#alwaysdata</a>
+    
+      <a href="/tags/ovh">#ovh</a>
+    
+      <a href="/tags/ssh">#ssh</a>
+    
+      <a href="/tags/gandi">#gandi</a>
+    
+      <a href="/tags/dreamhost">#dreamhost</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

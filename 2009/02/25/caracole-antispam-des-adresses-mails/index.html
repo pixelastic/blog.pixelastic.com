@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Caracole - Antispam des adresses mails - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Caracole - Antispam des adresses mails</h1>
+  <span class="post-date">25 Feb 2009</span>
+  <p><strong>Attention : Ce post n&#39;est plus d&#39;actualité. Je n&#39;utilise plus du tout cette technique pour masquer les adresses mails car elle bloquait complétement la lisibilité aux personnes sans Javascript. Je n&#39;ai pas encoe trouvé de meilleure alternative pour le moment, néanmoins.</strong></p>
+
+<p>Pour faire suite au billet précédent, un autre problème que j&#39;ai rencontré
+dans le développement des sites était un moyen sûr d&#39;empecher qu&#39;une adresse
+mail exposée sur un site ne soit récupérée par des robots crawlers et ne
+deviennent la cible de leurs spams.</p>
+
+<p>Je parse donc chaque texte affiché afin de remplacer les adresses mails par
+une version cryptée, que Javascript décryptera à l&#39;affichage. A chaque
+affichage la clé de cryptage est différente. Bon, l&#39;algorithme de cryptage est
+extremement simple, c&#39;est juste une permutation alphabétique, chaque lettre
+est remplacée par une autre. Et la clée est indiqué dans l&#39;attribut title de
+mon code généré.</p>
+
+<p>Il suffit d&#39;étudier le Javascript pour réussir à comprendre comment décrypter
+les mails, mais cela demande que le robot ai intégré mon codage dans ses
+paramètres, ce qui n&#39;est à priori pas le cas. Et quand bien même se serait le
+cas, je changerai la façon de crypter la clé.</p>
+
+<p>Jetez un oeil au code source de cette page si vous le souhaitez pour voir
+comment cette adresse : blabla@somewhere.com est écrite.</p>
+
+<p>Cela devrait être quelque chose de la forme :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;span</span> <span class="na">title=</span><span class="s">&quot;97tasbw84fv6_q3pn5yirchya15nq.p9b_jziggtc40lfolwxxk@meo26m70zj2d-sur@hev8u1-dk.3&quot;</span> <span class="na">class=</span><span class="s">&quot;protectFromSpam&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;noscript&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;icon icon_notice&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+    Cette adresse mail est protégée contre le spam, vous devez activer Javascript pour pouvoir la voir.
+  <span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cryptedMail&quot;</span><span class="nt">&gt;</span>ageh9gxvw1bag4342e<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/span&gt;</span>
+</code></pre></div>
+<p>Bon alors bien sur, cela nécessite Javascript activé, c&#39;est un gros défaut, je
+l&#39;admets. Un message permet de ne pas laisser l&#39;utilisateur sans JS dans
+l&#39;incompréhension, mais ça reste problématique malgré tout. Je n&#39;ai pas réussi
+à faire mieux pour le moment.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/jquery">#jquery</a>
+    
+      <a href="/tags/caracole">#caracole</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

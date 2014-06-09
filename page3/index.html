@@ -1,0 +1,488 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/08/27/downloading-youtube-offline-watching/">
+        Downloading from Youtube for offline watching
+      </a>
+    </h1>
+
+    <span class="post-date">27 Aug 2013</span>
+
+    <p>Call me old fashioned but I do not really like the &quot;always connected&quot; motto
+that the industry is following right now. I like to have physical music and
+video files on my hard drive, so I can access them anywhere, anytime, without
+relying on me being connected to a network.</p>
+
+<p>And yes, I get the irony of talking about <em>physical _files</em>._</p>
+
+<p>Anyway, I now download movies directly from <a href="http://youtube.com/">Youtube</a>,
+<a href="http://www.dailymotion.com/">Dailymotion</a>, <a href="http://www.vimeo.com/">Vimeo</a> and
+consorts, copy them to my smartphone, and watch them in the train, waiting
+queues or bed.</p>
+
+<p>To achieve that, here are the command-line tools I&#39;m using. First is <a href="https://github.com/rg3/youtube-dl">youtube-
+dl</a>, and as its name does not imply at all,
+it can download from more than Youtube. The second one is
+<a href="https://github.com/bf4/vimeo_downloader">vimeo_downloader</a> which is
+specialised in downloading from Vimeo. And the last one is the more generic
+<a href="http://code.google.com/p/get-flash-videos/">get<em>flash</em>videos</a> that can
+download from a variety of smaller websites.</p>
+
+<p>All those scripts accepts the video url as parameter.</p>
+
+<p>Happy scripting and happy viewing !</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cli">#cli</a>
+      
+        <a href="/tags/video">#video</a>
+      
+        <a href="/tags/youtube">#youtube</a>
+      
+        <a href="/tags/dailymotion">#dailymotion</a>
+      
+        <a href="/tags/vimeo">#vimeo</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/08/26/installing-mitmproxy/">
+        Installing mitmproxy
+      </a>
+    </h1>
+
+    <span class="post-date">26 Aug 2013</span>
+
+    <p>I spend the last hour trying to install <a href="http://mitmproxy.org/">mitmproxy</a>.
+This is supposed to be a commandline proxy to intercept, read, edit and replay
+HTTP(S) requests. I say &quot;supposed&quot; because I haven&#39;t had the chance to try it
+so far as I was blocked on a compilation error.</p>
+
+<p>According to <a href="http://mitmproxy.org/doc/install.html">the official
+documentation</a>, installing mitmproxy
+should be as easy as <code>pip install mitmproxy</code>. Being new to using <code>pip</code>, I
+first had to install it (<code>sudo apt-get install python-pip</code>) and figure out
+that one need to install stuff with <code>pip</code> using <code>sudo</code>.</p>
+
+<p>But <code>sudo pip install mitmproxy</code> resulted in charming compilation errors in my
+case. Something along the lines of :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">src/lxml/lxml.etree.c:16:20: fatal error: Python.h: No such file or directory
+</code></pre></div>
+<p>After a bit of googling, I understood that the issue was some missing headers
+on my part. After running <code>sudo apt-get install python-dev</code> I was good to run
+a <code>sudo pip install mitmproxy</code> again.</p>
+
+<p>Next step will be to configure the beast and learn how to use it.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/pip">#pip</a>
+      
+        <a href="/tags/http">#http</a>
+      
+        <a href="/tags/proxy">#proxy</a>
+      
+        <a href="/tags/python">#python</a>
+      
+        <a href="/tags/mitmproxy">#mitmproxy</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/08/26/doxie-dropbox-ikea-love/">
+        Doxie + Dropbox + Ikea = Love
+      </a>
+    </h1>
+
+    <span class="post-date">26 Aug 2013</span>
+
+    <p>Thanks to <a href="http://getdoxie.com/">doxie</a> and
+<a href="http://www.dropbox.com/">dropbox</a>, I&#39;m going the paperless way. Every
+important paper I get in my physical mailbox, I now scan and put on the cloud.
+I have been doing it for bills, medical papers, tickets, warranty and am now
+even doing it for Ikea instruction booklets.</p>
+
+<p>This way, when I&#39;ll be moving to a new appartement, I&#39;ll still be able to
+dismantle and rebuild my furniture, even if they have gone out of production.</p>
+
+<p>As a gift, here are the links :</p>
+
+<ul>
+<li><a href="https://www.dropbox.com/s/xdv1u9dk80488ly/Ikea%20-%20Colonne%20Expedit.pdf">Expedit Column 1x5</a></li>
+<li><a href="https://www.dropbox.com/s/x3c6sm31xpbnijf/Ikea%20-%20Meuble%20t%C3%A9l%C3%A9%20Expedit.pdf">Expedit Tv unit</a></li>
+<li><a href="https://www.dropbox.com/s/9ja1n497x9h186a/Ikea%20-%20Lit%20Brimnes.pdf">Brimnes bed</a></li>
+<li><a href="https://www.dropbox.com/s/f7l5kw5ox6q45pi/Sommier%20Ikea%20Sultan%20Lodingen%20Booklet.pdf">Sultan Lodingen</a></li>
+<li><a href="https://www.dropbox.com/s/3agihtb9akad7vm/Ikea%20-%20Fauteuil%20Nils.pdf">Nils chair with armrest</a></li>
+</ul>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/dropbox">#dropbox</a>
+      
+        <a href="/tags/ikea">#ikea</a>
+      
+        <a href="/tags/doxie">#doxie</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/07/22/paris/">
+        Back in Paris !
+      </a>
+    </h1>
+
+    <span class="post-date">22 Jul 2013</span>
+
+    <p>After one year in New Zealand, I&#39;m now back in Paris. The trip to New Zealand
+was one of the best years of my life, I discovered so many things and places,
+met so many people, that it changed me in more ways that I can really count.
+It also greatly influenced the way I want to work.</p>
+
+<p>Being back in Paris, I now need to find a new job. I could go back to
+freelancing, but I don&#39;t really want to. Freelancing had its advantages, but
+also some important downsides. The biggest one being that you&#39;re mostly
+working alone, and jumping from one project to the next.</p>
+
+<p>I now want to work in a team, to teach, and to learn. Sharing with others what
+I know and learning from them what I don&#39;t is one of the most important things
+I&#39;m now looking in my job.</p>
+
+<p>I also want to be working on one big project instead of countless small ones.
+When you&#39;re freelancing, you&#39;re working on a project for weeks or months,
+creating a website from scratch and making it take a life of its own, line
+after line. But in the end, you hand it over to the guy who paid you to do it.
+And you never really get to see it growing. I now want to work on a project
+that I&#39;ll be able to follow, fix, and improve, days after days once it is
+launched in the world.</p>
+
+<p>In New Zealand, I have been a WWOOFer (Willing Worker On Organic Farms) for
+over 8 months. All this was possible through the wwoofing website. Now, back
+in France I extensively use services such as couchsurfing, airbnb or
+blablacar. I love the way those websites allow people to meet through their
+services. I&#39;ve met very interesting people thanks to that and I&#39;d love to work
+for a company that can help linking people together.</p>
+
+<p>On a more technical-oriented side, I also want to change my tools. I&#39;ve been
+making websites for the past 10 years, coding the server side part in PHP. I
+now want to try something else. I used my time in New Zealand to learn a new
+language on my own. I first tried Python, but couldn&#39;t really go anywhere with
+it. I then tried Ruby and this was like discovering a new world. Writing and
+reading Ruby seems like writing and reading prose. I haven&#39;t yet build any
+website with Ruby, but coming from a cakePHP background, I guess Ruby on Rails
+will seem natural to me. I now use Ruby extensively for my own scripting, be
+it for changing a subtitle <code>.srt</code> fps, automatically synchronizing my
+cellphone files with my laptop, batch updating my mp3 tag collection and
+mostly any tedious task that involves scripting on my day-to-day life. I
+haven&#39;t got the chance to try node.js yet, but that&#39;s definitely next on my
+todolist.</p>
+
+<p>Following the same idea, I also want to get to better use git and its
+collaborative features. I&#39;ve only used subversion in a team, and the
+experience wasn&#39;t that great. Or I&#39;ve used git, but only for myself as I was
+the only developper and I&#39;m sure I only used it to barely 10% of what it could
+do. I&#39;ve also tried to follow the TDD principle of writing tests first and
+then the code to make the test pass. I managed to do it once or twice, but the
+whole process seemed so long and difficult that I&#39;m pretty sure I&#39;ve missed
+something here, and would like to have someone to show me how they do it.</p>
+
+<p>On a related note, I now try to free as much code as I can through open-
+source, but I&#39;d like to do even more. I currently only share small scripts
+without tests and with scarce documentation. I know I could do better than
+that, but I&#39;ll need someone to show me the way.</p>
+
+<p>I&#39;ve managed to switch from Windows to Ubuntu in the past years and can&#39;t
+imagine going back. Working with your filesystem from inside a terminal and
+writing scripts to make your life easier is so powerful that I cannot go back
+to a GUI OS now. I&#39;ve also ditched a classical IDE, namely Komodo Edit, for
+something different, namely vim. The switch has been hard at first, but now
+all the vim keys are binded to my muscle memory and I love vim for all the
+exact same reasons I love a terminal : you can script your tasks !</p>
+
+<p>This is only a small subset of the technical changes I&#39;ve already made or am
+currently making. I&#39;d like to find a job where I&#39;m hired, not for my past
+skills, but for the skills I want to develop. I currently have a resume where
+I can attest extensive experience with PHP, but that&#39;s not what I want to do
+in my future. What I want to do is, obviously, not on my resume. That is
+currently the tricky part I have to face when looking for a job.</p>
+
+<p>As you can see, I have a pretty good picture of the kind of place I want for
+my next job. Luckily, I&#39;m living in Paris, with a lot of job opportunities and
+I&#39;m pretty sure I&#39;ll manage to find a place that match most of it. If you&#39;re
+currently hiring, and my expectations meet yours, don&#39;t hesitate to shoot me
+an email.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/paris">#paris</a>
+      
+        <a href="/tags/tdd">#tdd</a>
+      
+        <a href="/tags/git">#git</a>
+      
+        <a href="/tags/ruby">#ruby</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/zealand">#zealand</a>
+      
+        <a href="/tags/job">#job</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/vim">#vim</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2012/11/21/versioning-git/">
+        From no versioning to git
+      </a>
+    </h1>
+
+    <span class="post-date">21 Nov 2012</span>
+
+    <p>When I started working as a professional web developer, I wasn&#39;t using any
+versioning system. When I needed to add a new feature to an existing website,
+I just coded it and then uploaded it by FTP.</p>
+
+<p>Sometimes, it turns out that the feature was a failure, and that I needed to
+get back to a previous version. Most of the time, I remembered the old feature
+and could just type the old code back. Other times, I couldn&#39;t and getting the
+website back to its previous state was a nightmare.</p>
+
+<p>So whenever I felt a feature could go wrong, I started creating manual backup
+of files before editing them, prefixing them with <code>-version2</code> and such. It
+worked ok at first, but after some time, it was impossible, even for me to
+tell the different versions appart.</p>
+
+<p>I also started to realize a trend on the web, reading from other developers,
+that there was something call a version-control system. I thought I needed to
+use one of them, to keep track of different version of files.</p>
+
+<p>I wasn&#39;t exactly sure which one was right for me, so I asked a few friends.
+Most of them told me they were using Subversion at work, but that it had a few
+shortcomings, but that it was still better than nothing. Another friend told
+me that he was using Mercurial, both for personal projects and at work, at
+that his whole team was actually versioning everything with it and were very
+happy about it.</p>
+
+<h2>First steps with mercurial</h2>
+
+<p>So I thought I should start using Mercurial. If I have to learn a new tool,
+I&#39;d rather take one that works well and where I have a friend able to help me
+on my first steps.</p>
+
+<p>Back in these days, I was still using Windows so I downloaded and installed
+Mercurial and its GUI version, TortoiseHG. I was quite happy with it the
+instant I installed it. I could just &quot;commit&quot; (which was a new word for me) my
+changes and know for sure that they were safe and that I could get back to
+previous versions of my file easily.</p>
+
+<p>I was committing all my changes at the end of each day, writing a long commit
+message listing everything I had done in that given day. Then, the next
+morning I could just re-read the previous commit message and remember what I
+was doing. The commit message worked a bit like a todo list for what needed to
+be done.</p>
+
+<p>I was mostly using Mercurial as a backup system. I even opened an account on
+BitBucket where I uploaded my changes every day, in the case my laptop
+crashed, I still had backups of everything online.</p>
+
+<h2>A little note about FTP</h2>
+
+<p>Using Mercurial had another benefical side-effect on my productivity. It made
+me discover how backward FTP upload was. Before using Mercurial, when I needed
+to add changes to a website, I connected to the server with FTP and transfered
+every changed files from my local machine to the server.</p>
+
+<p>Of course, I had to remember which files I changed, and upload them one by
+one. This was tedious. I had to move from directory to directory before
+copying the files. I can&#39;t tell you how many times I had a bug in production
+that I couldn&#39;t replicate on my local machine, just because I either forgot to
+upload a file or uploaded it in the wrong place.</p>
+
+<p>Sometimes just to be sure to upload all the files on their correct places, I
+simply uploaded the full website directory and let the FTP software choose if
+they needed to be updated or not. But this took ages as the software had to
+send a request to compare timestamp modification date for each file.</p>
+
+<p>And if I only had two files changed, I had to wait for the FTP to scan each
+file between the first and the second one before it gets uploaded. This too
+resulted in bug reports from customer that I couldn&#39;t replicate, even on
+production because by the time I get to check the website, the missing file
+that was causing the error had been uploaded and everything worked perfectly
+for me. In the end, it created a list of &quot;ghost bugs&quot; that I was never sure if
+they were real bugs or created by the FTP upload lag.</p>
+
+<p>Mercurial get rid of all this crap because it was clever enough to know which
+files were changed from the last deployment, and even which part of the files
+where changed, sending only the difference. This resulted in much faster
+upload time and no more errors in missing files. Also, I got bonus security
+points for transferring through ssl and not clear text FTP.</p>
+
+<p>Sorry for this little FTP disgression. Anyway, as you remember I was using
+Mercurial as a backup system more than a version-control system. Commiting
+once a day became cumbersome as I wanted more fine-tuning on what I commited.
+I ended up commiting twice a day, or even every time I took a break, but then
+I realized it made much more sense to commit based on feature and not on time.</p>
+
+<h2>No more Mercurial</h2>
+
+<p>And that&#39;s when Mercurial started to get in the way. I often worked on a
+feature and while doing that, spotted tiny bugs or typos that I fixed while
+working on the big feature. I wanted to commit only related changes together,
+and didn&#39;t manage to do that well with Mercurial.</p>
+
+<p>I guess this is because I did not really understand how Mercurial worked back
+in these days, but to be honest I do not understand it better now. Whenever a
+file is modified in Mercurial, it is ready to be added to the next commit. But
+when you create a new file or delete one, you have to tell Mercurial that you
+want this add/delete to be registered in the next commit.</p>
+
+<p>As I said, I sometime just fixed small bugs or typos in files that had not
+much to do with the feature I was working on at that moment. I would have like
+to be able to commit only these files, and not the others. I never really
+managed to make it correctly with Mercurial so in the end I was still
+commiting more files that I wanted to.</p>
+
+<p>That&#39;s when I considered trying git instead of Mercurial. I made some googling
+on &quot;git vs Mercurial&quot; to see how they differ and the general consensus seems
+to be that git is more low level than Mercurial. Git has a plethora of
+commands, most of them you&#39;ll never use, while Mercurial is focused on a
+workflow for the end user that works well. Also, git allow the user to rewrite
+its history.</p>
+
+<p>After reading all this I was convinced Mercurial was the right tool for me. I
+was still struggling with my current version system, I didn&#39;t want to try one
+that was even more hard to understand. Plus, rewriting history ? I don&#39;t want
+that to happen in real life, I sure don&#39;t want that to happen with my files
+either.</p>
+
+<p>So I digged deeper in Mercurial, trying to understand it better, to grok it
+but no, really, I still could&#39;nt make it behave the way I&#39;d like to work with
+my files so I finally decided to give git a try.</p>
+
+<h2>First steps with git</h2>
+
+<p>Because there was this thing named github, and all the cool kids where on
+github, and I too wanted to participate in those big open source projects and
+I felt like I was held back by the tool I was using.</p>
+
+<p>On my first hours of using git I managed to do what I had struggled to do with
+Mercurial for so long. I could easily choose which files to commit or not and
+split my work in several commits. Of course, I could never have done it
+without google. Git man pages are gibberish and the command line commands and
+options list is so vast I felt lost. Even when I found what I needed I
+wondered why the git developers choosed to give them such abstract names
+without any apparent cohesion in the complete git API.</p>
+
+<p>I had to create <a href="https://github.com/pixelastic/oroshi/blob/master/con%0Afig/git/gitconfig">aliases</a> to do my day to day tasks with git so as not to remember
+and type all these <a href="https://github.com/pixelastic/oroshi/blob/master/config/zsh/aliases-%0Agit.zsh">crazy
+commands</a>, but in the end it turns out ok. I keep running into problems, but
+none that the help of google, StackOverflow and the incredibly rich git API
+can&#39;t solve.</p>
+
+<p>I&#39;m now versioning any new project with git and even converted some old
+projects from Mercurial to git. I know I&#39;m still in the early stages of
+learning git (I&#39;ve only started using branches extensively since a few weeks)
+but I do really enjoy it a lot.</p>
+
+<h2>What&#39;s next ?</h2>
+
+<p>I&#39;ve done all my git training by myself, while in New Zealand for a year, away
+from work and just for fun. I know that when I&#39;ll get back to Paris and start
+looking for a new job I&#39;d like to find a place where the day-to-day workflow
+involves git because I really want to see the way branching and merging helps
+people work together building bigger things.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/git">#git</a>
+      
+        <a href="/tags/mercurial">#mercurial</a>
+      
+        <a href="/tags/subversion">#subversion</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page4">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page2">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

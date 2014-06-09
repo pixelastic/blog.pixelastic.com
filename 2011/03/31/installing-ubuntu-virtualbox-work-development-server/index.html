@@ -1,0 +1,246 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Installing Ubuntu in VirtualBox to work as a development server - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Installing Ubuntu in VirtualBox to work as a development server</h1>
+  <span class="post-date">31 Mar 2011</span>
+  <p>I was tired of trying to install Lighttpd on Windows (hint : don&#39;t try, it&#39;s a
+mess. I found no way to get vhosts and php as cgi at the same time). So I
+finally decided that Linux was the way to go.</p>
+
+<p>I have always developped using Windows, and even if I&#39;m slowly migrating to
+Ubuntu at home, I&#39;m still using Windows 7 at work. The solution that best fits
+me was still using my Windows environment for coding, but using Ubuntu inside
+a VM to act as a server.</p>
+
+<p>Let&#39;s see how I did that :</p>
+
+<h2>Required components</h2>
+
+<p>First, let&#39;s clarify what I&#39;ll have to install for this project : Lighttpd as
+the webserver, mysql and memcached for storing data and php5 to run cakePHP.</p>
+
+<h2>Step One : Running Ubuntu inside a VM</h2>
+
+<p>Start by downloading the <a href="http://www.ubuntu.com/business/get-%0Aubuntu/download">Ubuntu iso</a> (i&#39;s 687Mo, you&#39;d better start this download first). I
+personnaly used the 10.04 Desktop version (I tried the 10.10 Server version
+first but I feel more confident with a UI).</p>
+
+<p>Then, download <a href="http://www.virtualbox.org/wiki/Downloads">the latest VirtualBox version
+</a>(4.0.4 at the time of this
+writing).</p>
+
+<p>And mount the iso in VirtualBox and start the install. This is pretty easy and
+you should be done in 10mn. Once the install is finished, you&#39;ll be prompted
+to reboot. Do not reboot just now. Instead, shutdown your guest machine (you
+can type <code>sudo halt</code> if the GUI does not work).</p>
+
+<p>Once back in Windows, go to your VM config and unmount the install iso,
+otherwise the install procedure will be started again everytime you load your
+VM.</p>
+
+<p>Once it&#39;s done, you can reboot the gues and once loaded, select the in
+VirtualBox Menu =&gt; Devices =&gt; Install guest additions. The next popup can take
+some long minutes to show, so be patient. This will install the guest
+additions that will allow you to easily communicate between the guest and host
+machines.</p>
+
+<p>Once installed, reboot once more, and you should have the guest addition image
+sitting on your desktop.</p>
+
+<p>Start a terminal and install the guest additions by doing :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /media/<span class="o">{</span>name of your VBOX image<span class="o">}</span>
+./autorun.sh
+</code></pre></div>
+<p>This will finish the guest addition installation. Reboot your guest machine
+one last time and you&#39;ll be ready for step 2.</p>
+
+<h2>Step 2 : Installing the server stuff</h2>
+
+<p>We will now install the various components we&#39;ll need. You could probably
+install them all with one command but I&#39;ll split them in different line so
+you&#39;ll correctly see what&#39;s installed.</p>
+
+<p>First, lighttpd :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install lighttpd
+</code></pre></div>
+<p>Now, memcached</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install memcached
+</code></pre></div>
+<p>And mysql server. This one will prompt you to enter the root password you&#39;ll
+want.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install mysql-server
+</code></pre></div>
+<p>Now we will install php5 as CGI (Lighty will run php as cgi), as well as the
+needed dependency so php can connect to both mysql and memcache.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install php5-cgi php5-memcache php5-mysql
+</code></pre></div>
+<p>Ok, you should now have everything correctly installed. We will configure all
+that stuff later. You should now completely close your Virtual Machine and get
+back to Windows. It&#39;s time to configure your host and guest so they can
+correctly communicate</p>
+
+<h2>Step 3 : Enabling communication between host and guest</h2>
+
+<p>What we will do in this section is configure your network so the guest machine
+is considered part of your network and so you can connect to id using SSH and
+classic http.</p>
+
+<p>First, go back to your VM config and change the Network mode to &quot;Bridged&quot;.
+This will allow both machine to see each other in your network easily.</p>
+
+<p>Then, define the Shared folder you want shared from your host in your guest. I
+shared my websites directories so Lighty could access them from the guest.</p>
+
+<p>Now, start your VM, and type <code>sudo ifconfig</code> in a terminal. You should see
+your guest machine ip. Mine was 192.168.1.16.</p>
+
+<p>Knowing that IP, you can define hosts in your Windows
+<code>C:\Windows\System32\drivers\etc\hosts</code></p>
+
+<p>You should also install openssh server so that you&#39;ll be able to connect to
+your guest machine using ssh :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install openssh-server
+</code></pre></div>
+<p>We will now take care of the shared folder defined earlier. Selecting them in
+VirtualBox only made them available for mounting in the guest, but you&#39;ll now
+have to type some more commands to effectively see them. I needed to have
+access to a project I coded in my host (let&#39;s name it <code>myproject</code>).</p>
+
+<p>Here&#39;s how I made it available to Lighty :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo mkdir /var/www/myproject
+sudo mount -t vboxsf -o rw,uid<span class="o">=</span><span class="k">$(</span>id -u<span class="k">)</span>,gid<span class="o">=</span><span class="k">$(</span>id -g www-data<span class="k">)</span> myproject /var/www/myproject
+</code></pre></div>
+<p>This will create a directory in <code>/var/www</code> to hold the project, and will then
+mount the shared folder to that directory. The uid/gid stuff indicate that you
+(the current user) is the owner and <code>www-data</code> is the group. Doing so will fix
+access rights issues you may have with Lighty.</p>
+
+<p>You should have to re-run the last command on every login, so I strongly
+suggest you to put it in <code>/etc/rc.local</code> so it gets executed automatically.</p>
+
+<h2>Step 4 : Configuring all that stuff</h2>
+
+<p>I won&#39;t go into much details on how to configure lighty or php because it is
+not the scope of this post. I might post on that subject later, though. But
+here is one important step you shouldn&#39;t forget : uncomment the
+cgi.fix_pathinfo=1 line in your php.ini.</p>
+
+<p>Don&#39;t forget to reload Lighty after changes to its config files by running:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo /etc/init.d/lightppd restart
+</code></pre></div>
+<p>I also had one additional side-effect on my install : installing php5 also
+installed Apache, causing Lighty to fail on startup because Apache was already
+using the port 80. I fixed it by removing every reference to Apache by running
+:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo update-rc.d -f apache2 remove
+</code></pre></div>
+<h2>Final note :</h2>
+
+<p>If you followed this instruction, you should have a server running inside a VM
+that runs your website stored in your host. Isn&#39;t that pretty ?</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/virtualbox">#virtualbox</a>
+    
+      <a href="/tags/lighttpd">#lighttpd</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/ubuntu">#ubuntu</a>
+    
+      <a href="/tags/server">#server</a>
+    
+      <a href="/tags/php5">#php5</a>
+    
+      <a href="/tags/memcached">#memcached</a>
+    
+      <a href="/tags/php">#php</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

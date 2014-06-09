@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Converting files to UTF-8 from the command line - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Converting files to UTF-8 from the command line</h1>
+  <span class="post-date">30 Aug 2013</span>
+  <p>Converting to and from charset encoding is boring. Life would be much easier
+if everything was saved in proper UTF-8.</p>
+
+<p>I just coded a couple of scripts that will help be read file encoding from
+files and convert them to UTF-8.</p>
+
+<p>First, not all encoding can be easily read. Some uses markers that are easy to
+check, other requires heuristic and guessing. I won&#39;t deal with the second
+part. Most of the files I&#39;m currently handling are either Latin1 (ISO-8859-1)
+or Latin2 (ISO-8859-2), so I&#39;ll limit the scope of my scripts to those two
+sets.</p>
+
+<p>Fortunatly, the default <code>file</code> command can do that.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>file -bi file.txt
+text/plain<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>us-ascii
+<span class="nv">$ </span>file -bi bad.html
+text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>iso-8859-1
+<span class="nv">$ </span>file -bi good.html
+text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+</code></pre></div>
+<p>Now that we have a way to know the input encoding, we can use <code>recode</code> to
+convert to UTF-8. You can install <code>recode</code> easily with <code>sudo apt-get install
+recode</code>.</p>
+
+<p>Once done, it is just a matter of <code>convert latin1..utf8 bad.html</code></p>
+
+<p>I wrapped those methods in two scripts : <a href="https://github.com/pixelas%0Atic/oroshi/blob/master/scripts/bin/encoding">encoding</a> and
+<a href="https://github.com/pixelastic/oroshi/blob/master/scripts/bin/utf8">utf8</a> that
+respectively output the file encoding and convert the file to utf8.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/iso-8859-1">#iso-8859-1</a>
+    
+      <a href="/tags/encoding">#encoding</a>
+    
+      <a href="/tags/utf8">#utf8</a>
+    
+      <a href="/tags/iso-8859-2">#iso-8859-2</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

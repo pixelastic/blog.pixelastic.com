@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Preventing tinyMCE from wrapping <img /> in <p> - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Preventing tinyMCE from wrapping &lt;img /&gt; in &lt;p&gt;</h1>
+  <span class="post-date">11 Oct 2010</span>
+  <p>If you just want to add a presentational image in a tinyMCE editor, you&#39;ll
+find out very quickly that it will be wrapped in <code>&lt;p&gt;&lt;/p&gt;</code> without you asking.</p>
+
+<p>The question has been asked several times on the tinyMCE forums, but the
+answers never quite satisfied me. It ranges from the classical &quot;<em>Why do you
+want to do this ? You should better use <code>&lt;insert semantic element and css
+here&gt;</code></em>&quot; to &quot;<em>Just do a regexp before displaying your content to remove the bad
+<code>&lt;p&gt;...&lt;/p&gt;</code></em>&quot;.</p>
+
+<p>This clearly did not satisfy me.</p>
+
+<p>The solution was to define the<code>forced_root_block</code> setting value to <code>false</code>,
+allowing us to create any element on the top level, and not having it
+automatically wrapped in <code>&lt;p&gt;.</code></p>
+
+<h2>Fixing the side effect</h2>
+
+<p>Allowing for elements to be input directly in the root level has the nasty
+side effect of creating tinyMCE editor instances with a default text of, well,
+nothing, instead of the really usefull <code>&lt;p&gt;</code> tag. Also, if you do a Ctrl+A and
+delete all content, you&#39;ll end up with an empty editor without the initial
+<code>&lt;p&gt;</code> tags</p>
+
+<p>To fix this part, I just added an <code>onNodeChange</code>event to fire every time the
+content is changed. I test the current content and if empty add the <code>&lt;p&gt;</code> tag.
+There is a little subtelty though, to correctly place the caret where needed.</p>
+
+<p>In your <code>tinyMCE.init</code> call, just add the following setup key :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">tinyMCE</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+<span class="p">[...]</span>
+  <span class="nx">setup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">editor</span><span class="p">.</span><span class="nx">onNodeChange</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">cm</span><span class="p">,</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">editorContent</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">getContent</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">editorContent</span><span class="o">===</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// We set content as a &lt;p&gt; containing a placeholder, then we delete the placeholder to place the caret</span>
+        <span class="nx">editor</span><span class="p">.</span><span class="nx">setContent</span><span class="p">(</span><span class="s1">&#39;&lt;p&gt;&lt;span id=&quot;__CaretPlacholder&quot;&gt;Placeholder&lt;/span&gt;&lt;/p&gt;&#39;</span><span class="p">);</span>
+        <span class="nx">editor</span><span class="p">.</span><span class="nx">selection</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;#__CaretPlacholder&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;#__CaretPlacholder&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+   <span class="p">}),</span>
+<span class="p">[...]</span>
+ <span class="p">});</span>
+</code></pre></div>
+<p>Before finding this solution, I tried the <code>onBeforeSetContent</code>callback, but
+due to a bug in the tinyMCE source, it couldn&#39;t handle well the case where the
+editor is empty. So I had to resort to a more generic callback.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/onbeforesetcontent">#onbeforesetcontent</a>
+    
+      <a href="/tags/oninit">#oninit</a>
+    
+      <a href="/tags/tinymce">#tinymce</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

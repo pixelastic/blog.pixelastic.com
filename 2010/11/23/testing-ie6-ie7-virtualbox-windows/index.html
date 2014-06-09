@@ -1,0 +1,167 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Testing IE6 and IE7 using VirtualBox on Windows - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Testing IE6 and IE7 using VirtualBox on Windows</h1>
+  <span class="post-date">23 Nov 2010</span>
+  <p>Testing various IE version as always been a chore. Back in the days, I managed
+to install both IE7 and use a standalone IE6 version.</p>
+
+<p>Then, I discovered <a href="http://www.my-%0Adebugbar.com/wiki/IETester/HomePage">IETester</a> that became a lifesaver (my IE6
+standalone tends to crash a little too often). It would allow me to test
+various IE versions side by side.</p>
+
+<p>Unfortunatly, the emulation wasn&#39;t perfect, some ajax calls were returning
+errors and the Flash support wasn&#39;t so good.</p>
+
+<p>Additionnaly, there was not way to use the
+<a href="http://www.debugbar.com/?langage=en">IEDebugBar</a> nor the WebPageTest plugin.</p>
+
+<h2>Switching to VM</h2>
+
+<p>I finally decided to switch to a Virtual Machine. This would allow me to have
+an exact snapshot of a given OS/IE version.</p>
+
+<p><a href="http://www.virtualbox.org/">VirtualBox</a> is free, so this was my choice.
+Microsft used to provide <a href="htt%0Ap://www.microsoft.com/downloads/en/details.aspx?FamilyId=21EABB90-958F-%0A4B64-B5F1-73D0A413C8EF&amp;displaylang=en">free downloads of various flavors of Windows/IE</a>, but it seems to be only working with
+their proprietary VirtualPC (which only works under Windows 7).</p>
+
+<p>So I took the long road, and manually installed a Windows XP Pro through
+VirtualBox, using my Windows XP cd.</p>
+
+<p>I used the same serial than my main windows XP. I&#39;m not exactly sure if
+legally, I&#39;m allowed to do that. How does a VM fits inside the legal
+statements ? Am I allowed to use one windows activation key inside itself ?
+Well, I don&#39;t really know and don&#39;t care that much.</p>
+
+<h2>Starting with some housekeeping</h2>
+
+<p>I ended up with a nice and clean WinXP install. I had to add an antivirus
+quick if I wanted to keep it clean. VirtualBox provides a Shared Folder
+feature to exchange files between the host and the guest.</p>
+
+<p>Start by adding shared folders to your guest (Devices &gt; Shared Folders).</p>
+
+<p>Then install the &quot;Guest Additions&quot;, <del>just mount the
+<code>VBoxGuestAdditions.iso</code> found in your VirtualBox installation directory,
+using DaemonTools and run the installer.</del></p>
+
+<p>Don&#39;t be as silly as I was. Do not install the Guest Additions on your host,
+but on your guest. Yeah, seems more logical that way. Just select the options
+in the Devices menu of your guest window. Reboot after the installation.</p>
+
+<p>You should now be able to access your shared folders by opening the windows
+Explorer (Windows + E), and going to Network places &gt; All network &gt; VirtualBox
+Shared Folders</p>
+
+<h2>Accessing your websites</h2>
+
+<p>I then updated the <code>C:\WINDOWS\system32\drivers\etc\hosts</code> file to bind all
+requests made to my still-in-development websites to my host.</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">www.pixelastic</span>
+<span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">s1.pixelastic</span>
+<span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">s2.pixelastic</span>
+<span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">s3.pixelastic</span>
+</code></pre></div>
+<p>You can find your host ip by doing a <code>ipconfig /all</code> in a command prompt.</p>
+
+<p>You then just have to go to http://www.pixelastic/ in IE6 to display the
+correct website. You can even switch to the Seamless mode to display your IE6
+inside your main host.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/virtualbox">#virtualbox</a>
+    
+      <a href="/tags/ie7">#ie7</a>
+    
+      <a href="/tags/windows">#windows</a>
+    
+      <a href="/tags/ie6">#ie6</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

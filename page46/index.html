@@ -1,0 +1,333 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/24/caracole-spam-sur-les-commentaires/">
+        Caracole - Spam sur les commentaires
+      </a>
+    </h1>
+
+    <span class="post-date">24 Feb 2009</span>
+
+    <p>Les trois derniers sites que j&#39;ai fait avec Caracole avaient tous un
+formulaire de contact (nom, mail et texte, pour contacter le propriétaire du
+site).</p>
+
+<p>Et tous les trois se sont fait spammer rapidement une fois que le site est
+arrivé dans les moteurs de recherche. J&#39;ai donc cherché moyen d&#39;empecher cela,
+une façon de detecter les spammeurs.</p>
+
+<p>Alors, il existe bien sur <a href="http://akismet.com/">Akismet</a>, qui marche du
+tonnerre, mais qui est payant pour un usage professionnel, j&#39;ai donc d&#39;abord
+cherché du coté des solutions gratuites.</p>
+
+<p>Il y a le projet <a href="http://recaptcha.net/">reCaptcha</a>, qui en plus d&#39;empecher le
+spam, permet d&#39;aider la numérisation de vieux livres, donc une assez bonne
+idée mais qui ne semble pas disponible en français. C&#39;est malheureusement un
+impératif sur les sites que je développais.</p>
+
+<p>J&#39;ai donc plutot retourné le problème dans ma tête et cherché un moyen facile
+et ingénieux de faire la différence entre un humain et un bot. J&#39;ai finalement
+opté pour un champ caché au sein du formulaire qui doit absolument rester
+vide. Un bot le remplira automatiquement, un humain le laissera vide.</p>
+
+<p>J&#39;avais tout d&#39;abord mis ce champ en type=&quot;hidden&quot; et cela semblait
+fonctionner, mais de plus récents spams me l&#39;ont fait passer en  display:none
+par CSS et je n&#39;ai pas eu de nouveau spam depuis. Je continuerai de peaufiner
+le système jusqu&#39;à ce que je trouve un blocage parfait ou que j&#39;en ai marre et
+que je me tourne vers Akismet :)</p>
+
+<p>Pour le moment, je loggue toutes les demandes de contact avec les informations
+du Header, afin d&#39;identifier certains patterns qui pourraient me permettre de
+trouver plus facilement les spammeurs dans le lot.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/23/caracole-export-des-adresses-mails/">
+        Caracole - Export des adresses mails
+      </a>
+    </h1>
+
+    <span class="post-date">23 Feb 2009</span>
+
+    <p>Je viens de rajouter une petite fonctionnalité sur Caracole qui permet
+d&#39;exporter une liste d&#39;adresses mails (actuellement les personnes souhaitant
+s&#39;abonner à une newsletter) dans un format exploitable par les logiciels de
+messagerie et les webmail.</p>
+
+<p>La liste peut être exportée sous format vCard, ou encore CSV exploitable par
+Outlook ou GMail.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/22/validation-et-generation-de-numero-de-siret/">
+        Validation et génération de numero de SIRET
+      </a>
+    </h1>
+
+    <span class="post-date">22 Feb 2009</span>
+
+    <p>Pour le projet sur lequel je travaille actuellement, je dois tester la
+validatée d&#39;un numero de SIRET. D&#39;après <a href="http://fr.wikipedia.org/wi%0Aki/Syst%C3%A8me_d%E2%80%99identification_du_r%C3%A9pertoire_des_%C3%A9tablisse%0Aments">Wikipédia</a> les numéros de SIRET possèdent une clé finale permettant de vérifier
+qu&#39;ils soient biens formés.</p>
+
+<p>J&#39;ai donc retranscris ce calcul sous une règle de validation pour cakePHP, le
+voici :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function validateSiret($data, $field) {</span>
+<span class="x">  $siret = r(&#39; &#39;, &#39;&#39;, $data[$field]);</span>
+<span class="x">  $sum = 0;</span>
+<span class="x">  for($i=0;$i!=14;$i++) {</span>
+<span class="x">    $tmp = ((($i+1)%2)+1) * intval($siret[$i]);</span>
+<span class="x">    if ($tmp&gt;=10) $tmp-=9;</span>
+<span class="x">    $sum+=$tmp;</span>
+<span class="x">  }</span>
+<span class="x">  return ($sum%10===0);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Tout d&#39;abord, je m&#39;assure que le siret ne contienne pas d&#39;espace. Puis je
+passe nombre après nombre pour calculer la somme (je multiplie par deux les
+nombres d&#39;index pair et par un ceux d&#39;index impair). Si le résultat est
+supérieur à 10, j&#39;additionne chaque chiffre entre eux (ce qui équivant à
+soustraire 9).</p>
+
+<p>Si le résultat final est congru à 10, alors le numero de SIRET est valide.</p>
+
+<p>Il ne reste plus qu&#39;à l&#39;ajouter à mes régles de validation :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">var $validate = array(</span>
+<span class="x">  &#39;siret&#39; =&gt; array(</span>
+<span class="x">    &#39;rule&#39; =&gt; array(&#39;validateSiret&#39;, &#39;siret&#39;),</span>
+<span class="x">    &#39;message&#39; =&gt; &quot;Le numero de SIRET indiqué n&#39;est pas valide.&quot;</span>
+<span class="x">  )</span>
+<span class="x">);</span>
+</code></pre></div>
+<p>Mais ce n&#39;est pas tout. Comme pour mes tests je crée à la volée des dizaines
+d&#39;enregistrements, j&#39;avais besoin d&#39;un générateur automatique de numero de
+SIRET valides. Voici ce que j&#39;ai fini par écrire :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">public function siret() {</span>
+<span class="x">  //On génère le début du numero de siret</span>
+<span class="x">  $siret = &#39;&#39;;</span>
+<span class="x">  $sum = 0;</span>
+<span class="x">  for($i=0;$i!=8;$i++) {</span>
+<span class="x">    $rand = mt_rand(0,9);</span>
+<span class="x">    $siret.=$rand;</span>
+<span class="x">    //On ajoute une fois le résultat si index impair, deux fois sinon</span>
+<span class="x">    $tmp = $rand * (1+($i+1)%2);</span>
+<span class="x">    if ($tmp&gt;=10) $tmp-=9;</span>
+<span class="x">    $sum+=$tmp;</span>
+<span class="x">  }</span>
+<span class="x">  //On ajoute 4 zeros</span>
+<span class="x">  $siret.=&quot;0000&quot;;</span>
+<span class="x">  //On regarde combien il me manque pour etre congru à 10</span>
+<span class="x">  $diff = 10-($sum%10);</span>
+<span class="x">  if ($diff&gt;2) {</span>
+<span class="x">    $first = floor($diff/3);</span>
+<span class="x">    $second = $diff-(2*$first);</span>
+<span class="x">    $siret.=$first.$second;</span>
+<span class="x">  } else {</span>
+<span class="x">    $siret.=&#39;0&#39;.$diff;</span>
+<span class="x">  }</span>
+
+<span class="x">  return preg_replace(&quot;/([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{5})/&quot;, &quot;$1 $2 $3 $4&quot;, $siret);</span>
+<span class="x"> }</span>
+</code></pre></div>
+<p>Le principe consiste à générer les 8 premiers nombres de façon complétement
+aléatoire et d&#39;en calculer la &quot;somme&quot; (selon le principe évoqué au dessus).
+Puis on ajoute des zero pour combler l&#39;espace jusqu&#39;à ajouter la clé de
+vérification.</p>
+
+<p>Bien sur, la clé on va la créer pour que la somme de (2 x le premier chiffre)
++ (1 x le second) soit égal à ce qu&#39;il nous manque pour être congru à 10.</p>
+
+<p>Et on fini par retourner le numero de façon lisible, par exemple : 774 082 010
+00034.</p>
+
+<p>J&#39;ai fait une petite recherche sur <a href="http://www.societe.com/">societe.com</a>,
+aucun de mes numeros générés ne semble donner de résultat, malgré tout ils
+sont syntaxiquement valides.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/siret">#siret</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/21/faire-communiquer-php-et-javascript/">
+        Faire communiquer PHP et Javascript
+      </a>
+    </h1>
+
+    <span class="post-date">21 Feb 2009</span>
+
+    <p>Pour un projet sur lequel je suis en ce moment, je dois faire une interface
+d&#39;administration assez complexe, le tout en AJAX.</p>
+
+<p>Je dois manipuler des données sorties de ma base de donnée, venant de trois
+modèles différents, mais liés les uns avec les autres. Autant dire que j&#39;ai de
+gros tableaux imbriqués de données. La page travaille vraiment beaucoup et
+manipule ces données constamment.</p>
+
+<p>Pour éviter d&#39;avoir à faire une requete sur ma base à chaque fois que j&#39;ai
+besoin d&#39;une information, j&#39;ai décidé de tout charger une première fois au
+chargement de la page, puis de modifier coté client les variables sur
+lesquelles je travaille, pour ne faire des requetes au serveur qu&#39;en upload
+(update/add) et ainsi éviter au maximum les requetes en download inutiles.</p>
+
+<p>Pour ça, j&#39;utilise tout d&#39;abord le base64 de php pour passer des objets
+complexes (au format JSON) à mes scripts. <a href="http://www.semnanweb.com/jquery-plugin/base64.html">Muhammad Hussein
+Fattahizadeh</a> a pour cela
+mis à disposition une retranscription de l&#39;encodage/decodage en base64 pour
+jQuery.</p>
+
+<p>Je peux stocker ainsi mes objets de façon &quot;dormante&quot; dans ma page, et les
+décoder pour récupérer/modifier les valeurs dont j&#39;ai besoin avant de les
+réencoder et de les re-ranger dans mon DOM. L&#39;avantage de stocker ces
+informations en base64 c&#39;est que je ne risque pas de causer d&#39;erreur de
+syntaxe, de balise non fermée, de caractère interdit, même si je manipule des
+objets contenant du code HTML et que j&#39;ai besoin de le stocker dans mon propre
+DOM.</p>
+
+<p>J&#39;utilise aussi à coté de ça le <a href="http://json.org/json2.js">parseur officiel
+JSON</a> pour parser mes éléments JSON. Il ne me reste
+plus qu&#39;à passer mon élément JSON en paramètre aux fonction AJAX de jQuery
+pour mettre à jour mes données.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jquery">#jquery</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/20/creer-plusieurs-formulaires-sur-la-meme-page-avec-formhelper-create/">
+        Créer plusieurs formulaires sur la même page avec FormHelper::create
+      </a>
+    </h1>
+
+    <span class="post-date">20 Feb 2009</span>
+
+    <p>CakePHP permet de créer très facilement des formulaires dont l&#39;action
+(add/edit) ainsi que les champs sont remplis automatiquement grâce à
+<code>FormHelper::create</code> et <code>FormHelper::end</code>.</p>
+
+<p>Il prends pour cela les variables contenues dans le $data du controller, qui
+sont alors passées au $data de la vue.</p>
+
+<p>Si on veut changer le modèle et/ou les valeurs utilisées par le formulaire, il
+suffit de faire nos modifications dans le <code>$this-&gt;data</code> directement dans la vue
+avant d&#39;appeller <code>$form-&gt;create()</code>.</p>
+
+<p>Par contre, si sur une même page on possède plusieurs formulaires, tous d&#39;un
+modele différent, l&#39;astuce ne fonctionne plus. FormHelper s&#39;est initialisé
+lors de son premier appel et utilisera le même set de model et valeurs pour
+les autres.</p>
+
+<p>Même modifier <code>$this-&gt;data</code> avant chaque appel à <code>$form-&gt;create()</code> ne changera
+rien.</p>
+
+<p>Il faut donc ruser et modifier la variable utilisée par le Helper, c&#39;est à
+dire modifier <code>$form-&gt;data</code> à partir du second formulaire.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page47">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page45">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/09/05/converting-html-files-pdf-commandline/">
+        Converting html files to pdf from the commandline
+      </a>
+    </h1>
+
+    <span class="post-date">05 Sep 2013</span>
+
+    <p>When you need to convert an <code>html</code> file to a <code>pdf</code>, often the default <code>pdf</code>
+printer of your OS is enough. For those times when you need a much better
+rendering, you need a better tool.</p>
+
+<p>I had to convert my <code>html</code>/<code>css</code> resume to a <code>pdf</code> file today. The default
+<code>pdf</code> printer on Ubuntu was discarding the background color and adding useless
+margins.</p>
+
+<p>I finally resorted to using
+<a href="http://code.google.com/p/wkhtmltopdf/">wkhtmltopdf</a>. It does the job, but
+needs a few tweaks. First, you have to add <code>-T 0 -R 0 -B 0 -L 0</code> to remove the
+margins. Then, you have to use the <code>file://</code> notation to target a local file.
+Also, it does not understand the css properties <code>page-break-after</code> nor <code>page-
+break-before</code>. I had to manually add padding in my elements to stop them from
+being cut in between two pages. But worst of all, it chokes on UTF-8
+characters in filenames.</p>
+
+<p>In the end, I wrote a small ruby wrapper around wkhtmltopdf to work around all
+those issues for me and called it <a href="https://github.com/pixelastic/oro%0Ashi/blob/master/scripts/bin/html2pdf">html2pdf</a>.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/pdf">#pdf</a>
+      
+        <a href="/tags/html2pdf">#html2pdf</a>
+      
+        <a href="/tags/wkhtmltopdf">#wkhtmltopdf</a>
+      
+        <a href="/tags/html">#html</a>
+      
+        <a href="/tags/css">#css</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/09/02/preventing-meta-key-opening-dash-unity-ubuntu/">
+        Preventing the Meta key from opening the dash in Unity Ubuntu
+      </a>
+    </h1>
+
+    <span class="post-date">02 Sep 2013</span>
+
+    <p>Everytime I install Ubuntu on a fresh computer and try to define custom
+keybindings that use the meta (ie. Windows) key, I run into issues.</p>
+
+<p>The Ubuntu UI uses the meta key to open what they call the &quot;Dash&quot;. I never use
+it and want my meta key back to define my own keybindings.</p>
+
+<p>There is no way to disable it from the default Ubuntu options. You have to
+install <code>compizconfig-settings-manager</code> and launch it using <code>ccsm</code>. There, go
+to the Ubuntu Unity Plugin and disable the &quot;Key to show the launcher&quot; binding.</p>
+
+<p>You will now be free to use the meta key in your keybindings, again.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ubuntu">#ubuntu</a>
+      
+        <a href="/tags/unity">#unity</a>
+      
+        <a href="/tags/meta">#meta</a>
+      
+        <a href="/tags/compiz">#compiz</a>
+      
+        <a href="/tags/ccsm">#ccsm</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/09/02/git-resurrect-bring-deleted-files-dead/">
+        git resurrect to bring back deleted files from the dead
+      </a>
+    </h1>
+
+    <span class="post-date">02 Sep 2013</span>
+
+    <p>Ever deleted a file several commits away and then suddenly realizing that you
+actually need it ? Well, here&#39;s an easy way to get your file back.</p>
+
+<p>First of all, we&#39;ll get the commit in which the file has been deleted with :
+<code>git log --diff-filter=D --format=format:%H -- {your_filename}</code></p>
+
+<p><code>--diff-filter=D</code> will only keep commits where files gets deleted,
+<code>--format=format:%H</code> will only display the commit hash and finally the <code>--</code>
+is a separator between your options and the argument. Argument should be your
+filename, and it even accepts <code>*</code> as a wildcard.</p>
+
+<p>Once you got the commit hash, it&#39;s just a matter of checking the file out
+using <code>git checkout {hash}~1 {your_filename}</code>. The <code>~1</code> targets the previous
+commit, right before the file gets deleted.</p>
+
+<p>All wrapped up in a nice shell script, here is what it looks like :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/usr/bin/env bash</span>
+<span class="nv">filename</span><span class="o">=</span><span class="nv">$1</span>
+<span class="c"># We first find the commit where the file was deleted</span>
+<span class="nb">hash</span><span class="o">=</span><span class="k">$(</span>git log --diff-filter<span class="o">=</span>D --format<span class="o">=</span>format:%H -- <span class="nv">$filename</span><span class="k">)</span>
+<span class="c"># We then bring it back from the dead</span>
+git checkout <span class="nv">$hash</span>~1 <span class="nv">$filename</span>
+</code></pre></div>
+<p>I&#39;ve aliased mine to <code>git resurrect</code>.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/resurrect">#resurrect</a>
+      
+        <a href="/tags/git">#git</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/08/31/renaming-files-fit-fat32-drive/">
+        Renaming files to fit on a FAT32 drive
+      </a>
+    </h1>
+
+    <span class="post-date">31 Aug 2013</span>
+
+    <p>When moving files from my hard-drive (formatted in ext3) to my mp3 music
+player or to any drive formatted in FAT32, some files never get to the
+destination due to illegal characters in their filename.</p>
+
+<p>Those includes characters like question marks, colons or quotes which can be
+quite common in media filenames.</p>
+
+<p>So I wrote myself a <a href="https://github.com/pixelastic/oroshi/blob/master/scripts/bin/rename-%0Afat32">tiny command-line
+script</a> to make the filenames FTA32 compliant. Note that this is a destructive
+operation as it will simply remove the illegal characters.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/fat32">#fat32</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2013/08/30/converting-files-utf-8-command-line/">
+        Converting files to UTF-8 from the command line
+      </a>
+    </h1>
+
+    <span class="post-date">30 Aug 2013</span>
+
+    <p>Converting to and from charset encoding is boring. Life would be much easier
+if everything was saved in proper UTF-8.</p>
+
+<p>I just coded a couple of scripts that will help be read file encoding from
+files and convert them to UTF-8.</p>
+
+<p>First, not all encoding can be easily read. Some uses markers that are easy to
+check, other requires heuristic and guessing. I won&#39;t deal with the second
+part. Most of the files I&#39;m currently handling are either Latin1 (ISO-8859-1)
+or Latin2 (ISO-8859-2), so I&#39;ll limit the scope of my scripts to those two
+sets.</p>
+
+<p>Fortunatly, the default <code>file</code> command can do that.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>file -bi file.txt
+text/plain<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>us-ascii
+<span class="nv">$ </span>file -bi bad.html
+text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>iso-8859-1
+<span class="nv">$ </span>file -bi good.html
+text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+</code></pre></div>
+<p>Now that we have a way to know the input encoding, we can use <code>recode</code> to
+convert to UTF-8. You can install <code>recode</code> easily with <code>sudo apt-get install
+recode</code>.</p>
+
+<p>Once done, it is just a matter of <code>convert latin1..utf8 bad.html</code></p>
+
+<p>I wrapped those methods in two scripts : <a href="https://github.com/pixelas%0Atic/oroshi/blob/master/scripts/bin/encoding">encoding</a> and
+<a href="https://github.com/pixelastic/oroshi/blob/master/scripts/bin/utf8">utf8</a> that
+respectively output the file encoding and convert the file to utf8.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/iso-8859-1">#iso-8859-1</a>
+      
+        <a href="/tags/encoding">#encoding</a>
+      
+        <a href="/tags/utf8">#utf8</a>
+      
+        <a href="/tags/iso-8859-2">#iso-8859-2</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page3">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

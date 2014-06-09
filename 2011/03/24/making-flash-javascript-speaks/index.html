@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Making Flash and Javascript speaks to each other - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Making Flash and Javascript speaks to each other</h1>
+  <span class="post-date">24 Mar 2011</span>
+  <p>I needed a Flash app and my Javascript code to be able to communicate. The
+Flash needed to call some methods in the Javascript, and in turn the
+Javascript needed to inject back some data into the Flash.</p>
+
+<p>I let my Flash coder colleague took care of the Flash side, he needed to
+implement ExternalInterface, register some callbacks methods that I could call
+and more importantly change some security settings to make it work.</p>
+
+<p>On my side, I just needed to get the <code>object</code>element holding the Flash
+(thanks to <code>swfobject.getObjectById</code> it was pretty easy) and call the callback
+method registered in Flash on it.</p>
+
+<p>Piece of cake.</p>
+
+<p>Have a look at this <a href="http://circlecube.com/2010/12%0A/actionscript-as3-javascript-call-flash-to-and-from-javascript/">blog post from CircleCube</a>, it does a
+pretty neat job at explaining all of that.</p>
+
+<p>Update :</p>
+
+<p>I finally had some issues with this implementation. It was working perfectly
+on some servers but not on others. We finally found that calling
+Security.allowDomain(&#39;*.mainhost.com&#39;) wasn&#39;t working.</p>
+
+<p>You have to explicitly allow each domain/subdomain.</p>
+
+<p>As our code would be deployed on various duplicate domains, we had to manually
+pass as a flash var the domain to allow.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/flash">#flash</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/externalinterface">#externalinterface</a>
+    
+      <a href="/tags/swfobject">#swfobject</a>
+    
+      <a href="/tags/allowdomain">#allowdomain</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

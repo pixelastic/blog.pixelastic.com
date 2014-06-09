@@ -1,0 +1,241 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Integration of a bbPress forum into a cakePHP application (part 4) - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Integration of a bbPress forum into a cakePHP application (part 4)</h1>
+  <span class="post-date">17 Feb 2010</span>
+  <p>We&#39;re almost done. There is just one last thing we must do. We don&#39;t want our
+dear user to have to login twice, once for the main app and once for the form,
+do we ?</p>
+
+<h2>Creating the Configure keys</h2>
+
+<p>So first, go back to your <code>bb-config.php</code> file and if you haven&#39;t already,
+define the <code>BB_AUTH_KEY</code> and <code>BB_LOGGED_IN_KEY</code>.</p>
+
+<p>Go to your <code>app/config/bootstrap.php</code> and create entries in <code>Configure</code>for
+this same keys. I named mine <code>bbPress.authKey</code> and <code>bbPress.logKey</code>.</p>
+
+<p>Now, go back to your database, open the <code>bb_meta</code> table and find the
+<code>bb_auth_salt</code> and <code>bb_loggued_in_salt</code> values. Copy them to two more
+<code>Configure</code>keys (<code>bbPress.authSalt</code> and <code>bbPress.logSalt</code>).</p>
+
+<p>One last key to create. Head back to <code>bb-config.php</code> and add the following
+line :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">define(&#39;BB_HASH&#39;, &#39;XXXXX&#39;);</span>
+</code></pre></div>
+<p>Of course, set <code>XXXX</code> to a unique string. The name of your website should
+suffice, it is just used to differenciate between cookies on the same domain.
+Report the same value in <code>Configure</code> : <code>bbPress.hash</code>.</p>
+
+<h2>Creating the cookies</h2>
+
+<p>You&#39;re now ready to create bbPress cookies. bbPress will need to create two
+different sets of cookie.</p>
+
+<p>A bbPress cookie contain a value formatted like :
+<code>&lt;login&gt;|&lt;expiration&gt;|&lt;hash&gt;</code></p>
+
+<p>The hash is based on the user password, login, expiration and several other
+keys. It also involve double hashing of the value, with different salt and key
+values.</p>
+
+<p>I&#39;ve eased the pain of understanding how to create a cookie value, just use
+the following function :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function __getCookieValue($options = array()) {</span>
+<span class="x">   // We will need the login, pass and expiration date to create the cookie</span>
+<span class="x">   $userLogin = $options[&#39;name&#39;]; // The user login</span>
+<span class="x">   $userPass = $options[&#39;password&#39;]; // The password encrypted in the database</span>
+<span class="x">   $userPassFragment = substr($userPass, 8, 4);    // We will take only a small part of the password</span>
+<span class="x">   $expiration = $options[&#39;expiration&#39;];</span>
+<span class="x">   $data = $userLogin.$userPassFragment.&quot;|&quot;.$expiration;    // The main data that will be used create the final hash</span>
+
+<span class="x">   // We first get a first hash key that we will use to generate a second one</span>
+<span class="x">   $firstKey = hash_hmac(&#39;md5&#39;, $data, $options[&#39;salt&#39;]);</span>
+<span class="x">   // Then we create the final hash saved in the cookie</span>
+<span class="x">   $finalHash = hash_hmac(&#39;md5&#39;, $userLogin.&#39;|&#39;.$expiration, $firstKey);</span>
+
+<span class="x">   // The final data to store in the cookie</span>
+<span class="x">   return $userLogin.&quot;|&quot;.$expiration.&quot;|&quot;.$finalHash;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>You should pass to this function an array containing a name, password and
+expiration date. The password should be exactly as it is stored in the
+database.</p>
+
+<p>You should also pass a 4th value, named salt, that is different depending of
+the type of cookie you&#39;re trying to create. For a auth cookie, use
+<code>Configure::read(&#39;bbPress.authKey&#39;).Configure::read(&#39;bbPress.authSalt&#39;)</code> and
+for a log cookie, use
+<code>Configure::read(&#39;bbPress.logKey&#39;).Configure::read(&#39;bbPress.logSalt&#39;)</code>.</p>
+
+<p>You will need to create two log cookies (for <code>/</code> and <code>/forum/</code>) and three auth
+cookies (for <code>/forum/bb-admin</code>,<code>/forum/bb-plugins</code> and <code>/forum/my-plugins</code>).</p>
+
+<p>Here is the complete method for creating all these cookies. Just call it in
+your app whenever your want to log the current user to the forum. Just feed it
+a user and password.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x">*    createCookies</span>
+<span class="x">*    Create the cookies that can be used to connect to the bbPress forum</span>
+<span class="x">*    bbPress does a lot of complicating stuff with hashing when creating its cookie. We replicate it here</span>
+<span class="x">*</span>
+<span class="x">*    The content of the cookie is formed in the format username|expirationDate|hash</span>
+<span class="x">*</span>
+<span class="x">*    The hash part is the most difficult, it involve double hashing based on various salt and values</span>
+<span class="x">**/</span>
+<span class="x">function createCookies($name, $pass) {</span>
+<span class="x"> $expirationDate = time() + 1209600; // When the cookie should stop working (2 weeks)</span>
+
+<span class="x"> // Getting the log in salt</span>
+<span class="x"> $completeSalt = Configure::read(&#39;bbPress.logKey&#39;).Configure::read(&#39;bbPress.logSalt&#39;);</span>
+<span class="x"> // The log in cookie name</span>
+<span class="x"> $cookieName = &quot;bbpress_logged_in_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x"> // Getting the value</span>
+<span class="x"> $cookieValue = __getCookieValue(array(</span>
+<span class="x">   &#39;name&#39; =&gt; $name,</span>
+<span class="x">   &#39;password&#39; =&gt; $pass,</span>
+<span class="x">   &#39;salt&#39; =&gt; $completeSalt,</span>
+<span class="x">   &#39;expiration&#39; =&gt; $expirationDate</span>
+<span class="x"> ));</span>
+<span class="x"> // Setting the cookie for the correct path</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &quot;/&quot;, false, false, true);</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &quot;/forum/&quot;, false, false, true);</span>
+
+<span class="x"> // Getting the auth salt</span>
+<span class="x"> $completeSalt = Configure::read(&#39;bbPress.authKey&#39;).Configure::read(&#39;bbPress.authSalt&#39;);</span>
+<span class="x"> // The auth cookie name</span>
+<span class="x"> $cookieName = &quot;bbpress_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x"> // Getting the value</span>
+<span class="x"> $cookieValue = __getCookieValue(array(</span>
+<span class="x">   &#39;name&#39; =&gt; $name,</span>
+<span class="x">   &#39;password&#39; =&gt; $pass,</span>
+<span class="x">   &#39;salt&#39; =&gt; $completeSalt,</span>
+<span class="x">   &#39;expiration&#39; =&gt; $expirationDate</span>
+<span class="x"> ));</span>
+<span class="x"> // Setting the cookie for the correct path</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &#39;/forum/bb-admin&#39;, false, false, true);</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &#39;/forum/bb-plugins&#39;, false, false, true);</span>
+<span class="x"> setcookie($cookieName, $cookieValue, $expirationDate, &#39;/forum/my-plugins&#39;, false, false, true);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>And for logging out, just delete the cookies :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function clearCookies() {</span>
+<span class="x">   // The name of the cookie to delete</span>
+<span class="x">   $cookieName = &quot;bbpress_logged_in_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &quot;/&quot;, false, false, true);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &quot;/forum/&quot;, false, false, true);</span>
+<span class="x">   // The auth cookie name</span>
+<span class="x">   $cookieName = &quot;bbpress_&quot;.Configure::read(&#39;bbPress.hash&#39;);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &#39;/forum/bb-admin&#39;, false, false, true);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &#39;/forum/bb-plugins&#39;, false, false, true);</span>
+<span class="x">   setcookie($cookieName, &quot;&quot;, time()-3600, &#39;/forum/my-plugins&#39;, false, false, true);</span>
+<span class="x"> }</span>
+</code></pre></div>
+<p>Hope all that helps ! It took some time to put all this together but I hope it
+could help other bakers out there.</p>
+
+<h2>Downloading</h2>
+
+<p>For anyone interested, here is a link to download all the files :
+http://www.pixelastic.com/download/bbpress.rar</p>
+
+<p>Note that it can&#39;t be used as-is because it involves a bbPress install, a
+custom Authentication system and also because I wrote it as part of a bigger
+plugin.</p>
+
+<p>So, feel free to browse the files and get what you need, but consider it as a
+part of a bigger app, so you&#39;ll have to re-plug what&#39;s missing.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/bbpress">#bbpress</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,343 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/04/02/cakephp-i18n-extract-and-plugins/">
+        cakePHP i18n extract and plugins
+      </a>
+    </h1>
+
+    <span class="post-date">02 Apr 2010</span>
+
+    <p>Cake has a lot of wonderful tools in its console. One of them is the <code>i18n
+extract</code> task that reads every file of your app, and extract strings that
+should be translated (used with <code>__()</code>, <code>__d()</code>, etc).</p>
+
+<p>With cake 1.3 RC3 it even stored each domain string in its own <code>.pot</code> file.</p>
+
+<p>But, as far as I know (I&#39;ve posted on the google group about that, maybe
+someone will show me where I&#39;m wrong), the console task is limited when
+dealing with plugins.</p>
+
+<p>Let&#39;s say I have a plugin in my app. I&#39;m using <code>__d(&#39;plugin_name&#39;, &#39;My plugin
+string&#39;)</code> in my plugin and <code>__(&#39;My app string&#39;)</code> in the main app.</p>
+
+<p>If I run the <code>cake i18n extract</code> in my plugin directory, it will correctly
+generate the <code>.pot</code>file in my plugin <code>locale/</code> folder.</p>
+
+<p>But if I run it in the main app, it will scan every plugin file and thus
+finding any plugin string and save them in the <code>default.pot</code> or in its own
+<code>plugin_name.pot</code> file (depending on the value of the merge option).</p>
+
+<p>I don&#39;t need the <code>plugin_name.pot</code> files in <code>app/locale</code>, I already have them
+in <code>app/plugins/plugin_name/locale</code>. I know it&#39;s no big deal, I just have to
+delete the useless files created every time I run the <code>cake i18n extract</code> on
+the main app but it is kind of irritating.</p>
+
+<p>So I updated the <code>cake/console/libs/tasks</code> to add a new option to the task,
+named &#39;<code>plugins</code>&#39; (value : yes/no. Default to no).</p>
+
+<p>If set to no, the extract task will skip every plugin directory when
+extracting files. This way, I have no more clutter, it only extract string
+that are in the app.</p>
+
+<p>All I had to do was updating the <code>execute()</code> method, and replacing the end of
+the method (from line 152) with this one :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;params[&#39;plugins&#39;] = isset($this-&gt;params[&#39;plugins&#39;]) ? $this-&gt;params[&#39;plugins&#39;] : &#39;no&#39;;</span>
+<span class="x">if (empty($this-&gt;__files)) {</span>
+<span class="x">  if ($this-&gt;params[&#39;plugins&#39;]==&#39;yes&#39;) {</span>
+<span class="x">    $this-&gt;__searchFiles();</span>
+<span class="x">  } else {</span>
+<span class="x">    $this-&gt;__searchFilesExcludePlugins();</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>And then add this method to the class :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function __searchFilesExcludePlugins() {</span>
+<span class="x">  foreach ($this-&gt;__paths as $path) {</span>
+<span class="x">    $Folder = new Folder($path);</span>
+<span class="x">    $filelist = $Folder-&gt;tree($path);</span>
+<span class="x">    foreach($filelist[1] as &amp;$file) {</span>
+<span class="x">      // We discard plugins</span>
+<span class="x">      if (strpos(str_replace($path, &#39;&#39;, $file), DS.&#39;plugins&#39;)===0) continue;</span>
+<span class="x">      // We keep those that match the pattern</span>
+<span class="x">      if (!preg_match(&#39;/^.*\.(php|ctp|thtml|inc|tpl)$/i&#39;, $file)) continue;</span>
+<span class="x">      $this-&gt;__files[]= $file;</span>
+<span class="x">    }</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/i18n">#i18n</a>
+      
+        <a href="/tags/extract">#extract</a>
+      
+        <a href="/tags/core">#core</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/31/generating-salt-values/">
+        Generating salt values
+      </a>
+    </h1>
+
+    <span class="post-date">31 Mar 2010</span>
+
+    <p>Wordpress made available a nice tool to generate fairly complicated strings,
+perfectly usable as salt value for all your password hashing process.</p>
+
+<p>As I&#39;m often heading to this page to generate new ones on new projects I
+thougt I may share the link with you :</p>
+
+<p>https://api.wordpress.org/secret-key/1.1/bbpress/</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/bbpress">#bbpress</a>
+      
+        <a href="/tags/wordpress">#wordpress</a>
+      
+        <a href="/tags/salt">#salt</a>
+      
+        <a href="/tags/hash">#hash</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/29/mysql-auto-backup/">
+        Mysql auto backup
+      </a>
+    </h1>
+
+    <span class="post-date">29 Mar 2010</span>
+
+    <p>I&#39;m in the process of automating the backup of all the mysql databases of my
+clients&#39; website. We never know what can happen, so having a backup of all
+this data is really really important.</p>
+
+<p>MySQL data contains all the data added by the user, it means that unless you
+make regular backup of this data, you can&#39;t regenerate it.</p>
+
+<p>I have multiple clients, with several websites each and an equivalent number
+of databases. I wanted to store a backup of all those on my local drive, to
+prevent any server crash problem.</p>
+
+<p>I wanted a daily backup, and as my working station is on Windows XP I tried to
+find a simple software to do just that.</p>
+
+<p>There is a little tool called mysqldump on linux that does just that : saving
+an entire database in a single file. Joined with some cron job and rotating
+the files it shouldn&#39;t be hard to implement.</p>
+
+<p>But finding a software to do that on Windows is just terrible. I&#39;ve been
+searching for them for more that 2 hours now and everything I find is
+horrible.</p>
+
+<p>At first I found <a href="http://www.swordsky.com/">AutoBackup for Mysql</a> but the
+software is written in something that even myself can&#39;t call English (and I
+know that my prose is not exactly Shakespeare). I had to click on some options
+to guess what it was supposed to do... I guess after some practice and once
+the tasks are scheduled it doesn&#39;t matter anymore but the trial version can&#39;t
+save more that 50 records per table and the price of the full version (~100$)
+is by far too expensive.</p>
+
+<p>By continuing my quest, I ended up downloading this same software under
+different names.</p>
+
+<p>Then I found <a href="http://www.richtsoft.com/mod.php?theme=richtsoft&amp;them%0Ae=richtsoft&amp;mod=webpage&amp;op=view&amp;wid=18">DumpTimer</a> and its brownish interface. It is also
+a great example of ergonomic errors : window too small forcing to scroll to
+reveal the options, nonsense message boxes popping, large amount of typo
+errors, limited choice of options.</p>
+
+<p>But it does the job, in a very basic form, but it does it right. I could save
+my list of servers, check which databases and tables to save (well, all of
+them) and choose where to save them. There also was an option to copy them to
+another database, but I didn&#39;t tried that.</p>
+
+<p>One of the main caveats was that it could only save the most recent backup,
+there was no way to save, say, the last 30 days.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/mysql">#mysql</a>
+      
+        <a href="/tags/backup">#backup</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/25/viddler-utf8-encoding-issue-with-video-description/">
+        Viddler utf8 encoding issue with video description
+      </a>
+    </h1>
+
+    <span class="post-date">25 Mar 2010</span>
+
+    <p>It seems that Viddler changed something on their video API in the middle of
+January, and it broke <code>utf8</code>support.</p>
+
+<p>All the videos I&#39;ve uploaded to their service from October 2009 until January
+10th 2010 are working correctly.</p>
+
+<p>But for every video uploaded after that (in fact, from January 24th as far as
+I can tell), the description text gets corrupted. All the special characters
+(like é or €) gets replaced by their un-encoded counterparts (like Ã©).</p>
+
+<p>It happens either when using their API from a distant server or using their
+homemade simple uploader.</p>
+
+<p>Even &quot;worse&quot;, when retrieving the video details from their API the description
+field gets &quot;htmlspecialchared&quot; and I end up dealing with &Atilde;&copy;</p>
+
+<p>Anyway, I send them an email about that. I&#39;ve had to contact Viddler support
+in the past and they are quite responsive, so I&#39;m sure they will correct this
+in no time, seing how trivial it is (in fact, the title field is not affected
+by this bug).</p>
+
+<p>Update 29th March : Viddler support filed a ticket for the issue.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/viddler">#viddler</a>
+      
+        <a href="/tags/utf8">#utf8</a>
+      
+        <a href="/tags/encoding">#encoding</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/25/extra-get-request-when-using-swfupload/">
+        Extra GET request when using SWFUpload
+      </a>
+    </h1>
+
+    <span class="post-date">25 Mar 2010</span>
+
+    <p>I&#39;ve been using <a href="http://swfupload.org/">SWFUpload </a>for quite a long time now.
+Put simply, it&#39;s a Flash/Javascript plugin allowing a file upload to be done
+without having to submit the page.</p>
+
+<p>Basically it uses the streaming upload capacity of flash to fire javascript
+events to tell the developer the upload percentage, do some filesize and
+filetype checks, etc.</p>
+
+<p>If you&#39;ve ever seen an upload progress bar on any website, it most surely was
+done using SWFUpload.</p>
+
+<p>Anyway, today I spotted a strange behavior in one of my pages, heavily using
+<code>SWFUpload</code>(more or less 20 upload fields). Using the Net panel of Firebug, I
+saw some strange GET requests being made to my website.</p>
+
+<p>After digging into my code, I could isolate the problem. I was coming from
+<code>SWFUpload</code>itself. I even found record of <a href="http://code.google.com/p/swfupload/issues/detail?id=202">a bug
+report</a> mentionning
+it.</p>
+
+<p>In a nutshell, SWFUpload always make a request to the url specified in the
+<code>button_image_url</code> parameter, even if you haven&#39;t specified one (in this case
+it made a request to your webroot).</p>
+
+<p>I&#39;m not using any image for my button, or should I say, I take care of that in
+CSS already, my SWFUpload button is just an invisible Flash element,
+positionned on top of my existing button.</p>
+
+<p>I tried setting the value to <code>null</code>, <code>false</code>or an empty string, but it would
+continue to do the request.</p>
+
+<p>Anyway, I upgraded to the latest version (2.5.0 Beta 3), and it solves my
+problem. Now I&#39;m just hoping that all the retro-compatibility will be kept.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/swfupload">#swfupload</a>
+      
+        <a href="/tags/firebug">#firebug</a>
+      
+        <a href="/tags/button_image_url">#button_image_url</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page39">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page37">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

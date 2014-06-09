@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Caracole - Edition directe - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Caracole - Edition directe</h1>
+  <span class="post-date">19 Feb 2009</span>
+  <p>En plus de son interface d&#39;administration complète, Caracole permet un mode
+d&#39;édition rapide directement accessible depuis le coté front-end des sites,
+pour corriger rapidement un titre ou un coquille qui se serait glissée quelque
+part.</p>
+
+<p>Grâce à jQuery et cakePHP, cette fonctionnalité est très simple à utiliser. Il
+suffit pour cela d&#39;avoir les droits d&#39;administration sur le site que l&#39;on veut
+modifier. Il suffit ensuite d&#39;y naviguer avec un navigateur assez récent (cela
+signifie que IE6 n&#39;y est pas convié) et s&#39;affichera alors automatiquement en
+haut à gauche de l&#39;écran un petit switch qui permet d&#39;activer ou de désactiver
+en un clic le mode édition.</p>
+
+<p>Lorsque le mode d&#39;édition est activé, il suffit de cliquer sur une zone que
+l&#39;on veut modifier pour la transformer automatiquement en champ de formulaire
+modifiable (avec intégration de tinyMCE pour les grands textes). Il suffit
+alors de modifier le texte exactement comme on peut le faire dans l&#39;admin et
+de valider. La modification est prise en compte automatiquement.</p>
+
+<p>Coté développeur, il suffit d&#39;ajouter une class=&quot;editable&quot; ainsi qu&#39;un id
+formé de la forme &quot;controller-champ-id&quot;. Ainsi id=&quot;posts-text-12&quot; identifiera
+le champ &quot;text&quot; du 12e post.</p>
+
+<p>C&#39;est extremement pratique pour modifier des fautes de frappe, ou faire des
+tas de petites modifications, je m&#39;en sers énormément et c&#39;est un pas de plus
+pour faciliter l&#39;administration à l&#39;utilisateur final.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/jquery">#jquery</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/caracole">#caracole</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

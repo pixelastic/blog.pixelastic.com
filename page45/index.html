@@ -1,0 +1,336 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/09/30/locked-sessions-in-cakephp/">
+        Locked sessions in cakePHP
+      </a>
+    </h1>
+
+    <span class="post-date">30 Sep 2009</span>
+
+    <p>I was working on a component heavily using session and was having trouble
+debugging it. First I could&#39;nt find where my session files where saved on my
+server.</p>
+
+<p>Well, it was because I hadn&#39;t set the session.save_path value in my php.ini.</p>
+
+<p>But now that is was done, it seems like I had locked sessions files that I
+wasn&#39;t able to access (I couldn&#39;t even read them using a editor). The problem
+was that I was using die() in my component script to help debugging the
+process.</p>
+
+<p>And that was BAD. die() stopped the whole process, even if the session file
+was opened for writing, locking it until the process died. What was the
+correct way to halt my script was using exit;</p>
+
+<p>Hope that helped</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/sessions">#sessions</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/09/02/polices-de-caractere/">
+        Polices de caractère !
+      </a>
+    </h1>
+
+    <span class="post-date">02 Sep 2009</span>
+
+    <p>Ah elles en ont du caractère ces polices ! Elle m&#39;en font voir de toutes les
+couleurs...</p>
+
+<p>Pour l&#39;intégration sur laquelle je travaille, certains titres utilisent une
+police spéciale, et pour intégrer ça grâce ) @font-face et Cufon, il me faut
+les fichiers de police sous différents formats.</p>
+
+<p>La graphiste m&#39;a fournie la police, sous format .dfont (package de plusieurs
+font à la sauce Mac). J&#39;ai pu extraire le package grâce à
+<a href="http://peter.upfold.org.uk/projects/dfontsplitter">DFontSplitter</a>, ce qui m&#39;a
+donné plein de polices .ttf.</p>
+
+<p>Corrompues, d&#39;ailleurs, qu&#39;il m&#39;a fallu réparer grâce à
+<a href="http://www.acutesystems.com/sharecf.htm">CrossFont</a> (attention shareware de
+15 jours). Sauf qu&#39;il me convertit les fichiers en .otf.</p>
+
+<p>Pas de soucis pour Firefox, Safari et Opera qui comprennent ce format très
+bien, mais pour IE, je dois convertir ça en <code>.eot</code> (grâce à <a href="http://www.cuvou.com/wizards/ttf2eot.cgi">ce converter en
+ligne</a>).</p>
+
+<p>Qui ne prends malheureusement que des <code>.ttf</code> comme source... Impossible de
+trouver un converter otf =&gt; ttf sous windows qui ne demande pas d&#39;installer
+des tas de choses, je suis donc passé sous mon Ubuntu, ai téléchargé FontForge
+: Open =&gt; Generate Font =&gt; ttf et voila</p>
+
+<p>Edit : Et hop, <a href="http://onlinefontconverter.com/">un autre converter</a> en ligne
+de plus (otf, ttf, dfont)</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ttf">#ttf</a>
+      
+        <a href="/tags/otf">#otf</a>
+      
+        <a href="/tags/font-face">#font-face</a>
+      
+        <a href="/tags/eot">#eot</a>
+      
+        <a href="/tags/cufon">#cufon</a>
+      
+        <a href="/tags/css">#css</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/03/25/komodo-edit/">
+        Komodo Edit
+      </a>
+    </h1>
+
+    <span class="post-date">25 Mar 2009</span>
+
+    <p>J&#39;ai utilisé de nombreux éditeurs depuis que j&#39;ai commencé à coder, et au fil
+du temps j&#39;ai changé. Souvent parce qu&#39;un bug particulier de ma version me
+dérangeait beaucoup, ou parce que j&#39;avais besoin d&#39;une fonctionnalité que je
+ne pouvais trouver que chez un concurrent.</p>
+
+<p>Je suis resté très longtemps sur Webexpert, fais un court passage par Aptana,
+avant de rester pendant les quelques dernières années sur Intype. Et
+aujourd&#39;hui, je viens de découvrir Komodo Edit.</p>
+
+<p>Webexpert avait tout ce dont j&#39;avais besoin il y a quelques années, mais il
+plantait sans raison assez souvent. Et quand je voyais ce que pouvais proposer
+un logiciel comme Aptana avec son parseur intégré, son autocomplete de code,
+etc je me disais que j&#39;étais vraiment à la préhistoire.</p>
+
+<p>J&#39;ai donc essayé Aptana, mais je m&#39;en suis vite lassé, c&#39;est une usine à gaz.
+Il sait certes tout faire mais il était lent, et j&#39;avais besoin de pouvoir
+m&#39;en servir rapidement.</p>
+
+<p>Je suis donc passé à Intype, qui est très léger et qui possédait exactement
+tout ce dont j&#39;avais besoin et il le faisait bien. C&#39;était aussi le premier
+éditeur qui me permettait d&#39;enregistrer mes fichiers correctement en UTF-8.
+Ses colorations syntaxiques étaient très claires, son système d&#39;indentation
+était parfait, bref que du bon.</p>
+
+<p>Il n&#39;avait pas d&#39;autocomplete de code, ou alors je n&#39;ai pas réussi à m&#39;en
+servir, mais ça m&#39;allait bien. Son seul défaut était l&#39;absence d&#39;une fonction
+de recherche dans plusieurs fichiers.</p>
+
+<p>Aujourd&#39;hui je viens de passer à Komodo Edit car j&#39;avais déjà vu en m&#39;en
+servant brievement qu&#39;il avait une bonne gestion des commentaires multilignes
+qu&#39;il identifiait tout seul et rendait leur écriture plus simple.</p>
+
+<p>Et là je suis en train de m&#39;en servir et je suis bluffé par le nombre d&#39;atouts
+qu&#39;il a ! Déjà j&#39;ai pu retrouver le même theme de couleurs que celui que
+j&#39;avais sur Intype, il gère aussi bien l&#39;indentation et enregistre
+parfaitement en utf8. Jusqu&#39;ici, il est du niveau d&#39;Intype.</p>
+
+<p>Voici la liste des points positifs supplémentaires au fur et à mesure que je
+m&#39;en sers :</p>
+
+<ul>
+<li>Il a un parseur PHP intégré, il m&#39;a souligné une ligne en erreur, en m&#39;indiquant l&#39;erreur !</li>
+<li>L&#39;autocomplete m&#39;a l&#39;air pas mal foutu, il va chercher dans la liste des fonctions et variables que j&#39;ai définies, ainsi que dans la liste des fonctions intégrées de PHP.</li>
+<li>C&#39;est extremement pratique pour les str_replace, explode et autres fonctions dont je ne me souviens jamais de l&#39;ordre des arguments, parce qu&#39;il me les affiche ainsi qu&#39;une petite explication !</li>
+<li>Avec Ctrl+Espace, il peut me terminer un mot que j&#39;ai commencé s&#39;il trouve une correspondance avec les fonctions que j&#39;ai définies</li>
+<li>Il me liste même toutes les méthodes d&#39;un modèle quand je tape le nom de ce modèle. Avec la description et la liste des paramètres tirée de mes propres commentaires</li>
+<li>Il ajoute automatiquement les } de fermeture quand on les ouvre</li>
+<li>Il enlève automatiquement les espaces qui trainent à la fin d&#39;un fichier. Ca aussi je sens que je vais aimer, vu le nombre de fois où j&#39;ai eu des problèmes de &quot;headers already defined&quot; à cause de problème de ce genre !</li>
+<li>En passant mon curseur sur une couleur en hexadecimal et en appuyant sur Ctrl, il me donne un apercu de la couleur. Vraiment pratique en CSS</li>
+<li>ll me prévient en Javascript de mes array qui se terminent par des virgules, ce qui fait bugguer IE. Pratique</li>
+</ul>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/komodo">#komodo</a>
+      
+        <a href="/tags/intype">#intype</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/03/01/caracole-gestion-des-flux-rss/">
+        Caracole - Gestion des flux RSS
+      </a>
+    </h1>
+
+    <span class="post-date">01 Mar 2009</span>
+
+    <p>Cela faisait quelques temps que je souhaitais ajouter une gestion des flux RSS
+à Caracole. J&#39;ai donc recherché du coté du RssHelper intégré à cakePHP et l&#39;ai
+quelque peu modifié pour qu&#39;il s&#39;adapte à mes besoins.</p>
+
+<p>En effet, il manquait selon moi quelques fonctions extremement importantes
+pour la génération d&#39;un flux complet, par exemple la possibilité de spécifier
+des attributs aux différents noeuds, ou encore de passer le contenu entre
+balises &lt;![CDATA[]]&gt;.</p>
+
+<p>Mais surtout la possibilité d&#39;ajouter des noeuds de façons récursive, la
+fonction RssHelper::item() ne permettant d&#39;ajouter des noeuds qu&#39;à un seul
+niveau.</p>
+
+<p>Bref, j&#39;ai revu tout cela dans ma propre version du Helper, avec une autre
+fonction pratique pour ajouter un thumbnail à un post. Pour voir ce que cela
+donne, et il vous suffit de vous abonner aux flus disponibles sur les pages du
+blog ou sur la page <a href="/realisations/">Réalisations</a></p>
+
+<p>J&#39;ai découvert la syntaxe d&#39;un flux RSS il y a seulement quelques jours, et je
+n&#39;ai testé le résultat qu&#39;avec Netvibes, je pense donc qu&#39;il me faut me livrer
+à quelques tests supplémentaires.</p>
+
+<p>En tout cas, il me suffit maintenant d&#39;ajouter une variable $rssFeed à un
+modèle pour qu&#39;un flux RSS lui soit automatiquement généré (on peut préciser
+bien sur les informations devant être affichées pour chaque modèle). Voila qui
+encore un pas de plus pour Caracole :)</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+        <a href="/tags/rss">#rss</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/25/caracole-antispam-des-adresses-mails/">
+        Caracole - Antispam des adresses mails
+      </a>
+    </h1>
+
+    <span class="post-date">25 Feb 2009</span>
+
+    <p><strong>Attention : Ce post n&#39;est plus d&#39;actualité. Je n&#39;utilise plus du tout cette technique pour masquer les adresses mails car elle bloquait complétement la lisibilité aux personnes sans Javascript. Je n&#39;ai pas encoe trouvé de meilleure alternative pour le moment, néanmoins.</strong></p>
+
+<p>Pour faire suite au billet précédent, un autre problème que j&#39;ai rencontré
+dans le développement des sites était un moyen sûr d&#39;empecher qu&#39;une adresse
+mail exposée sur un site ne soit récupérée par des robots crawlers et ne
+deviennent la cible de leurs spams.</p>
+
+<p>Je parse donc chaque texte affiché afin de remplacer les adresses mails par
+une version cryptée, que Javascript décryptera à l&#39;affichage. A chaque
+affichage la clé de cryptage est différente. Bon, l&#39;algorithme de cryptage est
+extremement simple, c&#39;est juste une permutation alphabétique, chaque lettre
+est remplacée par une autre. Et la clée est indiqué dans l&#39;attribut title de
+mon code généré.</p>
+
+<p>Il suffit d&#39;étudier le Javascript pour réussir à comprendre comment décrypter
+les mails, mais cela demande que le robot ai intégré mon codage dans ses
+paramètres, ce qui n&#39;est à priori pas le cas. Et quand bien même se serait le
+cas, je changerai la façon de crypter la clé.</p>
+
+<p>Jetez un oeil au code source de cette page si vous le souhaitez pour voir
+comment cette adresse : blabla@somewhere.com est écrite.</p>
+
+<p>Cela devrait être quelque chose de la forme :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;span</span> <span class="na">title=</span><span class="s">&quot;97tasbw84fv6_q3pn5yirchya15nq.p9b_jziggtc40lfolwxxk@meo26m70zj2d-sur@hev8u1-dk.3&quot;</span> <span class="na">class=</span><span class="s">&quot;protectFromSpam&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;noscript&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;icon icon_notice&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+    Cette adresse mail est protégée contre le spam, vous devez activer Javascript pour pouvoir la voir.
+  <span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cryptedMail&quot;</span><span class="nt">&gt;</span>ageh9gxvw1bag4342e<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/span&gt;</span>
+</code></pre></div>
+<p>Bon alors bien sur, cela nécessite Javascript activé, c&#39;est un gros défaut, je
+l&#39;admets. Un message permet de ne pas laisser l&#39;utilisateur sans JS dans
+l&#39;incompréhension, mais ça reste problématique malgré tout. Je n&#39;ai pas réussi
+à faire mieux pour le moment.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jquery">#jquery</a>
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page46">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page44">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

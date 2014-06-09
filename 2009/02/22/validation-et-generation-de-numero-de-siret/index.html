@@ -1,0 +1,178 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Validation et génération de numero de SIRET - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Validation et génération de numero de SIRET</h1>
+  <span class="post-date">22 Feb 2009</span>
+  <p>Pour le projet sur lequel je travaille actuellement, je dois tester la
+validatée d&#39;un numero de SIRET. D&#39;après <a href="http://fr.wikipedia.org/wi%0Aki/Syst%C3%A8me_d%E2%80%99identification_du_r%C3%A9pertoire_des_%C3%A9tablisse%0Aments">Wikipédia</a> les numéros de SIRET possèdent une clé finale permettant de vérifier
+qu&#39;ils soient biens formés.</p>
+
+<p>J&#39;ai donc retranscris ce calcul sous une règle de validation pour cakePHP, le
+voici :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function validateSiret($data, $field) {</span>
+<span class="x">  $siret = r(&#39; &#39;, &#39;&#39;, $data[$field]);</span>
+<span class="x">  $sum = 0;</span>
+<span class="x">  for($i=0;$i!=14;$i++) {</span>
+<span class="x">    $tmp = ((($i+1)%2)+1) * intval($siret[$i]);</span>
+<span class="x">    if ($tmp&gt;=10) $tmp-=9;</span>
+<span class="x">    $sum+=$tmp;</span>
+<span class="x">  }</span>
+<span class="x">  return ($sum%10===0);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Tout d&#39;abord, je m&#39;assure que le siret ne contienne pas d&#39;espace. Puis je
+passe nombre après nombre pour calculer la somme (je multiplie par deux les
+nombres d&#39;index pair et par un ceux d&#39;index impair). Si le résultat est
+supérieur à 10, j&#39;additionne chaque chiffre entre eux (ce qui équivant à
+soustraire 9).</p>
+
+<p>Si le résultat final est congru à 10, alors le numero de SIRET est valide.</p>
+
+<p>Il ne reste plus qu&#39;à l&#39;ajouter à mes régles de validation :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">var $validate = array(</span>
+<span class="x">  &#39;siret&#39; =&gt; array(</span>
+<span class="x">    &#39;rule&#39; =&gt; array(&#39;validateSiret&#39;, &#39;siret&#39;),</span>
+<span class="x">    &#39;message&#39; =&gt; &quot;Le numero de SIRET indiqué n&#39;est pas valide.&quot;</span>
+<span class="x">  )</span>
+<span class="x">);</span>
+</code></pre></div>
+<p>Mais ce n&#39;est pas tout. Comme pour mes tests je crée à la volée des dizaines
+d&#39;enregistrements, j&#39;avais besoin d&#39;un générateur automatique de numero de
+SIRET valides. Voici ce que j&#39;ai fini par écrire :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">public function siret() {</span>
+<span class="x">  //On génère le début du numero de siret</span>
+<span class="x">  $siret = &#39;&#39;;</span>
+<span class="x">  $sum = 0;</span>
+<span class="x">  for($i=0;$i!=8;$i++) {</span>
+<span class="x">    $rand = mt_rand(0,9);</span>
+<span class="x">    $siret.=$rand;</span>
+<span class="x">    //On ajoute une fois le résultat si index impair, deux fois sinon</span>
+<span class="x">    $tmp = $rand * (1+($i+1)%2);</span>
+<span class="x">    if ($tmp&gt;=10) $tmp-=9;</span>
+<span class="x">    $sum+=$tmp;</span>
+<span class="x">  }</span>
+<span class="x">  //On ajoute 4 zeros</span>
+<span class="x">  $siret.=&quot;0000&quot;;</span>
+<span class="x">  //On regarde combien il me manque pour etre congru à 10</span>
+<span class="x">  $diff = 10-($sum%10);</span>
+<span class="x">  if ($diff&gt;2) {</span>
+<span class="x">    $first = floor($diff/3);</span>
+<span class="x">    $second = $diff-(2*$first);</span>
+<span class="x">    $siret.=$first.$second;</span>
+<span class="x">  } else {</span>
+<span class="x">    $siret.=&#39;0&#39;.$diff;</span>
+<span class="x">  }</span>
+
+<span class="x">  return preg_replace(&quot;/([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{5})/&quot;, &quot;$1 $2 $3 $4&quot;, $siret);</span>
+<span class="x"> }</span>
+</code></pre></div>
+<p>Le principe consiste à générer les 8 premiers nombres de façon complétement
+aléatoire et d&#39;en calculer la &quot;somme&quot; (selon le principe évoqué au dessus).
+Puis on ajoute des zero pour combler l&#39;espace jusqu&#39;à ajouter la clé de
+vérification.</p>
+
+<p>Bien sur, la clé on va la créer pour que la somme de (2 x le premier chiffre)
++ (1 x le second) soit égal à ce qu&#39;il nous manque pour être congru à 10.</p>
+
+<p>Et on fini par retourner le numero de façon lisible, par exemple : 774 082 010
+00034.</p>
+
+<p>J&#39;ai fait une petite recherche sur <a href="http://www.societe.com/">societe.com</a>,
+aucun de mes numeros générés ne semble donner de résultat, malgré tout ils
+sont syntaxiquement valides.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/siret">#siret</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

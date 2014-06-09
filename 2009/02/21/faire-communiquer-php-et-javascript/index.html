@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Faire communiquer PHP et Javascript - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Faire communiquer PHP et Javascript</h1>
+  <span class="post-date">21 Feb 2009</span>
+  <p>Pour un projet sur lequel je suis en ce moment, je dois faire une interface
+d&#39;administration assez complexe, le tout en AJAX.</p>
+
+<p>Je dois manipuler des données sorties de ma base de donnée, venant de trois
+modèles différents, mais liés les uns avec les autres. Autant dire que j&#39;ai de
+gros tableaux imbriqués de données. La page travaille vraiment beaucoup et
+manipule ces données constamment.</p>
+
+<p>Pour éviter d&#39;avoir à faire une requete sur ma base à chaque fois que j&#39;ai
+besoin d&#39;une information, j&#39;ai décidé de tout charger une première fois au
+chargement de la page, puis de modifier coté client les variables sur
+lesquelles je travaille, pour ne faire des requetes au serveur qu&#39;en upload
+(update/add) et ainsi éviter au maximum les requetes en download inutiles.</p>
+
+<p>Pour ça, j&#39;utilise tout d&#39;abord le base64 de php pour passer des objets
+complexes (au format JSON) à mes scripts. <a href="http://www.semnanweb.com/jquery-plugin/base64.html">Muhammad Hussein
+Fattahizadeh</a> a pour cela
+mis à disposition une retranscription de l&#39;encodage/decodage en base64 pour
+jQuery.</p>
+
+<p>Je peux stocker ainsi mes objets de façon &quot;dormante&quot; dans ma page, et les
+décoder pour récupérer/modifier les valeurs dont j&#39;ai besoin avant de les
+réencoder et de les re-ranger dans mon DOM. L&#39;avantage de stocker ces
+informations en base64 c&#39;est que je ne risque pas de causer d&#39;erreur de
+syntaxe, de balise non fermée, de caractère interdit, même si je manipule des
+objets contenant du code HTML et que j&#39;ai besoin de le stocker dans mon propre
+DOM.</p>
+
+<p>J&#39;utilise aussi à coté de ça le <a href="http://json.org/json2.js">parseur officiel
+JSON</a> pour parser mes éléments JSON. Il ne me reste
+plus qu&#39;à passer mon élément JSON en paramètre aux fonction AJAX de jQuery
+pour mettre à jour mes données.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/jquery">#jquery</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Polices de caractère ! - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Polices de caractère !</h1>
+  <span class="post-date">02 Sep 2009</span>
+  <p>Ah elles en ont du caractère ces polices ! Elle m&#39;en font voir de toutes les
+couleurs...</p>
+
+<p>Pour l&#39;intégration sur laquelle je travaille, certains titres utilisent une
+police spéciale, et pour intégrer ça grâce ) @font-face et Cufon, il me faut
+les fichiers de police sous différents formats.</p>
+
+<p>La graphiste m&#39;a fournie la police, sous format .dfont (package de plusieurs
+font à la sauce Mac). J&#39;ai pu extraire le package grâce à
+<a href="http://peter.upfold.org.uk/projects/dfontsplitter">DFontSplitter</a>, ce qui m&#39;a
+donné plein de polices .ttf.</p>
+
+<p>Corrompues, d&#39;ailleurs, qu&#39;il m&#39;a fallu réparer grâce à
+<a href="http://www.acutesystems.com/sharecf.htm">CrossFont</a> (attention shareware de
+15 jours). Sauf qu&#39;il me convertit les fichiers en .otf.</p>
+
+<p>Pas de soucis pour Firefox, Safari et Opera qui comprennent ce format très
+bien, mais pour IE, je dois convertir ça en <code>.eot</code> (grâce à <a href="http://www.cuvou.com/wizards/ttf2eot.cgi">ce converter en
+ligne</a>).</p>
+
+<p>Qui ne prends malheureusement que des <code>.ttf</code> comme source... Impossible de
+trouver un converter otf =&gt; ttf sous windows qui ne demande pas d&#39;installer
+des tas de choses, je suis donc passé sous mon Ubuntu, ai téléchargé FontForge
+: Open =&gt; Generate Font =&gt; ttf et voila</p>
+
+<p>Edit : Et hop, <a href="http://onlinefontconverter.com/">un autre converter</a> en ligne
+de plus (otf, ttf, dfont)</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/ttf">#ttf</a>
+    
+      <a href="/tags/otf">#otf</a>
+    
+      <a href="/tags/font-face">#font-face</a>
+    
+      <a href="/tags/eot">#eot</a>
+    
+      <a href="/tags/cufon">#cufon</a>
+    
+      <a href="/tags/css">#css</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

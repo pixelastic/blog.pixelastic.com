@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Using environment vars in lighttpd config files - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Using environment vars in lighttpd config files</h1>
+  <span class="post-date">05 Jul 2011</span>
+  <p>Our game is hosted on a farm of servers behind a load balancer. All servers
+are identical except for their names (<code>prod-01</code>, <code>prod-02</code>, etc) and virtual
+IP addresses.</p>
+
+<p>In PHP, if I try to access <code>$_SERVER[&#39;SERVER_NAME&#39;]</code>, I only got the domain
+name &quot;prod.game.com&quot;. Actually, this was exactly the same var as the
+<code>$_SERVER[&#39;HTTP_HOST&#39;]</code>.</p>
+
+<p>For logging purposes, I needed to know the name of the server that my script
+was currently running on. So I updated my <code>lighttpd.conf</code></p>
+
+<p>Lighty has a feature called <code>include_shell</code> that you can use in its config
+files. It will basically run a shell script and add its output to your file.</p>
+
+<p>So I wrote a simple shell script to define a <code>var.serverName</code> (this is a
+custom value, name it as you want, but keep the <code>var</code> prefix) and then re-use
+when needed.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#!/bin/bash</span>
+<span class="nb">echo</span> <span class="s1">&#39;var.serverName=&quot;&#39;</span><span class="k">$(</span>uname -n<span class="k">)</span><span class="s1">&#39;&quot;&#39;</span>
+</code></pre></div>
+<p>Then, I included it in my <code>lighttpd.conf</code> file using <code>include_shell
+&quot;/etc/lighttpd/scripts/serverName.sh&quot;</code></p>
+
+<p>To define the PHP SERVER_NAME value :</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="na">setenv.add-environment</span> <span class="o">=</span> <span class="s">(</span>
+<span class="s">  &quot;SERVER_NAME&quot; =&gt; var.serverName</span>
+<span class="err">)</span>
+</code></pre></div>
+<p>To add it as a Server: response Header :</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="na">server.tag</span> <span class="o">=</span> <span class="s">var.serverName</span>
+</code></pre></div>
+<p>Note that <code>include_shell</code> directives are only called when you start lighty and
+not on every request.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/lighttpd">#lighttpd</a>
+    
+      <a href="/tags/include-shell">#include-shell</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

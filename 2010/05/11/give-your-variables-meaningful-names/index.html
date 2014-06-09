@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Give your variables meaningful names - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Give your variables meaningful names</h1>
+  <span class="post-date">11 May 2010</span>
+  <p>I just realized that the fullscreen plugin I was using with tinyMCE (v3.3.5)
+was throwing an error in my Firebug panel everytime I closed it.</p>
+
+<p>As I wrote some tinyMCE plugins myself I thought I may have done something
+that was causing this. So I opened up the javascript file and checked for the
+error line :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">win</span><span class="p">,</span> <span class="nx">de</span> <span class="o">=</span> <span class="nx">DOM</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_is_enabled&#39;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_new_window&#39;</span><span class="p">))</span>
+    <span class="nx">closeFullscreen</span><span class="p">();</span> <span class="c1">// Call to close in new window</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">DOM</span><span class="p">.</span><span class="nx">win</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">tinymce</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">DOM</span><span class="p">.</span><span class="nx">win</span><span class="p">,</span> <span class="s1">&#39;resize&#39;</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">resizeFunc</span><span class="p">);</span>
+  <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="nx">tinyMCE</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_editor_id&#39;</span><span class="p">)).</span><span class="nx">setContent</span><span class="p">(</span><span class="nx">ed</span><span class="p">.</span><span class="nx">getContent</span><span class="p">({</span><span class="nx">format</span> <span class="o">:</span> <span class="s1">&#39;raw&#39;</span><span class="p">}),</span> <span class="p">{</span><span class="nx">format</span> <span class="o">:</span> <span class="s1">&#39;raw&#39;</span><span class="p">});</span>
+  <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="nx">tinyMCE</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">ed</span><span class="p">);</span>
+  <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="nx">DOM</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;mce_fullscreen_container&#39;</span><span class="p">);</span>
+  <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="nx">ed</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">overflow</span> <span class="o">=</span> <span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_html_overflow&#39;</span><span class="p">);</span>
+  <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="nx">DOM</span><span class="p">.</span><span class="nx">setStyle</span><span class="p">(</span><span class="nx">DOM</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="s1">&#39;overflow&#39;</span><span class="p">,</span> <span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_overflow&#39;</span><span class="p">));</span>
+  <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="nx">DOM</span><span class="p">.</span><span class="nx">win</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_scrollx&#39;</span><span class="p">),</span> <span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_scrolly&#39;</span><span class="p">));</span>
+  <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="err">   </span> <span class="nx">tinyMCE</span><span class="p">.</span><span class="nx">settings</span> <span class="o">=</span> <span class="nx">tinyMCE</span><span class="p">.</span><span class="nx">oldSettings</span><span class="p">;</span> <span class="c1">// Restore old settings</span>
+    <span class="p">},</span> <span class="mi">10</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="err">   </span> <span class="err">   </span> <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If you&#39;re not familiar with the complex tinyMCE syntax this may seems a
+little... well... complex.  I&#39;ll focus on the error line but I wanted to paste
+the whole code block so you can see my point.</p>
+
+<p>The error line is this one :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">ed</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">overflow</span> <span class="o">=</span> <span class="nx">ed</span><span class="p">.</span><span class="nx">getParam</span><span class="p">(</span><span class="s1">&#39;fullscreen_html_overflow&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>Of course it will throw an error, we try to access a property of an element we
+just removed from the DOM (two lines before : <code>tinyMCE.remove(ed);</code>). Why
+would someone want to do that ?</p>
+
+<p>Well in fact, this is not <code>ed</code> (that we should try to access, but <code>de</code> (short
+for <code>DOM.doc.documentElement</code>). In fact the code was correct in 3.3.2, but
+someone changed it around 3.3.3.</p>
+
+<p>My guess is that someone had the file opened, saw this bit of code, spotted
+the <code>de</code>, and seeing a lot of references to <code>ed</code> all around, thought it was a
+typo and &#39;fixed&#39; it.</p>
+
+<p>Reading the tinyMCE code (whenever you want to understand how it works, or
+want to study plugins before creating your own) is pretty hard. There are
+almost no comments, and variable names are only one or two letters long.</p>
+
+<p>The tinyMCE team released a survey asking user what should be improved on the
+tinyMCE product. I answered it, and my main point was to improve
+documentation, because reading the tinyMCE core to understand its inner goings
+is quite a chore.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/variables">#variables</a>
+    
+      <a href="/tags/tinymce">#tinymce</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

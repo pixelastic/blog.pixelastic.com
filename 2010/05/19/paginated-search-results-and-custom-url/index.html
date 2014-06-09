@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Paginated search results and custom url - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Paginated search results and custom url</h1>
+  <span class="post-date">19 May 2010</span>
+  <p>I wanted for this blog a search feature, but I had some prerequisites for it :</p>
+
+<ul>
+<li>The search url could be bookmarked</li>
+<li>It should be paginated</li>
+<li>It should play well with my custom url starting with /blog</li>
+</ul>
+
+<h2>Defining custom urls</h2>
+
+<p>Here are the two routes I defined in my routes.php</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">Router::connect(&#39;/blog/search/:keyword&#39;,</span>
+<span class="x">    array(&#39;controller&#39; =&gt; &#39;posts&#39;, &#39;action&#39; =&gt; &#39;search&#39;),</span>
+<span class="x">    array(</span>
+<span class="x">        &#39;pass&#39; =&gt; array(&#39;keyword&#39;),</span>
+<span class="x">        &#39;keyword&#39; =&gt; &#39;[^/]+&#39;</span>
+<span class="x">    )</span>
+<span class="x">);</span>
+<span class="x">Router::connect(&#39;/blog/search/*&#39;, array(&#39;controller&#39; =&gt; &#39;posts&#39;, &#39;action&#39; =&gt; &#39;search&#39;));</span>
+</code></pre></div>
+<p>Going to<code>/blog/search/*keyword*</code> will start a search on the keyword, while
+going to <code>/blog/search/</code>would display a search form.</p>
+
+<h2>Writing the method</h2>
+
+<p>I started by creating a <code>search</code>action in my <code>PostController</code>, then creating
+a form submitting to this action, with a <code>keyword</code>input field.</p>
+
+<p>In the <code>search</code>method, the first thing I do is checking if some POST data is
+submitted (coming from the search form). If so, I redirect to the same page,
+but passing the <code>keyword</code>as first parameter.</p>
+
+<p>If no <code>keyword</code>is passed nor data submitted, I&#39;ll display a simple search
+form.</p>
+
+<p>And finally if a <code>keyword</code>is specified, I&#39;ll do a paginated search on every
+posts whose <code>name</code>or <code>text</code>contains the <code>keyword</code>.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function search() {</span>
+<span class="x">  // We redirect to get it in GET mode</span>
+<span class="x">  if (!empty($this-&gt;data)) {</span>
+<span class="x">    return $this-&gt;redirect(array(&#39;keyword&#39; =&gt; urlencode($this-&gt;data[&#39;Post&#39;][&#39;keyword&#39;])));</span>
+<span class="x">  }</span>
+
+<span class="x">  // Search index</span>
+<span class="x">  if (empty($keyword)) {</span>
+<span class="x">    return $this-&gt;render(&#39;search_index&#39;);</span>
+<span class="x">  }</span>
+
+<span class="x">  // Adding conditions to name and text</span>
+<span class="x">  $keyword = urldecode($keyword);</span>
+<span class="x">  $this-&gt;paginate = Set::merge(</span>
+<span class="x">    $this-&gt;paginate,</span>
+<span class="x">    array(</span>
+<span class="x">      &#39;conditions&#39; =&gt; array(</span>
+<span class="x">        &#39;AND&#39; =&gt; array(</span>
+<span class="x">          &#39;OR&#39; =&gt; array(</span>
+<span class="x">            &#39;Post.name LIKE&#39; =&gt; &#39;%&#39;.$keyword.&#39;%&#39;,</span>
+<span class="x">            &#39;Post.text LIKE&#39; =&gt; &#39;%&#39;.$keyword.&#39;%&#39;</span>
+<span class="x">          )</span>
+<span class="x">        )</span>
+<span class="x">      )</span>
+<span class="x">    )</span>
+<span class="x">  );</span>
+<span class="x">  // Getting paginated result</span>
+<span class="x">  $itemList = $this-&gt;paginate();</span>
+
+<span class="x">  $this-&gt;set(array(</span>
+<span class="x">    &#39;keyword&#39; =&gt; $keyword,</span>
+<span class="x">    &#39;itemList&#39; =&gt; $itemList</span>
+<span class="x">  ));</span>
+<span class="x">}</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/paginate">#paginate</a>
+    
+      <a href="/tags/router">#router</a>
+    
+      <a href="/tags/search">#search</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

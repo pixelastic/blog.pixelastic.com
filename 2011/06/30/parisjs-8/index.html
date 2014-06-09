@@ -1,0 +1,309 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     ParisJS #8 - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">ParisJS #8</h1>
+  <span class="post-date">30 Jun 2011</span>
+  <p><em>(The whole conferences were in french, but as I&#39;m writing every post on my
+blog in english, I&#39;ll write this one too.)</em></p>
+
+<p>Tonight I was attenting the 8th parisjs meetup. We had the chance to have it
+hosted at Valtech, in a very wealthy part of Paris, in somptuous quarters and
+a large room with giant screen (and great pizzas too).</p>
+
+<p>Anyway, this time the meetup was split in two : first part was made of
+complete talks, while second part only had small lightning talks. With pizza
+and beer in between.</p>
+
+<h2>Wakanda</h2>
+
+<p>The first talk was about <a href="http://www.wakanda.org/">Wakanda</a>. Wakanda is a
+complete suite of client/server Javascript which goal is to help create
+business oriented apps. It is created by the same company as 4D, but this time
+is completly open source.</p>
+
+<p>The product seemed well done, but kinda monolithic : server side js, client
+side javascript framework, application studio, debugguer.</p>
+
+<p>I can surely see it used for creating Intranet applications, for some very
+specific business cases. I have an ambiguous feeling about Wakanda. I think
+they did a very good job, the whole package seems really neat, the IDE is
+clear, client/server communication is smooth, etc. On the other hand I&#39;m
+always suspicious of apps that can do everything.</p>
+
+<p><em>(Note that I didn&#39;t try the product, I only heard about it tonight for the
+first time and watched a 20min presentation so that&#39;s a little light for me to
+give a precise opinion)</em></p>
+
+<h2>Joshfire Framework</h2>
+
+<p>A few months ago, <a href="http://twitter.com/sylvinus">@sylvinus</a> from
+<a href="http://joshfire.com/">Joshfire</a> told us that they planned to realease their
+framework, modeslty named <a href="http://framework.joshfire.com/">Joshfire</a>.</p>
+
+<p>This is by far the most interesting presentation of the meetup. Joshfire is a
+javascript framework aimed at working seamlessly between any devices :
+desktop, mobile, iPad, TV, anything.</p>
+
+<p>It&#39;s basic idea is to abstract to its bare bone any interaction. From what I
+remember, for any &quot;page&quot; you want to define you have to write two JSON
+structures.</p>
+
+<p>One defines the data tree (what your data is), the other defines the UI tree
+(how your data can be interacted with). It also ships with some adapters (an
+adapter is the link between the UI Tree and a specific device).</p>
+
+<p>All you have to do to port your Joshfire app to a new device is to write (or
+grab if it already exists) an adapter. The main logic and data code is the
+same for every device, the maintenance is now only focused on any specific
+device.</p>
+
+<p>Even if the main idea of Joshfire is awesome, their documentation and
+licensing is even more awesome : the project is already completly documented,
+with examples and is also completly free and <a href="https://github.com/joshfire/joshfire-framework">available on
+github</a>.</p>
+
+<h2>CSON, no sorry, JISON</h2>
+
+<p><a href="http://twitter.com/jie">@jie</a> was supposed to talk about CSON, a compressed
+JSON. But as he already gave a very similar talk (about BSON) at the last</p>
+
+<h1>parisnode event, he changed the subject.</h1>
+
+<p>I&#39;m not really sure what the real subject of the talk was. I think he
+mentionned compiling Javascript into Javascript (much like CoffeeScript), but
+it eventually turned into a Jison demo.</p>
+
+<p>Jison seems to be a tool for automating lexing and parsing languages, to
+output new code. In effect, this could allow for transforming a custom
+language into an existing language. CoffeeScript, Haml or Sass works that way
+: they take a new language as input, and return Js, Html or Css as output.</p>
+
+<p>The advantages are that the custom language is usually much more concise, easy
+to write and easy to read.</p>
+
+<p>Anyway, this presentation was full of nice quotes :</p>
+
+<blockquote>
+<p>The language I&#39;m about to show you is totally useless.</p>
+
+<p>Pipe ? What is that ? Oh, you mean the strokes.</p>
+
+<p>The bad thing about Jison is that its documentation is crap</p>
+
+<p>Why does it work ? It was supposed to fail !</p>
+</blockquote>
+
+<h2>Overview of a dev life</h2>
+
+<p>This talk wasn&#39;t about any new shiny technology. It was about those old
+browsers and bad habits we had 10 years ago, and how we still managed to make
+great websites.</p>
+
+<p>This remind me of the &quot;good ol&#39; days&quot; when I discovered the web with FrontPage
+and ClaraSoft. When IE6 was considered a modern browser.</p>
+
+<p><a href="http://twitter.com/molokoloco">@molokoloco</a> show us that he managed to
+simulate ajax using nested iframe, had a website still online and running even
+after 10 years, was able to code full websites in 3 days, and had read more
+than 50.000 blog posts. And all that while still using Windows and
+Dreamweaver.</p>
+
+<p><em>(Small side note : I praise both @molokoloco and @jie for what they managed
+to do. I know how easy it is to procrastinate and configure UI, test new tools
+and IDE instead of getting things done. That didn&#39;t seem to be an issue for
+them.)</em></p>
+
+<h2>mongoDB</h2>
+
+<p>This talk was the first in the serie of lightning talks (less than 20mn). It
+was about mongoDB and how to integrate it in a nodejs app.</p>
+
+<p>As I had never tried nor nodejs nor mongoDB I didn&#39;t quite grasp what it was
+really about. All I get is that in order to get a result from a mongoDB query,
+one have to go through 3 steps of connection to the DB. In the asynchronous
+world of nodejs, this doesn&#39;t work well, so each step has to fire a callback
+once executed.</p>
+
+<p>From there, I was lost. There was something about manually calling a callback
+once initialized, but honestly I didn&#39;t get it.</p>
+
+<p>Anyway, I learned from a small talk during pizza time that mongoDB was better
+than couchDB (performance-wise), and that one have to sacrifice binding to the
+altar of redundancy to get really fast response time.</p>
+
+<h2>Audio demo in less than 1kB. No, 800B. No, wait, 200B</h2>
+
+<p>This time the talk was a very fun demo. Using some simple minification
+techniques, Js was able to play a random music.</p>
+
+<p>This involved encoding the wav file in base64 (taking special care of some
+chars), and then playing it in an audio tag. Adding a bit of random to play a
+different note on each loop.</p>
+
+<p>Fun, but interesting.</p>
+
+<h2>Some words about the Observer Pattern</h2>
+
+<p>This talk was more about theory than practice. Maybe it was the late hour, but
+it didn&#39;t catch my attention as the other did. Maybe someone would re-explain
+it to me ?</p>
+
+<p>Well, I got the general idea : coding a js snippet that hard code the name of
+the elements that should react is bad practice because of the maintanability
+nightmare it cause when elements are removed.</p>
+
+<p>Instead, the speaker advocate the use of a MessageBroker. Some kind of general
+listener that then dispatch event to element registered to that event (am I
+right ?).</p>
+
+<p>Then someone in the audience noted that the opposite pattern should work
+better : that every element registered itself to an event and react when such
+event is fired (am I still right ?)</p>
+
+<p>Honestly, I really am not sure about this talk, so if anyone could fill the
+blanks and correct me, I&#39;d be glad.</p>
+
+<h2>Sencha and Sencha Touch</h2>
+
+<p>I won&#39;t go into too much detail on that talk. This was a generic presentation
+of Sencha (formerly known as ExtJs). I already had the basic understanding of
+ExtJs (but not the expertise of some of the ExtJs experts in the room), so I
+was really only half listening.</p>
+
+<p>Sencha is a great product. It is very similar to what Wakanda was showing in
+the first talk. It is destined to data-heavy applications with lots of
+numbers, columns, charts, pies, etc.</p>
+
+<p>Sencha Touch is a mobile version of Sencha. It is iOS oriented and emulate the
+standard UI elements in HTML.</p>
+
+<h2>Mozilla Labs</h2>
+
+<p>A quick list of the Mozilla Labs projects. I honestly don&#39;t remember them all,
+except Tilt that is a 3D viewer of any web page. It simply calculate the DOM
+depth and create a pyramid-like structure that you can browser in 3D.</p>
+
+<p>I&#39;m sure that beyond the cool and shiny aspect, it can be useful as a
+debug/optimisation tool.</p>
+
+<h2>Conclusion</h2>
+
+<p>Once again, thanks to #parisjs for those talks, always inspiring and a way to
+meet new people.</p>
+
+<p><em>For all the new readers, I have an unfixed bug in my comment section : your
+post can be invalidated if your are using Chrome with an email auto-filler. My
+custom anti-spam will flag you as spam because Chrome fills an hidden honeypot
+field.</em></p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/sencha">#sencha</a>
+    
+      <a href="/tags/json">#json</a>
+    
+      <a href="/tags/parisjs">#parisjs</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/extjs">#extjs</a>
+    
+      <a href="/tags/joshfire">#joshfire</a>
+    
+      <a href="/tags/nodejs">#nodejs</a>
+    
+      <a href="/tags/4d">#4d</a>
+    
+      <a href="/tags/mongodb">#mongodb</a>
+    
+      <a href="/tags/wakanda">#wakanda</a>
+    
+      <a href="/tags/lexer">#lexer</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

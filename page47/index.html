@@ -1,0 +1,318 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/19/caracole-edition-directe/">
+        Caracole - Edition directe
+      </a>
+    </h1>
+
+    <span class="post-date">19 Feb 2009</span>
+
+    <p>En plus de son interface d&#39;administration complète, Caracole permet un mode
+d&#39;édition rapide directement accessible depuis le coté front-end des sites,
+pour corriger rapidement un titre ou un coquille qui se serait glissée quelque
+part.</p>
+
+<p>Grâce à jQuery et cakePHP, cette fonctionnalité est très simple à utiliser. Il
+suffit pour cela d&#39;avoir les droits d&#39;administration sur le site que l&#39;on veut
+modifier. Il suffit ensuite d&#39;y naviguer avec un navigateur assez récent (cela
+signifie que IE6 n&#39;y est pas convié) et s&#39;affichera alors automatiquement en
+haut à gauche de l&#39;écran un petit switch qui permet d&#39;activer ou de désactiver
+en un clic le mode édition.</p>
+
+<p>Lorsque le mode d&#39;édition est activé, il suffit de cliquer sur une zone que
+l&#39;on veut modifier pour la transformer automatiquement en champ de formulaire
+modifiable (avec intégration de tinyMCE pour les grands textes). Il suffit
+alors de modifier le texte exactement comme on peut le faire dans l&#39;admin et
+de valider. La modification est prise en compte automatiquement.</p>
+
+<p>Coté développeur, il suffit d&#39;ajouter une class=&quot;editable&quot; ainsi qu&#39;un id
+formé de la forme &quot;controller-champ-id&quot;. Ainsi id=&quot;posts-text-12&quot; identifiera
+le champ &quot;text&quot; du 12e post.</p>
+
+<p>C&#39;est extremement pratique pour modifier des fautes de frappe, ou faire des
+tas de petites modifications, je m&#39;en sers énormément et c&#39;est un pas de plus
+pour faciliter l&#39;administration à l&#39;utilisateur final.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jquery">#jquery</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/18/caracole-referencement/">
+        Caracole - Référencement
+      </a>
+    </h1>
+
+    <span class="post-date">18 Feb 2009</span>
+
+    <p>Le référencement est une des préocupations principales de nos clients, tous
+veulent savoir si avec le produit qu&#39;on leur propose ils seront en mesure
+d&#39;être les premiers dans les résultats Google.</p>
+
+<p>Bien qu&#39;il n&#39;existe pas de recette miracle pour parvenir à ce résultat,
+certaines sociétés sont spécialisés dans ce business et déploient des trésors
+d&#39;ingéniosité pour réussir à faire grimper les pages de leurs clients dans les
+index des moteurs.</p>
+
+<p>Mais c&#39;est un boulot à part entière, et ce n&#39;est pas le nôtre. Nous faisons
+des sites web, à chacun sa spécialité.</p>
+
+<p>Malgré tout, il existe plusieurs bonnes pratiques qui permettent d&#39;obtenir de
+bons résultats sans trop d&#39;efforts, et Caracole s&#39;en sort pas trop mal de ce
+coté là.</p>
+
+<p>Tout d&#39;abord il tire parti de la façon dont les urls sont gérées par cakePHP,
+et donc aucune url ne contient de paramètre de la forme ?foo=bar&amp;action=foobar
+qui sont très mal indexées. Chaque page possède donc sa propre url unique. Les
+méthodes d&#39;url rewriting proposées de base par cakePHP sont très puissantes et
+font déjà une très grosse partie du travail.</p>
+
+<p>Dans la même veine, il est possible de définir des &#39;slugs&#39; pour chaque
+élément, un slug permet de donner un identifiant à chacune des pages, ce qui
+signifie qu&#39;au lieu de retrouver un élément par son id dans l&#39;url (un simple
+nombre, qui ne donne pas d&#39;indication sur le contenu), on peut à la place le
+remplacer par un slug (du genre &#39;services&#39;, &#39;nous-contacter&#39;, etc). Cela donne
+des urls du genre /services.html, /posts/1:mon-premier-post, etc</p>
+
+<p>Cela facilite le référencement des pages car des mots clés se rapportant au
+contenu de la page peuvent déjà être mis dans l&#39;url, qui est une place
+privilégiée.</p>
+
+<p>Ici encore, il suffit d&#39;ajouter un champ &#39;slug&#39; dans la table correspondante
+au modèle pour que celui-ci soit automatiquement généré à partir du nom (il
+est bien sur possible de le modifier si besoin).</p>
+
+<p>Caracole est aussi doté d&#39;un système de génération automatique de sitemap (le
+plan du site). Celui-ci est généré en deux versions, une version html pour vos
+visiteurs, et une version XML (qui indique les fréquences de réactualisations
+ainsi que les dates de dernière modification) pour les moteurs.</p>
+
+<p>Et pour finir, je vais passer rapidement sur les essentiels : balise <title>
+et meta description différents pour chaque page, fichier robots.txt, texte
+alternatif sur les images et accessibilité du markup HTML mais bien sur,
+Caracole se charge de tout cela aussi.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/17/caracole-corbeille/">
+        Caracole - Corbeille
+      </a>
+    </h1>
+
+    <span class="post-date">17 Feb 2009</span>
+
+    <p>Dans la lignée du principe de brouillon j&#39;ai aussi ajouté une fonction de
+&quot;Corbeille&quot;. Ca fonctionne exactement comme celle du bureau de Windows qu&#39;on
+est bien content d&#39;avoir quand on a eu la main un peu généreuse dans les
+fichiers à supprimer.</p>
+
+<p>Elle fait office de sécurité et les éléments soit-disant supprimés ne sont pas
+réellement effacés instantanément, ils passent dans une corbeille
+intermédiaire. A partir de là, si on se rends compte qu&#39;on a fait une bétise,
+on peut toujours les restaurer à leur état d&#39;origine. Ou alors vider la
+corbeille de temps en temps pour faire de la place.</p>
+
+<p>Exactement de la même façon que pour les brouillons, il suffit ici d&#39;ajouter
+un champ &#39;is_deleted&#39; à la table du modèle correspondant pour lui ajouter la
+fonction de corbeille, Caracole se charge du reste.</p>
+
+<p>Les éléments supprimés ne sont plus retournés par les fonctions de recherche
+habituelle, à moins de préciser l&#39;option &#39;includeDeleted&#39;.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/16/caracole-brouillons/">
+        Caracole - Brouillons
+      </a>
+    </h1>
+
+    <span class="post-date">16 Feb 2009</span>
+
+    <p>Une des fonctionnalités les plus pratiques de Wordpress, c&#39;est de pouvoir
+enregistrer un billet comme brouillon lorsqu&#39;on ne l&#39;a pas terminé. Ca permet
+d&#39;y revenir plus tard et de le garder dans un coin sans qu&#39;il ne soit perdu.</p>
+
+<p>J&#39;ai ajouté cette fonctionnalité à Caracole hier, et elle peut s&#39;appliquer à
+n&#39;importe quel modèle (actuellement je l&#39;ai mise sur les pages et les billets
+de blog uniquement, mais comme vous allez le voir, c&#39;est très facile à ajouter
+pour n&#39;importe quel modèle).</p>
+
+<p>Une case à cocher &quot;Enregistrer comme brouillon&quot; permet d&#39;enregistrer l&#39;élement
+comme brouillon, cela signifie qu&#39;il ne sera plus visible sur le site tant
+qu&#39;il restera à l&#39;état de brouillon.</p>
+
+<p>Pour le développeur, c&#39;est très simple à utiliser, il suffit de rajouter un
+champ &#39;is_draft&#39; dans la table correspondante au modèle et Caracole se charge
+du reste. Les brouillons ne sont plus retournés par les recherches, à moins de
+préciser &#39;includeDraft&#39; dans les options de recherche, ce qui permet de garder
+le code le plus clair possible.</p>
+
+<p>Dans l&#39;admin, les brouillons restent bien sur visibles (bien qu&#39;indiqués de
+façon légerement différente), et il suffit d&#39;aller décocher la case pour les
+publier réellement.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2009/02/15/caracole/">
+        Caracole -  Présentation
+      </a>
+    </h1>
+
+    <span class="post-date">15 Feb 2009</span>
+
+    <p>L&#39;un des principaux atouts que l&#39;on mets en avant quand on propose nos
+services à nos clients c&#39;est l&#39;autonomie qu&#39;ils auront dans la gestion de leur
+site web. J&#39;entends trop souvent des clients qui possèdent déjà un site web me
+dire qu&#39;ils veulent changer de prestataire car celui qu&#39;ils ont actuellement
+est trop lent à réagir quand ils ont besoin d&#39;une modification et surtout que
+la modification leur est facturée à chaque fois !</p>
+
+<p>J&#39;ai toujours trouvé cette approche ridicule. D&#39;une part parce que pour moi le
+client devient propriétaire du site et qu&#39;il ne doit plus être dépendant de
+son prestataire une fois la livraison effectuée. Ensuite parce qu&#39;il faut bien
+l&#39;avouer, mettre à jour des textes, des images et des liens sur un site web
+qui n&#39;est pas le notre, c&#39;est pas la partie la plus excitante de notre métier.</p>
+
+<p>C&#39;est pour ça que dès le début, j&#39;ai voulu permettre à mes clients la plus
+grande flexibilité possible dans l&#39;administration de leur site. Et c&#39;est ainsi
+que j&#39;ai commencé à développer des interfaces d&#39;administration, et que de fil
+en aiguille *<em>Caracole *</em>a vu le jour.</p>
+
+<p>Caracole est un CMS, basé sur le framework cakePHP. Il permet dans sa version
+de base de gérer une architecture de site simple (Actualités, Pages,
+Formulaire de contact). Il a été pensé afin de simplifier au maximum la vie à
+la fois à l&#39;utilisateur et au développeur.</p>
+
+<p>Pour l&#39;utilisateur, l&#39;interface d&#39;administration est très simple d&#39;utilisation
+et claire, pas besoin de compétences techniques pour s&#39;en servir. Il suffit de
+quelques clics pour uploader et redimensionner une image, un éditeur de texte
+riche (tinyMCE) permet des mises en pages évoluées, un simple système de
+drag&#39;n&#39;drop permet de réordonner des éléments au sein d&#39;une liste, une
+corbeille permet de ne pas perdre définitivement les éléments supprimés, on
+peut enregistrer son travail comme brouillon avant de le publier sur le site,
+etc, etc</p>
+
+<p>Pour le développeur, vu que tout cela est basé sur cakePHP, il est très simple
+d&#39;ajouter de nouveaux modèles en plus de ceux existants pour s&#39;adapter à tout
+type de projet. Beaucoup d&#39;outils ont été intégrés pour éviter au maximum les
+taches fastidieuses et répétitives (compression des Javascript/CSS, CSS
+Sprite, réecriture d&#39;url, intégration avec Firebug, etc).</p>
+
+<p>*<em>Caracole *</em>est encore en développement, il reste plusieurs fonctionnalités que nous aimerions rajouter ainsi qu&#39;un polissage de l&#39;interface. Néanmoins il est suffisamment stable pour être utilisé, ce site en est un très bon exemple. Je posterai d&#39;autres billets sur les différentes fonctionnalités utiles de Caracole dans les jours prochains.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/caracole">#caracole</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page48">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page46">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

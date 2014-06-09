@@ -1,0 +1,178 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Testing Facebook Credits in a local environment - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Testing Facebook Credits in a local environment</h1>
+  <span class="post-date">15 Jul 2011</span>
+  <p>Testing Facebook API has always been a pain for me. Their documentation is
+still crappy and examples are wrong or/and outdated. Things don&#39;t exactly work
+the same way when you&#39;re testing with &quot;Test account&quot; or real accounts.</p>
+
+<p>One of the things that helped me much was to create a test application and set
+its canvas url to a local server. As the iframe call is done through the
+client, I can test local code without the need to upload stuff to an online
+server.</p>
+
+<p>I could even test Requests and Streams through this method as it&#39;s the
+Javascript SDK that does all the AJAX calls. The only tiny issue was with
+Stream images as Facebook requests them server-side before displaying them, I
+had to put some placeholder images online.</p>
+
+<p>But today, with the testing of the new Facebook Credits API, new horizon of
+pains arised. Facebook will make no less than three calls to one of my server
+callback url, but does not make them client-side.</p>
+
+<p>I still don&#39;t want to upload my code to a debug server just to test this
+feature, so I decided to put in place a little IP/port forwarding. Thanks to
+tips from my colleague <a href="http://leo-peltier.fr/">LĂŠo</a>, this was done in a
+matter of minutes.</p>
+
+<h2>Setting up the DNS/port forwarding</h2>
+
+<p>First, we&#39;ll need a url that Facebook will call. I want this url to point to
+my local server. So all I had to do was to create a simple DNS redirect at
+dyndns.com that point to my local IP.</p>
+
+<p>Let it be http://customname.dyndns-office.com/</p>
+
+<p>Paste this url in the &quot;callback url&quot; field of your Facebook Credits config
+page.</p>
+
+<p>Then, I&#39;ll assign a fixed internal IP to my computer so that it won&#39;t change
+on each reboot. My router can do that just fine, by assigning a fixed internal
+IP based on the MAC adress.</p>
+
+<p>Let it be 192.168.0.51</p>
+
+<p>Now, we&#39;ll redirect every call on the router through port 80 (http) to that
+url. My router admin panel can also do that just fine, in its DHCP
+configuration.</p>
+
+<p>Finally, we&#39;ll have to update the server virtualhost config to point all
+incoming requests matching <code>customname.dyndns-office.com</code> to the server files.</p>
+
+<h2>A side note</h2>
+
+<p>There is one last little gotcha to be aware of.</p>
+
+<p>It does not seem to be possible to access one of your network computer from an
+external IP (as we just configured) FROM one of your network computer.</p>
+
+<p>In other words, if you would like to test your config, do not type
+<code>http://customname.dyndns-office.com/</code> in your browser on one of the computers
+sharing the same network as 192.168.0.51.</p>
+
+<p>Instead, use a free wifi connection, a ssh tunnel or curl from an external
+server you own.</p>
+
+<p>In my case, locally testing <code>http://customname.dyndns-office.com/</code> always
+brought me to my router admin panel and did not forward the port correctly.
+Doing a <code>curl http://customname.dyndns-office.com/</code> from one of my online
+servers correctly returned what I wanted.</p>
+
+<h2>Back to Facebook</h2>
+
+<p>Back to our Facebook example, you still won&#39;t be able to see any outputs from
+the calls Facebook is making to your app. Your best bet is to have a logging
+system that will write on disk or in the DB so your can track the calls.</p>
+
+<p>Also note that you have to load the page in the iframe canvas, even for your
+tests. You can&#39;t simply load an html page and call <code>FB.ui({method:&quot;pay&quot;})</code>,
+this will result in error 1151. Always load in the whole FB page.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/fbcredits">#fbcredits</a>
+    
+      <a href="/tags/facebook">#facebook</a>
+    
+      <a href="/tags/dyndns">#dyndns</a>
+    
+      <a href="/tags/curl">#curl</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

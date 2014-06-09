@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Javascript speed tip : reduce variable lookup - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Javascript speed tip : reduce variable lookup</h1>
+  <span class="post-date">19 Jul 2010</span>
+  <p>It appears that, according to this video, when inside a Javascript function
+(or closure), if you want to access a variable, the closer your scope is to
+this variable, the faster you&#39;ll get it.</p>
+
+<p>In simpler words, accessing a global variable (like <code>document</code>, or <code>window</code>)
+from inside a function will always be slower that accessing a locally defined
+variable.</p>
+
+<p>It also means that, when inside a method of an object, accessing a variable
+defined in this method will be faster that accessing a property of the parent
+object, which itself will be faster that accessing a global variable.</p>
+
+<p>So, for example, if you need to access at least twice a global variable like
+<code>window</code>or <code>document</code>in a method, you&#39;d better cache it in a local variable
+first.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function myTestFunction() {</span>
+<span class="x">  var button = document.getElementById(&#39;button&#39;);</span>
+<span class="x">  var header = document.getElementById(&#39;header&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>is bad and could be rewritten as :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function myTestFunction() {</span>
+<span class="x">  var doc = document;</span>
+<span class="x">  var button = doc.getElementById(&#39;button&#39;);</span>
+<span class="x">  var header = doc.getElementById(&#39;header&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/performance">#performance</a>
+    
+      <a href="/tags/closure">#closure</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

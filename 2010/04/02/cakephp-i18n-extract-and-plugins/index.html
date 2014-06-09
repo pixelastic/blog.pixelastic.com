@@ -1,0 +1,160 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     cakePHP i18n extract and plugins - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">cakePHP i18n extract and plugins</h1>
+  <span class="post-date">02 Apr 2010</span>
+  <p>Cake has a lot of wonderful tools in its console. One of them is the <code>i18n
+extract</code> task that reads every file of your app, and extract strings that
+should be translated (used with <code>__()</code>, <code>__d()</code>, etc).</p>
+
+<p>With cake 1.3 RC3 it even stored each domain string in its own <code>.pot</code> file.</p>
+
+<p>But, as far as I know (I&#39;ve posted on the google group about that, maybe
+someone will show me where I&#39;m wrong), the console task is limited when
+dealing with plugins.</p>
+
+<p>Let&#39;s say I have a plugin in my app. I&#39;m using <code>__d(&#39;plugin_name&#39;, &#39;My plugin
+string&#39;)</code> in my plugin and <code>__(&#39;My app string&#39;)</code> in the main app.</p>
+
+<p>If I run the <code>cake i18n extract</code> in my plugin directory, it will correctly
+generate the <code>.pot</code>file in my plugin <code>locale/</code> folder.</p>
+
+<p>But if I run it in the main app, it will scan every plugin file and thus
+finding any plugin string and save them in the <code>default.pot</code> or in its own
+<code>plugin_name.pot</code> file (depending on the value of the merge option).</p>
+
+<p>I don&#39;t need the <code>plugin_name.pot</code> files in <code>app/locale</code>, I already have them
+in <code>app/plugins/plugin_name/locale</code>. I know it&#39;s no big deal, I just have to
+delete the useless files created every time I run the <code>cake i18n extract</code> on
+the main app but it is kind of irritating.</p>
+
+<p>So I updated the <code>cake/console/libs/tasks</code> to add a new option to the task,
+named &#39;<code>plugins</code>&#39; (value : yes/no. Default to no).</p>
+
+<p>If set to no, the extract task will skip every plugin directory when
+extracting files. This way, I have no more clutter, it only extract string
+that are in the app.</p>
+
+<p>All I had to do was updating the <code>execute()</code> method, and replacing the end of
+the method (from line 152) with this one :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;params[&#39;plugins&#39;] = isset($this-&gt;params[&#39;plugins&#39;]) ? $this-&gt;params[&#39;plugins&#39;] : &#39;no&#39;;</span>
+<span class="x">if (empty($this-&gt;__files)) {</span>
+<span class="x">  if ($this-&gt;params[&#39;plugins&#39;]==&#39;yes&#39;) {</span>
+<span class="x">    $this-&gt;__searchFiles();</span>
+<span class="x">  } else {</span>
+<span class="x">    $this-&gt;__searchFilesExcludePlugins();</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>And then add this method to the class :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function __searchFilesExcludePlugins() {</span>
+<span class="x">  foreach ($this-&gt;__paths as $path) {</span>
+<span class="x">    $Folder = new Folder($path);</span>
+<span class="x">    $filelist = $Folder-&gt;tree($path);</span>
+<span class="x">    foreach($filelist[1] as &amp;$file) {</span>
+<span class="x">      // We discard plugins</span>
+<span class="x">      if (strpos(str_replace($path, &#39;&#39;, $file), DS.&#39;plugins&#39;)===0) continue;</span>
+<span class="x">      // We keep those that match the pattern</span>
+<span class="x">      if (!preg_match(&#39;/^.*\.(php|ctp|thtml|inc|tpl)$/i&#39;, $file)) continue;</span>
+<span class="x">      $this-&gt;__files[]= $file;</span>
+<span class="x">    }</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/i18n">#i18n</a>
+    
+      <a href="/tags/extract">#extract</a>
+    
+      <a href="/tags/core">#core</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

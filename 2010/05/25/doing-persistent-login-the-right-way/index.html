@@ -1,0 +1,202 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Doing persistent login the right way - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Doing persistent login the right way</h1>
+  <span class="post-date">25 May 2010</span>
+  <p>When I was a young web developer, I had to code an admin panel, with username
+and login. I also added the well-known &quot;Remember me&quot; checkbox.</p>
+
+<p>I wasn&#39;t really educated to the security concerns of developing such a
+feature. In fact, I was even storing the passwords as plain text in the
+database.</p>
+
+<p>And to allow the user to auto-login, I stored the user and password, in plain
+text, in a cookie and requested a login with those credentials whenever its
+session expired.</p>
+
+<h2>That&#39;s insane !</h2>
+
+<p>Yes it was, but I remember thinking &quot;Well, nobody can even have access to the
+database so there&#39;s no risk&quot; and &quot;I can store the password in the cookie, it
+is only accessible by the user, and he surely already know its password.
+There&#39;s no harm in that&quot;</p>
+
+<p>Well, XSS and CSRF weren&#39;t so common back in those days.</p>
+
+<p>Since then I&#39;ve learned a lot. There&#39;s just no way I&#39;ll ever store a plain
+text or uncrypted password in a database again. Hashing and salting is the way
+to go.</p>
+
+<p>But I kept implementing the persistent login feature following the same
+pattern : saving the username and hashed password in the cookie.</p>
+
+<p>I was thinking &quot;The password is not stored as plain text but as a hash,
+there&#39;s no way an attacker would even be able to guess the password from
+that&quot;.</p>
+
+<h2>That&#39;s better, but still...</h2>
+
+<p>I haven&#39;t thought that the cookie was like an open sesame to my app. One would
+just have to steal the file and place it in its browser cookie list and he
+would have exactly the same access to the website, without having to know my
+password.</p>
+
+<p>In the meantime I was also implementing OpenId authentication and as it is
+passwordless (at least from the website point of view), I couldn&#39;t save the
+username and password in the cookie.</p>
+
+<p>Clearly, something was broken in my persistent login implementation.</p>
+
+<h2>Here come the tokens</h2>
+
+<p>After some research, I finally get it the right way.</p>
+
+<p>Whenever a user authenticate, be it from a classical user/pass login form or
+using OpenId, I keep it loggued using session vars. When the session var
+expires, the user is loggued out. If he had checked the &quot;Remember me&quot;
+checkbox, I would try to re-authenticate him automatically.</p>
+
+<p>In order to do that, I had to change my implementation. The first thing to do
+was creating a <code>UserToken</code>table with 3 fields : <code>user_id</code>, <code>token</code><code></code>and
+<code>duration</code>.</p>
+
+<p>Then, when the user authenticate I generate a random token and save it along
+the <code>user_id</code> in a cookie.</p>
+
+<p>I&#39;ll also populate the <code>UserToken</code>table with the <code>user_id</code>, a hashed version
+of the token,  and matching the <code>duration</code>to the expires date of the cookie.</p>
+
+<p>That way, the next time that the user comes to my website without a session I
+check its cookie. If he has a <code>user_id</code> and a token, I&#39;ll try to authenticate
+him.</p>
+
+<p>I&#39;ll find a matching <code>user_id</code> and hashed token. If there are no results, then
+the cookie is not valid. Either it has been already used or it is a cookie
+forgery attempt. In that case, I&#39;ll do nothing.</p>
+
+<p>If there&#39;s a match, I still check that the token is not expired. If it is,
+I&#39;ll delete it in the database, as well as clearing the cookie. On the other
+hand, if the cookie is still valid, I log the user in.</p>
+
+<p>Once the user is loggued in I generate a new token, update the cookie and
+update the table with a hashed version of it.</p>
+
+<p>That way each token can only be used once and are generated only when the user
+correctly authenticate and are only used once the session expires.</p>
+
+<h2>But one can still steal cookies</h2>
+
+<p>Yes, a malicious user can still steal my cookie, copy it to its computer and
+use the token to login. That&#39;s true and as we can&#39;t do anything against that,
+we could still try to mitigate it.</p>
+
+<p>First precaution would be to disable any sensitive information edition while
+loggued in using the cookie. Like bank account, personnal information,
+password changing, etc.</p>
+
+<p>The second thing would be to check for any hacking attempt. Whenever I guess
+for a forgery attempt (trying to login with a bad set of id / hashed token), I
+delete all UserToken associated for this user. This will block any bruteforce
+attack because even there won&#39;t be any more match in the database.</p>
+
+<p>It is also wise to display a warning message to the user telling him that his
+account may have been compromised and that he should be wary and maybe change
+its password.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/token">#token</a>
+    
+      <a href="/tags/login">#login</a>
+    
+      <a href="/tags/cookie">#cookie</a>
+    
+      <a href="/tags/authenticate">#authenticate</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Some CSS hacks to target IE6 and IE7 - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Some CSS hacks to target IE6 and IE7</h1>
+  <span class="post-date">16 Oct 2010</span>
+  <p>After stopping using ugly IE hacks and moving to conditionnal comments to load
+a special IE stylesheet, I now use conditional comments to mark my body
+element with classes reflecting the current IE version.</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--[if IE 6]&gt;&lt;body class=&quot;ie ie6 ie-lt8 ie-lt9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 7]&gt;&lt;body class=&quot;ie ie7 ie-lt8 ie-lt9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 8]&gt;&lt;body class=&quot;ie ie8 ie-lt9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 9]&gt;&lt;body class=&quot;ie ie9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if !IE]&gt;&lt;!--&gt;</span><span class="nt">&lt;body</span> <span class="na">class=</span><span class="s">&quot;nie&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--&lt;![endif]--&gt;</span>
+</code></pre></div>
+<p>This saves me a lot of trouble : less files to manage and easier fixes to
+write. I quite happy with this solution and have tested it accross several
+projects for the past 3 months. It works really well.</p>
+
+<p>I had to work on a legacy project last week, where this technique wasn&#39;t
+implemented but all the css code was still compressed using CSSTidy. And I ran
+into a couple of issues.</p>
+
+<h2>CSSTidy messes the star and underscore hacks</h2>
+
+<p>Using the brilliant <code>_property</code> and <code>*property</code> hacks to target IE6 and IE7
+does not work in conjunction with CSSTidy.</p>
+
+<p>For the <code>_property hack</code>, the property is kept as-is, with the underscore, but
+as they are alphabetically arranged, the <code>_background</code> gets added before the
+<code>background</code>, rendering it absolutly useless.</p>
+
+<p>On the other hand, on the <code>*property</code>, the <code>*</code> gets removed, and the value is
+merged with the original value of the correct property. Useless too.</p>
+
+<h2>Other solutions that worked</h2>
+
+<p>To avoid digging into CSSTidy one more time, I tried to find other ways to
+achieve the same effect.</p>
+
+<p>To target IE6 I used the <code>!ie6</code> hack by writing <code>.mySelector { property:value
+!ie6; }</code>. IE6 is dumb enough to understand any <code>!blahblah</code> as <code>!important</code>.</p>
+
+<p>I could have also used the fact that IE6 understands <code>.class1.class2</code> as
+<code>.class2</code>, and could have written <code>.ie6.mySelector { property:value; }</code> (of
+course, you have absolutly no <code>class=&quot;ie6&quot;</code> in your code)</p>
+
+<p>To target IE7 I made a custom selector that its parsing engine is the only one
+to understand : <code>*:first-child + html .mySelector { property:value; }</code></p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/csstidy">#csstidy</a>
+    
+      <a href="/tags/hack">#hack</a>
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/ie6">#ie6</a>
+    
+      <a href="/tags/ie">#ie</a>
+    
+      <a href="/tags/ie7">#ie7</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

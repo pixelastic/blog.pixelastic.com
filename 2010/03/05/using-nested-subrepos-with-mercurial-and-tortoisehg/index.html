@@ -1,0 +1,175 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Using nested subrepos with Mercurial and TortoiseHg - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Using nested subrepos with Mercurial and TortoiseHg</h1>
+  <span class="post-date">05 Mar 2010</span>
+  <p>Nowadays, when I&#39;m developping a new website, I almost always ended using
+parts and bits of the previous website I&#39;ve done. All my websites are based on
+the same framework (cakePHP) that I have itself updated with its own CMS
+(Caracole, more on that later).</p>
+
+<p>Caracole is made of several little plugins, each one of them focusing on a
+simple task (like handling 404 errors, adding a recycle bin, draftable
+elements, SEO-friendly url, and so on).</p>
+
+<p>I&#39;ve also updated each one of this plugins to BitBucket, allowing me to easily
+commit changes and clone new version from one project to another.</p>
+
+<p>But very often, when working on a specific project, using a specific plugin I
+think that I can update the plugin (be it either by adding a new feature or
+fixing a bug I&#39;ve discovered). In that case, I want my changes to be added to
+both the plugin (on BitBucket) and the project I&#39;m working on at the moment.</p>
+
+<p>To do that, I had to struggle my way with Mercurial because nested
+repositories (called subrepos) is not a trivial setup.</p>
+
+<h2>Setting up subrepo with Mercurial :</h2>
+
+<p>Let me show you the classical and easy way to achieve that :</p>
+
+<p>First, let&#39;s say you have your main repo. You go in the directory where you
+want to add your subrepo and you either create it using hg init or hg clone.</p>
+
+<p>You then go back to your main repo root and edit the .hgsub file (if you don&#39;t
+have this file yet, just create it). Add the following line to the .hgsub :</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="na">path/to/your/subrepo</span> <span class="o">=</span> <span class="s">path/to/your/subrepo</span>
+</code></pre></div>
+<p>Now, on every subsequent commit Hg will be aware that your repo is holding a
+new subrepo. If you omit this line, Hg will not allow you to commit
+complaining about a repo inside an other repo.</p>
+
+<p>You can now safely commit your main repo, or your subrepo independently.</p>
+
+<p>Now, let&#39;s see the edge case.</p>
+
+<h2>Changing a classical sub directory into a subrepo</h2>
+
+<p>The classical example above is what you can find in the Mercurial help pages.
+It wasn&#39;t that helpful for me because my setup was a little different and it
+was causing Hg a lot of trouble.</p>
+
+<p>I was not creating a new subrepo, nor cloning a new one. I had sub diretcory
+of my main app, that I wanted to change into a subrepo. My sub directory was
+named &#39;myplugin&#39; and I had a repo of that name hosted on BitBucket.</p>
+
+<p>So I tried to delete my existing &#39;myplugin&#39; directory, and clone the
+&#39;myplugin&#39; from BitBucket, edit the .hgsub and commit but Hg aborted the
+operation, complaining about the repo in repo file structure.</p>
+
+<p>After a lot of testing, and <a href="http://stackoverflow.com/questions/2371330/what-is-the-correct-way-to-%0Ahandle-nested-hg-repositories-with-mercurial-tortoiseh">cry for
+help</a>, I finally managed to
+get it to work. The workflow is almost the same, with one little new step.</p>
+
+<p>Deleting the &#39;myplugin&#39; folder wasn&#39;t enough. I had to tell Mercurial to
+completly remove this files from its index. Using TortoiseHg, I was able to do
+that by right clicking on the folder, and then choosing &#39;TortoiseHg &gt; Remove
+Files&#39;. Then I had to commit those changes, officially telling Mercurial to
+forget this files, and putting it in a state where those files aren&#39;t there at
+all.</p>
+
+<p>Then only was I able to clone my repo from BitBucket, edit the .hgsub file and
+commit my main repo.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/caracole">#caracole</a>
+    
+      <a href="/tags/hg">#hg</a>
+    
+      <a href="/tags/mercurial">#mercurial</a>
+    
+      <a href="/tags/tortoisehg">#tortoisehg</a>
+    
+      <a href="/tags/plugins">#plugins</a>
+    
+      <a href="/tags/subrepo">#subrepo</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

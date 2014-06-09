@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Why is my disk full ? - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Why is my disk full ?</h1>
+  <span class="post-date">08 Mar 2010</span>
+  <p>Ok, so remember when I was writing about that client of mine who had trouble
+with its SquirelMail implementation. I thought it was a problem of SquirelMail
+having trouble dealing with large directories.</p>
+
+<p>It was not exactly that, it more was a question of the IMAP server having
+issues with disk space. I made some backups of the mails, cleaned it up a
+little then everything went fine.</p>
+
+<p>But suddenly today, the same SquirrelMail started acting funny, blocking some
+login attempt telling me that the IMAP server stopped responding, or
+displaying message list without subject nor owner.</p>
+
+<p>Tired all of this, I decided (my client) to move its whole mail system to
+GMail, using the Google system, while keeping my clients domain name. To
+finish the registration process at Gmail, I had to put a
+googlehostedservice.html file online on the domain to prove that I am the
+owner and...</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">452 Transfer aborted.  No space left on device
+</code></pre></div>
+<p>Here is what the FTP server answered. What ? No more space ? But, but, but,
+but I just cleaned it all, deleting a whole 1Go log file. Wtf ?</p>
+
+<p>I connect to the server and got the list of the biggest files and directories
+by doing a :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">find  /var -type f -ls <span class="p">|</span> sort -k 7 -r -n <span class="p">|</span> head -10
+</code></pre></div>
+<p>I found that the maillog was 1.1Go... I deleted it and hurry the Gmail
+activation process. Problem solved.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/imap">#imap</a>
+    
+      <a href="/tags/squirrelmail">#squirrelmail</a>
+    
+      <a href="/tags/linux">#linux</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

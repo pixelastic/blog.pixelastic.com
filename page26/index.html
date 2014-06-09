@@ -1,0 +1,602 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/12/how-to-fix-the-firefox-autocomplete-feature/">
+        How to fix the Firefox autocomplete &#39;feature&#39;
+      </a>
+    </h1>
+
+    <span class="post-date">12 Aug 2010</span>
+
+    <p>Firefox can be quite a pain sometimes. I usually praise this browser features
+but today I had to deal with one tricky &#39;intelligent&#39; feature.</p>
+
+<p>You know that autocomplete/autofill feature, so that when you enter your user
+name, Firefox automatically fill the corresponding password field so you won&#39;t
+have to do it ?</p>
+
+<p>Well, it is bad, and here&#39;s why.</p>
+
+<h2>How does it work ?</h2>
+
+<p>I haven&#39;t read the source code, but from what I&#39;ve experienced it seems to
+work like that :</p>
+
+<p>For each password field, FF will find the related username text field. This is
+just a very basic search, it assume that the closest previous text field is
+the related one. Now, everytime you enter a value in the text field that match
+one of the username saved, it will autofill the password field.</p>
+
+<p>Note that if you have more than 5 password fields on a page, the feature will
+be disabled.</p>
+
+<h2>What is terribly wrong with this approach</h2>
+
+<p>Let&#39;s imagine you are a registered user of a website. You want to update your
+preferences. You have a nice page with lots of input fields where you can
+change your email, password and date of birth.</p>
+
+<p>For security reasons, your password is not displayed. For convenient reasons,
+the website also don&#39;t ask you to type your password everytime your want to
+update your settings. It assumes that if you let the password field blank, it
+means that you don&#39;t want to change it. And if you really want to change it,
+then it asks for a confirmation, to make sure your correctly typed it.</p>
+
+<p>So, with this autocomplete feature, if your email is also your login for the
+website (as it is often the case), Firefox will autofill the password field
+with your password. Meaning that if you submit your form, you&#39;ll be met with
+an error because your password and it&#39;s confirmation does not match.</p>
+
+<p>You&#39;ll then have to manually clear the content of the password field everytime
+your want to edit your profile. Which is counter-intuitive. The whole
+convenient method of not changing the password if left empty is rendered
+useless.</p>
+
+<p>The worst part is that most users won&#39;t understand when the error comes and
+will blame the webdeveloper.</p>
+
+<h2>Solutions that does not work</h2>
+
+<p>First, Firefox is just doing a very wild guess on that fields. And, there is
+no way to disable this feature from the page markup. Sure, as a user you can
+disable it in your browser setting, but as a web developper, you can&#39;t disable
+it.</p>
+
+<p>There is a non-standard <code>autocomplete=&quot;off&quot;</code> argument, but it does not work in
+our case. It is supposed to prevent the browser to store previously entered
+values on sensible fields (like credit card numbers).</p>
+
+<p>I&#39;ve tried putting this <code>autocomplete</code>attribute on every input field, even on
+the form itself. Setting the <code>value</code>attribute does not work either. Even
+updating the value through Javascript would not work because the password
+field will get re-populated on every blur event on the text field.</p>
+
+<h2>A solution that does work</h2>
+
+<p>The final solution I&#39;ve found is to add a dummy password field between your
+real mail and password fields. That way, Firefox will autocomplete this dummy
+password instead of the real one.</p>
+
+<p>Unfortunatly this adds clutter to your markup, but with a little
+<code>display:none</code> in CSS it won&#39;t ever be seen by your users.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/password">#password</a>
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+        <a href="/tags/feature">#feature</a>
+      
+        <a href="/tags/autocomplete">#autocomplete</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/11/7-advices-to-start-using-oocss-as-a-coding-practice/">
+        7 advices to start using OOCSS as a coding practice
+      </a>
+    </h1>
+
+    <span class="post-date">11 Aug 2010</span>
+
+    <p>Not long ago, I stumbled across this <a href="http://www.stubbornella.org/content/2010/07/01/top-5-mistakes-of-%0Amassive-css/">video about massive and unmaintainable
+CSS files</a> from Nicole Sullivan. It made me want to try OOCSS.</p>
+
+<p><a href="http://wiki.github.com/stubbornella/oocss/">OOCSS </a>is a way to code css in a
+way that replicates the goodies general OOP told us. Classic CSS use the
+cascade in selectors to emulate a concept of inheritence.</p>
+
+<p>OOCSS puts the concept of inheritence a little step further by telling us to
+create &quot;modules&quot; in our CSS files. Each module represent a &quot;widget&quot; of our
+page, or should I say of our whole site.</p>
+
+<p>It comes with a simple list of principles that could allow one to write much
+more flexible and maintainable code. I rewrote the whole CSS for this website
+(as well as the admin interface I&#39;m using behind the doors) following those
+principles, and I thought I&#39;ll share it with you.</p>
+
+<h2>Drop the <code>#id</code> selector</h2>
+
+<p>We won&#39;t be using the <code>#id</code> selector anymore (except for some edge cases).
+Instead of <code>#commentList {}</code> we&#39;ll use <code>.commentList {}</code></p>
+
+<p>This change alone lets us reuse the same element multiple times on the same
+page.</p>
+
+<p>Note that we will still add <code>ids</code> in our HTML markup for form inputs or for
+Javascript purpose (<code>document.getElementById</code> is still the faster selection
+method).</p>
+
+<h2>Don&#39;t make your selector dependent on the page structure</h2>
+
+<p>We won&#39;t style our elements based on where they will be displayed in the page.</p>
+
+<p>We don&#39;t care if our module will be displayed in a footer, sidebar, specific
+page or whatever. We just style it all the same.</p>
+
+<p>Instead of writing <code>.sidebar .lastComments {}</code>, we will go for the shorter
+<code>.lastComments {}</code>.</p>
+
+<p>This will allow us to easily display the last comments on any page, anywhere.
+You should carefully name your modules to something that clearly evoke what
+the module is supposed to display, without ambiguity.</p>
+
+<p>If you need to tweak the display of an element in a certain part of the page,
+you could always write a specific selector for this specific need, that will
+overwrite the default rules. But this must not be your default selector.</p>
+
+<h2>Do not use both tag and class selector on the same element</h2>
+
+<p>Avoid the <code>div.errorMessage</code>, <code>ul.userList</code> selectors. The first one is just
+too specific : what happen if you ever want to style a <code>&lt;p&gt;</code> instead of a
+<code>&lt;div&gt;</code> ? The second one is useless, <code>&lt;ul&gt;</code> is a list by definition.</p>
+
+<p>There is only one moment when being that specific can be useful, it is when
+you need to overwrite, for a specific element, rules defined for the class.
+Fortunatly, thanks to the OOCSS coding style, this won&#39;t happen much.</p>
+
+<h2>Don&#39;t make your selectors over-specific</h2>
+
+<p>This is a followup of the previous rule, but don&#39;t write overly specific
+rules, like .<code>userList table thead tr th a</code>. A simple <code>.userList thead a</code> is
+enough.</p>
+
+<p>First, you are overly detailing each level of the markup while most of the
+time the uppermost and lowermost parts are enough. But you also define useless
+selectors like <code>tr th</code> or <code>ul li,</code> where <code>th</code> or <code>li</code> are enough (those
+elements can not be placed in any other parent element).</p>
+
+<h2>Create your own reset stylesheet</h2>
+
+<p>To avoid repeating <code>margin:0; padding:0</code> over and over in your stylesheets,
+you should spend some time finding a reset stylesheet that you like and then
+tweaking it to fit your coding practice.</p>
+
+<p>I used to include the <a href="http://devkick.com/lab/tripoli/">Tripoli framework</a> in
+my previous projects but I found that I had to reset styles it was settings
+far too often.</p>
+
+<p>All reset stylesheets are not equals, some will just remove all styling from
+elements, letting you define them as you want. Others will also assign default
+rendering styles to make something both visually beautiful and cross-browser.</p>
+
+<p>But the best reset stylesheet you&#39;ll get is the one you&#39;ll create (or, as it
+is quite a bit of work, tweak) yourself.</p>
+
+<h2>Use a grid system to place elements</h2>
+
+<p>Some years ago, I found CSS Framework like Blueprint to be a waste of time. I
+didn&#39;t want to clutter mu HTML markup with <em>non-semantic</em> classes for handling
+the styling.</p>
+
+<p>I also found that the psd files I was given to integrate couldn&#39;t fit in grids
+because the sidebar was 173px wide for example.</p>
+
+<p>Now I still don&#39;t think cluttering the HTML with <code>span-6 pull-2</code> is the best
+thing that happened to CSS, but I found it much better than cluttering my CSS
+with endless <code>overflow:hidden</code> and <code>float:left; margin-right:10px</code>
+declarations.</p>
+
+<p>And I still got design from not-so-professional designers to integrate that do
+not seems to have any logical proportion, and can&#39;t fit them in grids. But I
+also work with more talented people that deliver beautiful design and they
+tend to be the one that fits easily into grids.</p>
+
+<p>So it may not always be possible to use a grid system, but more often than
+not, it is and even if that means tweaking the original (badly designed)
+design a dozen pixels off, it will greatly help the CSS process.</p>
+
+<h2>Create a global stylesheet for your main classes</h2>
+
+<p>I also create a main stylesheet for all the classes I know I&#39;ll be reusing all
+accross this project (and others). I include it at the top, right after the
+reset one.</p>
+
+<p>In it I&#39;ll defined general classes that could be extended by all the other
+inner classes later. Like a <code>.message</code> class, that I may be extending later
+using <code>.message.error</code> or .<code>message.success</code></p>
+
+<h2>One final word</h2>
+
+<p>Ok, this is it. I&#39;m fairly new to OOCSS too, so I&#39;m still discovering it too.
+So far I found that I have greatly reduce the size of my files but most
+importantly, my styles are way more easy to tweak for special needs than
+before.</p>
+
+<p>It also helped me separate the various elements of the website, and it is much
+more easier to find the piece I need. Fewer classes to depends on means I know
+where the rules are coming from and I can write more specific selectors if
+need me more easily.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/oocss">#oocss</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/08/testing-a-custom-errorhandler-in-cakephp/">
+        Testing a custom ErrorHandler in cakePHP
+      </a>
+    </h1>
+
+    <span class="post-date">08 Aug 2010</span>
+
+    <p>I just finished writing the test case for a custom <code>AppError</code>class. Writing
+the tests case was indeed much more difficult than writing the class itself.</p>
+
+<p>Here are some things I&#39;ve found that may interest anyone wanting to test their
+own <code>ErrorHandlers</code>. Most of the ideas are taken from the core
+<code>ErrorHandlerTest</code>.</p>
+
+<h2>Anatomy of an error</h2>
+
+<p>Every class in cakePHP extends <code>Object</code>. And in <code>Object</code>is defined a method
+named <code>cakeError</code>. It means that anywhere in your app you can call
+<code>$this-&gt;cakeError(</code>) and the whole app will stop and display the specified
+error.</p>
+
+<p>What <code>cakeError</code>does is instantly create an instance of either <code>Controller
+</code>or <code>CakeErrorController</code>, find the correct view, render it, and stop.</p>
+
+<p>Because of the use of static variables, <code>exit</code>calls and other happyness,
+testing several errors in a test case needs us to define some new classes to
+shortcircuit most of the logic.</p>
+
+<h2>Preparing the test</h2>
+
+<p>This step is actually pretty short. Just load the default <code>ErrorHandler</code>by
+calling <code>App::import(&#39;Core&#39;,&#39;Error&#39;);</code></p>
+
+<h2>Creating a dummy AppController</h2>
+
+<p>Then, you&#39;ll have to create a new <code>AppController</code>class that extends
+<code>Controller</code>.</p>
+
+<p>We will override the <code>header</code>method to prevent &#39;<em>Headers already set</em>&#39; error
+when calling several errors in a row.</p>
+
+<p>We will also override the <code>render</code> method to store in an inner property the
+name of the rendered action. It will help test that the correct error is
+rendered.</p>
+
+<p>You may also need to define a custom list of helpers if your custom views are
+using any custom helpers.</p>
+
+<p>Here is what it looks like on my side :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class AppController extends Controller {</span>
+<span class="x">  // Helpers used in the view. If not set, will generate a fatal error</span>
+<span class="x">  var $helpers = array(&#39;Caracole.Fastcode&#39;, &#39;CaracolePacker.Packer&#39;);</span>
+<span class="x">  // Overriding the header method. If not set, will generate &#39;Headers already set&#39; errors;</span>
+<span class="x">  function header($header) {</span>
+<span class="x">    $this-&gt;header = $header;</span>
+<span class="x">  }</span>
+<span class="x">  // Overriding render method to keep track of the rendered error</span>
+<span class="x">  function render($action) {</span>
+<span class="x">          $this-&gt;renderedAction = $action;</span>
+<span class="x">          return parent::render($action);</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Creating a TestErrorHandler</h2>
+
+<p>This class will extends your <code>AppError</code>. It will just overwrite two methods to
+make it correctly work in a test case.</p>
+
+<p>First, we&#39;ll need to overwrite the <code>__construct</code>. The default construct will
+set the inner <code>$this-&gt;controller</code> property to either a <code>Controller</code>or a
+<code>CakeErrorController</code>instance depending if its the first error fired or not.
+I must admit that I haven&#39;t really understand the difference between the two.
+But I know that <code>CakeErrorController</code>extends <code>AppController</code>while
+<code>Controller</code>extends <code>Object</code>.</p>
+
+<p>And as we need to overwrite methods of this property, it being a
+<code>CakeErrorController</code>is great, while it being a <code>Controller</code>is bad. Anyway,
+what I did was copy/paste the parent <code>__construct</code> into <code>TestErrorHandler</code>and
+just force it to always create a <code>CakeErrorController</code>instance.</p>
+
+<p>The other method we need to overwrite is the <code>_stop</code>. If we don&#39;t, the whole
+script will halt after the first error you&#39;ll test.</p>
+
+<p>So, enough talk, here&#39;s the code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class TestErrorHandler extends AppError {</span>
+<span class="x">  // Copy/paste of ErrorHandler construct method, but force a new instance of CakeErrorController as $this-&gt;controller each time</span>
+<span class="x">  // CakeErrorController extends AppController, so we can overwrite its methods</span>
+<span class="x">  function __construct($method, $messages) {</span>
+<span class="x">    App::import(&#39;Core&#39;, &#39;Sanitize&#39;);</span>
+
+<span class="x">    // Forcing CakeErrorController</span>
+<span class="x">    $this-&gt;controller =&amp; new CakeErrorController();</span>
+<span class="x">    $options = array(&#39;escape&#39; =&gt; false);</span>
+<span class="x">    $messages = Sanitize::clean($messages, $options);</span>
+
+<span class="x">    if (!isset($messages[0])) {</span>
+<span class="x">      $messages = array($messages);</span>
+<span class="x">    }</span>
+
+<span class="x">    if (method_exists($this-&gt;controller, &#39;apperror&#39;)) {</span>
+<span class="x">      return $this-&gt;controller-&gt;appError($method, $messages);</span>
+<span class="x">    }</span>
+
+<span class="x">    if (!in_array(strtolower($method), array_map(&#39;strtolower&#39;, get_class_methods($this)))) {</span>
+<span class="x">      $method = &#39;error&#39;;</span>
+<span class="x">    }</span>
+<span class="x">    if ($method !== &#39;error&#39;) {</span>
+<span class="x">      if (Configure::read(&#39;debug&#39;) == 0) {</span>
+<span class="x">        $parentClass = get_parent_class($this);</span>
+<span class="x">        if (strtolower($parentClass) != &#39;errorhandler&#39;) {</span>
+<span class="x">          $method = &#39;error404&#39;;</span>
+<span class="x">        }</span>
+<span class="x">        $parentMethods = array_map(&#39;strtolower&#39;, get_class_methods($parentClass));</span>
+<span class="x">        if (in_array(strtolower($method), $parentMethods)) {</span>
+<span class="x">          $method = &#39;error404&#39;;</span>
+<span class="x">        }</span>
+<span class="x">        if (isset($code) &amp;&amp; $code == 500) {</span>
+<span class="x">          $method = &#39;error500&#39;;</span>
+<span class="x">        }</span>
+<span class="x">      }</span>
+<span class="x">    }</span>
+<span class="x">    $this-&gt;dispatchMethod($method, $messages);</span>
+<span class="x">    $this-&gt;_stop();</span>
+<span class="x">  }</span>
+
+<span class="x">  // Preventing the error from stopping all the request</span>
+<span class="x">  function _stop() {</span>
+<span class="x">    return;</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Writing your tests</h2>
+
+<p>Ok, your almost done. You just have now to write your tests. They have to
+follow a special syntax to correctly work.</p>
+
+<p>First, you&#39;ll have to wrap your <code>ErrorHandler</code>creation between <code>ob_start()</code>
+and <code>$output= ob_get_content()</code>, otherwise you&#39;ll end up with error popping
+right into your test case because the <code>ErrorHandler</code>force the controller to
+render the view.</p>
+
+<p>You&#39;ll be able to access interesting properties through
+<code>$errorHandler-&gt;controller-&gt;renderedAction</code> and
+<code>$errorHandler-&gt;controller-&gt;header</code>. You can also directly test the view
+output through <code>$output</code>.</p>
+
+<p>Ok, so here&#39;s one of my tests :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">// DEV : Error will use the error layout</span>
+<span class="x">function testCallingErrorInDevWillUseErrorLayout() {</span>
+<span class="x">  ob_start();</span>
+<span class="x">  $errorHandler = new TestErrorHandler(&#39;missingController&#39;, $this-&gt;errorParams);</span>
+<span class="x">  $result = ob_get_clean();</span>
+<span class="x">  $this-&gt;assertEqual($errorHandler-&gt;controller-&gt;layout, &#39;error&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Conclusion</h2>
+
+<p>It took me some hours to glue all this pieces together, I hope it may be
+useful to others, too. Writing the <code>AppError</code>itself was way easier, but as
+I&#39;m now test infected I don&#39;t imagine writing code without the corresponding
+tests.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/unit-testing">#unit-testing</a>
+      
+        <a href="/tags/errorhandler">#errorhandler</a>
+      
+        <a href="/tags/tests">#tests</a>
+      
+        <a href="/tags/simpletest">#simpletest</a>
+      
+        <a href="/tags/apperror">#apperror</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/06/instanciating-models-in-components/">
+        Correctly instanciating models in components
+      </a>
+    </h1>
+
+    <span class="post-date">06 Aug 2010</span>
+
+    <p>I sometime need access to a specific model in a component. Say a <code>User</code>model
+for checking user rights in an <code>Auth</code>component. In that cases, I just create
+an instance of the model by calling a <code>$myModel =
+&amp;ClassRegistry::init($myModelName)</code>. It works perfectly.</p>
+
+<p>Today I found that it wasn&#39;t working exactly as I wanted. In fact, behaviors
+used by models loaded that way are not completely set up. All their callback
+methods (<code>beforeFind</code>, <code>afterFind</code>, <code>beforeSave</code>, <code>afterSave</code>) works as
+expected, but the main <code>setup</code> method is never called.</p>
+
+<p>This caused some havoc in my app because some *<em>reaaaaally *</em>important stuff
+was defined in the <code>setup</code> method</p>
+
+<h2>There I fixed it</h2>
+
+<p>I just manually fired all the <code>setup</code> methods by calling a simple :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">foreach($myModel-&gt;Behaviors-&gt;_attached as $behaviorName) {</span>
+<span class="x">  $myModel-&gt;Behaviors-&gt;{$behaviorName}-&gt;setup($myModel);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Once again, small fix, but does the trick. I did not file a bug report because
+I&#39;m not really sure this is bug or if that is so by design.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/behaviors">#behaviors</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/classregistry">#classregistry</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/setup">#setup</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/06/disabling-a-behavior-from-inside-its-setup-method/">
+        Disabling a Behavior from inside its setup() method
+      </a>
+    </h1>
+
+    <span class="post-date">06 Aug 2010</span>
+
+    <p>Sometime you write a nice Behavior, that will automate a lot of stuff that
+almost all your models will need. But, unfortunatly, a couple of models won&#39;t
+need it. Actually, attaching it to them will even break your code.</p>
+
+<p>So what do you do ? Do you resort to manually fill the <code>$actsAs</code> variable of
+each model, except for the two lonely loosers, or defining the <code>$actsAs</code> of
+your main <code>AppModel</code>really seems more appaling ?</p>
+
+<h2>Lazyness to the rescue</h2>
+
+<p>If, like me, you prefer writing less code, you&#39;d probably go with the
+<code>AppModel</code> approach. All you have to do is define a <code>setup()</code> method in your
+Behavior and check if it is applied to the right or wrong type of model.
+Fortunatly for us, the <code>$model</code> is passed as first argument.</p>
+
+<p>Once you&#39;ve identified the faulty models, you just have to disable the
+behavior for them. The <code>BehaviorCollection</code>that comes bundle into
+<code>$model-&gt;Behaviors</code> has a nice couple of <code>enable</code>/<code>disable</code> methods.
+Unfortunatly, they won&#39;t work from inside the <code>setup()</code> method because the
+Behavior is not yet correctly instanciated.</p>
+
+<p>What you can do, however, is to hack inside the <code>BehaviorCollection</code> to update
+the inner <code>_disabled</code> key to add your own Behavior to the list.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function setup(&amp;$model, $config = array()) {</span>
+<span class="x">  [...]</span>
+<span class="x">  if ($faultyModel) {</span>
+<span class="x">    $model-&gt;Behaviors-&gt;_disabled[] = &#39;MyBehavior&#39;;</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>This is more than a bit hacky, I have to admit that. But it does the trick.
+Enjoy.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/behavior">#behavior</a>
+      
+        <a href="/tags/actsas">#actsas</a>
+      
+        <a href="/tags/behaviorcollection">#behaviorcollection</a>
+      
+        <a href="/tags/setup">#setup</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page27">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page25">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

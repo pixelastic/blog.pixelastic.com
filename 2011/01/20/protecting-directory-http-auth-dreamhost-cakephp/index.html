@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Protecting a directory using HTTP Auth on Dreamhost with cakePHP - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Protecting a directory using HTTP Auth on Dreamhost with cakePHP</h1>
+  <span class="post-date">20 Jan 2011</span>
+  <p>One can protect the browsing of a special directory with a simple set of
+login/password by using appropriate <code>.htaccess</code>/<code>.htpasswd</code> files.</p>
+
+<h2>The classic way</h2>
+
+<p>Just create an <code>.htaccess</code> in the directory you want to protect with the
+following lines :</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nb">AuthName</span> <span class="s2">&quot;Restricted Access&quot;</span>
+<span class="nb">AuthType</span> Basic
+<span class="nb">AuthUserFile</span> <span class="sx">/full/path/to/your/.htpasswd</span>
+<span class="nt">&lt;Limit</span> <span class="s">GET POST PUT</span><span class="nt">&gt;</span>
+<span class="nb">Require</span> valid-user
+<span class="nt">&lt;/Limit&gt;</span>
+</code></pre></div>
+<p>And to create the .htpasswd file, run the following command :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">htpasswd -c /full/path/to/your/.htpasswd username
+</code></pre></div>
+<p>The <code>-c</code> modifier will create the file, omit it if you only want to add a new
+user. Also change the path to your <code>.htpasswd</code> file (moving it out of the
+webdir could be a good idea) and change <code>username</code>to any login you want.</p>
+
+<p>You&#39;ll then be prompted to enter the password (twice) and your file will be
+generated.</p>
+
+<h2>cakePHP and Dreamhost fixed</h2>
+
+<p>I had an issue when protecting a folder in my <code>app/webroot/</code>folder on
+Dreamhost. I&#39;m not sure it is completly cake related nor Dreamhost related but
+the two together made it quite hard to debug.</p>
+
+<p>Anyway, it appears that when issuing an HTTP Auth, Dreamhost redirect to a
+file named <code>/failed_auth.html</code> (this is the file you&#39;re supposed to see when
+your Auth fails, obviously).</p>
+
+<p>But as I didn&#39;t have such a file in my app, everytime I tried to access my
+protected dir, I got my custom 404 error page.</p>
+
+<p>To finally fix that, all I had to do was to create a real <code>failed_auth.html</code>
+page, or in my case, create a Route that redirect <code>failed_auth.html</code> to a
+custom failed auth page.</p>
+
+<p>I guess just dropping a <code>failed_auth.html</code> file in <code>app/webroot/</code>could have
+done the trick too.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/dreamhost">#dreamhost</a>
+    
+      <a href="/tags/htpasswd">#htpasswd</a>
+    
+      <a href="/tags/router">#router</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/htaccess">#htaccess</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

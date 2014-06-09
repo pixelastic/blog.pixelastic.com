@@ -1,0 +1,166 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Using cakePHP OpenId plugin on Windows - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Using cakePHP OpenId plugin on Windows</h1>
+  <span class="post-date">21 May 2010</span>
+  <p>After all the praises I&#39;ve read about OpenId, I decided to implement it in
+this CMS. My goal was to set an easy way for readers to leave comments without
+the need for registering to anything.</p>
+
+<p>I thought it would also be great to add as a secondary, and easiest, mechanism
+for logging in.</p>
+
+<p>So I downloaded and installed the openID component by cakebaker. As I&#39;m
+running my dev environment under Windows, I had to set some settings.</p>
+
+<h2>Fixing the pluginPath</h2>
+
+<p>I&#39;ve save the OpenId component in a plugin, and it has a clever mechanism to
+import the PHP OpenId library based on the folder it is saved.</p>
+
+<p>Unfortunatly, the regexp used to know the name of the current plugin was
+throwing errors on Windows, due to the backslashes used in the file path.</p>
+
+<p>I updated the <code>getPluginName()</code> method to this new one and it did the trick :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">private function getPluginName() {</span>
+<span class="x">  $result = array();</span>
+<span class="x">  $ds = (Folder::isWindowsPath(__FILE__)) ? &#39;\\\\&#39; : DS;</span>
+<span class="x">  if (preg_match(&#39;#&#39;.$ds.&#39;plugins&#39;.$ds.&#39;(.*)&#39;.$ds.&#39;controllers#&#39;, __FILE__, $result)) {</span>
+<span class="x">      return $result[1];</span>
+<span class="x">  }</span>
+
+<span class="x">  return false;</span>
+<span class="x">  }</span>
+</code></pre></div>
+<p>Basically it makes sure that the backslashes are correctly escaped under
+Windows.</p>
+
+<p>Edit : I&#39;ve sent this patch to the OpenId component author and it is now fixed
+in the latest versions.</p>
+
+<h2>Generating randomness</h2>
+
+<p>The second fix was to change the <code>Auth_OpenID_RAND_SOURCE</code> constant to <code>null</code>.
+This constant enable the library to generate randomness (AFAIK), by using the
+<code>/dev/urandom</code>.</p>
+
+<p>This does not exists on Windows, so I added the following lines in my
+<code>bootstrap.php</code></p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">if (Folder::isWindowsPath(__FILE__)) {</span>
+<span class="x">    define(&#39;Auth_OpenID_RAND_SOURCE&#39;, null);</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Connecting to SSL servers</h2>
+
+<p>The PHP bundle on Windows comes with <code>cURL</code>already builtin, but without the
+bundle of the X.509 certificates of public CA. It means that the OpenId PHP
+library will refuse to connect to any CA using an SSL connection because it
+won&#39;t be able to check the certificate.</p>
+
+<p>This does not happens on Linux, the list is correctly built in.</p>
+
+<p>Fortunatly, we can pass a <code>CURLOPT_CAINFO</code> option to <code>cURL</code> to manually set a
+pre-defined bundle, and there already is one shipped with the PHP OpenId
+library.</p>
+
+<p>All you have to do is add the following line on line 93 of the
+<code>vendors/Auth/Yadis/ParanoidHTTPFetcher.php</code> file :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">curl_setopt($c, CURLOPT_CAINFO, str_replace(&#39;\\&#39;, &#39;/&#39;, dirname(__FILE__)).&#39;/../OpenID/ca-bundle.crt&#39;);</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/openid">#openid</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/windows">#windows</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

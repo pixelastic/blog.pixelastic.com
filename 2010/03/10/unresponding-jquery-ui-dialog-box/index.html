@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Unresponding jQuery UI dialog box - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Unresponding jQuery UI dialog box</h1>
+  <span class="post-date">10 Mar 2010</span>
+  <p>As this is the second time I encounter this &quot;issue&quot;, I think it may be clever
+to post it here. At least, I won&#39;t have to debug it all the down again next
+time.</p>
+
+<p>In a nutshell, I was working on a complex UI that involve several layers of
+dialog boxes, each one on top of the previous one. Each new dialog box is
+supposed to offer the user something to do, and once it is done, the dialog
+box disapear and the user can get back to the previous one.</p>
+
+<p>The &quot;issues&quot; I was having was after closing a specific window, I wasn&#39;t able
+to focus the previous one. I mean, the window was there, I was even able to
+update its fields using jQuery, but I couldn&#39;t focus it either using keyboard
+or mouse.</p>
+
+<p>After some digging, it appears that I wasn&#39;t correctly &quot;closing&quot; the previous
+window. I was actually doing a <code>.dialog(&#39;destroy&#39;)</code> instead of a
+<code>.dialog(&#39;close&#39;)</code> and this was causing my issue.</p>
+
+<p>Calling <code>close</code>hides the dialog box, but keep it in the DOM. That way if I
+ever need the same dialog box again, jQuery is smart enough to re-use it.</p>
+
+<p>Calling <code>destroy</code>on the other hand actually remove the dialog box from the
+DOM, forcing jQuery to recreate it from scrath.</p>
+
+<p>It appears that calling <code>destroy</code>in my case caused a strange lose of focus,
+so I reverted to close instead.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/jquery-ui">#jquery-ui</a>
+    
+      <a href="/tags/focus">#focus</a>
+    
+      <a href="/tags/dialog">#dialog</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

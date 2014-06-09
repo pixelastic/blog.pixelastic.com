@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Ghost posting on FB.ui streams - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Ghost posting on FB.ui streams</h1>
+  <span class="post-date">06 Jun 2011</span>
+  <p>We had a bit of an issue when launching our app a few weeks ago. Everything
+was working fine on our test apps, but when live, all the stream messages we
+posted (we call them &quot;Sharings&quot;) had a random text appended.</p>
+
+<p>Most of the time it was a generic Facebook text, but sometimes it was a
+creepier SQL request just displayed plain on the user feed.</p>
+
+<p>The Facebook text was (for the sake of search engine goodness):</p>
+
+<blockquote>
+<p>Facebook is a social utility that connects people with friends and others
+who work, study and live around them. People use Facebook to keep up with
+friends, upload an unlimited number of photos, post links and videos, and
+learn more about the people they meet.</p>
+</blockquote>
+
+<p>As the issue only occurs in production mode and never on any of our test
+environments, this was pretty difficult to debug.</p>
+
+<p>Here was the code used to post the Sharing :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">FB</span><span class="p">.</span><span class="nx">ui</span><span class="p">({</span>
+  <span class="p">[...],</span>
+  <span class="s1">&#39;title&#39;</span> <span class="o">:</span> <span class="s1">&#39;Title of the Sharing&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;caption&#39;</span> <span class="o">:</span> <span class="s1">&#39;Text of the Sharing&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>As I later found out, the <code>caption</code>key is not supposed to hold the Sharing
+text. The <code>description</code>key should be used for that. I&#39;m not exactly sure was
+<code>caption</code>was for, but it seems that if you let the <code>description</code>key empty,
+then Facebook fills it automatically with a placeholder text.</p>
+
+<p>The solution simply was to put the text in the <code>description</code>text, and leaving
+the <code>caption</code>key empty :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">FB</span><span class="p">.</span><span class="nx">ui</span><span class="p">({</span>
+  <span class="s1">&#39;title&#39;</span> <span class="o">:</span> <span class="s1">&#39;Title of the Sharing&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;caption&#39;</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;description&#39;</span> <span class="o">:</span> <span class="s1">&#39;Text of the Sharing&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>As this behaviour is counter-intuitive, undocumented and random, I think
+posting it here could help other lost souls like me.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/description">#description</a>
+    
+      <a href="/tags/feed">#feed</a>
+    
+      <a href="/tags/caption">#caption</a>
+    
+      <a href="/tags/stream">#stream</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/fb-ui">#fb-ui</a>
+    
+      <a href="/tags/facebook">#facebook</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,344 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/12/02/router-connectnamed-breaking-pagination/">
+        Using Router::connectNamed without breaking pagination
+      </a>
+    </h1>
+
+    <span class="post-date">02 Dec 2010</span>
+
+    <p>In cakePHP, you can pass all sort of parameters to your urls by following the
+<code>www.domain.com/controllers/view/foo:bar/foo2:baz</code> syntax.</p>
+
+<p>You could then access <code>$this-&gt;params[&#39;foo&#39;]</code> and <code>$this-&gt;params[&#39;foo2&#39;]</code> in
+your <code>Controller::view()</code> method.</p>
+
+<h2>Using Router::connectName()</h2>
+
+<p>This does not play nice with default routing. I mean, if you define a route to
+add a vanity url like <code>www.domain.com/vanity</code> is routed to
+<code>Controller:view()</code>, you&#39;ll write something like this :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">Router::connect(&#39;/vanity&#39;, array(&#39;controller&#39; =&gt; &#39;controllers&#39;, &#39;action&#39; =&gt; &#39;view&#39;));</span>
+</code></pre></div>
+<p>This will work as long as you don&#39;t specify any additional parameters. Once
+you started to add any parameters, the Router won&#39;t be able to parse your url
+and instead of returning <code>www.domain.com/vanity/foo:bar/foo2:baz</code> it will
+return the default <code>www.domain.com/controllers/view/foo:bar/foo2:baz</code></p>
+
+<p>If you do want your custom parameters to be taken into account by your
+<code>Router</code> rules, you have to manually add them, using<code>
+Router::connectNamed(array(&#39;foo&#39;, &#39;foo2&#39;))</code>.</p>
+
+<h2>Custom connectNamed()</h2>
+
+<p>I&#39;ll let you browse the [connectNamed()](http://api.cakephp.org/class/router</p>
+
+<h1>method-RouterconnectNamed) documentation page for further details on how to</h1>
+
+<p>use it properly. But one important thing not to overlook is that if you ever
+have to define a custom <code>Router::connectNamed()</code>, do not forget to add a
+second parameter of <code>array(&#39;default&#39; =&gt; true)</code>, this will allow all your
+paginated links to keep working.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/router">#router</a>
+      
+        <a href="/tags/pagination">#pagination</a>
+      
+        <a href="/tags/connectnamed">#connectnamed</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/26/dreaded-noscript-ie7/">
+        The dreaded &lt;noscript&gt; on IE7
+      </a>
+    </h1>
+
+    <span class="post-date">26 Nov 2010</span>
+
+    <p>This <code>&lt;noscript&gt;</code> tag on IE7 is making me crazy. Here are some &quot;interesting&quot;
+facts about it :</p>
+
+<h2>No content through Javascript</h2>
+
+<p>You can&#39;t get its content though javascript. It can be targeted but neither
+<code>.innerHTML</code> nor <code>.textContent</code> is set. It does not have any <code>.childNodes</code>
+either.</p>
+
+<h2>Gets displayed even when scripts are enabled</h2>
+
+<p>If you set <code>noscript { display:block; border:15px solid red;},</code> it will get
+displayed even if Javascript is enabled. But with no content inside, you&#39;ll
+only have borders and background...</p>
+
+<h2>Styling it anyway</h2>
+
+<p>If you want to style it, just add an inner element and style this one :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;noscript&gt;&lt;p&gt;</span>Lorem ipsum<span class="nt">&lt;/p&gt;&lt;/noscript&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">noscript</span> <span class="nt">p</span> <span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">blue</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<h2>Disabling Javascript on IE7</h2>
+
+<p>If you want to disable Javascript on IE7, you&#39;ll have to go to Tools &gt;
+Internet Options &gt; Security &gt; Custom and setting the &quot;Enable ASP scripts&quot; to
+No.</p>
+
+<p>Yes, this doesn&#39;t make any sense.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/noscript">#noscript</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/ie7">#ie7</a>
+      
+        <a href="/tags/bug">#bug</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/25/deleting-element-array-object-javascript/">
+        Deleting an element from an Array/Object in Javascript
+      </a>
+    </h1>
+
+    <span class="post-date">25 Nov 2010</span>
+
+    <p>I&#39;m going to post that here because it&#39;s the second time I stumble upon this
+&quot;problem&quot; and the second time I lost some precious time to understand what was
+going on.</p>
+
+<p>I had a Javascript Array, named <code>elements</code>and I wanted to remove one of its
+properties by its index <code>i</code>.</p>
+
+<p>I know that merely calling <code>elements[i] = null</code> won&#39;t work (the property will
+still be present in the array and the length won&#39;t be updated.</p>
+
+<p>Calling <code>delete elements[i]</code> won&#39;t work either. Same result.</p>
+
+<p>I had to use <code>elements.splice(i, 1)</code> to effectively remove the element and
+update the length value.</p>
+
+<p>Also note that sometimes I accidentally declare an Array when what I really
+want is an Object. I tend to forgot that associative <code>Arrays</code>in Javascript do
+not really exists, they just are <code>Objects</code>.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/object">#object</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/delete">#delete</a>
+      
+        <a href="/tags/array">#array</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/24/komodo-edit-tip-regexp-search-replace/">
+        Komodo Edit Tip : Using regexp in search/replace
+      </a>
+    </h1>
+
+    <span class="post-date">24 Nov 2010</span>
+
+    <p>Here&#39;s a little tip. As I started to use more and more often the regexp search
+and replace feature of Komodo Edit, I guessa quick blog note could be useful.</p>
+
+<p>I had to &quot;simplify&quot; a big HTML file a while ago, and searching for useless
+tags and then replacing them using this feature saved me a lot of time.</p>
+
+<p>Note that you can use <code>\n</code> and <code>\t</code> for new line and tabulation respectively.</p>
+
+<p>I also had to change the order of attributes in all <code>&lt;img&gt;</code> tags (according to
+Google Page Speed, this is supposed to help the Gzip algorithm in compressing
+data).</p>
+
+<p>I just had to search for</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;(.*)&quot;</span> <span class="na">width=</span><span class="s">&quot;(.*)&quot;</span> <span class="na">height=</span><span class="s">&quot;(.*)&quot;</span> <span class="na">alt=</span><span class="s">&quot;(.*)&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>and replace with</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;\1&quot;</span> <span class="na">alt=</span><span class="s">&quot;\4&quot;</span> <span class="na">height=</span><span class="s">&quot;\3&quot;</span> <span class="na">width=</span><span class="s">&quot;\2&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/komodo">#komodo</a>
+      
+        <a href="/tags/regexp">#regexp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/23/testing-ie6-ie7-virtualbox-windows/">
+        Testing IE6 and IE7 using VirtualBox on Windows
+      </a>
+    </h1>
+
+    <span class="post-date">23 Nov 2010</span>
+
+    <p>Testing various IE version as always been a chore. Back in the days, I managed
+to install both IE7 and use a standalone IE6 version.</p>
+
+<p>Then, I discovered <a href="http://www.my-%0Adebugbar.com/wiki/IETester/HomePage">IETester</a> that became a lifesaver (my IE6
+standalone tends to crash a little too often). It would allow me to test
+various IE versions side by side.</p>
+
+<p>Unfortunatly, the emulation wasn&#39;t perfect, some ajax calls were returning
+errors and the Flash support wasn&#39;t so good.</p>
+
+<p>Additionnaly, there was not way to use the
+<a href="http://www.debugbar.com/?langage=en">IEDebugBar</a> nor the WebPageTest plugin.</p>
+
+<h2>Switching to VM</h2>
+
+<p>I finally decided to switch to a Virtual Machine. This would allow me to have
+an exact snapshot of a given OS/IE version.</p>
+
+<p><a href="http://www.virtualbox.org/">VirtualBox</a> is free, so this was my choice.
+Microsft used to provide <a href="htt%0Ap://www.microsoft.com/downloads/en/details.aspx?FamilyId=21EABB90-958F-%0A4B64-B5F1-73D0A413C8EF&amp;displaylang=en">free downloads of various flavors of Windows/IE</a>, but it seems to be only working with
+their proprietary VirtualPC (which only works under Windows 7).</p>
+
+<p>So I took the long road, and manually installed a Windows XP Pro through
+VirtualBox, using my Windows XP cd.</p>
+
+<p>I used the same serial than my main windows XP. I&#39;m not exactly sure if
+legally, I&#39;m allowed to do that. How does a VM fits inside the legal
+statements ? Am I allowed to use one windows activation key inside itself ?
+Well, I don&#39;t really know and don&#39;t care that much.</p>
+
+<h2>Starting with some housekeeping</h2>
+
+<p>I ended up with a nice and clean WinXP install. I had to add an antivirus
+quick if I wanted to keep it clean. VirtualBox provides a Shared Folder
+feature to exchange files between the host and the guest.</p>
+
+<p>Start by adding shared folders to your guest (Devices &gt; Shared Folders).</p>
+
+<p>Then install the &quot;Guest Additions&quot;, <del>just mount the
+<code>VBoxGuestAdditions.iso</code> found in your VirtualBox installation directory,
+using DaemonTools and run the installer.</del></p>
+
+<p>Don&#39;t be as silly as I was. Do not install the Guest Additions on your host,
+but on your guest. Yeah, seems more logical that way. Just select the options
+in the Devices menu of your guest window. Reboot after the installation.</p>
+
+<p>You should now be able to access your shared folders by opening the windows
+Explorer (Windows + E), and going to Network places &gt; All network &gt; VirtualBox
+Shared Folders</p>
+
+<h2>Accessing your websites</h2>
+
+<p>I then updated the <code>C:\WINDOWS\system32\drivers\etc\hosts</code> file to bind all
+requests made to my still-in-development websites to my host.</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">www.pixelastic</span>
+<span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">s1.pixelastic</span>
+<span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">s2.pixelastic</span>
+<span class="err">10.0.2.2   </span> <span class="err">   </span> <span class="err">s3.pixelastic</span>
+</code></pre></div>
+<p>You can find your host ip by doing a <code>ipconfig /all</code> in a command prompt.</p>
+
+<p>You then just have to go to http://www.pixelastic/ in IE6 to display the
+correct website. You can even switch to the Seamless mode to display your IE6
+inside your main host.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/virtualbox">#virtualbox</a>
+      
+        <a href="/tags/ie7">#ie7</a>
+      
+        <a href="/tags/windows">#windows</a>
+      
+        <a href="/tags/ie6">#ie6</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page22">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page20">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

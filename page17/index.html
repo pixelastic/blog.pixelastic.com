@@ -1,0 +1,491 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/04/08/memcache-keys-save-correctly/">
+        Memcache keys not getting saved correctly
+      </a>
+    </h1>
+
+    <span class="post-date">08 Apr 2011</span>
+
+    <p><em>Update : We were initially blaming Memcache not correctly setting/getting
+keys. We should instead have blamed him for being over-zealous in clearing its
+list. See bottom of post for details.</em></p>
+
+<p>Today we were having a bit of an issue with memcache. We had to write a
+thousand keys into it, reading them from a JSON file.</p>
+
+<p>This code had been running happily on our server for the past two weeks. But
+as the number of keys increased, we came to spot that some keys seemed to be
+randomly cleared.</p>
+
+<p>After further investigation (and a lot of hours), it appears that the keys
+were simply not set at all, or set to an empty/false value. This was really
+strange because it occured inside a loop on our JSON file, and never occurs
+for the same keys, nor everytime.</p>
+
+<p>We took our server under high stress, forcing it to reload data very often, to
+trigger the bug once more. After a lot of test, we gather some more data, but
+nothing really came out. The missed keys were really random.</p>
+
+<p>Finally, we decided to code a fast and dirty fix, until we found a better
+solution. Basically, we simply checks that the value is correctly saved after
+saving it, and if not, we retry. And we do so recursively.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function set($key, $val, $recursionLevel = 0) {</span>
+<span class="x">  Cache::write($key, $val);</span>
+<span class="x">  if (Cache::read($key)===false) {</span>
+<span class="x">    if ($recursionLevel&gt;10) die(&#39;Possible infinite recursion);</span>
+<span class="x">    $this-&gt;set($key, $val, $recursionLevel);</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Note, that this will not work if one of your values is defined as false,
+otherwise you&#39;ll end up in an infinite loop.</p>
+
+<h2>Update</h2>
+
+<p>Well, the problem kept sporadically popping. And we finally found the REAL
+culprit.</p>
+
+<p>Cake provides multiple <code>Cache</code>config, using different settings. One would use
+a special config to set different cache duration. Each setting would use a
+different key prefix.</p>
+
+<p>Unfortunatly, memcache has no way of finding keys starting with a special
+prefix. So when we do a <code>Cache::clear()</code>, it just wipes clear the whole
+memcache keys, no matter what config you specify.</p>
+
+<p>We were running two different websites using the same memcache server, and
+when doing a clear on one website, it cleared keys on the second one as well.</p>
+
+<p>We finally started one memcache server per site.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/memcached">#memcached</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/04/05/multiple-foreach-references-php/">
+        Multiple foreach() with references in php
+      </a>
+    </h1>
+
+    <span class="post-date">05 Apr 2011</span>
+
+    <p>It took me a couple of hours to debug : I had an array with values that
+shouldn&#39;t be here, values from another part of the application, and I couldn&#39;t
+figure out where that came from.</p>
+
+<p>Well, it turns it was part of a documented feature of PHP :</p>
+
+<blockquote>
+<p>Unless the array is referenced, foreach operates on a copy of the specified
+array and not the array itself. foreach has some side effects on the array
+pointer. Don&#39;t rely on the array pointer during or after the foreach without
+resetting it. Reference of a $value and the last array element remain even
+after the foreach loop. It is recommended to destroy it by unset().php.net</p>
+</blockquote>
+
+<p>My code was as simple as :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$newArray = array();</span>
+<span class="x">$newArray2 = array();</span>
+<span class="x">foreach($list as $key =&gt; &amp;$data) {</span>
+<span class="x">  $newArray[] = $data;</span>
+<span class="x">}</span>
+<span class="x">foreach($list2 as $key =&gt; &amp;$data) {</span>
+<span class="x">  $newArray2[] = $data;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>This resulted in the latest index of <code>$newArray</code> being set to one of <code>$list2</code>
+values (didn&#39;t know exactly which). This is really counter intuitive.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/foreach">#foreach</a>
+      
+        <a href="/tags/reference">#reference</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/04/04/firebug-1-7-moving-headers-raw-post-source/">
+        Firebug 1.7 moving headers to raw POST source
+      </a>
+    </h1>
+
+    <span class="post-date">04 Apr 2011</span>
+
+    <p><em>Edit : The issue discussed here has been fixed in <a href="http://getfirebug.com/releases/firebug/1.9/firebug-1.9.0a2.xpi">Firebug
+1.9a2</a></em></p>
+
+<p>It took me a whole day to track this bug down. At first I thought something
+was wrong in my request, I tried to replay it using Firebug and I kept hitting
+a &quot;malformed request&quot; error.</p>
+
+<p>Debugging it in reverse order, using Wireshark and other tools I finally came
+to the conclusion that my request was indeed valid.</p>
+
+<h2>So what ?</h2>
+
+<p>The guilty part was indeed Firebug. When I ran a simple <code>POST</code> request from
+Flash, and inspect it from Firebug, I could spot that no <code>Content-Length</code> nor
+<code>Content-Type</code> headers were displayed in the &quot;Headers&quot; part. I then saw that
+the &quot;source&quot; part of the <code>POST</code>tab contains my missing headers. What was that
+?</p>
+
+<p>HTTP POST Request are supposed to be split into two parts. First part are the
+headers, each separated by a <code>\r\n</code>. Then, after and empty line was the <code>POST
+</code>raw content. Seeing that my headers gets mixed up with the <code>POST</code>data I
+thought that the request was malformed and a <code>\r\n</code> was added too early.</p>
+
+<p>I checked with Wireshark and with PHP on the back end, and no, the request was
+indeed absolutly valid. Wireshark did not show any <code>\r\n</code> that shouldn&#39;t be
+there and PHP correctly parsed my request. The only issue was the details
+displayed by Firebug.</p>
+
+<h2>So it&#39;s a display bug ? I can live with it.</h2>
+
+<p>Well, actually, it&#39;s a little more than just a display bug. It kind of blocks
+my usual debugging workflow.</p>
+
+<p>To debug an XHR request, I don&#39;t usually restart the whole page request just
+to debug one of the inner request.</p>
+
+<p>The Firebug ability to &quot;open request in new tab&quot; is a time saver for me. I can
+play and replay the same request over and over until it&#39;s debuggued.</p>
+
+<p>But with this bug, I can&#39;t use this feature. Opening the request in new tab
+will not send the slipped headers, and will instead send them in the <code>POST
+</code>source, resulting in a corrupted posted data.</p>
+
+<p>I&#39;ve <a href="http://code.google.com/p/fbug/issues/detail?id=4327">posted an issue</a> on
+the Firebug bug tracker. I hope it will get resolved soon. Until then, I&#39;m
+using Live HTTP Headers to capture and replay the requests I need to debug.</p>
+
+<h2>Update</h2>
+
+<p>Seems like the bug come from Firefox internals and not Firebug. More details
+<a href="http://groups.google.com/group/mozilla.dev.platform/browse_thr%0Aead/thread/1faabb0d0a8d26f7?hl=en">on this post.</a></p>
+
+<p>Edit : Seems to be <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=649338">resolved in
+Firefox</a>, will be
+available in next release (8.0 I guess).</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/live-http-headers">#live-http-headers</a>
+      
+        <a href="/tags/flash">#flash</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/bug">#bug</a>
+      
+        <a href="/tags/firebug">#firebug</a>
+      
+        <a href="/tags/post">#post</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/03/31/installing-ubuntu-virtualbox-work-development-server/">
+        Installing Ubuntu in VirtualBox to work as a development server
+      </a>
+    </h1>
+
+    <span class="post-date">31 Mar 2011</span>
+
+    <p>I was tired of trying to install Lighttpd on Windows (hint : don&#39;t try, it&#39;s a
+mess. I found no way to get vhosts and php as cgi at the same time). So I
+finally decided that Linux was the way to go.</p>
+
+<p>I have always developped using Windows, and even if I&#39;m slowly migrating to
+Ubuntu at home, I&#39;m still using Windows 7 at work. The solution that best fits
+me was still using my Windows environment for coding, but using Ubuntu inside
+a VM to act as a server.</p>
+
+<p>Let&#39;s see how I did that :</p>
+
+<h2>Required components</h2>
+
+<p>First, let&#39;s clarify what I&#39;ll have to install for this project : Lighttpd as
+the webserver, mysql and memcached for storing data and php5 to run cakePHP.</p>
+
+<h2>Step One : Running Ubuntu inside a VM</h2>
+
+<p>Start by downloading the <a href="http://www.ubuntu.com/business/get-%0Aubuntu/download">Ubuntu iso</a> (i&#39;s 687Mo, you&#39;d better start this download first). I
+personnaly used the 10.04 Desktop version (I tried the 10.10 Server version
+first but I feel more confident with a UI).</p>
+
+<p>Then, download <a href="http://www.virtualbox.org/wiki/Downloads">the latest VirtualBox version
+</a>(4.0.4 at the time of this
+writing).</p>
+
+<p>And mount the iso in VirtualBox and start the install. This is pretty easy and
+you should be done in 10mn. Once the install is finished, you&#39;ll be prompted
+to reboot. Do not reboot just now. Instead, shutdown your guest machine (you
+can type <code>sudo halt</code> if the GUI does not work).</p>
+
+<p>Once back in Windows, go to your VM config and unmount the install iso,
+otherwise the install procedure will be started again everytime you load your
+VM.</p>
+
+<p>Once it&#39;s done, you can reboot the gues and once loaded, select the in
+VirtualBox Menu =&gt; Devices =&gt; Install guest additions. The next popup can take
+some long minutes to show, so be patient. This will install the guest
+additions that will allow you to easily communicate between the guest and host
+machines.</p>
+
+<p>Once installed, reboot once more, and you should have the guest addition image
+sitting on your desktop.</p>
+
+<p>Start a terminal and install the guest additions by doing :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /media/<span class="o">{</span>name of your VBOX image<span class="o">}</span>
+./autorun.sh
+</code></pre></div>
+<p>This will finish the guest addition installation. Reboot your guest machine
+one last time and you&#39;ll be ready for step 2.</p>
+
+<h2>Step 2 : Installing the server stuff</h2>
+
+<p>We will now install the various components we&#39;ll need. You could probably
+install them all with one command but I&#39;ll split them in different line so
+you&#39;ll correctly see what&#39;s installed.</p>
+
+<p>First, lighttpd :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install lighttpd
+</code></pre></div>
+<p>Now, memcached</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install memcached
+</code></pre></div>
+<p>And mysql server. This one will prompt you to enter the root password you&#39;ll
+want.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install mysql-server
+</code></pre></div>
+<p>Now we will install php5 as CGI (Lighty will run php as cgi), as well as the
+needed dependency so php can connect to both mysql and memcache.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install php5-cgi php5-memcache php5-mysql
+</code></pre></div>
+<p>Ok, you should now have everything correctly installed. We will configure all
+that stuff later. You should now completely close your Virtual Machine and get
+back to Windows. It&#39;s time to configure your host and guest so they can
+correctly communicate</p>
+
+<h2>Step 3 : Enabling communication between host and guest</h2>
+
+<p>What we will do in this section is configure your network so the guest machine
+is considered part of your network and so you can connect to id using SSH and
+classic http.</p>
+
+<p>First, go back to your VM config and change the Network mode to &quot;Bridged&quot;.
+This will allow both machine to see each other in your network easily.</p>
+
+<p>Then, define the Shared folder you want shared from your host in your guest. I
+shared my websites directories so Lighty could access them from the guest.</p>
+
+<p>Now, start your VM, and type <code>sudo ifconfig</code> in a terminal. You should see
+your guest machine ip. Mine was 192.168.1.16.</p>
+
+<p>Knowing that IP, you can define hosts in your Windows
+<code>C:\Windows\System32\drivers\etc\hosts</code></p>
+
+<p>You should also install openssh server so that you&#39;ll be able to connect to
+your guest machine using ssh :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo apt-get install openssh-server
+</code></pre></div>
+<p>We will now take care of the shared folder defined earlier. Selecting them in
+VirtualBox only made them available for mounting in the guest, but you&#39;ll now
+have to type some more commands to effectively see them. I needed to have
+access to a project I coded in my host (let&#39;s name it <code>myproject</code>).</p>
+
+<p>Here&#39;s how I made it available to Lighty :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo mkdir /var/www/myproject
+sudo mount -t vboxsf -o rw,uid<span class="o">=</span><span class="k">$(</span>id -u<span class="k">)</span>,gid<span class="o">=</span><span class="k">$(</span>id -g www-data<span class="k">)</span> myproject /var/www/myproject
+</code></pre></div>
+<p>This will create a directory in <code>/var/www</code> to hold the project, and will then
+mount the shared folder to that directory. The uid/gid stuff indicate that you
+(the current user) is the owner and <code>www-data</code> is the group. Doing so will fix
+access rights issues you may have with Lighty.</p>
+
+<p>You should have to re-run the last command on every login, so I strongly
+suggest you to put it in <code>/etc/rc.local</code> so it gets executed automatically.</p>
+
+<h2>Step 4 : Configuring all that stuff</h2>
+
+<p>I won&#39;t go into much details on how to configure lighty or php because it is
+not the scope of this post. I might post on that subject later, though. But
+here is one important step you shouldn&#39;t forget : uncomment the
+cgi.fix_pathinfo=1 line in your php.ini.</p>
+
+<p>Don&#39;t forget to reload Lighty after changes to its config files by running:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo /etc/init.d/lightppd restart
+</code></pre></div>
+<p>I also had one additional side-effect on my install : installing php5 also
+installed Apache, causing Lighty to fail on startup because Apache was already
+using the port 80. I fixed it by removing every reference to Apache by running
+:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo update-rc.d -f apache2 remove
+</code></pre></div>
+<h2>Final note :</h2>
+
+<p>If you followed this instruction, you should have a server running inside a VM
+that runs your website stored in your host. Isn&#39;t that pretty ?</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/virtualbox">#virtualbox</a>
+      
+        <a href="/tags/lighttpd">#lighttpd</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/ubuntu">#ubuntu</a>
+      
+        <a href="/tags/server">#server</a>
+      
+        <a href="/tags/php5">#php5</a>
+      
+        <a href="/tags/memcached">#memcached</a>
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/03/24/making-flash-javascript-speaks/">
+        Making Flash and Javascript speaks to each other
+      </a>
+    </h1>
+
+    <span class="post-date">24 Mar 2011</span>
+
+    <p>I needed a Flash app and my Javascript code to be able to communicate. The
+Flash needed to call some methods in the Javascript, and in turn the
+Javascript needed to inject back some data into the Flash.</p>
+
+<p>I let my Flash coder colleague took care of the Flash side, he needed to
+implement ExternalInterface, register some callbacks methods that I could call
+and more importantly change some security settings to make it work.</p>
+
+<p>On my side, I just needed to get the <code>object</code>element holding the Flash
+(thanks to <code>swfobject.getObjectById</code> it was pretty easy) and call the callback
+method registered in Flash on it.</p>
+
+<p>Piece of cake.</p>
+
+<p>Have a look at this <a href="http://circlecube.com/2010/12%0A/actionscript-as3-javascript-call-flash-to-and-from-javascript/">blog post from CircleCube</a>, it does a
+pretty neat job at explaining all of that.</p>
+
+<p>Update :</p>
+
+<p>I finally had some issues with this implementation. It was working perfectly
+on some servers but not on others. We finally found that calling
+Security.allowDomain(&#39;*.mainhost.com&#39;) wasn&#39;t working.</p>
+
+<p>You have to explicitly allow each domain/subdomain.</p>
+
+<p>As our code would be deployed on various duplicate domains, we had to manually
+pass as a flash var the domain to allow.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/flash">#flash</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/externalinterface">#externalinterface</a>
+      
+        <a href="/tags/swfobject">#swfobject</a>
+      
+        <a href="/tags/allowdomain">#allowdomain</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page18">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page16">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

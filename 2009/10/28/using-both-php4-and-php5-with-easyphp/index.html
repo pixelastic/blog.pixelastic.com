@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Using both php4 and php5 with Easyphp - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Using both php4 and php5 with Easyphp</h1>
+  <span class="post-date">28 Oct 2009</span>
+  <p>I&#39;m mostly developing on my Windows machine, using EasyPHP (combining Apache,
+Mysql and PHP). Each version of EasyPHP is bundled with a specific version of
+php.</p>
+
+<p>I&#39;m now almost exclusively developping with the sweetness of php5, but I still
+have from time to time to refactor a piece of code on an legacy app running on
+php4.</p>
+
+<p>I have finally found a way to make specific website to work on php4 instead of
+php5 using the same install of EasyPHP.</p>
+
+<p>The key is : running php4 as a cgi script.</p>
+
+<p>I&#39;ve finally found a way, by installing php4 as a cgi.</p>
+
+<ul>
+<li>Download the <a href="http://fr.php.net/releases/">Windows binary of the version</a> you want to emulate.</li>
+<li>Create a subdirectory named php4 in your EasyPHP/apache/cgi-bin/ directory</li>
+<li>Extract the php.exe, php4ts.dll, sapi/php4apache.dll, php.ini-recommended and the extensions directory in this new directory</li>
+<li>Rename php.ini-recommended to php.ini (this will be the php.ini used with php4)</li>
+<li>Edit your apache config file and add the line ScriptAlias /php4/ &quot;${path}/apache/cgi-bin/php4/&quot; after the allready defined ScriptAlias (~line 379)</li>
+<li>Create a new virtualhost for the website you would like to run in php4. Mine is as follow :</li>
+</ul>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nt">&lt;Virtualhost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+ <span class="nb">ServerName</span> foobar
+ <span class="nb">ServerAdmin</span> me@localhost
+ <span class="nb">DocumentRoot</span> <span class="s2">&quot;${path}/www/foobar.com&quot;</span>
+
+ <span class="nt">&lt;Directory</span> <span class="s">&quot;${path}/www/foobar.com&quot;</span><span class="nt">&gt;</span>
+ <span class="nb">Options</span> Indexes FollowSymLinks Includes ExecCGI
+ <span class="nb">AllowOverride</span> <span class="k">All</span>
+ <span class="nb">Order</span> allow,deny
+ <span class="nb">Allow</span> from <span class="k">all</span>
+ <span class="nt">&lt;/Directory&gt;</span>
+
+ <span class="nb">AddHandler</span> php4-script .php .html .htm
+ <span class="nb">Action</span>     php4-script <span class="sx">/php4/php.exe</span>
+
+ <span class="nt">&lt;/Virtualhost&gt;</span>
+</code></pre></div>
+<p>This means that all .php, .html and .htm file of this virtualhost will be
+parsed by the php.exe file in our /cgi-bin/php4 directory.</p>
+
+<p>Don&#39;t forget to edit this php.ini if you want to tweak things, and remember
+that extensions for this version are in the copied extensions/ directory.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/php5">#php5</a>
+    
+      <a href="/tags/php4">#php4</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/easyphp">#easyphp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

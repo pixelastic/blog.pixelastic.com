@@ -1,0 +1,208 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     A small note about video encoding and formats - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">A small note about video encoding and formats</h1>
+  <span class="post-date">09 Aug 2012</span>
+  <p>Following my previous note on audio files, I made some research on video
+files. I have a huge amount of video on my hard drive, so much that I actually
+needed to do a bit of cleaning.</p>
+
+<p>That&#39;s when I discovered that I had a plethora of different file formats
+(<code>avi</code>, <code>mp4</code>, <code>mkv</code>) and in various resolution, quality and filesize. Also,
+filesize was not always dependent on quality. I had some really heavy files
+that were not better looking that smaller one.</p>
+
+<p>So I started some research on the Wikipedia and Google to understand more
+about all those fileformats, and here are my results.</p>
+
+<h2>Containers</h2>
+
+<p>First of all, the <code>avi</code>, <code>mp4</code> or <code>mkv</code> file extension denote a container
+format. This container is just a box that contain video and audio stream. Not
+all boxes are created equal, though.</p>
+
+<p><code>avi</code> is a Microsoft container but gained (in)famous popularity in the first
+days of p2p filesharing. This is a very simple container, able to hold one
+video and one audio stream. Then, was created the <code>mp4</code> container. This one is
+an ISO box, so already much better than the Microsoft one. This actually is a
+good container, allowing the use of several audio and videos streams as well
+as subtitles.</p>
+
+<p>Then, came the <code>mkv</code> container. It is as good as <code>mp4</code>, and even allow more
+customization, but the important point is that it is patent free. The only
+downside to <code>mkv</code> is that it is not as widely supported as the other two
+format, but the specs being public and open, this is slowly changing.</p>
+
+<p>I also had some other extensions, like <code>wmv</code>, <code>mov</code> or <code>divx</code>. <code>divx</code> is only
+an <code>avi</code> in disguise, because of legal reasons. <code>wmv</code> is another Microsoft
+container, this one being an improved <code>avi</code> with DRM. <code>mov</code> is an Apple
+container, aimed to media creation. A <code>mov</code> is actually quite a powerful
+container, that could be used for much more than simply media playback but
+also media creation.</p>
+
+<p>If I had to choose, I&#39;ll pick mkv.</p>
+
+<h2>Video codecs</h2>
+
+<p>Now, what do we put in those boxes ? First, a video stream. We could put an
+uncompressed video stream in it, but this will result in huge filesize, so we
+actually never do that.</p>
+
+<p>Instead, we use codec (short for <em>coder/decoder</em>) to compress this stream in
+something with a more manageable size. The most famous is DivX. DivX started
+as an encoder hacked from Microsoft first avi files and was heavily used to
+encode movies before sharing them online. Because of legal dispute with
+Microsoft, the guys that created DivX had to recode it from scratch. In the
+meantime, an opensource fork of DivX, named Xvid was created and after a few
+version became even better than the original Divx.</p>
+
+<p>MPEG, MPEG2 and MPEG4 are succesive iteration of another codec that compress a
+video stream by looking at its pixels and checking if they changed from one
+frame to another, to avoid redrawing them. With each succesive versions it
+then started to track movement, color and lightning of these pixels. In the
+end, it gave birth to the h264 codec which is used on Blueray (while MPEG2 was
+used on DVD). h264 is the de facto standard of HD video of today. It requires
+more processing power than its MPEG counterparts but deliver a much better
+quality for an equal filesize. Recent hardware is today optimized to handle
+h264 natively.</p>
+
+<p>As for mkv and mp4, there also is the same difference between H264 and Theora.
+Theora got equivalent quality than H264, but is patentfree. On the other end,
+H264 is very widely supported while Theora is not (as can be seen in HTML5).</p>
+
+<p>Microsoft also created a closed source wmv codec to go with its wmv container.
+It is supposed to be based on MPEG4, but there is little known to it, so it of
+absolutly no use to me.</p>
+
+<p>So, as you can see, there is almost no relation between a codec and its
+container. You can have a divx encoded file in an mkv, or a Theora in an avi.
+But, in the real world, some codec are most often found with some container,
+like divx in avi or h264 in mp4.</p>
+
+<p>Here, I&#39;ll pick h264 because of the hardware support.</p>
+
+<h2>Audio codec</h2>
+
+<p>As for the video stream, the audio stream is also compressed using an audio
+codec. The most common audio codec is the mp3. This is a lossy codec, meaning
+it discards information to get the filesize lower. It is based on a method
+that will discard sounds that the human hear will not be able to hear anyway.</p>
+
+<p>mp3 has its drawbacks, like being bloated from succesive mpeg versions and
+still being patented.</p>
+
+<p>A new codec, the AAC succeed to mp3. It will also discard sounds the human
+hear cannot get, but will also encode redundancy in a better way. Even if mp3
+was the de facto standard for a long time, AAC is gaining a huge popularity
+because it is backed up by all the big companies.</p>
+
+<p>Then, the story gĹs on and on. There is an open source, patent free
+equivalent to AAC, being ogg. Once again, its as good as its opponent (even
+better on low bitrates), but there isn&#39;t as many devices able to read ogg as
+they&#39;re are able to read AAC. But once, again, things are slowly changing.</p>
+
+<p>Here, I&#39;ll choose ogg over the alternatives.</p>
+
+<h2>Conclusion</h2>
+
+<p>I have a bunch of files, in different containers, encoded with different
+encoders and I&#39;m going to try to clean a bit all this. First, I&#39;ll get rid of
+all the &quot;bad&quot; containers (<code>mov</code> and <code>wmv</code>) and use <code>mkv</code> instead.</p>
+
+<p>For files that are too big, I&#39;ll try to convert them to a better format. h264
+video with an ogg audio stream in an mkv container.</p>
+
+<p>Well, there also is the matter of the video resolution, data rate, fps and
+audio frequency but this might be the subject of another post.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/video">#video</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

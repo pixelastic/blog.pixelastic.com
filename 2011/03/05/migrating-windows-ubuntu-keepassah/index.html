@@ -1,0 +1,161 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Migrating from Windows to Ubuntu : KeePass - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Migrating from Windows to Ubuntu : KeePass</h1>
+  <span class="post-date">05 Mar 2011</span>
+  <p>I&#39;m slowly trying to move my development machine from a desktop Windows Xp to
+a laptop running Ubuntu. This is quite a long task because there are so much
+softwares I depend on on my day to day work. Most of them are crossplatform
+but I often need o find a Ubuntu equivalent, and sometimes it does not exists
+and I have to run the Windows app using an emulator.</p>
+
+<p>This is exactly the case with <a href="http://keepass.info/">KeePass</a>. KeePass 2.0 is
+an improved version of KeePass 1.0 (obviously), that allows one to save all
+password in one place. The 2.0 version also permit to save more than single
+password, virtually anything, and adding little icons to each entry (when you
+start having 200+ entries, icons are a must have).</p>
+
+<h2>Enter Ubuntu world</h2>
+
+<p>The official 2.0 version is not supported under linux. There is a linux port,
+named <a href="http://www.keepassx.org/">KeePassX</a>, but it does not support the
+<code>.kdbx</code> file format used by the official 2.0 version.</p>
+
+<p>So I tried to run the Windows <code>.exe</code> file with Wine at first (I already had
+Wine installed to run another app), but it wasn&#39;t working with KeePass. I
+tried instead an other emulator, Mono, and running <code>mono KeePass.exe</code> totally
+worked.</p>
+
+<h2>Little tweaks ahead</h2>
+
+<p>First of all, I had to install two additionnal packages to make it open
+without errors : <code>System.Windows.Forms</code> and <code>System.Runtime</code>. So far, so good.</p>
+
+<p>But, I quickly discovered that one of the most usefull features of KeePass,
+auto-type (Ctrl+V automatically fills a login/password field) wasn&#39;t working
+correctly. There was one more missing dependency : <code>xdotool</code>.</p>
+
+<p>If you are running Ubuntu like me, do not install it from the official
+packages, this version is completly outdated and won&#39;t work. Instead, you have
+to manually install the latest version. If you are lucky and running a 64bits
+system, you can download directly <a href="http://code.google%0A.com/p/semicomplete/downloads/list?can=2&amp;q=label%3A.deb+label%3Axdotool+label%%0A3Afeatured&amp;colspec=Filename+Summary+Uploaded+ReleaseDate+Size+DownloadCount">the .deb file from here</a>.</p>
+
+<p>If you are running under a 32bits system like me, you&#39;ll have to manually
+install it. First grab <a href="ttp://code.google.com/p/semicomplete/downloads/list?q=label:xdotool">the files from this
+link</a>.
+Then, install the <code>libxtst-dev</code> package (it is needed for the install to
+complete), export the content of the <code>.tar.gz</code> file into a temporary directory
+and execute <code>sudo make install</code>.</p>
+
+<h2>Finally !</h2>
+
+<p>Now, you got KeePass 2.0 working under Ubuntu, and installed all dependencies
+needed to run the auto-type feature.</p>
+
+<p>In a Windows environment, one can change KeePass preferences so that closing
+it only send it to the tray bar.This option does not seem to be working under
+Linux, KeePass still shows in the task bar even when minimized. I spent some
+time trying to fix that too, tetsing AllTray and other tray softs for linux
+but didn&#39;t managed to get what I wanted.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/ubuntu">#ubuntu</a>
+    
+      <a href="/tags/mono">#mono</a>
+    
+      <a href="/tags/windows">#windows</a>
+    
+      <a href="/tags/xdotool">#xdotool</a>
+    
+      <a href="/tags/wine">#wine</a>
+    
+      <a href="/tags/keepass">#keepass</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

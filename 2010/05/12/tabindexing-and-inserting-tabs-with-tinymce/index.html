@@ -1,0 +1,199 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Tabindexing and inserting tabs with tinyMCE - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Tabindexing and inserting tabs with tinyMCE</h1>
+  <span class="post-date">12 May 2010</span>
+  <p>You may have noticed that you can&#39;t press tab to jump from field to field in a
+form that uses tinyMCE. There is a plugin named <code>tabfocus</code>in the core that is
+here to allow just that.</p>
+
+<p>But it does not seem to work correctly if you already have tabindex values
+defined on your inputs. So I decided to code my own.</p>
+
+<p>I choose the easiest way, letting the browser do most of the job. I only
+copied the textarea <code>tabindex</code>value to the create iframe and it did the
+trick.</p>
+
+<p>I created a tinyMCE for that, here the code of the init() method. By the way,
+I&#39;m using the jQuery version of tinyMCE.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// We set a tabindex value to the iframe instead of the initial textarea</span>
+  <span class="nx">editor</span><span class="p">.</span><span class="nx">onInit</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">editorId</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">editorId</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">textarea</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">editorId</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">editorId</span><span class="o">+</span><span class="s1">&#39;_ifr&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span> <span class="nx">textarea</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">));</span>
+    <span class="nx">textarea</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>What it does is grabbing the initial <code>tabindex</code>value of your textarea and
+setting it to the tinyMCE iframe. You have to wrap this in <code>onInit.add</code>
+because at the time the plugin <code>init</code>method is called, the iframe is not yet
+created. I also removed the <code>tabindex</code>value from the original textarea, two
+elements aren&#39;t supposed to have the same <code>tabindex</code>value.</p>
+
+<p>This method does not work in Chrome. Chrome always add a tab character when
+you press the tab key in a tinyMCE editor, it does not jump to the next
+tabindexed element. Is that a good behavior ? I don&#39;t know, it surely is
+useful to be able to insert tab characters, but it also is useful to tab
+through the whole form.</p>
+
+<h2>Listening to the tab key</h2>
+
+<p>Anyway, I decided to hook on the <code>keyDown</code>event and listen to the tab key
+being pressed. This way I could manually jump focus to the next field when tab
+is pressed, or insert a tab character when Shift+Tab is pressed (for example).</p>
+
+<p>I used the tinyMCE event helper methods and wrote this (just add it right
+after the previous <code>editor.onInit.add</code> code) :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// We hook on the tab key. One press will jump to the next focusable field. Maj+tab will insert a tab</span>
+<span class="nx">editor</span><span class="p">.</span><span class="nx">onKeyDown</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// We only listen for the tab key</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">!=</span><span class="mi">9</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+<span class="err">   </span> <span class="err">   </span>
+  <span class="c1">// Shift + tab will insert a tab</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">editor</span><span class="p">.</span><span class="nx">execCommand</span><span class="p">(</span><span class="s1">&#39;mceInsertContent&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s2">&quot;\t&quot;</span><span class="p">);</span>
+    <span class="nx">tinymce</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// Just pressing tab will jump to the next element</span>
+  <span class="kd">var</span> <span class="nx">tabindex</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">editor</span><span class="p">.</span><span class="nx">editorId</span><span class="o">+</span><span class="s1">&#39;_ifr&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">);</span>
+  <span class="c1">// We get all the tabindexed elements of the page</span>
+  <span class="kd">var</span> <span class="nx">inputs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;:input[tabindex]&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">inputs</span><span class="p">[</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;tabindex&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">});</span>
+  <span class="c1">// We find the next after our element and focus it</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">position</span> <span class="k">in</span> <span class="nx">inputs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">position</span><span class="o">&lt;=</span><span class="nx">tabindex</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+    <span class="nx">inputs</span><span class="p">[</span><span class="nx">position</span><span class="p">].</span><span class="nx">focus</span><span class="p">();</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">tinymce</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>First, we discard any key press that is not a tab key.</p>
+
+<p>Then we check if the Shift key is pressed, and if so we add a tab character
+and stop there.</p>
+
+<p>The biggest part is jumping to the next field. I can&#39;t revert to the browser
+default for that because every browser default behavior is different and I
+surely don&#39;t want to do some browser sniffing.</p>
+
+<p>I first get the list of all the input fields that have a <code>tabindex</code>value
+(your fields should have one), then I sort them in <code>tabindex</code>order and then
+loop through the list and stop when I&#39;ve found one with a bigger <code>tabindex
+</code>that the actual field. I focus this one and stop the loop.</p>
+
+<h2>One final word</h2>
+
+<p>I&#39;ve tested under Firefox 3.6, Chrome, Safari and Opera. Haven&#39;t tested IE yet
+because I still have a lot of other scripts to debug in IE first.</p>
+
+<p>As said earlier, maybe you could skip the whole tabindex listing if you
+intelligently revert to browser default for the browser that will jump to the
+next field but I have no idea how to test for that.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/tinymce">#tinymce</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/tab">#tab</a>
+    
+      <a href="/tags/tabfocus">#tabfocus</a>
+    
+      <a href="/tags/tabindex">#tabindex</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

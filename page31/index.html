@@ -1,0 +1,497 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/06/10/mysql-error-1577-on-dreamhost/">
+        MySQL Error 1577 on Dreamhost
+      </a>
+    </h1>
+
+    <span class="post-date">10 Jun 2010</span>
+
+    <p>Recently, when connecting to my MySQL databases on Dreamhost through Navicat,
+I was greeted with a &quot;<code>1577 - Cannot proceed because system tables used by
+Event Scheduler were found damaged at server start</code>&quot; error message.</p>
+
+<p>It didn&#39;t stop me from accessing the tables actually, so I didn&#39;t bother. But
+today it prevent me from copying tables from one server to another, so I
+decided to have a deeper look into it.</p>
+
+<p>It seems that it has to do with a mysql upgrade issue. I contacted Dreamhost
+about that and they told me that they just upgraded their servers to 5.1, and
+that they needed to be restarted. Which they do for me.</p>
+
+<p>So if you ever run into the same problem, just contact Dreamhost support and
+they&#39;ll fix it for you.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/navicat">#navicat</a>
+      
+        <a href="/tags/dreamhost">#dreamhost</a>
+      
+        <a href="/tags/mysql">#mysql</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/06/10/first-impressions-on-my-android-powered-htc-legend/">
+        First impressions on my Android powered HTC Legend
+      </a>
+    </h1>
+
+    <span class="post-date">10 Jun 2010</span>
+
+    <p>I recently bought an HTC Legend. My old phone was broken and I have plans to
+develop an Android app. I&#39;ve been using the phone for 3 weeks now, and I&#39;m not
+exactly as thrilled about it as I think I would.</p>
+
+<h2>Open source from Big Brother</h2>
+
+<p>I was hoping to have a little piece of open source software in my pocket. In
+fact, it turns out that Google has a little more piece of me when I&#39;m using
+the phone.</p>
+
+<p>The software is not that open. Maybe it&#39;s because of my phone carrier, SFR,
+but there are a lot of pre-installed and useless apps that I can&#39;t get rid of.</p>
+
+<p>Some settings can&#39;t even be changed because I&#39;m only a user of my own phone
+and don&#39;t have a root access by default. The &quot;Accessibility&quot; setting panel is
+a joke (I&#39;ll post a picture of it later)</p>
+
+<p>When I first switched the phone on, I was asked for my Google credentials.
+Once entered, all my Google life was downloaded to the phone : mail address
+book, google maps location and google calendar meetings. Asking first if I
+wanted that would have been great.</p>
+
+<p>Because loading 500+ mails address book into a phone memory is not the kind of
+&quot;smart&quot; I was expecting from a smart phone. I had to manually remove all the
+contacts I needed not from my phone.</p>
+
+<p>And then the phone was complaining again, when it tried to synchronize back
+with Gmail, when it tried to remove the mails from my online address book.</p>
+
+<p>I didn&#39;t want them downloaded in the first place and once I removed them I
+didn&#39;t want them to be deleted from my online address book !</p>
+
+<h2>Disabling sync</h2>
+
+<p>So I tried to remove the google account from my phone, but that is clearly
+impossible and is NEEDED to make the phone work. What ? This is stupid.</p>
+
+<p>I&#39;m not confortable with having a device from which I can&#39;t even remove my
+credentials... At least I disabled the auto-sync feeature.</p>
+
+<p>An other thing to note is that if you want to fine-tune what kind of data your
+phone syncs, you first have to enable the auto-sync feature and quickly
+disable the data you don&#39;t want, because they all are checked by default.</p>
+
+<h2>Other settings</h2>
+
+<p>Even changing the default ringtone is a chore. There&#39;s no way to easily select
+a music file saved on the SD card. There isn&#39;t even a native file explorer,
+you have to download one from the Market.</p>
+
+<p>The camera quality isn&#39;t very good and the auto-focus makes pictures more
+blurry with it than without. Even my old Nokia XpressMusic was taking better
+shots.</p>
+
+<h2>Conclusion</h2>
+
+<p>I really am disapointed by this phone actually, and by the Android platform as
+a whole. Maybe the underlying app is great but as an end-user we are blocked
+from it.</p>
+
+<p>I&#39;ll try to root my device and remove the SFR rom to get what I want and need.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/android">#android</a>
+      
+        <a href="/tags/google">#google</a>
+      
+        <a href="/tags/htc-legend">#htc-legend</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/06/06/arsys-a-registrar-to-avoid/">
+        Arsys, a registrar to avoid
+      </a>
+    </h1>
+
+    <span class="post-date">06 Jun 2010</span>
+
+    <p>When I use great registrars or hosting services, I say so, and loudly. From
+all those that I have tested, there is no better registrar than Gandi and no
+better hosting service than Dreamhost.</p>
+
+<p>But when I encounter really lousy services, I won&#39;t hide to say so too.</p>
+
+<p>Arsys is one of them. It&#39;s a franco-german-spanish registrar. I just needed to
+change the DNS server of a domain on it, and even that was impossible.</p>
+
+<p>When I tried to put Dreamhost NS servers in the form and submit it, I was
+greeted with a bold red error message telling me that an error occured and
+asking me to try again later.</p>
+
+<p>I did try again later, just to receive the exact same error message.</p>
+
+<p>I wouldn&#39;t have to leave Arsys default NS servers if at least they allowed me
+to configure A, CNAME and MX records as I wanted but unfortunatly, none of
+this is available.</p>
+
+<p>I tried to contact their support service, to tell them my problem, but here
+again I was faced with an error message on a blank page (in spanish this time)
+telling me that the server encountered a problem and that I needed to contact
+an administrator (sic)</p>
+
+<p>So I tried to find a contact page on their public site, and after some 404
+errors finally found an email address.</p>
+
+<p>I send them a email telling them about my problems. They answer stating that
+if I have any problem, I should use their contact form to contact
+hostmaster@arsys.fr. I tried, and this time it worked.</p>
+
+<p>It&#39;s been 4 days, and I haven&#39;t heard from them yet. In the meantime, I choose
+to quit this registrar and moved the domain to Gandi.</p>
+
+<p>What is the most strange is that when you google them you got lot of praises
+about their wonderful customer service... After having tested it, I just don&#39;t
+buy it.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/registrar">#registrar</a>
+      
+        <a href="/tags/migration">#migration</a>
+      
+        <a href="/tags/arsys">#arsys</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/06/04/migrating-mails-from-imap-to-imap-part-2-2/">
+        Migrating mails from IMAP to IMAP (part 2/2)
+      </a>
+    </h1>
+
+    <span class="post-date">04 Jun 2010</span>
+
+    <p>I&#39;ll finally have to migrate mails from one IMAP server to another because of
+a change in the hosting provider of one of my clients.</p>
+
+<p>Let me first do a quick review of my current config :</p>
+
+<p>I have an IMAP server on a not-so-reliable host. I need to move all the
+mailboxes to a brand new Dreamhost server.</p>
+
+<p>The current host use horde/imp as its webmail, but Dreamhost is running under
+Squirel Mail.</p>
+
+<h2>How to do that ?</h2>
+
+<p>When I first contacted Dreamhost to ask them the better way to copy the
+content of my old IMAP server to their new one, they told me that IMAP to IMAP
+transfer was unfortunatly not possible.</p>
+
+<p>After some digging I found a little linux tool called <code>imapsync</code>that was
+developped to synchronize two IMAP servers. As I only wanted to copy content
+from one server to an empty one, I guess it should work.</p>
+
+<p>And it does.</p>
+
+<h2>Installing the tool</h2>
+
+<p>First of all, you really need to have a Linux machine. I&#39;m sorry for all
+Windows and Mac users out there, but this solution will only work with Linux.</p>
+
+<p>Obviously, you&#39;ll first have to download and install it.</p>
+
+<p>I&#39;m a newbie linux user, and don&#39;t use it at its full potential. It means that
+I rely a lot on the UI, I don&#39;t know most of the more basics commands.</p>
+
+<p>So, I don&#39;t know the correct procedure to install something, I always use the
+Synaptic Packager Manager UI. I just have to type <code>imapsync</code>, check its
+checkbox and start the install.</p>
+
+<p>I guess you, more experienced linux user, would know how to do that anyway.</p>
+
+<h2>Running the command</h2>
+
+<p>Once it&#39;s installed, you&#39;ll just have to run one command. But before typing
+it, you have make sure that you have all the required informations.</p>
+
+<p>You&#39;ll need the server name, login and pass of both the source and destination
+account.</p>
+
+<p>In my case I had previously reset all the password to newly generated one on
+the source server, then created the same email (with same password) on the
+destination server.</p>
+
+<p>For the source server name, you shouldn&#39;t have any problem finding it. It
+usually is something like <code>mail.domain.co</code>m.</p>
+
+<p>But for the destination server, that&#39;s a little more tricky. As I haven&#39;t yet
+changed DNS, I have a Dreamhost server but no domain name pointing to it. So I
+can&#39;t use <code>mail.domain.com</code> there.</p>
+
+<p>I had to go my Dreamhost DNS panel (clicking on DNS under the name of my
+domain in Manage domain) and check for the IP address associated with the
+<code>mail A</code> entry.</p>
+
+<p>Once you have all this, create a file (name it <code>pass</code>) which contain the
+password of your account (or <code>pass1</code>and <code>pass2</code>if source and destination
+password aren&#39;t the same). This is done so you won&#39;t type in clear text the
+password of your accounts, or they could be found in the history files.</p>
+
+<p>Once it&#39;s done, just run the following command</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">imapsync --host1 mail.domain.com --user1 contact@domain.com --passfile1 /path/to/pass1 --host2 208.97.XXX.XXX --user2 contact@domain.com --passfile2 /path/to/pass2 --noauthmd5
+</code></pre></div>
+<p>It is not an instant process, actually in can be quite long. One of the
+mailbox I had to move had more than 20.000 mails in the sent folder and about
+40.000 in the received one. It took me almost 18h to complete.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/linux">#linux</a>
+      
+        <a href="/tags/imapsync">#imapsync</a>
+      
+        <a href="/tags/imap">#imap</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/06/03/overview-of-the-different-ways-of-protecting-your-email-address/">
+        Overview of the different ways of protecting your email address
+      </a>
+    </h1>
+
+    <span class="post-date">03 Jun 2010</span>
+
+    <p>You surely know that displaying an email address as plain text in a website
+today is a sure way to get your mailbox full of viagra, rolex and poker ads in
+no time.</p>
+
+<p>Spammer have bots running all day long, crawling through hundred of thousands
+of pages, grabbing everything that looks like something@somewhere.com.</p>
+
+<h2>Existing way of protecting your email address</h2>
+
+<p>The safest way is to not display it in the first place. Nothing beats that.
+But if you really need to be contacted through email, here are some of the
+possible alternative.</p>
+
+<h2>Using a contact form instead.</h2>
+
+<p>That&#39;s what I&#39;m doing on this site.</p>
+
+<p>This way I don&#39;t have to display my address, I let my server script send the
+email for me.</p>
+
+<p>Unfortunatly, it means that you have to protect your contact form against spam
+now. How to do that is not the scope of this post, however.</p>
+
+<h2>Using an image</h2>
+
+<p>Instead of writing your email as plain text, you can use an image inside which
+your email is written. Spam bots can&#39;t read images (well, they <strong>could</strong> but
+they won&#39;t bother when there is still so many clear email they can grab
+without worrying about images).</p>
+
+<p>Unfortunatly it has two drawbacks. First, you force your reader to type your
+email as they can&#39;t copy/paste it. This lead to possible typos, and more
+importantly will frustrate your user.</p>
+
+<p>Secondly, people browsing without images (yes, that does exists, either
+because they have a slow connection, browsing through an old mobile phone or
+using a text reader) won&#39;t be able to contact you.</p>
+
+<h2>Spelling it aloud</h2>
+
+<p>One of the better way is still to appeal to the human brain and telling your
+user what your email is, like &quot;my name, at, my domain dot com&quot; or
+&quot;tim@nowhere.com where you have to change nowhere to pixelastic&quot;.</p>
+
+<p>I&#39;ve even seen someone using the very long form of : &quot;tee ee em at pee hi ex
+ee el ah ess tee hi see dot see oh em&quot;. Sure, spammer won&#39;t get that, but the
+truth is, not many user won&#39;t either.</p>
+
+<p>The drawback of this method is the same as the previous one, you force your
+user to type your address.</p>
+
+<h2>Ain&#39;t there an easiest way ?</h2>
+
+<p>Would&#39;nt it be better if we hadn&#39;t to worry about that. If there was a way
+that all our reader would read the email, click on it and send us a mail ?
+While being protected from spam bots ?</p>
+
+<p>Well, there have been attempt to do that, using various server side and client
+side techniques. Unfortunatly, all of them failed for at least one type of
+users.</p>
+
+<h2>Encrypting email using unicode</h2>
+
+<p>One can encrypt any string in Unicode using server script language. It will
+turn every character into an entity like &#46;. Your browser will stil
+understand it correctly, and display it as the corresponding value.</p>
+
+<p>We could assume that bots won&#39;t understand it, but I have no data to back that
+up. It would be trivial for an harvest bot to parse email using unicode, so I
+won&#39;t recommend it.</p>
+
+<h2>Using CSS to display the mail</h2>
+
+<p>Modern browser, with great CSS support can help in this process with the use
+of generated content and the :after pseudo class.</p>
+
+<p>Let&#39;s look at the following code :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;email&quot;</span> <span class="na">rel=</span><span class="s">&quot;@pixelastic.com&quot;</span><span class="nt">&gt;</span>tim<span class="nt">&lt;/span&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">span</span><span class="nc">.email</span><span class="o">[</span><span class="nt">rel</span><span class="o">]</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="n">attr</span><span class="p">(</span><span class="n">rel</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>You just put your username in the <code>span</code>, and the domain name in the <code>rel
+</code>attribute and let CSS display it as one single email address.</p>
+
+<p>But you need a browser with a correct CSS support to do that, otherwise you
+will only see the user part, which is not really useful.</p>
+
+<h2>Using an HTTP redirect</h2>
+
+<p>This one is a clever one that I haven&#39;t seen used a lot. Instead of making a
+link to a mailto:, you make the link go to a mail.php page that will only
+contain one php statement :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">header(&#39;Location: mailto:user@domain.com&#39;);</span>
+</code></pre></div>
+<p>I&#39;m not sure of the browser support of this, however. And it still won&#39;t solve
+the problem of displaying your email address.</p>
+
+<h2>Adding HTML noise</h2>
+
+<p>You can add HTML comments (<code>&lt;!-- --&gt;</code>), or useless elements (<code>&lt;span /&gt;</code>) all
+around your email adress. They won&#39;t get processed by your browser that will
+still display it as normal, but it will most likely make the spam bot choke.</p>
+
+<p>Unfortunatly, you can&#39;t use them in the <code>href=&quot;mailto:&quot;</code> section of your link,
+so it is not a perfect fit either. But still, that&#39;s a good start.</p>
+
+<h2>Using Javascript to populate the email</h2>
+
+<p>The principle behind this one is that Javascript will write the email adress
+for you in the code. As most spam bots won&#39;t have Javascript enabled (again, I
+don&#39;t have source to back that up but I assume so), they won&#39;t be able to see
+it.</p>
+
+<p>Just write your email address in a Javascript file, maybe in several different
+variables that you&#39;ll merge to create the final one. The more obfuscated your
+code is, the harder it will be for the spammer to add its logic to its bot.</p>
+
+<h2>Conclusion</h2>
+
+<p>There isn&#39;t one perfect solution yet. But maybe, merging several of them we
+could bypass the weaknesses to create something that really handle all the
+situations.</p>
+
+<p>I have some ideas in the back of my head actually, I&#39;ll try to make something
+with them and post it here.</p>
+
+<p>I&#39;m pretty sure starting with an obfuscated HTML source (but still correctlt
+displaying), then adding an obfuscated Javascript layer to create the
+<code>mailto:</code> link is the way to go.</p>
+
+<p>This would mean a better user experience for users with Javascript, but that&#39;s
+ok, that&#39;s what Javascript is for.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/mail">#mail</a>
+      
+        <a href="/tags/spam">#spam</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page32">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page30">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

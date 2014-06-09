@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Gzipping your font files - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Gzipping your font files</h1>
+  <span class="post-date">11 May 2010</span>
+  <p>When using <code>@font-face</code> to display fonts, you have to create a whole bunch of
+font files on your server to accomodate the quirks of the various browsers.</p>
+
+<p>If you do things right (or follow the automatic kit build of FontSquirell),
+you should get a <code>.eot</code> file for IE, a <code>.ttf</code>/<code>.otf</code> file for current
+browsers, a <code>.svg</code> file for Chrome and the iPhone/iPad and a <code>.woff</code> file for
+the next browser generation.</p>
+
+<p>Unfortunatly, you&#39;ll have to cope with that because there isn&#39;t much we can do
+about it at the moment.</p>
+
+<p>But you can compress those files to make the font rendering faster. Some
+browsers even download all the fonts even if they will only use one, so
+compress them !</p>
+
+<p>The easiest way is to configure your server to automatically gzip them. You
+should already have done that for your css and js file so it is just a matter
+of adding new types.</p>
+
+<p>As far as I know <code>.otf</code> and <code>.ttf</code> files don&#39;t have registered mimetype, so I
+had to create a dummy one for them in my .htaccess :</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nb">AddType</span> x-font/otf    .otf
+<span class="nb">AddType</span> x-font/ttf    .ttf
+<span class="nb">AddType</span> x-font/eot    .eot
+</code></pre></div>
+<p>I also added the <code>.eot</code> because even if an <code>application/vnd.ms-fontobject</code>
+mimetype is registered for this obscure microsoft format, when I tried to add
+a deflate rule on it, my Apache crashed so I took the safest way of defining a
+custom mimetype.</p>
+
+<p>I prefixed them with an <code>x-</code>to make sure that it won&#39;t mess with existing
+mimetypes.</p>
+
+<p>The second part was to add gziping to those</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nb">AddOutputFilterByType</span> DEFLATE x-font/otf x-font/ttf x-font/eot
+</code></pre></div>
+<p>SVG files are in fact xml files, and you should already have them gzipped, so
+no need to add them here.</p>
+
+<p>I haven&#39;t included <code>.woff</code> files because <code>.woff</code> files are already compressed
+files, so you don&#39;t need to gzip them.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/woff">#woff</a>
+    
+      <a href="/tags/ttf">#ttf</a>
+    
+      <a href="/tags/otf">#otf</a>
+    
+      <a href="/tags/mod_deflate">#mod_deflate</a>
+    
+      <a href="/tags/gzip">#gzip</a>
+    
+      <a href="/tags/font">#font</a>
+    
+      <a href="/tags/eot">#eot</a>
+    
+      <a href="/tags/apache">#apache</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

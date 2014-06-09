@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     How to fix the Firefox autocomplete 'feature' - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">How to fix the Firefox autocomplete &#39;feature&#39;</h1>
+  <span class="post-date">12 Aug 2010</span>
+  <p>Firefox can be quite a pain sometimes. I usually praise this browser features
+but today I had to deal with one tricky &#39;intelligent&#39; feature.</p>
+
+<p>You know that autocomplete/autofill feature, so that when you enter your user
+name, Firefox automatically fill the corresponding password field so you won&#39;t
+have to do it ?</p>
+
+<p>Well, it is bad, and here&#39;s why.</p>
+
+<h2>How does it work ?</h2>
+
+<p>I haven&#39;t read the source code, but from what I&#39;ve experienced it seems to
+work like that :</p>
+
+<p>For each password field, FF will find the related username text field. This is
+just a very basic search, it assume that the closest previous text field is
+the related one. Now, everytime you enter a value in the text field that match
+one of the username saved, it will autofill the password field.</p>
+
+<p>Note that if you have more than 5 password fields on a page, the feature will
+be disabled.</p>
+
+<h2>What is terribly wrong with this approach</h2>
+
+<p>Let&#39;s imagine you are a registered user of a website. You want to update your
+preferences. You have a nice page with lots of input fields where you can
+change your email, password and date of birth.</p>
+
+<p>For security reasons, your password is not displayed. For convenient reasons,
+the website also don&#39;t ask you to type your password everytime your want to
+update your settings. It assumes that if you let the password field blank, it
+means that you don&#39;t want to change it. And if you really want to change it,
+then it asks for a confirmation, to make sure your correctly typed it.</p>
+
+<p>So, with this autocomplete feature, if your email is also your login for the
+website (as it is often the case), Firefox will autofill the password field
+with your password. Meaning that if you submit your form, you&#39;ll be met with
+an error because your password and it&#39;s confirmation does not match.</p>
+
+<p>You&#39;ll then have to manually clear the content of the password field everytime
+your want to edit your profile. Which is counter-intuitive. The whole
+convenient method of not changing the password if left empty is rendered
+useless.</p>
+
+<p>The worst part is that most users won&#39;t understand when the error comes and
+will blame the webdeveloper.</p>
+
+<h2>Solutions that does not work</h2>
+
+<p>First, Firefox is just doing a very wild guess on that fields. And, there is
+no way to disable this feature from the page markup. Sure, as a user you can
+disable it in your browser setting, but as a web developper, you can&#39;t disable
+it.</p>
+
+<p>There is a non-standard <code>autocomplete=&quot;off&quot;</code> argument, but it does not work in
+our case. It is supposed to prevent the browser to store previously entered
+values on sensible fields (like credit card numbers).</p>
+
+<p>I&#39;ve tried putting this <code>autocomplete</code>attribute on every input field, even on
+the form itself. Setting the <code>value</code>attribute does not work either. Even
+updating the value through Javascript would not work because the password
+field will get re-populated on every blur event on the text field.</p>
+
+<h2>A solution that does work</h2>
+
+<p>The final solution I&#39;ve found is to add a dummy password field between your
+real mail and password fields. That way, Firefox will autocomplete this dummy
+password instead of the real one.</p>
+
+<p>Unfortunatly this adds clutter to your markup, but with a little
+<code>display:none</code> in CSS it won&#39;t ever be seen by your users.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/password">#password</a>
+    
+      <a href="/tags/firefox">#firefox</a>
+    
+      <a href="/tags/feature">#feature</a>
+    
+      <a href="/tags/autocomplete">#autocomplete</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

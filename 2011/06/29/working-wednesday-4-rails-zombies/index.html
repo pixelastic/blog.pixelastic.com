@@ -1,0 +1,176 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Working on Wednesday #4 : Rails for Zombies - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Working on Wednesday #4 : Rails for Zombies</h1>
+  <span class="post-date">29 Jun 2011</span>
+  <p>(I finally managed to update Ubuntu to the 10.10 version, configure Unity to
+make it more usable, and I&#39;m not ready to start the RoR tutorial I wanted to
+start last week.)</p>
+
+<p>I used <code>vim</code> this week (instead of <code>nano</code>) for very simple file editing. I
+will force myself to use only <code>vim</code> on wednesday to really learn it. I plan to
+completly drop Komodo Edit once I&#39;ll be familar enough with vim to gain more
+time than I lose.</p>
+
+<h2>Rails for Zombies</h2>
+
+<p>Anyway. I finally get to start the Rails for Zombies tutorial. And here is
+what I learned.</p>
+
+<p>There are two distinct things I&#39;m going to learn here : Ruby and Rails. I
+discovered that I was already familiar with a lot of basic concepts of Rails,
+thanks to cakePHP. Model and table convention, model relationships (belongs
+to, has many, etc) were exactly the same.</p>
+
+<p>Ruby on the other hand was new. But also very interesting. No need to add <code>()</code>
+after a method to call it when no args are passed, possibility to chain method
+of the same object (much like jQuery) and the use of dynamic (yet strongly
+typed) vars.</p>
+
+<p>The first part of the tutorial (basic CRUD) was easy. I didn&#39;t find how to
+make a complex SQL query like this (cake) one :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$Zombie-&gt;find(&#39;all&#39;, array(</span>
+<span class="x">&#39;order&#39; =&gt; array(&#39;Zombie.graveyard&#39; =&gt; &#39;ASC&#39;, &#39;Zombie.name&#39; =&gt; &#39;DESC&#39;</span>
+<span class="x">));</span>
+</code></pre></div>
+<p>I guess it&#39;s just a matter of time before I learn how to to do in Rails
+anyway. I saw that there was more &quot;advanced&quot; method (much like the cake <code>find</code>
+method) that would surely allow such finding.</p>
+
+<h2>Part 2 : Validation and Relationships</h2>
+
+<p>The second part of the tutorial was more about models. Validation rules were
+pretty much the same as those of cakePHP. But the Ruby syntax makes it more
+concise.</p>
+
+<p>I couldn&#39;t find how to retrieve the validation errors when saving an object
+using the <code>create</code> method (no problem when manually calling <code>save</code>, though).</p>
+
+<p>I enjoyed being able to create binded instances by simply adding the binded
+element to the model. Not very clear isn&#39;t it ? Here some code to explain it
+better. The last two lines have exactly the same effect :</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Zombie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="k">end</span>
+<span class="k">class</span> <span class="nc">Weapon</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="n">belongs_to</span> <span class="ss">:zombie</span>
+<span class="k">end</span>
+<span class="no">Weapon</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Rocket Launcher&quot;</span><span class="p">,</span> <span class="ss">:zombie_id</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">)</span>
+<span class="no">Weapon</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Rocket Launcher&quot;</span><span class="p">,</span> <span class="ss">:zombie</span> <span class="o">=&gt;</span> <span class="no">Zombie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<p>Later on, I had to select all weapons binded to a specific Zombie. I was able
+to find the a specific zombie using any of the two following commands :</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">z</span> <span class="o">=</span> <span class="no">Zombie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Ash&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="n">z</span> <span class="o">=</span> <span class="no">Zombie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="ss">:first</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Ash&quot;</span> <span class="p">})</span>
+</code></pre></div>
+<p>Then, I wanted to find the weapons binded to this zombie. First I tried the
+following command :</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Weapon</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:zombie_id</span> <span class="o">=&gt;</span> <span class="n">z</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</code></pre></div>
+<p>Obviously, this worked. But I wanted to test some more of the Rails magic. So
+I tried something along the lines of what I did in the previous chapter and
+tried to use my <code>z</code> var directly instead of <code>z.id</code>.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Weapon</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:zombie</span> <span class="o">=&gt;</span> <span class="n">z</span><span class="p">)</span>
+</code></pre></div>
+<p>This didn&#39;t worked. Well, I guess I&#39;ll also learn why later on. But one even
+more weird thing is that the following command did work even I&#39;m not really
+sur why ?</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Weapon</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:zombie_id</span> <span class="o">=&gt;</span> <span class="n">z</span><span class="p">)</span>
+</code></pre></div>
+<p>That&#39;s all I did today (well I also did some more Mercurial and Dingux testing,
+but that wasn&#39;t really work)</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/wednesday">#wednesday</a>
+    
+      <a href="/tags/ruby-on-rails">#ruby-on-rails</a>
+    
+      <a href="/tags/ror">#ror</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

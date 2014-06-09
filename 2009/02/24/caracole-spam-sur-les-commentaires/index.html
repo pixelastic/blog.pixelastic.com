@@ -1,0 +1,130 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Caracole - Spam sur les commentaires - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Caracole - Spam sur les commentaires</h1>
+  <span class="post-date">24 Feb 2009</span>
+  <p>Les trois derniers sites que j&#39;ai fait avec Caracole avaient tous un
+formulaire de contact (nom, mail et texte, pour contacter le propriétaire du
+site).</p>
+
+<p>Et tous les trois se sont fait spammer rapidement une fois que le site est
+arrivé dans les moteurs de recherche. J&#39;ai donc cherché moyen d&#39;empecher cela,
+une façon de detecter les spammeurs.</p>
+
+<p>Alors, il existe bien sur <a href="http://akismet.com/">Akismet</a>, qui marche du
+tonnerre, mais qui est payant pour un usage professionnel, j&#39;ai donc d&#39;abord
+cherché du coté des solutions gratuites.</p>
+
+<p>Il y a le projet <a href="http://recaptcha.net/">reCaptcha</a>, qui en plus d&#39;empecher le
+spam, permet d&#39;aider la numérisation de vieux livres, donc une assez bonne
+idée mais qui ne semble pas disponible en français. C&#39;est malheureusement un
+impératif sur les sites que je développais.</p>
+
+<p>J&#39;ai donc plutot retourné le problème dans ma tête et cherché un moyen facile
+et ingénieux de faire la différence entre un humain et un bot. J&#39;ai finalement
+opté pour un champ caché au sein du formulaire qui doit absolument rester
+vide. Un bot le remplira automatiquement, un humain le laissera vide.</p>
+
+<p>J&#39;avais tout d&#39;abord mis ce champ en type=&quot;hidden&quot; et cela semblait
+fonctionner, mais de plus récents spams me l&#39;ont fait passer en  display:none
+par CSS et je n&#39;ai pas eu de nouveau spam depuis. Je continuerai de peaufiner
+le système jusqu&#39;à ce que je trouve un blocage parfait ou que j&#39;en ai marre et
+que je me tourne vers Akismet :)</p>
+
+<p>Pour le moment, je loggue toutes les demandes de contact avec les informations
+du Header, afin d&#39;identifier certains patterns qui pourraient me permettre de
+trouver plus facilement les spammeurs dans le lot.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/caracole">#caracole</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

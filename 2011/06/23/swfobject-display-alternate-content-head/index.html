@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     SWFObject must be included in the <head> - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">SWFObject must be included in the &lt;head&gt;</h1>
+  <span class="post-date">23 Jun 2011</span>
+  <p>We just discovered a strange behavior on one of our test VM (one without Flash
+installed). I don&#39;t know how we&#39;ve missed it before.</p>
+
+<p>When embedding the main flash file of our application, the alternate content
+wasn&#39;t displayed to players. In fact it seemed to be displayed very briefly
+then disappear.</p>
+
+<p>I had correctly embeded it with the static publishing method and added a call
+to <code>swfobject.registerObject</code> to soften the edges. I remembered it working
+correctly in my tests, so I quickly made a small test case.</p>
+
+<p>It occurs that the alternate content was corretcly displayed if I removed the
+<code>swfobject.registerObject</code> call and only used the static publishing.</p>
+
+<p>I also found that everything worked fine if I called the <code>swfobject.js</code> file
+in the <code>head</code>, but started to bug when I moved it at the end of the page.</p>
+
+<p>As I didn&#39;t want to add a call to a .js file in my <code>head</code>, I google a bit and
+I finally found that one have to call <code>swfobject.switchOffAutoHideShow();</code>
+right before the<code>swfobject.registerObject</code> call. This seems to fix things by
+not hiding the alternate text</p>
+
+<h2>Edit</h2>
+
+<p>I spent some more hours trying to debug the last corner cases. We had a user
+using Firefox 3.5.3 with Flash 10.0.42.34. Using SWFObject, we required at
+least version 10.1. Unfortunatly, the app was still loading, but was buggy
+because of features not present in the user flash version.</p>
+
+<p>After some tests, I discovered that the <code>swfobject.js</code> code MUST be included
+in the <code>&lt;head&gt;</code> of the document (well, before any <code>.swf</code> in the page, so
+better put it in the <code>&lt;head&gt;</code>).</p>
+
+<p>Doing so, you won&#39;t even need the previous fix
+(<code>swfobject.switchOffAutoHideShow()</code>).</p>
+
+<p>I would have loved putting it at the end of the page, with the others JS
+files, but I guess I won&#39;t have a choice here.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/registerobject">#registerobject</a>
+    
+      <a href="/tags/flash">#flash</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/switchoffautohideshow">#switchoffautohideshow</a>
+    
+      <a href="/tags/swfobject">#swfobject</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

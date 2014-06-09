@@ -1,0 +1,154 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Running a cakePHP shell script as cronjob on Dreamhost - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Running a cakePHP shell script as cronjob on Dreamhost</h1>
+  <span class="post-date">22 Nov 2010</span>
+  <p>Dreamhost as <a href="http://wiki.dreamhost.com/Crontab">a wonderful wiki</a> on how to
+set cron jobs and cakePHP has <a href="http://book.cakephp.org/view/846/Running-Shells-as-cronjobs">a cookbook page on how to do
+it</a> too, but
+getting it just right was a little frustrating.</p>
+
+<p>I finally managed to run my shell task as a cronjob, and here is how I did it.</p>
+
+<h2>The magic command</h2>
+
+<p>First, here is the command I wrote in my Dreamhost panel :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">/home/username/domain.com/cake/console/cake -app /home/username/domain.com/app/ shell_name
+</code></pre></div>
+<p>You have to set the full path to the cake console because it obviously is not
+in the pre-saved paths on a default Dreamhost install.</p>
+
+<p>You also have to specify the <code>app</code> directory otherwise cake will search your
+shell in the wrong directories. This is even more important if your shell is
+located in a plugin directory.</p>
+
+<p>But, this won&#39;t work as-is, you&#39;ll have to do several other stuff, mostly
+explained by <a href="http://www.milesj.me/blog/read/83/Setting-Up-%0ACron-Jobs-With-Cake-Shells">Miles Johnson</a>, but I&#39;ll recap them</p>
+
+<h2>Setting the file as executable</h2>
+
+<p>You have to set the <code>cake/console/cake</code> file as executable. It is kind of
+obvious, but you have to do it anyway.</p>
+
+<h2>Set the TERM variable</h2>
+
+<p>Update you <code>cake/console/cake</code> to replace the first lines with :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">LIB</span><span class="o">=</span><span class="k">${</span><span class="nv">0</span><span class="p">/%cake/</span><span class="k">}</span>
+<span class="nv">APP</span><span class="o">=</span><span class="s1">&#39;pwd&#39;</span>
+<span class="nv">TERM</span><span class="o">=</span>linux
+<span class="nb">export </span>TERM
+</code></pre></div>
+<p>If you don&#39;t, you&#39;ll have notice errors in the resulting log. No big deal, but
+it is cleaner that way.</p>
+
+<h2>Forcing using php5</h2>
+
+<p>While in command line, the php command refer to the php4 version. If you need
+to use php5 (and I guess you should), you would have to manually reference the
+binary file. Hence, you have to update your <code>cake/console/cake</code> file one more
+time and change the <code>exec</code>line to :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">exec</span> /usr/local/php5/bin/php -q <span class="k">${</span><span class="nv">LIB</span><span class="k">}</span>cake.php -working <span class="s2">&quot;${APP}&quot;</span> <span class="s2">&quot;$@&quot;</span>
+</code></pre></div>
+<h2>And it&#39;s ok</h2>
+
+<p>Your cronjob should not work effortlessly. It took me some long hours to track
+all this down (along with other issues on my local dev machine that make
+debugging even more cloudy).</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/dreamhost">#dreamhost</a>
+    
+      <a href="/tags/shell">#shell</a>
+    
+      <a href="/tags/cronjob">#cronjob</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

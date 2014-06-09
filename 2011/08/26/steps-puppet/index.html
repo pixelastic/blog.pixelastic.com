@@ -1,0 +1,197 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     First steps with puppet - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">First steps with puppet</h1>
+  <span class="post-date">26 Aug 2011</span>
+  <p>I&#39;ve never used puppet before this project. It in installed on our main
+server, monitoring the whole pool of servers used to host our game. It
+includes php hosts, sql data nodes and sql front servers as well as a couple
+of load balancer.</p>
+
+<p>Puppet keeps a snapshot of the config that must be deployed on each server and
+keep them in sync. We just have to edit the puppet files, and the same config
+is replicated on each server.</p>
+
+<p>I did not install puppet, our sysadmin did it, and I have no idea how he did
+it actually, I&#39;m just fiddling with specific configurations here. But as it
+took me quite a bit to grasp, here is how it works, and some quirks to be
+aware of.</p>
+
+<h2>The puppet files</h2>
+
+<p>Puppet is installed in <code>/etc/puppet</code>. Our different modules are stored in<code>
+/etc/puppet/modules</code>. A module is a set of programs and config files that work
+together.</p>
+
+<p>For example, we have one for the <code>loadbalancers</code>, one for the <code>http</code>part, one
+for <code>mysql</code>, and even one for <code>vim</code>. I&#39;m going to focus on the <code>http</code>one,
+because it contains config files for memcache, lighttpd and php.</p>
+
+<p>Modules are split in two parts : the manifest and the files. You can find each
+in <code>/etc/puppet/modules/{modulename}/manifests</code> and in
+<code>/etc/puppet/modules/{modulename}/files</code>.</p>
+
+<p>As you can imagine, the manifest contains a list of directive telling puppet
+what programs need to be installed, what directories need to be present (with
+specific user and group) as well as what files need to be copied.</p>
+
+<p>The <code>files/</code> directory contains all the files that puppet might need for this
+module. It will copy them from this directory to the final servers, according
+to the manifest config.</p>
+
+<h2>Manifest syntax</h2>
+
+<p>The manifest uses a very simple syntax, using blocks of <code>key =&gt; value</code> to
+define config. I&#39;ve mostly use the simple <code>file</code>directives, to copy files and
+create directories.</p>
+
+<p>One can also use <code>package</code>directories, to install things and handle
+dependencies, but I haven&#39;t messed with that (yet) so I won&#39;t talk about them
+here.</p>
+
+<p>Here are a couple of simple file orders :</p>
+<div class="highlight"><pre><code class="language-puppet" data-lang="puppet"><span class="k">file</span> <span class="p">{</span> <span class="s">&quot;/etc/lighttpd/scripts&quot;</span><span class="p">:</span>
+  <span class="na">ensure</span><span class="err"> </span> <span class="o">=&gt;</span> <span class="k">directory</span><span class="p">,</span>
+  <span class="na">owner</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">group</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">mode</span><span class="err">   </span> <span class="o">=&gt;</span> <span class="mi">550</span>
+<span class="p">}</span>
+<span class="k">file</span> <span class="p">{</span> <span class="s">&quot;/etc/lighttpd/lighttpd.conf&quot;</span><span class="p">:</span>
+  <span class="na">owner</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">group</span><span class="err">  </span> <span class="o">=&gt;</span> <span class="na">root</span><span class="p">,</span>
+  <span class="na">mode</span><span class="err">   </span> <span class="o">=&gt;</span> <span class="mi">644</span><span class="p">,</span>
+  <span class="na">source</span><span class="err"> </span> <span class="o">=&gt;</span> <span class="s">&quot;puppet:///http/$target/lighttpd/lighttpd.conf&quot;</span><span class="p">,</span>
+  <span class="na">require</span> <span class="o">=&gt;</span> <span class="k">Package</span><span class="p">[</span><span class="s">&quot;lighttpd&quot;</span><span class="p">],</span>
+  <span class="k">notify</span><span class="err"> </span> <span class="o">=&gt;</span> <span class="k">Service</span><span class="p">[</span><span class="s">&quot;lighttpd&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The first part will create a<code>/etc/lighttpd/scripts</code> directory on the final
+server, with a user and group <code>root</code>and 550 permissions mode.</p>
+
+<p>The second part will copy the file stored in
+<code>/etc/puppet/modules/http/{target}/lighttpd/lighttpd.conf</code> on the puppet
+server to <code>/etc/lighttpd/lighttpd.conf</code> on the final server. I&#39;m not quite
+sure what the <code>require</code>and <code>notify</code>lines are for.</p>
+
+<p><code>$target</code> is a special variable. In my case it can take either the value
+<code>valid</code> or <code>prod</code>, allowing me to define custom config based on the
+environment. Valid and prod environment are supposed to have the exact same
+config, but separating them allow for testing a config change in one
+environment without potentially breaking the working prod environment. I&#39;m not
+exactly sure how this <code>$target</code> var is set, this is one more thing our
+sysadmin did. Thanks to him.</p>
+
+<h2>Pulling changes</h2>
+
+<p>Puppet is configured to check its servers every 30mn. If some config files
+changed, or a directory isn&#39;t there anymore, it will recreate them, according
+to the manifest. But you can force the pulling of changes from the final
+servers themselves. Just log to one of the servers puppet is monitoring and
+type</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>sudo puppetd --test
+</code></pre></div>
+<p>The <code>--test</code> argument is a bit misleading. It actually does not seem to do any
+test at all, it simply pulls the puppet files from the puppet server and
+updates its files accordingly. It will notify you of any errors it might find,
+and even print a <code>diff</code>of the files changed.</p>
+
+<h2>One last thing</h2>
+
+<p>I&#39;ve lost 30mn checking and re-checking my puppet file because my <code>php.ini</code>
+changes weren&#39;t updated. In fact, I just forgot to reload <code>lighttpd</code>...</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/lighttpd">#lighttpd</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/puppet">#puppet</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

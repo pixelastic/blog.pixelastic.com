@@ -1,0 +1,376 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/10/12/fix-floating-issue-json-decode-php-5-3/">
+        Fix the floating issue with json_decode in PHP 5.3
+      </a>
+    </h1>
+
+    <span class="post-date">12 Oct 2011</span>
+
+    <p>When dealing with online API that are handling a lot of items (like Twitter or
+Facebook), you&#39;d better be aware of a PHP limitation with <code>json_decode</code>.</p>
+
+<p><code>json_decode</code> is supposed to take a JSON string and return a PHP array or a
+PHP object from it.</p>
+
+<p>Unfortunatly if one of the key is an int and is bigger than the max int value,
+it will be cast as float instead. And you&#39;ll lose precision in the process.</p>
+
+<p>In my case it resulted in a complete unability to find a user in the database
+as the id didn&#39;t match anything. This was quite hard to find as I couldn&#39;t
+reproduce it on my local machine.</p>
+
+<h2>Know your system</h2>
+
+<p>My local system was a 64bits machine while the production servers were 32bits.
+And of course, max int precision is far bigger on 64bits machines so the error
+didn&#39;t pop in my tests.</p>
+
+<p>If you&#39;re running PHP 5.4, the fix is easy. Just add the
+<code>JSON_BIGINT_AS_STRING</code> bitmask as 4th option like this</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$decoded = json_decode($encoded, true, null, JSON_BIGINT_AS_STRING);</span>
+</code></pre></div>
+<p>If you&#39;re running a 32bits machine with PHP 5.3 like me, it&#39;s a little more
+tricky.</p>
+
+<h2>The regexp</h2>
+
+<p>My solution is to parse the original JSON string and add quotes around ints so
+<code>json_decode</code> will keep them as string.</p>
+
+<p>My first attempt was naive</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/&quot;:([0-9]+),/&#39;, &#39;&quot;:$1,&#39;, $encoded)</span>
+</code></pre></div>
+<p>This will find any int between <code>&quot;:</code> (marking the end of a key) and <code>,</code>
+(marking the start of the next key), and replace it with the same string but
+enclosed in quotes.</p>
+
+<p>I soon found out that this did not cover all the cases, especially if the int
+key was the last of the JSON, it won&#39;t be followed by a <code>,</code> but by a <code>}</code>
+instead.</p>
+
+<p>So, I adapted it a little bit :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/&quot;:([0-9]+)(,|})/&#39;, &#39;&quot;:&quot;$1&quot;$2&#39;, $encoded)</span>
+</code></pre></div>
+<p>Ok, it worked better. Any int key in the JSON, anywhere will be enclosed in
+quotes.</p>
+
+<p>It was a little overkill so I decided to limit it to keys of at least 10
+digits</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/&quot;:([0-9]{10,})(,|})/&#39;, &#39;&quot;:&quot;$1&quot;$2&#39;, $encoded)</span>
+</code></pre></div>
+<p>Better. But still not perfect.</p>
+
+<p>As I soon discovered, sometimes Facebook returned JSON containing JSON itself
+(in Request <code>data</code>or Credit <code>order_info</code> for example).</p>
+
+<p>The previous approach would add quotes around ints in JSON escaped string and
+would thus corrupt the whole key.</p>
+
+<p>This time, I added a final touch. I only added quotes around int that were not
+in an escaped JSON string themselves, by checking that the closing quote of
+the key wasn&#39;t escaped.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">preg_replace(&#39;/([^\\\])&quot;:([0-9]{10,})(,|})/&#39;, &#39;$1&quot;:&quot;$2&quot;$3&#39;, $encoded)</span>
+</code></pre></div>
+<p>Here it is, the final fix. I might have forgotten some corner cases, but at
+least it works for my current application.</p>
+
+<p>Hope it helps !</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/facebook">#facebook</a>
+      
+        <a href="/tags/float">#float</a>
+      
+        <a href="/tags/json-decode">#json-decode</a>
+      
+        <a href="/tags/regexp">#regexp</a>
+      
+        <a href="/tags/php">#php</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/10/11/accessing-frame-firebug-console/">
+        Accessing a frame with Firebug console
+      </a>
+    </h1>
+
+    <span class="post-date">11 Oct 2011</span>
+
+    <p>If you want to access the Javascript console of an inner frame of a webpage,
+know that you can &quot;browse&quot; through the window as you could browse through a
+file system.</p>
+
+<p>For example, if you want Firebug to use the first frameof the page as its
+current window object, just type the following code in Firebug console :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">cd</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+<p>This proved immensely useful when debugging a Facebook application.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/facebook">#facebook</a>
+      
+        <a href="/tags/firebug">#firebug</a>
+      
+        <a href="/tags/frame">#frame</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/10/09/toggling-insert-normal-mode-vim-capslock/">
+        Toggling insert/normal mode in vim with CapsLock
+      </a>
+    </h1>
+
+    <span class="post-date">09 Oct 2011</span>
+
+    <p>You know that CapsLock key on your keyboard ? The sole usage of this key is to
+SHOUT ON TEH INTERNETS§§§. I decided to disable it completly as I never use it
+on purpose.</p>
+
+<p>I also wanted to use it in vim to toggle between normal and insert mode with
+one key instead of the default <code>i</code>/<code>Esc</code>.</p>
+
+<h2>Disabling CapsLock</h2>
+
+<p>Disabling CapsLock is a fairly straightforward process. The xmodmap program is
+responsible for binding keyboard events to your software and you can change
+the default behavior by creating an <code>~/.Xmodmap</code> file.</p>
+
+<p>Just put the following code in it and the pressing the CapsLock key will no
+longer block your next keys in Caps.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">clear Lock
+</code></pre></div>
+<h2>Catching it in vim</h2>
+
+<p>Now, to get it in vim, you&#39;ll have a little more work to do. First, CapsLock
+is not one of the default vim keycodes, so you won&#39;t be able to remap it to
+any useful function. To use it in vim, we will hook it directly on xmodmap to
+another key, one that is part of vim default keycodes.</p>
+
+<p>I choose the virtual F13 key. Your physical keyboard might only have F keys
+from 1 to 12, but the internal software seems to be able to react to 37 of
+them. So, why not using them ?</p>
+
+<p>In your <code>~/.Xmodmap</code> file, this is as easy as adding the following line</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">keycode 66 = F13
+</code></pre></div>
+<p>66 is the internal code for the CapsLock key. We just define that pressing the
+physical CapsLock key should trigger the F13 virtual key.</p>
+
+<p>Now, in <code>~/.vimrc</code>, we will tell vim to explictly listen to extended F keys
+(from 13 to 37) which it does not do by default.</p>
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="k">set</span> <span class="p">&lt;</span>F13<span class="p">&gt;=</span>^[[<span class="m">25</span><span class="p">~</span>
+</code></pre></div>
+<p><code>^[[25~</code> is the special keyboard code sent to vim when the F13 key is
+triggered. Here we just define that such a keyboard code should be interpreted
+in vim as an <code>&lt;F13&gt;</code> vim key.</p>
+
+<p>Now, you can use <code>&lt;F13&gt;</code> in your custom vim mappings</p>
+
+<h2>Toggling normal/insert mode in vim</h2>
+
+<p>vim accepts two kinds of mapping. Those triggered in normal mode (using
+<code>nnoremap</code>) and those triggered in insert mode (using <code>inoremap</code>).</p>
+
+<p>Here we want that pressing CapsLock (or <code>&lt;F13&gt;</code> in vim as we defined) in
+normal mode will go to insert mode, like pressing <code>i</code> does. And we also want
+to get back to normal mode when pressing CapsLock in insert mode, just like
+pressing <code>Esc</code> does.</p>
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="nb">nnoremap</span> <span class="p">&lt;</span>F13<span class="p">&gt;</span> <span class="k">i</span>
+<span class="nb">inoremap</span> <span class="p">&lt;</span>F13<span class="p">&gt;</span> <span class="p">&lt;</span>Esc<span class="p">&gt;</span><span class="k">l</span>
+</code></pre></div>
+<p>Notice the <code>l</code> after Esc. It is here to prevent the caret to move back one
+character when exiting insert mode.</p>
+
+<h2>Fixing the shell</h2>
+
+<p>One last thing to fix is your shell. By defining in xmodmap that pressing
+CapsLock would trigger an F13 event, it means that whatever software that
+react on F13 will now react on CapsLock. Unfortunatly, zsh does react on F13.
+It insert a <code>~</code> character on it (just like it does with F12).</p>
+
+<p>To disable it, we&#39;ll simply define a key binding in <code>~/.zshrc</code> so pressing F13
+does nothing.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">bindkey -s <span class="s2">&quot;\e[25~&quot;</span> <span class="s2">&quot;&quot;</span>
+</code></pre></div>
+<p>Here it is. You can now press CapsLock anywhere and it won&#39;t have any effect.
+Plus, pressing it in vim will toggle insert/normal mode.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/vim">#vim</a>
+      
+        <a href="/tags/zsh">#zsh</a>
+      
+        <a href="/tags/xmodmap">#xmodmap</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/10/07/list-facebook-pending-requests-user/">
+        Getting the list of Facebook pending requests of a user
+      </a>
+    </h1>
+
+    <span class="post-date">07 Oct 2011</span>
+
+    <p>Getting the list of pending facebook requests of a user a few weeks back was
+as easy as calling <code>https://graph.facebook.com/me/apprequests?access_token={user_access_token}</code></p>
+
+<p>We discovered around the 1st October that some of our requests were failing in
+production, without any more clue than some &quot;OAuthException : access_token
+invalid&quot; messages in our logs.</p>
+
+<p>It appears that FB changed the way their endpoint react to <code>/apprequests</code>
+call. Of course, they didn&#39;t bother telling us.</p>
+
+<p>The previous url does not work anymore. Switching the user access<em>token to the
+app access</em>token as documented does not work (as usual with FB documentation).
+It returns an error.</p>
+
+<p>Instead, the following call wil yield the correct result : <code>https://graph.facebook.com/{user_id}/apprequests?access_token={app_access_token}</code></p>
+
+
+    <div class="tag-list">
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/10/04/increasing-virtualbox-hard-drive-size/">
+        Increasing VirtualBox hard drive size
+      </a>
+    </h1>
+
+    <span class="post-date">04 Oct 2011</span>
+
+    <p>While trying to import a huge (1.7Go) mysql dump file into my VM I was blocked
+by mysql telling me that not enough space was left on the device to complete
+the operation.</p>
+
+<p>As I was running a VM, I thought it would be a simple matter of increasing the
+virtual hard drive size.</p>
+
+<p>Turns out it wasn&#39;t that simple. After much trial and error, here is how I
+finally did it.</p>
+
+<h2>Creating a new hard drive</h2>
+
+<p>VirtualBox let you easily add new devices, such as hard drives to your VM. I
+simply created an empty 120Go hard drive and booted my VM.</p>
+
+<p>Here, under Ubuntu, I cloned my current hard drive to the new one using :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo dd <span class="k">if</span><span class="o">=</span>/dev/sda <span class="nv">of</span><span class="o">=</span>/dev/sdb
+</code></pre></div>
+<h2>Fixing the guest partition</h2>
+
+<p>Once finished, I opened Gparted, selected <code>/dev/sdb</code> and saw that I had 112Go
+unallocated. I couldn&#39;t easily add them to the initial partition as a swap
+partition was in the way.</p>
+
+<p>I finally decided to remove the swap partition and resize the initial one to
+the (almost) complete size of the hard drive.</p>
+
+<p>I left 1Go free in case I ever needed to create a new swap partition later to
+fix the one I deleted.</p>
+
+<p>Then, I closed the VM. Get back to VirtualBox panel and remove the original
+drive, keeping only the new 120Go one.</p>
+
+<p>One reboot later, my Ubuntu was proudly displaying its 120Go.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/mysql">#mysql</a>
+      
+        <a href="/tags/ubuntu">#ubuntu</a>
+      
+        <a href="/tags/virtualbox">#virtualbox</a>
+      
+        <a href="/tags/hard-drive">#hard-drive</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page9">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page7">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

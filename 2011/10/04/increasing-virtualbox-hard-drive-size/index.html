@@ -1,0 +1,137 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Increasing VirtualBox hard drive size - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Increasing VirtualBox hard drive size</h1>
+  <span class="post-date">04 Oct 2011</span>
+  <p>While trying to import a huge (1.7Go) mysql dump file into my VM I was blocked
+by mysql telling me that not enough space was left on the device to complete
+the operation.</p>
+
+<p>As I was running a VM, I thought it would be a simple matter of increasing the
+virtual hard drive size.</p>
+
+<p>Turns out it wasn&#39;t that simple. After much trial and error, here is how I
+finally did it.</p>
+
+<h2>Creating a new hard drive</h2>
+
+<p>VirtualBox let you easily add new devices, such as hard drives to your VM. I
+simply created an empty 120Go hard drive and booted my VM.</p>
+
+<p>Here, under Ubuntu, I cloned my current hard drive to the new one using :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo dd <span class="k">if</span><span class="o">=</span>/dev/sda <span class="nv">of</span><span class="o">=</span>/dev/sdb
+</code></pre></div>
+<h2>Fixing the guest partition</h2>
+
+<p>Once finished, I opened Gparted, selected <code>/dev/sdb</code> and saw that I had 112Go
+unallocated. I couldn&#39;t easily add them to the initial partition as a swap
+partition was in the way.</p>
+
+<p>I finally decided to remove the swap partition and resize the initial one to
+the (almost) complete size of the hard drive.</p>
+
+<p>I left 1Go free in case I ever needed to create a new swap partition later to
+fix the one I deleted.</p>
+
+<p>Then, I closed the VM. Get back to VirtualBox panel and remove the original
+drive, keeping only the new 120Go one.</p>
+
+<p>One reboot later, my Ubuntu was proudly displaying its 120Go.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/mysql">#mysql</a>
+    
+      <a href="/tags/ubuntu">#ubuntu</a>
+    
+      <a href="/tags/virtualbox">#virtualbox</a>
+    
+      <a href="/tags/hard-drive">#hard-drive</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

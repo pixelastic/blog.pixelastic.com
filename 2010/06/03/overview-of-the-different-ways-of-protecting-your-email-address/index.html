@@ -1,0 +1,236 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Overview of the different ways of protecting your email address - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Overview of the different ways of protecting your email address</h1>
+  <span class="post-date">03 Jun 2010</span>
+  <p>You surely know that displaying an email address as plain text in a website
+today is a sure way to get your mailbox full of viagra, rolex and poker ads in
+no time.</p>
+
+<p>Spammer have bots running all day long, crawling through hundred of thousands
+of pages, grabbing everything that looks like something@somewhere.com.</p>
+
+<h2>Existing way of protecting your email address</h2>
+
+<p>The safest way is to not display it in the first place. Nothing beats that.
+But if you really need to be contacted through email, here are some of the
+possible alternative.</p>
+
+<h2>Using a contact form instead.</h2>
+
+<p>That&#39;s what I&#39;m doing on this site.</p>
+
+<p>This way I don&#39;t have to display my address, I let my server script send the
+email for me.</p>
+
+<p>Unfortunatly, it means that you have to protect your contact form against spam
+now. How to do that is not the scope of this post, however.</p>
+
+<h2>Using an image</h2>
+
+<p>Instead of writing your email as plain text, you can use an image inside which
+your email is written. Spam bots can&#39;t read images (well, they <strong>could</strong> but
+they won&#39;t bother when there is still so many clear email they can grab
+without worrying about images).</p>
+
+<p>Unfortunatly it has two drawbacks. First, you force your reader to type your
+email as they can&#39;t copy/paste it. This lead to possible typos, and more
+importantly will frustrate your user.</p>
+
+<p>Secondly, people browsing without images (yes, that does exists, either
+because they have a slow connection, browsing through an old mobile phone or
+using a text reader) won&#39;t be able to contact you.</p>
+
+<h2>Spelling it aloud</h2>
+
+<p>One of the better way is still to appeal to the human brain and telling your
+user what your email is, like &quot;my name, at, my domain dot com&quot; or
+&quot;tim@nowhere.com where you have to change nowhere to pixelastic&quot;.</p>
+
+<p>I&#39;ve even seen someone using the very long form of : &quot;tee ee em at pee hi ex
+ee el ah ess tee hi see dot see oh em&quot;. Sure, spammer won&#39;t get that, but the
+truth is, not many user won&#39;t either.</p>
+
+<p>The drawback of this method is the same as the previous one, you force your
+user to type your address.</p>
+
+<h2>Ain&#39;t there an easiest way ?</h2>
+
+<p>Would&#39;nt it be better if we hadn&#39;t to worry about that. If there was a way
+that all our reader would read the email, click on it and send us a mail ?
+While being protected from spam bots ?</p>
+
+<p>Well, there have been attempt to do that, using various server side and client
+side techniques. Unfortunatly, all of them failed for at least one type of
+users.</p>
+
+<h2>Encrypting email using unicode</h2>
+
+<p>One can encrypt any string in Unicode using server script language. It will
+turn every character into an entity like &#46;. Your browser will stil
+understand it correctly, and display it as the corresponding value.</p>
+
+<p>We could assume that bots won&#39;t understand it, but I have no data to back that
+up. It would be trivial for an harvest bot to parse email using unicode, so I
+won&#39;t recommend it.</p>
+
+<h2>Using CSS to display the mail</h2>
+
+<p>Modern browser, with great CSS support can help in this process with the use
+of generated content and the :after pseudo class.</p>
+
+<p>Let&#39;s look at the following code :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;email&quot;</span> <span class="na">rel=</span><span class="s">&quot;@pixelastic.com&quot;</span><span class="nt">&gt;</span>tim<span class="nt">&lt;/span&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">span</span><span class="nc">.email</span><span class="o">[</span><span class="nt">rel</span><span class="o">]</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="n">attr</span><span class="p">(</span><span class="n">rel</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>You just put your username in the <code>span</code>, and the domain name in the <code>rel
+</code>attribute and let CSS display it as one single email address.</p>
+
+<p>But you need a browser with a correct CSS support to do that, otherwise you
+will only see the user part, which is not really useful.</p>
+
+<h2>Using an HTTP redirect</h2>
+
+<p>This one is a clever one that I haven&#39;t seen used a lot. Instead of making a
+link to a mailto:, you make the link go to a mail.php page that will only
+contain one php statement :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">header(&#39;Location: mailto:user@domain.com&#39;);</span>
+</code></pre></div>
+<p>I&#39;m not sure of the browser support of this, however. And it still won&#39;t solve
+the problem of displaying your email address.</p>
+
+<h2>Adding HTML noise</h2>
+
+<p>You can add HTML comments (<code>&lt;!-- --&gt;</code>), or useless elements (<code>&lt;span /&gt;</code>) all
+around your email adress. They won&#39;t get processed by your browser that will
+still display it as normal, but it will most likely make the spam bot choke.</p>
+
+<p>Unfortunatly, you can&#39;t use them in the <code>href=&quot;mailto:&quot;</code> section of your link,
+so it is not a perfect fit either. But still, that&#39;s a good start.</p>
+
+<h2>Using Javascript to populate the email</h2>
+
+<p>The principle behind this one is that Javascript will write the email adress
+for you in the code. As most spam bots won&#39;t have Javascript enabled (again, I
+don&#39;t have source to back that up but I assume so), they won&#39;t be able to see
+it.</p>
+
+<p>Just write your email address in a Javascript file, maybe in several different
+variables that you&#39;ll merge to create the final one. The more obfuscated your
+code is, the harder it will be for the spammer to add its logic to its bot.</p>
+
+<h2>Conclusion</h2>
+
+<p>There isn&#39;t one perfect solution yet. But maybe, merging several of them we
+could bypass the weaknesses to create something that really handle all the
+situations.</p>
+
+<p>I have some ideas in the back of my head actually, I&#39;ll try to make something
+with them and post it here.</p>
+
+<p>I&#39;m pretty sure starting with an obfuscated HTML source (but still correctlt
+displaying), then adding an obfuscated Javascript layer to create the
+<code>mailto:</code> link is the way to go.</p>
+
+<p>This would mean a better user experience for users with Javascript, but that&#39;s
+ok, that&#39;s what Javascript is for.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/css">#css</a>
+    
+      <a href="/tags/javascript">#javascript</a>
+    
+      <a href="/tags/mail">#mail</a>
+    
+      <a href="/tags/spam">#spam</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

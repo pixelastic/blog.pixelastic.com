@@ -1,0 +1,616 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/10/03/checking-potential-throttling-orange/">
+        Checking potential throttling from Orange
+      </a>
+    </h1>
+
+    <span class="post-date">03 Oct 2011</span>
+
+    <p>Starting a few weeks back, we started having painfully slow ssh connections at
+work. Our servers are hosted on the <a href="http://www.softlayer.com/">SoftLayer
+</a>infrastructure, which are extended on all North
+American territory, but we are based in France.</p>
+
+<p>We have fiber-optic connection here, almost every other connection is
+blazingly fast. Except connections to our own servers...</p>
+
+<p>Call me paranoid, but the first idea we got was that we were being throttled
+by our provider. Orange is infamously known for degrading on purpose
+connection with some know hosts.</p>
+
+<p>A colleague was browsing through his own secure tunnel, going through his
+personnal server for every outgoing communication.</p>
+
+<p>And his connection was as fast as it should be.</p>
+
+<p>That made us wonder. How a tunneled connection could be faster than a normal
+one ? The cost of crypting data should have slow the request down. It had the
+opposite effect, rendering the request in the expected time.</p>
+
+<p>I created a garbage file using the following code and used <code>scp</code> to send it
+from one server to another, to test bandwith.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>garbage.bin <span class="nv">bs</span><span class="o">=</span>100000000 <span class="nv">count</span><span class="o">=</span>1
+</code></pre></div>
+<p>Nothing interesting came out of it. I had a impressivly fast connection
+between our fiber connection and OVH (up to 50Mb/s) and slow connection to
+SoftLayer.</p>
+
+<p>So, for the time being, I&#39;m connecting to SoftLayer through OVH and even if it
+made me use one more tunnel, it is still far more fast than a direct
+connection.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ssh">#ssh</a>
+      
+        <a href="/tags/softlayer">#softlayer</a>
+      
+        <a href="/tags/orange">#orange</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/09/22/sansa-clip-folder-merging-issue/">
+        Sansa Clip+ folder merging issue
+      </a>
+    </h1>
+
+    <span class="post-date">22 Sep 2011</span>
+
+    <p>I own a <a href="http://anythingbutipod.com/2009/08/sandisk-sansa-clip-%0Aplus-review/">Sansa Clip+</a> as my mp3 player. It&#39;s really small, has great audio quality and
+combined with a 32Go microSD card plus the internal 8Go, it&#39;s enough to hold
+almost all my music library.</p>
+
+<p>As with any mp3 player realeased nowadays, you can browse your files using mp3
+tags. I don&#39;t really like it and feel limited in my browsing. As I&#39;m listening
+to a lot of movie soundtracks I have a pretty long list of artists with only
+one song attached.</p>
+
+<p>Fortunatly, the Sansa also allows you to browse by folders, which is rare
+enough to be highlighted.</p>
+
+<p>So far so good. Except that I&#39;ve discovered a little bug a few days ago in the
+way folder navigation is done.</p>
+
+<p>I had two folders named <code>Soundtrack - Games</code> and <code>Soundtrack - Movies</code>. Each
+were holding a dozen albums. In each of those folders I had subfolders sharing
+the same prefix, like <code>Hitman Contracts</code>, <code>Hitman Blood Money</code> or <code>Kill Bill</code>
+and <code>Kill Bill volume 2</code>.</p>
+
+<p>When browsing my music folder on the Sansa I noticed that the <code>Soundtrack -
+Games</code> folder had disappeared. I check the SD card in my computer, and it
+really was there.</p>
+
+<p>I finally discovered that all the <code>Sountracks - Games</code> content had been merged
+in <code>Soundtracks - Movies</code> resulting in one big directory instead of two
+smaller ones.</p>
+
+<p>My second discovery was that all my <code>Hitman</code> sub folders were also merged into
+<code>Hitman Contracts</code>, and my <code>Kill Bill</code> music was in <code>Kill Bill volume 2</code>.</p>
+
+<p>It seems that when multiple directories shared the same prefix, all folders
+will be merged in one whose name is the last in alphabetical order.</p>
+
+<p>I&#39;m not the only one in this case, I saw a similar report on Sandisk forums,
+but the bug seems erratic. Folders does not always get merged if sharing a
+prefix.</p>
+
+<p>As a temporary fix, waiting for a regular fix in a firmware update, I&#39;ll
+update my folder tree to use <code>Soundtracks/Games/Hitman/Contracts</code> and
+<code>Soundtracks/Movies/Kill Bill/Volume 1</code> but this is far from optimal.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/bug">#bug</a>
+      
+        <a href="/tags/mp3">#mp3</a>
+      
+        <a href="/tags/sansa">#sansa</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/09/17/red-dead-redemption-tales-phantasia/">
+        Red Dead Redemption Vs Tales of Phantasia
+      </a>
+    </h1>
+
+    <span class="post-date">17 Sep 2011</span>
+
+    <p><em>Disclaimer : I usually post about technical web stuff, but this time I&#39;ll
+digress and share my thoughts about two games I&#39;m currently playing. Feel free
+to skip reading this text if you&#39;re not interested in my inner gamer voice.</em></p>
+
+<p>I started Red Dead Redemption on my PS3 a few weeks ago. I also play Tales of
+Phantasia on my Dingoo on my way to work and back home everyday.</p>
+
+<p>Those two games are very different, almost completly different, but in a way,
+I can&#39;t stop comparing one to the other.</p>
+
+<h2>Overview</h2>
+
+<p>Red Dead Redemption is a &quot;next generation&quot; game, with great graphics, motion
+capture, voices, and so on. It is a free roaming game, a GTA like, made by
+Rockstar game. Instead of sandboxing in a big city with your car, you&#39;re
+sandboxing in the far west with your horse.</p>
+
+<p>Tales of Phantasia is one the latest JRPG released on the SNES. It is in the
+direct vein of gems like FF6 or Secret of Mana. Big story involving saving the
+world, defeating bosses, gaining experience, learning new technics and magic,
+etc.</p>
+
+<h2>Storyline</h2>
+
+<p>Being a free roaming game, RDR does not have a fixed storyline. You can do
+quests in different order, depending of the people you run into. Of course,
+some parts of the main storyline only unlock themselves when a set of missions
+are finished. There is also a lot of sidequests, given by NPC randomly
+popping. It gives a general impression of freedom and self-living world. You
+can easily play for one hour, doing one or two missions.</p>
+
+<p>The main character, John Marston, is not very talkative, so you don&#39;t know
+much about him. I haven&#39;t finished the game yet but I expect its story to be
+revealed the more and more I play. As a side effect, I don&#39;t really feel close
+to John, it only is my avatar in the game, and I help him. I feel more like
+watching a movie than playing a game.</p>
+
+<p>Tales of Phantasia is way more classic. You are the son of one of the four
+warriors that saved the world decades ago. The evil magician Dhaos that your
+parents defeated is now back on course and its your duty to fight him and
+defeat him once again. You start as a simple boy, win experience and battles,
+meet people and learn more about what your parents did.</p>
+
+<p>There is a certain amount of freedom in the way you can explore the world map
+and go to places where the scenario didn&#39;t yet ask you to go. Nothing to
+compare to RDR of course, but in a game of this time, you appreciate it. There
+are no invisible walls telling you &quot;You can&#39;t go there&quot;, only signs suggesting
+that &quot;This area is for the more experienced&quot;.</p>
+
+<p>I only have played a couple hours so far, but I like the way the story is
+told. People that have known your parents told you what they did, who they
+were, where they&#39;ve been, etc. The story is still following the rails of the
+scripted scenario but does so in an elegant way.</p>
+
+<p><em>Note : The previous JRPG I played, Final Fantasy, was waaaaay more strict on
+its storyline order, so my appreciation of Tales of Phantasia might be biased
+due to the comparison.</em></p>
+
+<h2>Graphics</h2>
+
+<p>RDR takes advantage of the PS3 power. All characters are animated using motion
+capture and voiced dialogs, making the world seem real. Animation are still a
+bit sluggish at time, and always done directly in the game engine. It keeps
+consistency, but the engine seems a bit dated.</p>
+
+<p>I usually am a PC player, I&#39;ve played Bioshock and Crisis when they came out
+in maximum quality, so I&#39;m not easily impressed by graphics rendering. The
+only game on the PS3 that impressed my was Uncharted 2 and RDR is absolutly
+not up to that standard. RDR is like most of the games I&#39;ve played on PS3. It
+has &quot;honest&quot; graphics : not ugly, but nothing breathtaking either.</p>
+
+<p>LOD handling is pretty bad in my opinion. When riding your horse in the
+desert, grass and bushes flashes in view from simple LOD to fully detailed in
+a split second. It defeat the whole purpose of LOD in my opinion, which should
+be done using a smooth transition between the two.</p>
+
+<p>Also, during cutscenes, when the camera change angle (moving from a close shot
+to John, to a shot to the person he&#39;s talking to for example), the LOD kept
+flashing. Everytime the camera change, you see the building in the background
+displayed as big blocks of colors then fully detailed, and on the next camera
+change you got them again from big block to details, even if they are the same
+building in the two shots. All that goes very fast, but I kept noticing it.
+Worse, sometimes buildings are exactly on the limit between rough and detailed
+so they kept flashing from one to another.</p>
+
+<p>Overall, I&#39;m not satisfied with RDR graphics. They definitly are not ugly but
+are just above average and this is not RDR strong point.</p>
+
+<p>One can wonder how I can even compare a full 3D game with an old 16bit RPG. I
+am not comparing the two, I&#39;m comparing each one to what the standard are for
+the machine they are running.</p>
+
+<p>Tales of Phantasia is the more detailed RPG I&#39;ve ever played on a 16bit
+console. The attention to detail is amazing. Each house, each city is fully
+detailed. There are fires burning in the chimneys, flowers on the tables,
+painting and cracks on the walls, carpets on the floor, etc. No two houses are
+the same, and the furnitures placed in each are done so in a logical way : the
+exact number of beds for the people living in a house, no house without
+kitchen, etc.</p>
+
+<p>For a 16bit game, I must say I&#39;m impressed. There are details everywhere, from
+hanging ropes in boats to patch of flowers and rocks on roads, it is really
+refreshing. When visiting a boat, the screen moves to emulate the rolling of
+the waves. This is no big deal but this is kind of details I appreciate.</p>
+
+<h2>Shopping UI</h2>
+
+<p>One thing that strike me as odd is how hard it is to sell goods in RDR. When
+speaking to a merchant, you can select goods you wish to sell and press X to
+sell them. If you have multiple goods of the same kind, you can select a few
+or all at once. The strange thing is that you can&#39;t select different goods at
+once, you have to do it one by one (and you usually have a lot of different
+goods coming from skinning various animals).</p>
+
+<p>Worst, goods you sell do not disappear from the list, they are just marked as
+&quot;Sold&quot;, you have to manually select the next in the list to proceed. And as
+the list is more like a grid, you can&#39;t simply press down to sell the next
+item, you have to select it in the list. To make it even a little more
+frustrating to use, everytime you sell an item, a little animation is played,
+freezing your UI for a second.</p>
+
+<p>Such an UI would never have passed quality insurance tests if the game had
+been developped for a PC audience. I do not understand why crappy UI is
+considered normal for console players.</p>
+
+<p>The shopping UI of Tales of Phantasia has nothing awesome but is just well
+thought. Presented with a list of goods to buy you can select the desired
+quantity of each, see the total amount and make adjustement regarding your
+current cash level. You also see the current number of each item you already
+own. As I said, nothing extraordinary, just really well thought and very
+practical.</p>
+
+<p>Screen resolution and hardware power has absolutly no influence on the
+greatness of UI here.</p>
+
+<h2>Music</h2>
+
+<p>RDR music is honest, there isn&#39;t any theme that get stuck in your mind after
+playing, but the various ambiances are pleasant and strike our common
+imaginary background of the far west.</p>
+
+<p>Tales of Phantasia music is also classical JRPG music, with some great songs,
+but the important point here is that they managed to make wonder with the
+small audio capabilities of the original console. Some music at some important
+points in the story have digitalized voices. Yeah, really. This is not crystal
+clear voices as a CD would allow today, but it is clear enough so you can
+recognize the melody and words (well, if you understand Japanese...).</p>
+
+<p>Also, even if each city has its own theme, you sometimes encounter NPC in
+those cities with their own themes, and the two musics blends into one other
+when you approach the NPC. It is something common in today games, but the
+first time I see it in a 16bit game.</p>
+
+<h2>Frustration</h2>
+
+<p>I have been very frustrated playing RDR. A lot of little things that add up
+and degrade my playing experience. Here are some random rambling :</p>
+
+<p>I&#39;ve failed a large number of missions because I strampled over pedestrian
+while galloping with my horse. In one mission, I was asked to save three
+horses from a barn on fire. I saved the first two by slapping them on the back
+so they can go out of the barn. For the last one, I had ride it and jump over
+the fire to get out. I did just that and jumped out of the barn and got a
+&quot;Mission failed&quot; screen. Wait, what ?</p>
+
+<p>It appeared that I assaulted one of the farmers that was trying to help. This
+dumbass was standing right in the spot where the mission asked me to jump, so
+when jumping over the fire I ran into him and the game considered it an
+assault, failed the mission and made me try it again.</p>
+
+<p>This isn&#39;t the only grudge I have with horse. There are a couple of weird
+stuff occuring with the way horses are handled in the game. During a mission,
+one of the NPC rode my horse instead of his own, so when I whistle my horse
+back, another one came instead. As fast as my horse, but with a totally
+different color.</p>
+
+<p>I once whistle for my horse that came galopping to me, running right past me
+and went splashing in the river, dying instantly...</p>
+
+<p>Speaking of rivers, this is something really frustrating. Your character can&#39;t
+swim, actually as soon as he got water above the waist, he drowns. Even on
+horseback : water rise to your horse collar and your waist, and you drown.
+That is both stupid and frustrating, dying for something that you absolutly
+can&#39;t imagine the first time it occurs to you.</p>
+
+<h2>Funny story</h2>
+
+<p>On an other occasion, I saw two guys shooting a third one trying to escape. I
+thought they were bandits trying to kill an innocent traveller, so I shot
+them. Bad choice, they were deputies trying to kill a bandit... I lost some
+honor in the process and the bandit turn back on me, trying to kill me after I
+saved him.</p>
+
+<p>A few hours later, same scenario. Two guys trying to kill a lone one. Based on
+my previous experience I decided to kill the escaping bandit. I lost honor
+too. It appeared it really were two bandits trying to kill a traveller this
+time... Of course the two bandits didn&#39;t thank me and started shooting me. So
+I had to kill them too.</p>
+
+<p>Third time, same scenario, two guys shooting a third fleeing one. This time I
+decided to wait a little and hear what they had to say, to better understand
+who they were and take side with the good guys this time. I didn&#39;t have time
+to think too much, because a few seconds later the third guy was dead, killed
+by the other two. And I lost honor too. Grrrr. They were bandits and I let
+them kill him an innocent man.</p>
+
+<p>Last but not least I encountered those three guys one last time. This time I
+saw that it was two deputies, asking me to help them capture the escaping
+bandit. Ok, this time it was clear. I decided to catch the bandit with my
+lasso (getting bounties alive gets you paid double). I catched him, but while
+I was tying him up, the deputies started shooting me. Actually, they were
+shooting the bandit but I was standing between him and them so I took a couple
+bullets. Once tied up and lying on the ground, the deputies continued shooting
+him until he died... Goodbye reward...</p>
+
+<p>And this is only one in the multiple stories I could tell about those random
+encounters plaggued with less-than-average AI. It resulted in a lot of
+frustration and some wtf moments.</p>
+
+<h2>Conclusion</h2>
+
+<p>First of all, thank you to have read this pamphlet from start to end, as it
+mostly was random rambling that I needed to get out. As a last word I might
+say that I&#39;m impressed by the way Tales of Phantasia managed to push the
+boundaries of the hardware, and managed to immerse you in its atmosphere
+through multiple little details both in controls, music, graphics and story</p>
+
+<p>On the other hand, Red Dead Redemption is a game just above average. My
+general gaming feeling was spoiled by a all those little overlooked details
+and glitches that in the end kept frustrating me.</p>
+
+<p>In the end, both games are interesting in term of Game Design because you can
+learn a lot from them. From Red Dead Redemption I&#39;ve learned a lot of small
+details that must not be overlooked in term of UI and gaming experience to not
+frustrate the player. From Tales of Phantasia I&#39;ve learned that all those
+little details that you take care of add up and your players will thank you
+for it.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/dingoo">#dingoo</a>
+      
+        <a href="/tags/red-dead-redemption">#red-dead-redemption</a>
+      
+        <a href="/tags/tales-phantasia">#tales-phantasia</a>
+      
+        <a href="/tags/game-design">#game-design</a>
+      
+        <a href="/tags/ui">#ui</a>
+      
+        <a href="/tags/ps3">#ps3</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/09/16/show-hide-flash-elements-redraw/">
+        Show and hide Flash elements without redraw
+      </a>
+    </h1>
+
+    <span class="post-date">16 Sep 2011</span>
+
+    <p>Imagine you have a Flash element in your HTML markup. If you apply any
+<code>show</code>/<code>hide</code>logic to it, the flash will be reset and played back to its
+first frame.</p>
+
+<p>Actually, as soon as you change the <code>display</code>property of an element, if
+forces all inner Flash element to be restarted.</p>
+
+<p>There are a few ways you can work around that, and here are the two main I&#39;m
+using</p>
+
+<h2>Your Flash file is in a tab</h2>
+
+<p>Fairly common scenario, you have tabs on your page (maybe using jQuery UI or a
+custom code). When you display your Flash tab, all others are hidden, and when
+you display another tab, the Flash one is hidden.</p>
+
+<p>Instead of using <code>display:none</code> / <code>display:block</code>, we&#39;ll be a little more
+sneaky and not really &quot;hide&quot; the element, but simply put it out of the user
+view.</p>
+
+<p>Just apply the following CSS rule to the element you want to hide. It will
+just display it offscreen.</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.tabHidden</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:-</span><span class="m">9999em</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Don&#39;t forget to add a <code>position:relative</code> to the HTML parent of your tab for
+the absolute positionning to work.</p>
+
+<h2>You have multiple Flash files in a list</h2>
+
+<p>This one is trickier. Imagine you have a list of elements, and each row
+contains a Flash file. You want to filter the list based on various criterias
+and only show the rows matching.</p>
+
+<p>You can&#39;t use the previous technique here because some elements of your list
+will be in relative positionning while others will be in absolute
+positionning. And everytime you change the <code>position</code>property of your
+element, the Flash will be reset.</p>
+
+<p>The trick here is to play with your element dimensions and visibility. You can
+change the <code>visibility</code>without triggering a redraw. As this will only make
+the element invisible but still taking space, you just have to put its <code>height
+</code>and <code>width</code>to <code>0</code> to make it effectively disappear.</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.listElementHidden</span> <span class="p">{</span>
+  <span class="k">visibility</span><span class="o">:</span><span class="k">hidden</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">0px</span><span class="o">:</span>
+  <span class="k">margin</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>margin:0px</code> is here to clear any margin you might have defined around
+your element.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/show">#show</a>
+      
+        <a href="/tags/hide">#hide</a>
+      
+        <a href="/tags/flash">#flash</a>
+      
+        <a href="/tags/css">#css</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/09/07/selecting-checked-radio-button-jquery-ie8/">
+        Selecting checked radio button with jQuery and IE8
+      </a>
+    </h1>
+
+    <span class="post-date">07 Sep 2011</span>
+
+    <p>Ever tried to select the checked <code>radio</code>button of a form using jQuery ? Well
+I did, and hundreds of time before, and never ran into any issues.</p>
+
+<p>Today&#39;s the first time, and it involves my dear friend IE8. Seems like either
+jQuery or IE8 had trouble with my <code>radio</code> button selection.</p>
+
+<p>I finally managed to get what I wanted but with a sightly different syntax for
+IE8.</p>
+
+<h2>First, the markup</h2>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">&quot;myForm&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;data[Payment][value]&quot;</span> <span class="na">id=</span><span class="s">&quot;payment_1500&quot;</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">value=</span><span class="s">&quot;1500&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;payment_1500&quot;</span><span class="nt">&gt;</span>1500<span class="nt">&lt;/label&gt;&lt;br</span> <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;data[Payment][value]&quot;</span> <span class="na">id=</span><span class="s">&quot;payment_2000&quot;</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">value=</span><span class="s">&quot;2000&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;payment_2000&quot;</span><span class="nt">&gt;</span>2000<span class="nt">&lt;/label&gt;&lt;br</span> <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;data[Payment][value]&quot;</span> <span class="na">id=</span><span class="s">&quot;payment_5000&quot;</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">value=</span><span class="s">&quot;5000&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;payment_5000&quot;</span><span class="nt">&gt;</span>5000<span class="nt">&lt;/label&gt;&lt;br</span> <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;test&quot;</span><span class="nt">&gt;</span>Select<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div>
+<p>Pretty simple, isn&#39;t it ? I only have three <code>radio</code>buttons, and I would like
+to get the selected value when pressing the Select <code>button</code>.</p>
+
+<h2>What should work everywhere</h2>
+
+<p>The following code is pretty straightforward and I expected it to just work.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">selected1</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myForm input[name=&quot;data\\[Payment\\]\\[value\\]&quot;]:checked&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">value1</span> <span class="o">=</span> <span class="nx">selected1</span><span class="p">.</span><span class="nx">val</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value1</span><span class="p">);</span>
+</code></pre></div>
+<p>Note that we have to double escape the <code>[</code> and <code>]</code> characters and wrap in
+quotes the <code>name</code>value. Nothing fancy, just classic string protection. This
+code works perfectly on Firefox and Chrome, and I deployed it in production
+for a few weeks.</p>
+
+<p>Then, I got report of users that would have love to use the form, but got an
+error because no value was selected. I tested and tested it again without
+finding the cause. Then it occurs to me that all those reports came from user
+using IE8.</p>
+
+<p>So I rebooted my VM, launched IE8 and was able to reproduce the bug on my
+first try.</p>
+
+<h2>What the heck is IE8 doing ?</h2>
+
+<p>Well, that&#39;s a deep question, and I&#39;ve ask this myself countless times before.
+Once more, IE is doing things in its own weird way.</p>
+
+<p>After some fiddling, I managed to make it work, by just slightly altering the
+syntax.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">selected2</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myForm input[name=&quot;data\\[Payment\\]\\[value\\]&quot;]&#39;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="s1">&#39;:checked&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">value2</span> <span class="o">=</span> <span class="nx">selected2</span><span class="p">.</span><span class="nx">val</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value2</span><span class="p">);</span><span class="err"> </span>
+</code></pre></div>
+<p>Yep, that&#39;s right, I simply moved the <code>:checked</code> selector in its own <code>filter
+</code>call and it worked. Took me a while to figure, but this finally turned out to
+be an easy fix.</p>
+
+<p>You can test it yourself with <a href="http://jsfiddle.net/pixelastic/WS53Q/1/">this jsFiddle
+example</a>. Don&#39;t forget to enable the
+log panel in IE8 by pressing F12 before running the code.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jquery">#jquery</a>
+      
+        <a href="/tags/radio">#radio</a>
+      
+        <a href="/tags/ie8">#ie8</a>
+      
+        <a href="/tags/checked">#checked</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page10">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page8">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

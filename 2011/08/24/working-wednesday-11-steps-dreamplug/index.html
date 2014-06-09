@@ -1,0 +1,197 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Working on Wednesday #11 : First steps with my Dreamplug - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Working on Wednesday #11 : First steps with my Dreamplug</h1>
+  <span class="post-date">24 Aug 2011</span>
+  <p>A while back, I ordered a Dreamplug. It&#39;s a micro computer more or less the
+size of a hard drive. It uses very little electricity, has ethernet, usb, sata
+and sd ports as well as bluetooth and wifi connectivity.</p>
+
+<p>I wanted one to primarily work as a git and mercurial server to host my repos,
+as well as host a few websites I might be working on. As it&#39;s not the more
+powerful of device and will be using my home ADSL connection, it&#39;s also a good
+fit for testing web performance optimisations.</p>
+
+<p>Actually, I have a lot of ideas for this plug (ssh tunnel, dropox-like server,
+etc).</p>
+
+<h2>First, let&#39;s establish a connection</h2>
+
+<p>To do any of that, you first have to log into your device. This first step
+might have been the one that caused me the much trouble.</p>
+
+<p>I simply wanted to connect to the plug through SSH. I didn&#39;t want to plug it
+to my router because it would then have emit an open wifi network. Instead, I
+wanted to access it through a simple ethernet cable.</p>
+
+<p>To do that I had to plug the Ethernet cable on the second slot (the one the
+closer to the lights) on the plug, then turn it on. I didn&#39;t manage to connect
+with the cable in the other plug nor if I plugged it after turning the device
+on.</p>
+
+<p>What took me a while to figure is that the Dreamplug have its own ip address :
+<code>10.0.0.1</code>. To enable transfer between your host and the plug, you have to set
+a fixed ip address to your ethernet (mine was <code>eth0</code>)</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>sudo ifconfig eth0 10.0.0.2
+</code></pre></div>
+<p>I chose <code>10.0.0.2</code> because it&#39;s close to the Dreamplug address and I will
+remember it better, but you can actually choose anything you want, it
+absolutely does not matter.</p>
+
+<h2>Connect through ssh</h2>
+
+<p>Once the first step is done, you are now able to connect to the device through
+SSH.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>ssh root@10.0.0.1
+</code></pre></div>
+<p>The default password is <code>nosoup4u</code>. I chose to keep it for now, as I&#39;ll have
+to type it a lot, but I&#39;ll change it once everything is installed.</p>
+
+<p>First thing you should do is create a new user. Using <code>root</code> for the day to
+day activities is a bad habit.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>adduser pixelastic
+</code></pre></div>
+<p>You&#39;ll be prompted for password and other misc informations. Once done, we
+will give sudo power to this user.</p>
+
+<p>On others Ubuntu machines, I usually do a <code>adduser pixelastic admin</code> or
+<code>adduser pixelastic sudo</code>, but this didn&#39;t work here. There wasn&#39;t even an
+<code>admin</code> group, and adding to <code>sudo</code> didn&#39;t seem to change anything.</p>
+
+<p>Instead, I had to edit the <code>/etc/sudoers</code> file, using <code>visudo</code>.</p>
+
+<p><em>If you&#39;ve never used <code>vi</code> before, press <code>i</code> to enter edit mode, and <code>vi</code> will
+acts as a common editor. Press <code>Esc</code> when you&#39;ve finished, then <code>:x</code> to save
+and exit</em></p>
+
+<p>I added a new line just below the one starting with <code>root</code> and copied it,
+simply by changing the user name.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">root    <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> ALL
+pixelastic <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> ALL
+</code></pre></div>
+<p>Your new user should now have the sudo powers.</p>
+
+<p>Unfortunatly, on my build one more thing was missing. It might not be the case
+on your plug, but we&#39;d better check.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>which sudo
+ /usr/bin/sudo
+<span class="nv">$ </span>ls -l /usr/bin/sudo
+ -rwxr-xr-x 1 root root 114976 2011-02-14 08:08 /usr/bin/sudo
+</code></pre></div>
+<p>Check the permissions, if you have this output, then something is wrong. The
+<code>sudo</code> executable should have the <code>s</code> permissions, otherwise it won&#39;t work.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>chmod u+s /usr/bin/sudo
+</code></pre></div>
+<p>Now, we can logout from the <code>root</code> session, and login back with our new user</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>ssh pixelastic@10.0.0.1
+<span class="nv">$ </span>sudo <span class="nb">pwd</span>
+ /home/pixelastic
+</code></pre></div>
+<h2>What next ?</h2>
+
+<p>Now, one last sensible thing to do is to change the root password for
+something stronger, and even disable login as <code>root</code> through ssh. To do that,
+simply edit the <code>/etc/ssh/sshd_config</code> file and set <code>PermitRootLogin</code> to <code>no</code>.</p>
+
+<p>You could also add your keys to the plug to avoid typing your password,
+install your softs, and link the plug to your router to make it accessible
+from the outside.</p>
+
+<p>I plan to replace Ubuntu for Debian on my Dreamplug, I&#39;ll post about that
+later.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/ubuntu">#ubuntu</a>
+    
+      <a href="/tags/wednesday">#wednesday</a>
+    
+      <a href="/tags/dreamplug">#dreamplug</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

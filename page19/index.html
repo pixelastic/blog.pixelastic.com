@@ -1,0 +1,391 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/21/parent-folder-windows-7-explorer/">
+        Going to parent folder in Windows 7 Explorer
+      </a>
+    </h1>
+
+    <span class="post-date">21 Jan 2011</span>
+
+    <p>At first I thought I missed an option somewhere, but now I have to admit :
+Microsoft removes the &quot;Go to parent folder&quot; button in the Windows 7 version of
+Explorer.</p>
+
+<p>I like their new implementation of folder path, but a fast click to go up one
+level, positionned in a consistent way in the UI is a plus.</p>
+
+<p>After some research I found the <code>Alt + Up</code> keyboard shortcut to achieve the
+same result, but while navigating through the explorer, I always am using my
+mouse. Switching from mouse to keyboard is tedious, so I hunt for another
+solution.</p>
+
+<p>I finally installed <a href="http://sourceforge.net/projects/classicshell/">ClassicShell
+</a>that adds the missing button
+as well as some other minor cosmetics changes.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/windows-7">#windows-7</a>
+      
+        <a href="/tags/classicshell">#classicshell</a>
+      
+        <a href="/tags/folder">#folder</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/20/protecting-directory-http-auth-dreamhost-cakephp/">
+        Protecting a directory using HTTP Auth on Dreamhost with cakePHP
+      </a>
+    </h1>
+
+    <span class="post-date">20 Jan 2011</span>
+
+    <p>One can protect the browsing of a special directory with a simple set of
+login/password by using appropriate <code>.htaccess</code>/<code>.htpasswd</code> files.</p>
+
+<h2>The classic way</h2>
+
+<p>Just create an <code>.htaccess</code> in the directory you want to protect with the
+following lines :</p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nb">AuthName</span> <span class="s2">&quot;Restricted Access&quot;</span>
+<span class="nb">AuthType</span> Basic
+<span class="nb">AuthUserFile</span> <span class="sx">/full/path/to/your/.htpasswd</span>
+<span class="nt">&lt;Limit</span> <span class="s">GET POST PUT</span><span class="nt">&gt;</span>
+<span class="nb">Require</span> valid-user
+<span class="nt">&lt;/Limit&gt;</span>
+</code></pre></div>
+<p>And to create the .htpasswd file, run the following command :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">htpasswd -c /full/path/to/your/.htpasswd username
+</code></pre></div>
+<p>The <code>-c</code> modifier will create the file, omit it if you only want to add a new
+user. Also change the path to your <code>.htpasswd</code> file (moving it out of the
+webdir could be a good idea) and change <code>username</code>to any login you want.</p>
+
+<p>You&#39;ll then be prompted to enter the password (twice) and your file will be
+generated.</p>
+
+<h2>cakePHP and Dreamhost fixed</h2>
+
+<p>I had an issue when protecting a folder in my <code>app/webroot/</code>folder on
+Dreamhost. I&#39;m not sure it is completly cake related nor Dreamhost related but
+the two together made it quite hard to debug.</p>
+
+<p>Anyway, it appears that when issuing an HTTP Auth, Dreamhost redirect to a
+file named <code>/failed_auth.html</code> (this is the file you&#39;re supposed to see when
+your Auth fails, obviously).</p>
+
+<p>But as I didn&#39;t have such a file in my app, everytime I tried to access my
+protected dir, I got my custom 404 error page.</p>
+
+<p>To finally fix that, all I had to do was to create a real <code>failed_auth.html</code>
+page, or in my case, create a Route that redirect <code>failed_auth.html</code> to a
+custom failed auth page.</p>
+
+<p>I guess just dropping a <code>failed_auth.html</code> file in <code>app/webroot/</code>could have
+done the trick too.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/dreamhost">#dreamhost</a>
+      
+        <a href="/tags/htpasswd">#htpasswd</a>
+      
+        <a href="/tags/router">#router</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/htaccess">#htaccess</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/11/strange-requestaction-bug-changing-page-content-type/">
+        Strange requestAction bug changing the page Content-Type
+      </a>
+    </h1>
+
+    <span class="post-date">11 Jan 2011</span>
+
+    <p>Today, I thought my current project was finished. But I had this bug report in
+my tracker from one of the beta-tester telling me that one of the page wasn&#39;t
+rendered properly.</p>
+
+<p>It says that the code source was displayed on screen instead of being rendered
+as HTML. And only on Firefox.</p>
+
+<p>And if that wasn&#39;t odd enough, even with the plethora of Firefox versions I
+got, I couldn&#39;t reproduce the bug on my side.</p>
+
+<h2>Turning off the debugger to debug</h2>
+
+<p>Then I had an idea. I turned off the debug mode, and was then able to
+reproduce the infamous bug.</p>
+
+<p>As I initially supposed, there was something wrong with the <code>Content-Type</code>
+header. The Firebug Net Panel told me that it was set as <code>text/plain</code> while
+the developer toolbar insisted that it was <code>text/html</code>.</p>
+
+<p>After some digging in my own code, I found the culprit. A <code>requestAction()</code>
+call I made as part of an update process. This <code>requestAction</code>was targeted at
+a <code>.txt</code> file.</p>
+
+<p>I played a little with the debug value and found that for any value above 2,
+everything was working correctly, but if I set my value below that threshold,
+my whole view will get displayed as <code>text/plain</code>.</p>
+
+<p>I couldn&#39;t quite explain why a debug value will have anything to with the view
+rendering. I even disabled the Debug Kit component, just to be sure.</p>
+
+<h2>Digging into cake world</h2>
+
+<p>And then I decided to follow the dispatch trace to find where the debug value
+was being used. After a long journey, I got to the <code>respondAs</code>method of the
+<code>RequestHandler</code>component.</p>
+
+<p>And specifically, to that part :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">if (Configure::read() &lt; 2 &amp;&amp; !defined(&#39;CAKEPHP_SHELL&#39;)) {</span>
+<span class="x">  $this-&gt;_header($header);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Ok, so there was my debug value. Exactly the code reponsible for my symptoms.
+Well, I still don&#39;t understand WHY someone wanted to add an header based on
+the debug value, but I could easily understand HOW it made my view that ugly.</p>
+
+<p>The <code>requestAction</code>was being dispatched all along the way to its final
+action, firing the <code>RequestHandler</code>component on its way. Its extension being
+<code>.txt</code>, <code>RequestHandler</code>will fire its <code>respondAs</code> method and set the
+appropriate header.</p>
+
+<p>Unfortunatly, setting such an header in a <code>requestAction</code>wasn&#39;t useful for
+the request, and additionnaly, it was messing with the primary view dispatch
+path.</p>
+
+<h2>Solution</h2>
+
+<p>I<a href="http://cakephp.lighthouseapp.com/projects/42648-cakephp/tickets/1445%0A-requestaction-may-change-the-current-layout-depending-on-debug-value"> reported the
+bug</a> hoping
+for a fix in a future version. For the time being, I manually set the debug to
+2 before calling my <code>requestAction</code>, and set it back to its previous value
+after in my app.</p>
+
+<p>And for why it was only buggy on Firefox, it was caused by a double header
+definition. A first header was telling <code>text/plain</code> and a second one<code>
+text/html</code>. I guess Firefox uses the first one while other browsers the last.
+This is what made Firebug and the Developer Toolbar return different results
+too.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/requesthandler">#requesthandler</a>
+      
+        <a href="/tags/requestaction">#requestaction</a>
+      
+        <a href="/tags/content-type">#content-type</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/10/apache-rewrite-mod-small-tip/">
+        Apache rewrite_mod small tip
+      </a>
+    </h1>
+
+    <span class="post-date">10 Jan 2011</span>
+
+    <p>Did you know that when debugging <code>RewriteRule</code>s, instead of
+commenting/uncommenting each line, you can simply make <code>RewriteEngine On</code> /
+<code>RewriteEngine Of</code>f all along your code ?</p>
+
+<p>I didn&#39;t, and now that I do it seems so obvious I don&#39;t believe I&#39;ve never
+thought of that before...</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/rewriterule">#rewriterule</a>
+      
+        <a href="/tags/rewriteengine">#rewriteengine</a>
+      
+        <a href="/tags/mod-rewrite">#mod-rewrite</a>
+      
+        <a href="/tags/apache">#apache</a>
+      
+        <a href="/tags/htaccess">#htaccess</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/01/07/ie8-ghost-pseudo-elements/">
+        IE8 ghost :after and :before pseudo elements
+      </a>
+    </h1>
+
+    <span class="post-date">07 Jan 2011</span>
+
+    <p>IE8 has a strange bug (<em>what bugs aren&#39;t strange in IE ?</em>) when dealing with
+<code>:after</code> and <code>:before</code> pseudo-elements.</p>
+
+<p>I was adding a nice looking arrow after one of my elements using <code>:after</code>. I
+wanted this arrow to only display when my element was hovered, so I wrote the
+following code :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>Example<span class="nt">&lt;/a&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">a</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span><span class="k">relative</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span>
+  <span class="k">content</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+  <span class="k">right</span><span class="o">:-</span><span class="m">15px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">15px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">30px</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span><span class="sx">url(arrow.gif)</span> <span class="k">top</span> <span class="k">left</span> <span class="k">no-repeat</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="nd">:hover:after</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>As you can see, nothing too fancy. I positionned my arrow using an empty
+<code>:after</code> element and a <code>background</code>image. I defaulted the arrow to hidden,
+and only show it when hovering the element.</p>
+
+<h2>IE in action</h2>
+
+<p>It does work pretty well in moder browsers. It also seems to work on IE8. When
+you hover the element in IE8, the arrow gets displayed. But it does not gets
+hidden when you stop hovering it.</p>
+
+<p>There&#39;s a kind of ghost element that keeps getting displayed. It gets removed
+if you directly mouse it, or scroll your page, or alt-tab, etc. This clearly
+is a display artefact.</p>
+
+<p>To counter this I had to write it in an other fashion (less readable in my
+opinion). Removing the default <code>a:after</code> rule and adding all properties to
+<code>a:hover:after</code> :</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">a</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span><span class="k">relative</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="nd">:hover:after</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span>
+  <span class="k">content</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span><span class="m">0px</span><span class="p">;</span>
+  <span class="k">right</span><span class="o">:-</span><span class="m">15px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">15px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">30px</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span><span class="sx">url(arrow.gif)</span> <span class="k">top</span> <span class="k">left</span> <span class="k">no-repeat</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2>Update</h2>
+
+<p>It should be noted that more generally, I gets confused and create ghost
+elements and styling when we try to update the <code>:after</code>/<code>:before</code> properties
+based on a rule selecting its parent.</p>
+
+<p>There seems to have a little lag/delay before the properties gets applied, and
+most of the time they do not.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/bug">#bug</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/ghost">#ghost</a>
+      
+        <a href="/tags/ie8">#ie8</a>
+      
+        <a href="/tags/before">#before</a>
+      
+        <a href="/tags/after">#after</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page20">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page18">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

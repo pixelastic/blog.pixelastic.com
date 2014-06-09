@@ -1,0 +1,411 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/03/05/migrating-windows-ubuntu-keepassah/">
+        Migrating from Windows to Ubuntu : KeePass
+      </a>
+    </h1>
+
+    <span class="post-date">05 Mar 2011</span>
+
+    <p>I&#39;m slowly trying to move my development machine from a desktop Windows Xp to
+a laptop running Ubuntu. This is quite a long task because there are so much
+softwares I depend on on my day to day work. Most of them are crossplatform
+but I often need o find a Ubuntu equivalent, and sometimes it does not exists
+and I have to run the Windows app using an emulator.</p>
+
+<p>This is exactly the case with <a href="http://keepass.info/">KeePass</a>. KeePass 2.0 is
+an improved version of KeePass 1.0 (obviously), that allows one to save all
+password in one place. The 2.0 version also permit to save more than single
+password, virtually anything, and adding little icons to each entry (when you
+start having 200+ entries, icons are a must have).</p>
+
+<h2>Enter Ubuntu world</h2>
+
+<p>The official 2.0 version is not supported under linux. There is a linux port,
+named <a href="http://www.keepassx.org/">KeePassX</a>, but it does not support the
+<code>.kdbx</code> file format used by the official 2.0 version.</p>
+
+<p>So I tried to run the Windows <code>.exe</code> file with Wine at first (I already had
+Wine installed to run another app), but it wasn&#39;t working with KeePass. I
+tried instead an other emulator, Mono, and running <code>mono KeePass.exe</code> totally
+worked.</p>
+
+<h2>Little tweaks ahead</h2>
+
+<p>First of all, I had to install two additionnal packages to make it open
+without errors : <code>System.Windows.Forms</code> and <code>System.Runtime</code>. So far, so good.</p>
+
+<p>But, I quickly discovered that one of the most usefull features of KeePass,
+auto-type (Ctrl+V automatically fills a login/password field) wasn&#39;t working
+correctly. There was one more missing dependency : <code>xdotool</code>.</p>
+
+<p>If you are running Ubuntu like me, do not install it from the official
+packages, this version is completly outdated and won&#39;t work. Instead, you have
+to manually install the latest version. If you are lucky and running a 64bits
+system, you can download directly <a href="http://code.google%0A.com/p/semicomplete/downloads/list?can=2&amp;q=label%3A.deb+label%3Axdotool+label%%0A3Afeatured&amp;colspec=Filename+Summary+Uploaded+ReleaseDate+Size+DownloadCount">the .deb file from here</a>.</p>
+
+<p>If you are running under a 32bits system like me, you&#39;ll have to manually
+install it. First grab <a href="ttp://code.google.com/p/semicomplete/downloads/list?q=label:xdotool">the files from this
+link</a>.
+Then, install the <code>libxtst-dev</code> package (it is needed for the install to
+complete), export the content of the <code>.tar.gz</code> file into a temporary directory
+and execute <code>sudo make install</code>.</p>
+
+<h2>Finally !</h2>
+
+<p>Now, you got KeePass 2.0 working under Ubuntu, and installed all dependencies
+needed to run the auto-type feature.</p>
+
+<p>In a Windows environment, one can change KeePass preferences so that closing
+it only send it to the tray bar.This option does not seem to be working under
+Linux, KeePass still shows in the task bar even when minimized. I spent some
+time trying to fix that too, tetsing AllTray and other tray softs for linux
+but didn&#39;t managed to get what I wanted.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ubuntu">#ubuntu</a>
+      
+        <a href="/tags/mono">#mono</a>
+      
+        <a href="/tags/windows">#windows</a>
+      
+        <a href="/tags/xdotool">#xdotool</a>
+      
+        <a href="/tags/wine">#wine</a>
+      
+        <a href="/tags/keepass">#keepass</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/02/23/differences-mercurial-subversion/">
+        Differences between Mercurial and Subversion
+      </a>
+    </h1>
+
+    <span class="post-date">23 Feb 2011</span>
+
+    <p>People at my current job are using Subversion, and our project will be tracked
+using it. I never used Subversion before, the only versionning system I ever
+used was Mercurial. And moving from one to the other meant changing a lot of
+reflexs I had.</p>
+
+<p>Here is a little list of changes, mostly as a reminder for myself.</p>
+
+<h2>Directories</h2>
+
+<p>Mercurial uses a single <code>.hg</code> directory at the root of your project to store
+all your project history while Subversion adds multiple <code>.svn</code> directories in
+each directory, to track history changes to that directory only.</p>
+
+<p>I prefer the Mercurial approach, it keeps all changes centralized in one
+place. You can simply remove the <code>.hg</code> directory to transform your versionned
+version into a stand-alone one.</p>
+
+<p>While the Subversion approach litters your app with countless hidden
+directories, making copy and pasting a real pain.</p>
+
+<h2>Centralised vs Distributed</h2>
+
+<p>Subversion is centralised while Mercurial is distributed.</p>
+
+<p>As far as I understand the difference, it means that Subversion uses one main
+directory to store the versionned version and can deploy (export) a specific
+revision at anytime.</p>
+
+<p>That revision do not hold any history information, it is only a copy of your
+project at a given time.</p>
+
+<p>On the other hand, each Mercurial repository holds both the current public
+version and all the history. You do not have to deploy anything anywhere,
+just <code>update</code> your current repo with data from one of the revision.</p>
+
+<h2>Tortoise</h2>
+
+<p>I am using both TortoiseSVN and TortoiseHg. When you commit with TortoiseSVN
+it displays the list of files that where updated since the last commit. If you
+added new files, they won&#39;t show unless the &quot;Show unversionned files&quot; is
+checked.</p>
+
+<p>In TortoiseHg, all new files are automatically seen in the commit window, as
+well as a diff. It allows me the easily see what changes where made, and help
+me write my commit message.</p>
+
+<p>I really like the TortoiseHg vision better.</p>
+
+<h2>Tracking directories</h2>
+
+<p>Subversion can track empty directory, just by adding them. Mercurial can&#39;t.
+You have to add an empty file in each to allow tracking.</p>
+
+<p>Also, when doing a commit in a specific directory in Mercurial, it will commit
+the whole repo, while with Subversion it will only commit the current repo. I
+can see the benefits of both and I&#39;m not quite sure which is better.</p>
+
+<p>Subversion will allow me to do a commit of one special feature by committing
+only one directory, but the TortoiseHg integration help me doing commits more
+easily no matter where I&#39;m browsing.</p>
+
+<h2>Ignoring files</h2>
+
+<p>I have some files in my project I don&#39;t want to track (like auto-generated
+cache files). In Mercurial, all I need is editing the <code>.hgignore</code> file with
+regexps. The syntax can be a little strange sometimes, it took me a while to
+correcly understand it, but it definitely works.</p>
+
+<p>On Subversion, I can add files to the ignore list so they don&#39;t show as
+&quot;unversionned&quot;, but I can also add a <code>svn:ignore</code>property to a specific
+directory to set regexp to files that I don&#39;t want to track. The end result is
+the same, but the way Mercurial handle it with one file is more appealing to
+me.</p>
+
+<h2>Conclusion</h2>
+
+<p>Having all history in one dir and all ignore rules in one files seems a better
+approach to me. I guess on some aspects Mercurial is still more centralised
+than Subversion.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/svn">#svn</a>
+      
+        <a href="/tags/tortoisehg">#tortoisehg</a>
+      
+        <a href="/tags/mercurial">#mercurial</a>
+      
+        <a href="/tags/hg">#hg</a>
+      
+        <a href="/tags/subversion">#subversion</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/02/20/cakephp-wrapper-emailcomponent-send/">
+        cakePHP wrapper for EmailComponent::send()
+      </a>
+    </h1>
+
+    <span class="post-date">20 Feb 2011</span>
+
+    <p>As I already wrote in a <a href="/blog/230:displaying-html-mails-sent-%0Afrom-cakephp-in-squirrelmail">previous post</a>, the cakePHP <code>EmailComponent</code>seems to have some
+quirks, forcing me to add more code to send an email.</p>
+
+<p>I stumbled upon one more issue today : a <code>View</code> poisoning coming from the
+<code>EmailComponent</code>. Some vars I was passing to my view through the use of a
+custom <code>Helper</code>were wipe away if I send a mail in the same request.</p>
+
+<p>It took me some time to track it down, but I finally decided that I&#39;ll now
+wrap calls to <code>$this-&gt;Email-&gt;send()</code> into a <code>__sendEmail()</code> custom method
+where I&#39;ll add my tweaks.</p>
+
+<p>This will help migrating to a newer cake version easier when those bugs will
+be fixed.</p>
+
+<h2>Easy debug</h2>
+
+<p>Debugging emails is not an easy task, but is greatly eased by cake. One can
+set the delivery type to <code>debug</code>and the mail will be generated like a normal
+mail, but won&#39;t be sent. Instead, its content will be saved in <code>Session</code>.</p>
+
+<p>My wrapper will allow switching from normal to debug mail thanks to an
+argument.</p>
+
+<h2>View cleaning</h2>
+
+<p>I&#39;ll also clear the <code>ClassRegistry</code>from the <code>View</code>created by the
+<code>EmailComponent</code>. The <code>Email</code>view is shared with the display view and this
+can result in vars being lost or not correctly set. I think all those troubles
+are gone in cake 2.0 but I haven&#39;t tested it yet.</p>
+
+<h2>The __sendMail method</h2>
+
+<p>Here is the method code. You should add it to your AppController :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function __sendMail($sendAsDebug = false) {</span>
+<span class="x">  if (empty($this-&gt;Email)) {</span>
+<span class="x">    return false;</span>
+<span class="x">  }</span>
+<span class="x">  // Debug mode</span>
+<span class="x">  if (!empty($sendAsDebug)) {</span>
+<span class="x">    $this-&gt;Email-&gt;delivery = &#39;debug&#39;;</span>
+<span class="x">  }</span>
+<span class="x">  // We force adding the boundaries and header otherwise some webmail (like SquirelMail) won&#39;t correctly display them</span>
+<span class="x">  $this-&gt;Email-&gt;_createboundary();</span>
+<span class="x">  $this-&gt;Email-&gt;__header[] = &#39;MIME-Version: 1.0&#39;;</span>
+<span class="x">  $this-&gt;Email-&gt;send();</span>
+<span class="x">  // We display debug info</span>
+<span class="x">  if (!empty($sendAsDebug)) {</span>
+<span class="x">    debug($this-&gt;Session-&gt;read(&#39;Message.email.message&#39;), true);</span>
+<span class="x">  }</span>
+<span class="x">  // We also need to clear the generated view so our display does not get poisoned by the Email display</span>
+<span class="x">  ClassRegistry::removeObject(&#39;view&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/classregistry">#classregistry</a>
+      
+        <a href="/tags/component">#component</a>
+      
+        <a href="/tags/email">#email</a>
+      
+        <a href="/tags/squirrelmail">#squirrelmail</a>
+      
+        <a href="/tags/emailcomponent">#emailcomponent</a>
+      
+        <a href="/tags/view">#view</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/02/03/raw-json-post-php/">
+        Getting raw JSON POST in PHP
+      </a>
+    </h1>
+
+    <span class="post-date">03 Feb 2011</span>
+
+    <p>Sometimes you need to post raw <code>POST</code>data without following the key/value
+convention, like when you need to post to some webservices.</p>
+
+<p>Accessing it from PHP can be a little obsure at first, but all that is needed
+is to read the input buffer by doing : <code>file_get_contents(&quot;php://input&quot;)</code></p>
+
+<p>This can be useful when posting raw JSON without adding the overhead of all
+the keys.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/post">#post</a>
+      
+        <a href="/tags/json">#json</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2011/02/02/malformed-post-request-absolute-url-flash/">
+        Malformed POST request made to an absolute url with Flash
+      </a>
+    </h1>
+
+    <span class="post-date">02 Feb 2011</span>
+
+    <p>Sometimes you encounter bugs that smacks you in the face with their
+strangeness. And even when you defeated them you still have this sour taste of
+puzzlement.</p>
+
+<p>I encountered one of them today.</p>
+
+<p>While testing in a local environment and doing POST requests from Flash to a
+distant cake app, I could get the request just fine.</p>
+
+<p>But when uploading the SWF on the server and embedding it in a Facebook App
+Iframe, the POST data seemed corrupted and I couldn&#39;t get it.</p>
+
+<p>Replacing the distant POST call to a local one (removing the whole <code>http://</code>
+part) fixed this strange bug.</p>
+
+<p>So we ended by adding a check to see if we were online or local and make an
+absolute or relative call depending on the environment.</p>
+
+<p>So far, no more issues.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/swf">#swf</a>
+      
+        <a href="/tags/post">#post</a>
+      
+        <a href="/tags/actionscript">#actionscript</a>
+      
+        <a href="/tags/bug">#bug</a>
+      
+        <a href="/tags/flash">#flash</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page19">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page17">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Custom logging system for cakePHP - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Custom logging system for cakePHP</h1>
+  <span class="post-date">05 May 2011</span>
+  <p>I do love cakePHP, but sometimes it can get tricky to get it to do exactly
+what you want.</p>
+
+<p>For our big app, we needed to stop using the builtin logging system to take
+advantage of the syslog and log analyzer tools we had.</p>
+
+<p>At first I got confused by the various log files, but after reading the cake
+core code, it (kinda) makes sense. Let me explain it to you.</p>
+
+<h2>CakeLog and FileLog</h2>
+
+<p><code>CakeLog</code>is the cake static class that handles all the log actions. You can
+call it yourself statically using <code>CakeLog::write()</code>, but cake also calls it
+itself when an error is reported.</p>
+
+<p><code>CakeLog</code>internally write its content using the FileLog. This <code>FileLog
+</code>writes its content to files located in <code>app/tmp/logs</code>.</p>
+
+<h2>Writing errors to the syslog instead</h2>
+
+<p>We didn&#39;t want our logs to be saved in <code>app/tmp/logs</code> for three mains reasons
+:</p>
+
+<ol>
+<li>Those files gets deleted on every deploy we did (this was how our deployment system works)</li>
+<li>Those files can get very big very fast</li>
+<li>Our app was distributed accross several servers, meaning that each server had its own set of log files</li>
+</ol>
+
+<p>Instead, we wanted them to be written to the syslog where they would be
+intercepted and stored in our main log analyzer.</p>
+
+<p>To do so, we wrote a simple <code>SysLog</code>class to use instead of the <code>FileLog</code>.
+Here it is :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class SysLog {</span>
+<span class="x">  /**</span>
+<span class="x">  *    Writes a log to the syslog</span>
+<span class="x">  *    \param    $type    Either a numerical constant or a string</span>
+<span class="x">  *    \param    $message    Message to log</span>
+<span class="x">  **/</span>
+<span class="x">  public function write($type, $message) {</span>
+<span class="x">    // We &quot;fix&quot; CakeLog that passes severity as a string</span>
+<span class="x">    if (is_string($type)) {</span>
+<span class="x">      // Mapping string to syslog priorities</span>
+<span class="x">      $priorities = array(</span>
+<span class="x">        &#39;debug&#39;    =&gt; LOG_DEBUG,</span>
+<span class="x">        &#39;info&#39;        =&gt; LOG_INFO,</span>
+<span class="x">        &#39;notice&#39;    =&gt; LOG_NOTICE,</span>
+<span class="x">        &#39;warning&#39;    =&gt; LOG_WARNING,</span>
+<span class="x">        &#39;error&#39;    =&gt; LOG_ERR,</span>
+<span class="x">        &#39;default&#39;    =&gt; LOG_NOTICE</span>
+<span class="x">      );</span>
+<span class="x">      $type = (array_key_exists($type, $priorities)) ? $priorities[$type] : $priorities[&#39;default&#39;];</span>
+<span class="x">    }</span>
+<span class="x">    // Writing to syslog</span>
+<span class="x">    openlog(false, 0, LOG_LOCAL7);</span>
+<span class="x">    syslog($type, trim($message));</span>
+<span class="x">    closelog();</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Place this file in <code>app/lib/log/sys_log.php</code>. Then, in
+<code>app/config/bootstrap.php</code>, place the following code :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">CakeLog::config(&#39;default&#39;, array(&#39;engine&#39; =&gt; &#39;SysLog&#39;));</span>
+</code></pre></div>
+<p>It is important that you place the <code>CakeLog::config()</code> call in<code>bootstrap.php</code>
+and not in <code>core.php</code> because of the way cake actually loads its internal. I
+also manually defined the syslog facility as LOCAL7, but you can change it to
+whatever you want or even update the code so the actual facility can be passed
+as a parameter of the <code>CakeLog::config()</code> call (actually, that&#39;s how it&#39;s done
+in my real code, but I didn&#39;t want to overcomplicate the example).</p>
+
+<p>Also, note that I added a special code to handle the way CakeLog passes
+parameters to the SysLog. CakeLog passes the severity as a string, so we
+convert it back to the PHP constants.</p>
+
+<p>With this code, all your logs will now be routed to the syslog, and your
+<code>app/tmp/logs</code> directory will no longer grow in size (instead, that will be
+your <code>/var/logs/syslog</code> :) )</p>
+
+<h2>Where are my errors loggued now ?</h2>
+
+<p>Well, your errors are loggued to the syslog. But cake defines its own error
+handler that will reformat the error thrown by PHP, and reroute it to the
+<code>CakeLog</code>. In effect, it means that all errors with similar severity will be
+grouped (<code>E_PARSE</code>, <code>E_ERROR</code>, <code>E_CORE_ERROR</code>, etc will be loggued as<code>
+LOG_ERROR</code>). Also, cake will parse and reformat the message to log. It can be
+problematic if you rely on your PHP config to correctly parse your logs
+because you won&#39;t have the expected output.</p>
+
+<p>Hopefully, cake provides a way to disable this error handler, but it was very
+tricky to find and even more tricky to correctly use. I won&#39;t spend too much
+time on all the details, but what you have to know is :</p>
+
+<ol>
+<li>You have to define a <code>define(&#39;DISABLE_DEFAULT_ERROR_HANDLING&#39;, true);</code> in order to disable the cake error handler and use the default PHP one</li>
+<li>This call MUST be done before your <code>Configure::write(&#39;debug&#39;)</code> call otherwise it won&#39;t work</li>
+<li>You also have to define a <code>Configure::write(&#39;log&#39;, E_ALL &amp; ~E_DEPRECATED);</code> for this to work but...</li>
+<li>You can&#39;t define both the debug and the log value in the same call using an array, you have to define them in two different calls <code>debug</code>then <code>log</code></li>
+</ol>
+
+<p>So, finally, here is the final working configuration :</p>
+
+<p>In <code>app/config/core.ph</code>p :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">Configure::write(&#39;log&#39;, E_ALL &amp; ~E_DEPRECATED);</span>
+<span class="x">define(&#39;DISABLE_DEFAULT_ERROR_HANDLING&#39;, true);</span>
+</code></pre></div>
+<p>And in<code>app/config/bootstrap.php</code> :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">CakeLog::config(&#39;default&#39;, array(&#39;engine&#39; =&gt; &#39;SysLog&#39;));</span>
+</code></pre></div>
+<h2>Final words</h2>
+
+<p>I wrote this blog post because I got hit by this problem. Twice. I didn&#39;t
+bloggued about it the first time, so a few weeks later when I had to change
+some config values in my bootstrap.php and core.php I forgot about the
+specific order of loading things. It took me a couple hours to figure it out
+again.</p>
+
+<p>So, to avoid running into the same issue some months from now, I took some
+time to write it down, and hopefully I&#39;ll help some of you too.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/syslog">#syslog</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/filelog">#filelog</a>
+    
+      <a href="/tags/disable-default-error-handling">#disable-default-error-handling</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/cakelog">#cakelog</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

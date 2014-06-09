@@ -1,0 +1,217 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     The all-in-one method to get mimetypes with PHP - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">The all-in-one method to get mimetypes with PHP</h1>
+  <span class="post-date">05 Aug 2010</span>
+  <p>Getting the correct mimetype from a file in PHP is not an easy task. I used to
+find it through extension sniffing of the file combined with a known list of
+mimetypes.</p>
+
+<p>Today I needed to find the correct mimetype to do some security checks on file
+uploaded by users. I couldn&#39;t rely on an extension-based approach because the
+filename could easily be faked by an uploader.</p>
+
+<p>So I needed an other way. In fact, in PHP world there are at least 4 methods
+I&#39;m aware of to get this information.</p>
+
+<h2>mime<em>content</em>type</h2>
+
+<p>The classic PHP function
+<a href="http://fr2.php.net/manual/en/function.mime-content-%0Atype.php">mime<em>content</em>type</a> is supposed to return just that. Unfortunatly, it is deprecated. And
+not supported by Dreamhost, my host.</p>
+
+<h2>The FileInfo functions</h2>
+
+<p>We are now encouraged to use the <a href="http://php.net/manual/en/ref.fileinfo.php">Fileinfo
+functions</a> instead of
+<code>mime_content_type</code>. Unfortunatly, they seems to be returning <a href="http://www.php.net/manual/en/ref.fileinfo.php#79063">strange
+results</a>. Alternatively,
+they are not supported by Dreamhost either (but it seems that you can ask them
+to install it on your server).</p>
+
+<p>It is bundled into EasyPHP for Windows, but you need to enable it by
+uncommenting the line <code>extension=php_fileinfo.dll</code> in your <code>php.ini</code></p>
+
+<p>And you use it like this :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$finfo = finfo_open(FILEINFO_MIME);</span>
+<span class="x">$mimeType = finfo_file($finfo, $filepath);</span>
+<span class="x">finfo_close($finfo);</span>
+</code></pre></div>
+<p>Also note that the mimetype may be returned in a <code>text/plain; charset=us-
+ascii</code> form. You may need to parse the result to get it in the format you
+need.</p>
+
+<h2>The getimagesize function</h2>
+
+<p>The <a href="http://fr2.php.net/manual/en/function.getimagesize.php">getimagesize</a>
+function can be called on any image file. It will return an array containing
+image informations like <code>width</code>, <code>height</code>and of course the <code>mimetype</code>.</p>
+
+<p>Unfortunatly, it will cause a <code>E_WARNING</code> if called on a non-image file. You
+can&#39;t even catch that using a <code>try/catch</code>. You can suppress the error using
+<code>@</code>, tho.</p>
+
+<p>Here&#39;s how I use it :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$imageData = @getimagesize($filepath);</span>
+<span class="x">if (!empty($imageData[&#39;mime&#39;])) {</span>
+<span class="x">  $mimeType = $imageData[&#39;mime&#39;];</span>
+<span class="x">}</span>
+</code></pre></div>
+<h2>Calling the system file</h2>
+
+<p>The last method I&#39;m aware of is simply calling the <code>file</code>command on a unix
+system through <code>exec</code>.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$mimeType = exec(&quot;/usr/bin/file -i -b $filepath&quot;);</span>
+</code></pre></div>
+<p>Merging all that into one do-it-all method</p>
+
+<p>If you&#39;re not sure what your system is capable of or if you plan on
+distributing your code, you&#39;d better test for all alternatives. Here&#39;s the
+code I&#39;m using :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x">*    mimetype</span>
+<span class="x">*    Returns a file mimetype. Note that it is a true mimetype fetch, using php and OS methods. It will NOT</span>
+<span class="x">*    revert to a guessed mimetype based on the file extension if it can&#39;t find the type.</span>
+<span class="x">*    In that case, it will return false</span>
+<span class="x">**/</span>
+<span class="x">function mimetype($filepath) {</span>
+<span class="x"> // Check only existing files</span>
+<span class="x"> if (!file_exists($filepath) || !is_readable($filepath)) return false;</span>
+
+<span class="x"> // Trying finfo</span>
+<span class="x"> if (function_exists(&#39;finfo_open&#39;)) {</span>
+<span class="x">   $finfo = finfo_open(FILEINFO_MIME);</span>
+<span class="x">   $mimeType = finfo_file($finfo, $filepath);</span>
+<span class="x">   finfo_close($finfo);</span>
+<span class="x">   // Mimetype can come in text/plain; charset=us-ascii form</span>
+<span class="x">   if (strpos($mimeType, &#39;;&#39;)) list($mimeType,) = explode(&#39;;&#39;, $mimeType);</span>
+<span class="x">   return $mimeType;</span>
+<span class="x"> }</span>
+
+<span class="x"> // Trying mime_content_type</span>
+<span class="x"> if (function_exists(&#39;mime_content_type&#39;)) {</span>
+<span class="x">   return mime_content_type($filepath);</span>
+<span class="x"> }</span>
+
+<span class="x"> // Trying exec</span>
+<span class="x"> if (function_exists(&#39;exec&#39;)) {</span>
+<span class="x">   $mimeType = exec(&quot;/usr/bin/file -i -b $filepath&quot;);</span>
+<span class="x">   if (!empty($mimeType)) return $mimeType;</span>
+<span class="x"> }</span>
+
+<span class="x"> // Trying to get mimetype from images</span>
+<span class="x"> $imageData = @getimagesize($filepath);</span>
+<span class="x"> if (!empty($imageData[&#39;mime&#39;])) {</span>
+<span class="x">   return $imageData[&#39;mime&#39;];</span>
+<span class="x"> }</span>
+
+<span class="x"> return false;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>Hope that helps !</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/fileinfo">#fileinfo</a>
+    
+      <a href="/tags/finfo">#finfo</a>
+    
+      <a href="/tags/mime-content-type">#mime-content-type</a>
+    
+      <a href="/tags/mimetype">#mimetype</a>
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/getimagesize">#getimagesize</a>
+    
+      <a href="/tags/exec">#exec</a>
+    
+      <a href="/tags/file">#file</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

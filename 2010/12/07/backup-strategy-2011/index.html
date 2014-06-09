@@ -1,0 +1,197 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     My new backup strategy for 2011 - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">My new backup strategy for 2011</h1>
+  <span class="post-date">07 Dec 2010</span>
+  <p>My computer was starting to get slower and slower for the past days. And I
+realized my automatic backup wasn&#39;t backing anything up for the past month.</p>
+
+<p>And I realized I had different versions of the same files on my 2 laptops...</p>
+
+<p>Well, it seems I have to do some cleaning up.</p>
+
+<h2>Synchronizing paperwork</h2>
+
+<p>I started by cleaning up my <a href="http://www.dropbox.com/">Dropbox </a>folder. I
+removed shared folders with past clients, and created a &quot;Paperwork&quot; folder
+where I put all my invoices, contracts and general paperwork.</p>
+
+<p>I also added my private <a href="http://keepass.info/">KeePass </a>file as well as other
+info I may need to access anywhere, anytime.</p>
+
+<p>KeePass allow me to store all my login/password credentials in a secure way
+(protected by a master password). It is really useful to have this file on all
+my computers (and mobile phone).</p>
+
+<p>Dropbox is excellent for storing simple files, that you need everywhere. Being
+able to access invoices and contracts even from my mobile phone proved quite
+valuable when meeting clients.</p>
+
+<h2>Hard backup of personal files</h2>
+
+<p>I&#39;ve also changed my scheduled backups of personal files. I bought an <a href="http://www.acronis.com/">Acronis
+True Image</a> last year, and reconfigured it today.</p>
+
+<p>I have a hard drive whose sole purpose is to save backups. I scheduled for the
+first of each month to save : my system state, my applications configuration,
+and my personal files (photos, saved gamed, writings, etc).</p>
+
+<p>I manually started all this backups to have a clean start. I also forced the
+backup to restart a whole new file every 6 month (opposed to using the
+incremental backup).</p>
+
+<h2>Backing up my music and movies</h2>
+
+<p>I did not spent too much time figuring how to save my hundred of Go of music
+and movies. I rarely watch the same movies twice, so losing them won&#39;t affect
+me too much.</p>
+
+<p>I occasionally re-watch series, though, but as most of my friends have the
+same tastes as I, I could very easily get them back from them, or download
+them (again).</p>
+
+<p>Regarding music, well, I have quite a big collection, but most of it is
+already &quot;backed up&quot; on my portable mp3 player.</p>
+
+<h2>Automatic synchronizing with BitBucket</h2>
+
+<p>On my day work, I now always version my files using Mercurial.
+<a href="http://bitbucket.org/">BitBucket</a> offers unlimited storage, and unlimited
+public repositories. Private repo are limited to 5 users. As I&#39;m mostly alone
+on projects that should stay private, this seems the best deal I could found.</p>
+
+<p>Mercurial being a versionning system, I got all the benefits of a backup here,
+being able to revert to previous versions, update it whenever I want and
+access it from anywhere.</p>
+
+<p>I wrote a custom Hg hook on commit to automatically push my repos to BitBucket
+at least once a day (I&#39;ll post the code in a future post).</p>
+
+<h2>MySQL Backup</h2>
+
+<p>I used to backup mysql databases on my work computer using a windows app. This
+was slowing down my computer on every boot as well and backup was thus only
+effective when I was working and not when I was on vacations.</p>
+
+<p>Today, I wanted something a lot more flexible, so I set a cronjob on my main
+host coupled with a slightly edited <a href="http://sourceforge.net/projects/automysqlbackup/">autoMySQLBackup
+</a>script.</p>
+
+<p>This will automatically run everyday at midnight and make a local save (with
+daily, weekly and monthly rotate) of all my clients databases. Logs are saved
+on disk and gzipped, and will also be sent to a special backup@pixelastic.com
+mail address (stored on GMail).</p>
+
+<p>This way I am sure to have my mysql backups on two different hosts, with daily
+and automatic saves, that I can access from anywhere if anything goes wrong.</p>
+
+<h2>Conclusion</h2>
+
+<p>It took me almost two full days to get the right tools, configure them and
+write my custom scripts but now, it is seamlessly integrated with my daily
+workflow. This is a weight off my shoulders, I know I can safely work as usual
+and my files are saved and easily accessible.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/backup">#backup</a>
+    
+      <a href="/tags/mercurial">#mercurial</a>
+    
+      <a href="/tags/mysql">#mysql</a>
+    
+      <a href="/tags/dropbox">#dropbox</a>
+    
+      <a href="/tags/keepass">#keepass</a>
+    
+      <a href="/tags/acronis">#acronis</a>
+    
+      <a href="/tags/bitbucket">#bitbucket</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

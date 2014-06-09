@@ -1,0 +1,144 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Alternate content with SWFObject - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Alternate content with SWFObject</h1>
+  <span class="post-date">27 Jun 2011</span>
+  <p>SWFObject allow a web developer to add an alternate content in place of the
+<code>swf</code> file is the user doesn&#39;t have flash installed.</p>
+
+<p>In the case of a web app this is great to provide your user with a link to the
+Adobe website. You then tell your users Flash is needed and provide a link for
+them to install it.</p>
+
+<p>Unfortunatly, if for one reason or another the <code>swf</code> file you try to load is
+unreachable (maybe your host is down ?), SWFObject will display the same
+alternate content. Meaning that a user with a perfectly correct Flash version
+will see an error message telling him that he does not have Flash when in fact
+the error is on your side.</p>
+
+<p>That&#39;s not very user friendly and makes you look bad.</p>
+
+<p>So, to fix this, I added two error messages as alternate content :</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;alternateContent&quot;</span> <span class="na">class=</span><span class="s">&quot;alternateContent&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;noFlash message&quot;</span><span class="nt">&gt;</span>It seems that you do not have the Flash player installed. Please install it, by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.adobe.com/go/getflashplayer&quot;</span> <span class="na">target=</span><span class="s">&quot;_parent&quot;</span><span class="nt">&gt;</span>following this link<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;error404 message&quot;</span><span class="nt">&gt;</span>Sorry, we were unable to load the game. Please try again in a few moments.<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<p>Then, in CSS I decided to hide them both :</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.alternateContent</span> <span class="nc">.message</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.alternateContent.noFlash</span> <span class="nc">.noFlash</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.alternateContent.error404</span> <span class="nc">.error404</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<p>And finally, in Javascript I checked for the current Flash version. If it&#39;s
+equal to zero, it means that Flash is not installed, so I display the <code>noFlash
+</code>error message, otherwise, I guess it&#39;s a 404 error and display the other
+message.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">flashVersion</span> <span class="o">=</span> <span class="nx">swfobject</span><span class="p">.</span><span class="nx">getFlashPlayerVersion</span><span class="p">(),</span>
+  <span class="nx">alternateContent</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#alternateContent&#39;</span><span class="p">)</span>
+<span class="p">;</span>
+<span class="c1">// Displaying one message or the other</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">flashVersion</span><span class="p">.</span><span class="nx">minor</span><span class="o">==</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alternateContent</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;noFlash&#39;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">alternateContent</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;error404&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This is not bulletproof : I only test for two cases. And a better solution
+would also have been to put the error message dynamically using Javascript
+instead of polluting the HTML markup with contradictory text.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/flash">#flash</a>
+    
+      <a href="/tags/swf">#swf</a>
+    
+      <a href="/tags/swfobject">#swfobject</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

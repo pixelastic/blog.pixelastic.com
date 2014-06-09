@@ -1,0 +1,162 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Working on Wednesday #5 : Rails documentation and Zombies - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Working on Wednesday #5 : Rails documentation and Zombies</h1>
+  <span class="post-date">06 Jul 2011</span>
+  <p>Today I continue on my Rails for Zombie learning. Actually, I wake up kind of
+late (11am), had to deal with noisy neighbors and make some shopping before
+being really able to start working. It&#39;s 2pm now, and I just open my browser.</p>
+
+<h2>Back to Zombies</h2>
+
+<p>I like the clean syntax Ruby provides. I like being able to pass custom
+parameters without having to care about the order. This could be achieved in
+cakePHP using array for options, but is much more clean the Ruby way, using
+<code>truncate(zombie.graveyard, :length =&gt; 10, :omission =&gt; &#39;&#39;)</code></p>
+
+<p>Also the <code>link_to</code> and <code>new_{Model}_path</code>, <code>edit_{Model}_path</code> are clever and
+allow easy access to the link you always use. This force you to logically
+organise your app.</p>
+
+<p>The way Rails controllers pass vars to the view (using <code>@</code>) is also cleaner
+than the cakePHP <code>set</code> method. I love those little things the language
+permits.</p>
+
+<p><code>before_filter</code> also seems more powerful than in cake world, being able to
+define several of them and restrict them to certain action. Could be extended
+(I guess) to an ApplicationController that could check on <code>show</code>, <code>edit</code>, etc
+that the specified id exists and display an error message if not.</p>
+
+<p>I didn&#39;t quite get the various <code>respond_as</code> for JSON and XML. Why should I
+have to pass the <code>@tweet</code> while I don&#39;t have to for the html view ?</p>
+
+<p>Also, the Rails routings system is more appealing to me than its cakePHP
+counterpart. I would have loved to have such a nice tutorial for cake when I
+learned it. Routing is very well explained in Rails for Zombies.</p>
+
+<p>After completing the Zombie tutorial, I headed to the famous blog tutorial
+every web language should have. Once again, I started reading the doc and a
+few things caught my attention as very promising :</p>
+
+<h2>Command line interface</h2>
+
+<p>I like the way one can create a new app simply with one command line. Such
+feature is also provided by cakePHP but I never managed to make it work the
+way I wanted to. That might have been influenced by the fact that I was
+working on Windows at that time.</p>
+
+<h2>Directory structure</h2>
+
+<p>I also note that a Rail application seems greatly structured : there are
+spaces defined for documentation, tests, database migration, dependencies,
+logs, deployment scripts and so on.</p>
+
+<h2>Databases</h2>
+
+<p>This is great that Rails directly provides two distinct DB configurations :
+development and production. I will no longer have to do it myself.</p>
+
+<p>Rails also uses SQLite3 as the default database for development. As I wasn&#39;t
+very familiar with this technology, I made some researchs. Turns out that
+SQLite is a very simple DB system, perfectlynsuited for the development period
+as it does not require a DB server.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/ruby-on-rails">#ruby-on-rails</a>
+    
+      <a href="/tags/wednesday">#wednesday</a>
+    
+      <a href="/tags/gem">#gem</a>
+    
+      <a href="/tags/ruby">#ruby</a>
+    
+      <a href="/tags/rails">#rails</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

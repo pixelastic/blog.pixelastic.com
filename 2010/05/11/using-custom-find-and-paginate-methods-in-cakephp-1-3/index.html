@@ -1,0 +1,204 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Using custom find and paginate methods in cakePHP 1.3 - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Using custom find and paginate methods in cakePHP 1.3</h1>
+  <span class="post-date">11 May 2010</span>
+  <p>For the blog plugin I&#39;m writing I needed a way to fetch only blog posts that
+were actually published. I didn&#39;t want to write the find conditions every time
+I had to make a request so I tried to define a custom find method.</p>
+
+<p>I remember having read something about that a while ago, in a blog or in a
+changelog and so I thought it will be quite easy to implement using some cake
+automagic.</p>
+
+<p>It was not that easy, I had to override two core methods in my <code>AppModel</code>, but
+here the result :</p>
+
+<h2>Using custom find methods</h2>
+
+<p>I wanted to be able to call my custom method writing
+<code>$this-&gt;Post-&gt;find(&#39;published&#39;)</code> so I created a <code>__findPublished()</code> method in
+my Post model.</p>
+
+<p>It basically returns a <code>find(&#39;all&#39;)</code> with custom conditions.</p>
+
+<p>I then edited my AppModel file to hook on the default <code>find()</code> method :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function find($type, $options = array(), $order = null, $recursive = null) {</span>
+<span class="x">  $methodName = &#39;__find&#39;.ucfirst($type);</span>
+<span class="x">  // Using default method if not defined</span>
+<span class="x">  if (!method_exists($this, $methodName)) {</span>
+<span class="x">    // We force default fields and order keys or we could run into trouble for undefined index</span>
+<span class="x">    $options = Set::merge(array(&#39;fields&#39; =&gt; array(), &#39;order&#39; =&gt; array()), $options);</span>
+<span class="x">    return parent::find($type, $options, $order, $recursive);</span>
+<span class="x">  }</span>
+<span class="x">  // Using custom method</span>
+<span class="x">  return $this-&gt;{$methodName}($options, $order, $recursive);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>(Note that there may still be some issues with this method, especially if the
+$type parameter is not a string. I&#39;m always using the <code>find()</code> method with a
+string as first argument but maybe you&#39;re not, or the core still use the old
+implementation.)</p>
+
+<p>Anyway, what it does is testing if a <code>__findSomething()</code> method is defined,
+and if it is it returns its results, otherwise it just delegates to the
+default <code>find()</code> method.</p>
+
+<h2>Using custom find methods in paginate</h2>
+
+<p>So far, so good. But now how do you tell cake to use this custom find when
+paginating stuff ? The first part is easy (but required some digging into the
+core code). It appears that if the zero key of the <code>$paginate</code> var is set to a
+string, this will be used as the find type.</p>
+
+<p>One easy way to do this is calling <code>array_unshift($this-&gt;paginate,
+&#39;published&#39;)</code> just before the <code>$this-&gt;paginate(&#39;Post&#39;)</code> call in the
+controller.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">// Getting the paginated post list</span>
+<span class="x">array_unshift($this-&gt;paginate, &#39;published&#39;);</span>
+<span class="x">$itemList = $this-&gt;paginate($this-&gt;model);</span>
+<span class="x">$this-&gt;set(&#39;itemList&#39;, $itemList);</span>
+</code></pre></div>
+<p>You&#39;ll notice that your custom find method is used for the pagination. What
+you may not notice at first sight is that the total count of results is not
+correct. Cake still uses the default <code>find(&#39;count&#39;)</code> without using the custom
+method.</p>
+
+<p>We will now need to create a <code>__paginateCountPublished()</code> method in our <code>Post
+</code>model that will return the total count of posts to paginate.</p>
+
+<p>Forcing Cake to do what we want is a little trickier this time. We will need
+to create a <code>paginateCount()</code> method in our <code>AppModel</code>. If such a method
+exists for a given model, Cake will use it instead of the default
+<code>find(&#39;count&#39;)</code> when paginating results. By creating it in the <code>AppModel</code>we
+make sure that all the paginate counts use it.</p>
+
+<p>This method takes a third argument called $extra which will contain our custom
+find name. If set, we will return the custom paginate count. If not set, we
+revert to the default way of calculating the total count (copy/pasted from the
+core).</p>
+
+<p>So, here the <code>paginateCount()</code> method to add to your <code>AppModel</code>:</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function paginateCount($conditions = array(), $recursive = null, $extra = array()) {</span>
+<span class="x">  // If no custom find specified, we return the default count</span>
+<span class="x">  if (empty($extra[&#39;type&#39;])) {</span>
+<span class="x">      $parameters = compact(&#39;conditions&#39;);</span>
+<span class="x">      if ($recursive != $this-&gt;recursive) {</span>
+<span class="x">          $parameters[&#39;recursive&#39;] = $recursive;</span>
+<span class="x">      }</span>
+<span class="x">      return $this-&gt;find(&#39;count&#39;, array_merge($parameters, $extra));</span>
+<span class="x">  }</span>
+
+<span class="x">  // We return the __paginateCountSomething</span>
+<span class="x">  $methodName = &#39;__paginateCount&#39;.ucfirst($extra[&#39;type&#39;]);</span>
+<span class="x">  return $this-&gt;{$methodName}($conditions, $recursive, $extra);</span>
+<span class="x">    }</span>
+</code></pre></div>
+<p>And don&#39;t forget to create a<code>__paginateCountPublished($conditions = array(),
+$recursive = null, $extra = array())</code> method in your <code>Post</code>model</p>
+
+<h2>And you&#39;re done</h2>
+
+<p>You can now do some <code>$this-&gt;Post-&gt;find(&#39;published&#39;)</code> magic in your controller.
+And don&#39;t forget the <code>array_unshift()</code> tip to use the custom find in a
+paginate call, it have to be the first key.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/php">#php</a>
+    
+      <a href="/tags/paginate">#paginate</a>
+    
+      <a href="/tags/paginatecount">#paginatecount</a>
+    
+      <a href="/tags/custom-find">#custom-find</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

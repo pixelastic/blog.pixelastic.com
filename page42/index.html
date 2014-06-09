@@ -1,0 +1,450 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/08/ergonomie-fail-gerer-son-nom-de-domaine-chez-orange-business-service/">
+        Ergonomie Fail : Gérer son nom de domaine chez Orange Business Service
+      </a>
+    </h1>
+
+    <span class="post-date">08 Feb 2010</span>
+
+    <p>Et c&#39;est reparti pour un tour. Cette fois, j&#39;ai besoin de modifier certains
+paramètres techniques d&#39;un nom de domaine enregistré chez Oléane (devenu
+Orange Business Services).</p>
+
+<p>J&#39;avais déjà eu affaire à eux dans le passé et pour modifier les adresses DNS
+du serveur j&#39;avais du leur envoyer un fax (<em>Un fax, non mais des fois, faut
+vraiment qu&#39;ils aillent mal</em>)</p>
+
+<p>Bref, aujourd&#39;hui je dois y retourner et je me souviens pourquoi j&#39;avais un
+mauvais souvenir de <a href="https://clients.fr.oleane.com/">leur interface</a>.</p>
+
+<p>Déjà, on m&#39;accueille avec un message que je ne pensais plus revoir sur le net
+depuis 10 ans :</p>
+
+<p><img src="/files/2010/02/08/4b701a583f287.jpg" alt="Oleane : optimisation"></p>
+
+<p>Il y a une checkbox sur le formulaire de login, avec la mention &quot;mémoriser ce
+compte&quot; mais bien sur, pas de <label> sur le texte, je dois donc cliquer sur
+la checkbox plutot que sur le texte pour la cocher. C&#39;est bête, c&#39;est pas
+grand chose, mais ça change quand même la vie.</p>
+
+<p><img src="/files/2010/02/08/4b701b18dc11c.jpg" alt="Oleane : label"></p>
+
+<p>Je valide quand même et là ça s&#39;enchaine, la connection (en https://) n&#39;est
+pas sécurisé selon Firefox... Ca donne drolement confiance en leur service
+ça...</p>
+
+<p><img src="/files/2010/02/08/4b701b6d2a6d2.jpg" alt="Oleane : unsecure connection"></p>
+
+<p>Ok, c&#39;est bien parce que je sais qu&#39;ils sont plus incompétents que méchants
+que je passe quand même.</p>
+
+<p>Et là, deuxième horreur que je ne pensais pas revoir sur le net
+d&#39;aujourd&#39;hui... Des gifs animés clignotants. Argh mes yeux... Mon dieu...
+<img src="/files/2010/02/08/4b701bf7b501e.gif" alt="Oleane : gif"><img src="/files/2010/02/08/4b701bf7b501e.gif" alt="Oleane :
+gif"><img src="/files/2010/02/08/4b701bf7b501e.gif" alt="Oleane :
+gif"></p>
+
+<p>Bon, j&#39;arrive quand même sur l&#39;interface. J&#39;y allais à la base pour y
+retrouver la configuration du domaine pour recréer la même une fois que je
+l&#39;aurai transféré. Il me fallait aussi la liste des mails, vu que je vais
+changer de serveur mail, je vais devoir recréer la liste.</p>
+
+<p>Heureusement, je trouve assez facilement, et ils ont une interface plutot
+réussi cette fois-ci. Présentée comme un carnet d&#39;adresse où je peux voir
+toutes les adresses mails créés et les redirections actives. Cool.</p>
+
+<p>Il y a même un bouton &quot;Import export&quot;. J&#39;imagine que c&#39;est pour exporter ou
+importer des listes de contacts (en *.csv ou autre) et n&#39;a rien à voir avec du
+commerce étranger, je clique donc dessus et ...</p>
+
+<p><img src="/files/2010/02/08/4b701cfa21124.jpg" alt="Oleane : erreur export"></p>
+
+<p>Ah, hmm ok. Au temps pour moi, je suis bon pour le faire à la main à ce que je
+vois...</p>
+
+<p>Il y a une fonction &quot;Imprimer&quot;, je vais quand même essayer cela. Ah cool, ça
+marche, ça me donne une liste de tous les users avec leurs mails, de façon
+claire et lisible. Parfait.</p>
+
+<p>Je cherche un peu pour trouver les options d&#39;administration DNS du domaine,
+mais rien. Apparamment, je ne peux que éditer ce qui a trait à la messagerie,
+je parie que pour les DNS je vais encore devoir envoyer en fax.</p>
+
+<p>Tant pis, de toutes façons, le nom de domaine a été migré chez Gandi, tout
+sera bien plus simple là bas.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/ergonomie">#ergonomie</a>
+      
+        <a href="/tags/fail">#fail</a>
+      
+        <a href="/tags/oleane">#oleane</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/07/ergonimie-fail-commander-en-ligne-chez-but/">
+        Ergonomie Fail : Commander en ligne chez But
+      </a>
+    </h1>
+
+    <span class="post-date">07 Feb 2010</span>
+
+    <p>Le week-end dernier j&#39;ai vu un joli petit bureau dans un magasin But. Je
+n&#39;étais pas sur des dimensions chez moi et je ne l&#39;ai donc pas acheté sur
+place en me disant que je pourrai le commander sur Internet plus tard si
+j&#39;avais effectivement la place de le mettre chez moi.</p>
+
+<p>De retour chez moi et une fois les mesures prises, c&#39;est bon, le bureau tiens
+parfaitement, je vais donc sur le <a href="http://www.but.fr/">site de But</a> pour le
+commander. Je <a href="http://www.but.fr/produits/26418/Bureau-%0Adroit-CYCLO-1113-Blanc.html">le trouve facilement</a>, je l&#39;ajoute à mon panier, je valide mon panier
+et là, la galère commence.</p>
+
+<p>But me demande d&#39;indiquer mon code postal pour voir le magasin le plus proche
+pour me livrer. Pas de problème. Je termine ma commande (en acceptant les CGV)
+et là il me demande mon login/pass ou de me créer un compte si je n&#39;en ai pas.</p>
+
+<p>Va pour la seconde solution. Nom, prénom, etc... Ca commence à se gater pour
+le code postal et la ville. Il y a un auto-complete sur le code postal censé
+remplir automatiquement la ville mais il n&#39;est pas complétement au point, j&#39;ai
+du recommencer 2 fois. Bref, ça fini par passer.</p>
+
+<p>Je mets mon mail, mon mot de passe, décoche les newsletters et c&#39;est parti.</p>
+
+<p>Ok... J&#39;arrive à nouveau sur la même page, avec mon formulaire tout vidé et
+aucun message de feedback... Ah, je remarque quand même un &quot;Bonjour M Timothée
+Carry&quot; en haut de la page, il semblerait que j&#39;ai quand même été enregistré.</p>
+
+<p>Je remarque aussi un lien &quot;Mon espace client&quot; en haut, si je suis identifié,
+je devrait y trouver moyen de terminer ma commande.</p>
+
+<p>Ah, non. Ca me renvoie sur la même page d&#39;authentification/inscription. Bon,
+si ca se trouve je suis inscrit, je vais tenter de me logguer avec le
+mail/pass que j&#39;ai indiqué.</p>
+
+<p>Ah cool, ça marche... Bon heureusement que j&#39;ai essayé mais rien que cela, ça
+aurait débouté plus d&#39;un client potentiel.</p>
+
+<p>Bon, j&#39;arrive donc sur le deuxieme étape de ma commande, celle où je dois
+indiquer mes coordonées de livraison. Ce ne sont pas les même que l&#39;adresse
+indiquée pour mon compte, je veux le faire livrer chez quelqu&#39;un d&#39;autre, on
+va l&#39;appeller Mlle Anne Onyme. Heureusement il y a deux liens &quot;Modifier mes
+informations&quot; et &quot;Modifier mon adresse&quot;. Je vais essayer le premier.</p>
+
+<p>Ca m&#39;ouvre une lightbox avec un petit formulaire où je peux changer mon nom,
+prénom et téléphone. Hmm... C&#39;est pas très clair si ca va changer les infos de
+mon compte ou celles de cette commande...</p>
+
+<p>En plus, les champs Téléphone et N° de carte But sont pre-rempli par ce qui
+semble etre un caractère ASCII nul (0000). Pas très pro ça.</p>
+
+<p><img src="/files/2010/02/07/4b6ec6be99207.jpg" alt="But : Changer infos personnelles"></p>
+
+<p>Bon, je change le nom et prénom pour mettre ceux de la personne à qui je veux
+l&#39;envoyer et je valide.</p>
+
+<p>Oups... erreur. Il semblerait que les numeros de téléphone ne soient pas
+valides... Bizarre, je n&#39;avais pas mis de numero lors de mon inscription et il
+n&#39;avait pas crié au scandale pour autant.</p>
+
+<p><img src="/files/2010/02/07/4b6ec751d2296.jpg" alt="But Changer infos personnelles"></p>
+
+<p>Bon, je vais jouer le jeu et mettre un numero de tel, mais je ne sais pas
+lequel mettre. Le mien ou celui de la personne à qui je fais livrer. Je veux
+livrer cela comme un cadeau, donc je ne veux pas qu&#39;ils l&#39;appellent avant pour
+mettre au point les détails de la livraison, je devrai donc mettre le mien
+comme numero. Pas très clair cette histoire, ils devraient indiquer à qui sert
+ce numero.</p>
+
+<p>Bon, j&#39;indique mon numero de portable et je valide. Aucune réaction. Je valide
+à nouveau : rien. Je lance Firebug et regarde les requetes AJAX. Ah, ils
+envoient un check au serveur pour valider et apparemment j&#39;ai toujours des
+erreurs. Ergonomie fail une fois de plus. Ils auraient du mettre un petit
+loading le temps qu&#39;ils fassent cette requete parce que à j&#39;ai une erreur,
+mais j&#39;ai l&#39;impression que rien n&#39;a changé.</p>
+
+<p><img src="/files/2010/02/07/4b6ec816eb6b0.jpg" alt="But : Validation firebug"></p>
+
+<p>Bon, j&#39;imagine que c&#39;est parce que j&#39;ai des champs ASCII nuls qu&#39;il déconne.
+J&#39;ai la chance d&#39;etre sous Firefox et que ces champs ASCII soient symbolisés,
+j&#39;imagine qu&#39;un internaute sous IE n&#39;aurait rien compris du tout.</p>
+
+<p>Je revalide... Rhooo. Encore une erreur ! J&#39;ai indiqué mon numero de téléphone
+en séparant chaque groupe de deux chiffres(06 12 34 56 78) et ça passe pas sa
+validation... Ca c&#39;est clairement le genre de check coté serveur qui peut être
+fait en une ligne de code, supprimer les espaces, et valider le nouveau numero
+de téléphone. Ca devrait etre au serveur de faire ce travail, pas au client
+d&#39;entrer son numero de téléphone de facon formattée (ou alors, que AU MOINS,
+on m&#39;indique le format attendu).</p>
+
+<p>Bref, je ré-ecrit mon téléphone de façon agglutinée (0612345678) (tout en me
+disant que cette validation exclut le format international (+33)6xxxx )</p>
+
+<p>Ahhhh, cette fois, ça passe. C&#39;est bon, mes infos personnelles sont modifiées.
+Uhh... Je remarque alors une chose étrange. Le message de bienvenue est devenu
+&quot;Bonjour Mlle Anne Onyme&quot;... Cela veut dire que j&#39;ai changé les infos de mon
+compte plutot que celle de l&#39;adresse de livraison ? _Quoi la baise?!!? _comme
+on dit.</p>
+
+<p>(Juste par acquis de conscience, j&#39;ai voulu ré-editer mes infos personnelles
+aussitot, et comme je m&#39;y attendais, la pop-up contenait encore mes anciennes
+infos... Enfin bon)</p>
+
+<p>Bref, bon, je suis plus à ça près. Je continue et modifie mon adresse.</p>
+
+<p>Même chose que tout à l&#39;heure, les champs vides sont remplis par un code ASCII
+nul... Je suis sur que ca va faire bugguer leur validation, donc je les vide
+réellement et je mets l&#39;adresse de livraison.</p>
+
+<p>Ah ! Cette fois-ci j&#39;ai droit à un joli loading en gif le temps qu&#39;il fasse sa
+validation. Cool. On dirait qu&#39;ils m&#39;ont entendu. Je ne comprends pas trop
+pourquoi il est présent sur l&#39;une des lightbox et pas sur l&#39;autre mais
+passons. Peut-être que je ne l&#39;avais pas vu la première fois ?</p>
+
+<p>Allez, je suis maso, je vais retourner voir la première lightbox pour vérifier
+si elle ne m&#39;a pas échappée.</p>
+
+<p>Mais argh ! Le récapitulatif de mon adresse a un problème d&#39;encodage... Ma
+jolie adresse de &quot;10 rue des la crèpe au sucre&quot; est devenue &quot;10 rue de la
+crÃ¨pe au sucre&quot;.</p>
+
+<p><img src="/files/2010/02/07/4b6ec6ad83d2e.jpg" alt="But : Adresse utf8"></p>
+
+<p>Petit coup d&#39;oeil aux headers HTTP et à la source pour voir l&#39;encoding
+spécifié. C&#39;est en iso-8859-1 dans les deux. Au moins ils sont constants, mais
+ils doivent avoir un problème d&#39;utf8 autre part sur leurs scripts serveurs.</p>
+
+<p><img src="/files/2010/02/07/4b6ec6e42c54a.jpg" alt="But : Headers HTTp"></p>
+
+<p><img src="/files/2010/02/07/4b6ec6fd7a309.jpg" alt="But : Source html"></p>
+
+<p><em>Au passage on remarque dans les headers un X-Cnection: close assez suspect,
+il faudra que je me renseigne là dessus.</em></p>
+
+<p>Bon, bref, un probleme d&#39;encodage, c&#39;est assez commun. Je voulais re-modifier
+mes coordonnées pour vérifier la présence du loading. Je ré-ouvre donc la
+lightbox. Les champs vides sont encore redevenus des ASCII nul et me font
+encore casser la validation. Bref, je revalide et non vraiment, il n&#39;y a pas
+de loading, j&#39;avais bien vu...</p>
+
+<p>Je retourner éditer mon adresse, je veux vérifier les headers retournés par
+AJAX, si ça se trouve le problème d&#39;encoding vient de là.</p>
+
+<p>Hmm. Leur façon de faire de l&#39;ajax est pour le moins... spéciale. Une fois que
+la validation (en AJAX) a fonctionnée, ils reloadent la page html
+complétement... Ca sent vraiment l&#39;AJAX rajouté en dernière minute parce que
+c&#39;est <em>hype</em>, mais sans trop comprendre à quoi ça sert...</p>
+
+<p>Donc, groumpf, je re-recommence, en activant le mode &quot;Persist&quot; de Firebug pour
+pouvoir traquer les connections même après le reload. Bon, il s&#39;avère que la
+réponse du serveur n&#39;a pas de charset spécifié dans ses headers, mais comme
+tout le page est reloadée je ne peux pas dire d&#39;où vient le soucis. Peut-être
+l&#39;adresse est-elle mal enregistrée dans la base de donnée tout simplement.</p>
+
+<p>Bon, et je me suis arreté là et ai choisi d&#39;aller acheter mon meuble
+directement dans un magasin car clairement leur site n&#39;a fait l&#39;objet d&#39;aucune
+étude ergonomique.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/fail">#fail</a>
+      
+        <a href="/tags/ergonomie">#ergonomie</a>
+      
+        <a href="/tags/but">#but</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/04/what-would-we-be-studying-if-our-world-was-a-software/">
+        What would we be studying if our world was a software ?
+      </a>
+    </h1>
+
+    <span class="post-date">04 Feb 2010</span>
+
+    <blockquote>
+<p>Physics is just reverse-engineering the world</p>
+</blockquote>
+
+<p>I once heard or read that somewhere and that make me smile.</p>
+
+<p>Today I wondered if the same analogy could be applied to the other subjects we
+are teached in school.</p>
+
+<p>If Physics is reverse-engineering, then Mathematics is using the World
+framework and developping new applications and unit testing with it.</p>
+
+<p>Biology would be micro-debugging and desassambling it, maybe even re-compiling
+it.</p>
+
+<p>History would be nothing more than writing and parsing the logs.</p>
+
+<p>Geography would be mapping the whole network.</p>
+
+<p>French (or English, or whatever your first language is) would be reading and
+learning the doc and man pages. And of course, foreign languages would mean
+learning new programming languages.</p>
+
+<p>Sports would be the fun part, where you are playing you video games.</p>
+
+<p>Did I forgot something ?</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/fun">#fun</a>
+      
+        <a href="/tags/world">#world</a>
+      
+        <a href="/tags/software">#software</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/02/03/debugging-a-squirrel-webmail/">
+        Debugging a Squirrel webmail
+      </a>
+    </h1>
+
+    <span class="post-date">03 Feb 2010</span>
+
+    <p>This is a quick blogpost, essentially as a reminder for myself :</p>
+
+<p>A client of mine is using the Squirrel mail webmail. Once in a while, I have a
+call from him telling me that he can&#39;t access its account. The cause is always
+the same : there is way too much mails saved in his account and Squirrel mail
+choke on this, refusing to display the page.</p>
+
+<p>The solution is simple, I just have to remove all the mails (except maybe the
+100 or so last ones) and save them in a another directory, for archiving. The
+directory to save is <code>/home/mailusers/c/contact/cur</code></p>
+
+<p>But, thinking I was clever, instead of copying all the files to a new <code>cur-
+save-2009</code> directory I thought it would be faster to rename the current
+directory to <code>cur-save-2009</code> and create a new empty <code>cur</code> dir. Except that I
+forgot that I was loggued in as <code>root</code>and the directory must have a
+user/group set as <code>postfix</code>...</p>
+
+<p>That&#39;s it, I just had to not forgot to set the owner/group of the <code>cur/</code>
+directory as postfix once cleared.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/webmail">#webmail</a>
+      
+        <a href="/tags/squirrelmail">#squirrelmail</a>
+      
+        <a href="/tags/postfix">#postfix</a>
+      
+        <a href="/tags/mail">#mail</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/01/27/database-in-utf8-with-coldfusion/">
+        Database in UTF8 with Coldfusion
+      </a>
+    </h1>
+
+    <span class="post-date">27 Jan 2010</span>
+
+    <p>When setting up a Coldfusion application, do not forget to add to your
+datasource the following connection string :</p>
+<div class="highlight"><pre><code class="language-cfm" data-lang="cfm">characterEncoding=UTF8<span class="err">&amp;</span>characterSetResults=UTF8
+</code></pre></div>
+<p>It will ensure that your data is correctly saved and fetched using UTF8. This
+is the coldfusion equivalent of the more commonly known <code>SET NAMES &#39;utf8&#39;;</code></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/database">#database</a>
+      
+        <a href="/tags/coldfusion">#coldfusion</a>
+      
+        <a href="/tags/utf8">#utf8</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page43">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page41">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/08/multi-tab-admin-problem/">
+        The multi-tab admin problem
+      </a>
+    </h1>
+
+    <span class="post-date">08 Nov 2010</span>
+
+    <p>Today I had to update an important zone file at my registrar. Because it was
+quite important, and because I already did an almost identical job a few
+months ago, I decided to copy-paste the old work.</p>
+
+<p>So I started by opening the <code>domain A</code> zone edit page. Then  I opened a new
+tab, and loaded the <code>domain B</code> zone edit page.</p>
+
+<p>I selected the <code>domain B</code> content and copied it in the <code>domain A</code> page. I had
+to update some values, mostly IP addresses, and then validate the page.</p>
+
+<p>Instead of updating the <code>domain A</code> zones as I expected, it updated the <code>domain
+B</code> zones and left the <code>domain A</code> unchanged. Can you guess why ?</p>
+
+<h2>Session handling</h2>
+
+<p>My guess is that everytime I opened a new page, a Session was tracking my
+&quot;current&quot; domain, the one I was editing. So opening a new tab to a new domain
+changed my current domain from <code>domain A</code> to <code>domain B</code>.</p>
+
+<p>Therefore, when I updated the <code>domain A</code> zone, the next page was assuming I
+was editing the <code>domain B</code> page. If I had opened the tabs in reverse order, it
+would have worked seamlessly.</p>
+
+<h2>Why doing that ?</h2>
+
+<p>I have encountered a similar behavior in my own apps. By using the cakePHP
+Security behavior, a special security token is generated for each form. Its
+integrity is checked whenever a form is posted, and verify that no field has
+been tampered (no mandatory field has been deleted, no new field has been
+added).</p>
+
+<p>This is a great security component, but because a special key is stored on the
+Session side, it also means that whenever you open several tabs, only the
+latest can be correctly checked and all other one will get rejected.</p>
+
+<p>It bugs me at first, because I used to open several tabs whenever I need to
+&quot;batch add&quot; a lot of items. In real life, I found that I was almost the only
+person to do that... So I finally accepted the multi-tab restriction.</p>
+
+<p>Getting back to my registrar : I guess they did it that way because of
+security reasons too, but I found it particularly counter-intuitive in that
+case and that could have led to serious damages.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/security">#security</a>
+      
+        <a href="/tags/tabs">#tabs</a>
+      
+        <a href="/tags/session">#session</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/11/08/fonts-hosted-subdomain-font-face-firefox/">
+        Using fonts hosted on a subdomain with @font-face and Firefox
+      </a>
+    </h1>
+
+    <span class="post-date">08 Nov 2010</span>
+
+    <p>As a security reason, Firefox do not allow an <code>@font-face</code> rule to load fonts
+hosted on a different domain (even a subdomain).</p>
+
+<p>I don&#39;t exactly understand why, I guess it has something to do with preventing
+crosslinking and copyright violation. I think we should keep the website
+author handle all this stuff and not required the browser to make assumptions
+like that.</p>
+
+<p>Anyway, I recently tried to move my CSS file to a subdomain, to reduce pages
+loading times. Doing so I saw that my fonts did not correctly load on Firefox.</p>
+
+<p>After some digging, I found that I had to manually allow them to be linked
+from an other domain, server-side. Here is the little snippet I added to my
+<code>.htaccess</code></p>
+<div class="highlight"><pre><code class="language-apache" data-lang="apache"><span class="nt">&lt;FilesMatch</span> <span class="s">&quot;\.(ttf|otf|woff)$&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;IfModule</span> <span class="s">mod_headers.c</span><span class="nt">&gt;</span>
+    <span class="nb">Header</span> set Access-Control-Allow-Origin <span class="s2">&quot;*&quot;</span>
+  <span class="nt">&lt;/IfModule&gt;</span>
+<span class="nt">&lt;/FilesMatch&gt;</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/apache">#apache</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/htaccess">#htaccess</a>
+      
+        <a href="/tags/font-face">#font-face</a>
+      
+        <a href="/tags/firefox">#firefox</a>
+      
+        <a href="/tags/font">#font</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/10/20/setting-zindex-jquery-ui-datepicker/">
+        Setting the z-index of a jQuery UI datepicker
+      </a>
+    </h1>
+
+    <span class="post-date">20 Oct 2010</span>
+
+    <p>I ran into a collision issue with two of my absolutly positionned elements on
+a form page. I had an invisible flash buttun (used to launch an upload
+process) as well as jQuery UI datepicker.</p>
+
+<p>The form was built in a way that when the datepicker was displayed, it was
+supposed to be on top of the invisible Flash button. Unfortunatly the button
+was in fact &quot;on top&quot; of the datepicker, but being invisible you do not notice
+it until you click.</p>
+
+<p>This resulted in an upload dialog popping up and many confused users.</p>
+
+<h2>The fix</h2>
+
+<p>The Flash <code>z-index</code> is fixed in my CSS (10), so I thought that adding a
+greater <code>z-index</code> to the jQuery UI datepicker in CSS would be enough.</p>
+
+<p>It is not. The jQuery UI datepicker seems to automatically set the <code>z-index</code>
+to 1, whatever you specified.</p>
+
+<p>I checked the <a href="http://jqueryui.com/demos/datepicker/">datepicker options</a>,
+looking for a <code>zIndex</code> key, but found nothing...</p>
+
+<p>I tried the <code>beforeShow</code>event, to manually set the <code>z-index</code>, but it seems
+that jQuery still update my value to 1 AFTER the event.</p>
+
+<p>So I finally resorted to adding a small timeout to re-add my value after
+jQuery. This is a bit of a hack but given the context this is the only way I
+found.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Set the datepicker zIndex on load</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">datepicker</span><span class="p">({</span>
+<span class="p">[...]</span>
+  <span class="s1">&#39;beforeShow&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">datepicker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nx">datepicker</span><span class="p">.</span><span class="nx">dpDiv</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;zIndex&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+  <span class="p">},</span>
+<span class="p">[...]</span>
+<span class="p">});</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/jquery-ui">#jquery-ui</a>
+      
+        <a href="/tags/index">#index</a>
+      
+        <a href="/tags/datepicker">#datepicker</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/10/19/finding-string-multiple-files/">
+        Finding a string in multiple files
+      </a>
+    </h1>
+
+    <span class="post-date">19 Oct 2010</span>
+
+    <p>Lately I was receiving emails with just the text &quot;Blablabla&quot; from an old
+(online) production server. This was obviously from an old debug script that I
+should have put online and forgot.</p>
+
+<p>Unfortunatly, I wasn&#39;t able to track down exactly from where it originated. I
+had no mention of that string in my local files.</p>
+
+<p>So I connected to the serveur using ssh and ran the following command : grep
+-R Blablabla /path</p>
+
+<p>After some processing, I got the incriminating file and was able to delete it.</p>
+
+
+    <div class="tag-list">
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/10/16/css-hacks-target-ie6-ie7/">
+        Some CSS hacks to target IE6 and IE7
+      </a>
+    </h1>
+
+    <span class="post-date">16 Oct 2010</span>
+
+    <p>After stopping using ugly IE hacks and moving to conditionnal comments to load
+a special IE stylesheet, I now use conditional comments to mark my body
+element with classes reflecting the current IE version.</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--[if IE 6]&gt;&lt;body class=&quot;ie ie6 ie-lt8 ie-lt9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 7]&gt;&lt;body class=&quot;ie ie7 ie-lt8 ie-lt9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 8]&gt;&lt;body class=&quot;ie ie8 ie-lt9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if IE 9]&gt;&lt;body class=&quot;ie ie9&quot;&gt;&lt;![endif]--&gt;</span>
+<span class="c">&lt;!--[if !IE]&gt;&lt;!--&gt;</span><span class="nt">&lt;body</span> <span class="na">class=</span><span class="s">&quot;nie&quot;</span><span class="nt">&gt;</span><span class="c">&lt;!--&lt;![endif]--&gt;</span>
+</code></pre></div>
+<p>This saves me a lot of trouble : less files to manage and easier fixes to
+write. I quite happy with this solution and have tested it accross several
+projects for the past 3 months. It works really well.</p>
+
+<p>I had to work on a legacy project last week, where this technique wasn&#39;t
+implemented but all the css code was still compressed using CSSTidy. And I ran
+into a couple of issues.</p>
+
+<h2>CSSTidy messes the star and underscore hacks</h2>
+
+<p>Using the brilliant <code>_property</code> and <code>*property</code> hacks to target IE6 and IE7
+does not work in conjunction with CSSTidy.</p>
+
+<p>For the <code>_property hack</code>, the property is kept as-is, with the underscore, but
+as they are alphabetically arranged, the <code>_background</code> gets added before the
+<code>background</code>, rendering it absolutly useless.</p>
+
+<p>On the other hand, on the <code>*property</code>, the <code>*</code> gets removed, and the value is
+merged with the original value of the correct property. Useless too.</p>
+
+<h2>Other solutions that worked</h2>
+
+<p>To avoid digging into CSSTidy one more time, I tried to find other ways to
+achieve the same effect.</p>
+
+<p>To target IE6 I used the <code>!ie6</code> hack by writing <code>.mySelector { property:value
+!ie6; }</code>. IE6 is dumb enough to understand any <code>!blahblah</code> as <code>!important</code>.</p>
+
+<p>I could have also used the fact that IE6 understands <code>.class1.class2</code> as
+<code>.class2</code>, and could have written <code>.ie6.mySelector { property:value; }</code> (of
+course, you have absolutly no <code>class=&quot;ie6&quot;</code> in your code)</p>
+
+<p>To target IE7 I made a custom selector that its parsing engine is the only one
+to understand : <code>*:first-child + html .mySelector { property:value; }</code></p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/csstidy">#csstidy</a>
+      
+        <a href="/tags/hack">#hack</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/ie6">#ie6</a>
+      
+        <a href="/tags/ie">#ie</a>
+      
+        <a href="/tags/ie7">#ie7</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page24">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page22">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

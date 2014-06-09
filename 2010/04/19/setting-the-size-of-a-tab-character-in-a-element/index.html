@@ -1,0 +1,130 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Setting the size of a tab character in a pre element - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Setting the size of a tab character in a pre element</h1>
+  <span class="post-date">19 Apr 2010</span>
+  <p>When displaying code in an HTML page, you often want it to be correctly
+indented with tabs. Unfortunatly, setting a <code>white-space:pre</code>(like is the
+default on a <pre> element) to an element will transform any tab in the
+equivalent of 8 space characters.</p>
+
+<p>8 is way more than needed, 4 will be much suited, specially in a website
+design where the horizontal space is limited.</p>
+
+<p>I&#39;ve googled a lot, going from obscure old CSS drafts to proprietary
+implementation mailing lists, browsing CSS codes.</p>
+
+<p>One <a href="http://www.phwinfo.com/forum%0A/comp-inf-authoring-css/365851-change-tab-width-using-css.html">interesting discussion can be found here</a>, there even is
+a <a href="http://www.w3.org/People/howcome/t%0A/970224HTMLERB-CSS/WD-tabs-970117.html">proposal for a tab-stops property</a> on the W3C</p>
+
+<p>Opera has a proprietary <code>-o-tab-size</code>. You just have to pass the number of
+space characters that should be used.</p>
+
+<p>That&#39;s all I have for now...</p>
+
+<p>I know I could replace every<code>\t</code> with 4 <code>&amp;nbsp;</code>, or with a <code>&lt;span&gt;</code> that
+I&#39;ll style to match the desired width but it involves a back-end processing
+and I would have liked to style it directly.</p>
+
+<p>Edit : There seems to have a <code>-moz-tab-size</code> property on the latest Firefox
+3.7 nightlies</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/white-space">#white-space</a>
+    
+      <a href="/tags/tab-stops">#tab-stops</a>
+    
+      <a href="/tags/tab">#tab</a>
+    
+      <a href="/tags/o-tab-size">#o-tab-size</a>
+    
+      <a href="/tags/moz-tab-size">#moz-tab-size</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

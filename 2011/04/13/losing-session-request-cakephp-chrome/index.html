@@ -1,0 +1,152 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Losing session on each request with cakePHP and Chrome - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Losing session on each request with cakePHP and Chrome</h1>
+  <span class="post-date">13 Apr 2011</span>
+  <p>I finally found solution for one of the more tenacious bug I ever encountered.
+Share the joy !</p>
+
+<p>I had a website working perfectly under Firefox but when browsing using
+Chrome, I noticed that my Session gets regenerated on each page load.
+<strong>Constantly</strong>. Creating hundred and hundred of useless session files.</p>
+
+<h2>And only with Chrome.</h2>
+
+<p>Since when using a browser should change the server behavior ? Well I don&#39;t
+exactly know what Chrome is doing with the <code>referer</code> but it seems that it is
+altering it in some ways.</p>
+
+<p>And cakePHP forces the setting of <code>session.referer_check</code> to <code>true</code>, thus
+checking that multiple requests with the same PHPSESSID comes from the same
+url.</p>
+
+<p>As one posted on php.net :</p>
+
+<blockquote>
+<p>If you have a value specified for session.referer<em>check you may run into
+difficulty when someone accesses your site and attempts to log in with a mis-
+capitalized URL.  The logon will fail because any calls to session</em>start()
+will result in the existing session being trashed and a new one being created.
+This becomes a bigger problem when the logon is followed by a
+header(&quot;Location: ...&quot;) redirect, because the session_start() at the top of
+the page will fail.</p>
+</blockquote>
+
+<p>Those two settings combined, and you got a hell of a mess. I first found a
+quick fix by forcing the setting of <code>session_start()</code> in
+<code>app/webroot/index.php</code>. But after more <a href="http://www.nirvaat.com/blog%0A/web-development/session-issue-in-iis-with-cakephp/">reading </a>and <a href="http://freetofeel.com/page15/">debugging
+</a>I finally found the culprit.</p>
+
+<h2>Hacking your way through the fix</h2>
+
+<p>There is no easy way to prevent cake from setting this setting, but you can
+define your own session handler in the <code>Session.save</code> configure key.</p>
+
+<p>Just create file named <code>session_custom.php</code> in <code>app/config/</code> and set
+<code>Configure::write(&#39;Session.save&#39;, &#39;session_custom&#39;);</code> in your <code>core.php</code> file.</p>
+
+<p>And in that file, just drop the following lines (copy/paste from
+<code>cake_session.php</code>)</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">ini_set(&#39;session.referer_check&#39;, &#39;&#39;);                    // Killing this f***ing config that was causing so much trouble with Chrome</span>
+<span class="x">ini_set(&#39;session.use_trans_sid&#39;, 0);                    // No session id in url</span>
+<span class="x">ini_set(&#39;session.name&#39;, Configure::read(&#39;Session.cookie&#39;));    // Using custom cookie name instead of PHPSESSID</span>
+<span class="x">ini_set(&#39;session.cookie_lifetime&#39;, $this-&gt;cookieLifeTime);    // Cookie like time, depending on security level</span>
+<span class="x">ini_set(&#39;session.cookie_path&#39;, $this-&gt;path);                // Cookie path</span>
+</code></pre></div>
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/chrome">#chrome</a>
+    
+      <a href="/tags/session">#session</a>
+    
+      <a href="/tags/referer-check">#referer-check</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

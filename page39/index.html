@@ -1,0 +1,306 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/18/manually-changing-mx-resolving/">
+        Manually changing MX and CNAME resolving for Gmail
+      </a>
+    </h1>
+
+    <span class="post-date">18 Mar 2010</span>
+
+    <p>I don&#39;t usually change MX resolving, but when I do, it always almost is using
+my registrar or host admin panel.</p>
+
+<p>When I have to manually do it, (because the website is hosted on a dedicated
+server where I have to manually edit almost everything), I always waste a lot
+of time understanding where to find the configuration files.</p>
+
+<p>Today I had to change the MX record of an existing website to use those of
+Google. The server hosting the website was also defined as nameserver, so I
+had to update the <code>/var/named/domain.tld.hosts</code> file (the file may not be in
+the same directory in your own server).</p>
+
+<p>I remove the line relative to the MX records and added those instead</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">domain.tld.    IN    MX    10 ASPMX.L.GOOGLE.COM.
+domain.tld.    IN    MX    20 ALT1.ASPMX.L.GOOGLE.COM.
+domain.tld.    IN    MX    20 ALT2.ASPMX.L.GOOGLE.COM.
+domain.tld.    IN    MX    30 ASPMX2.L.GOOGLE.COM.
+domain.tld.    IN    MX    30 ASPMX3.L.GOOGLE.COM.
+domain.tld.    IN    MX    30 ASPMX4.L.GOOGLE.COM.
+domain.tld.    IN    MX    30 ASPMX5.L.GOOGLE.COM.
+</code></pre></div>
+<p>It worked well.</p>
+
+<p>I also wanted to use a simple address for the webmail, like mail.domain.tld.</p>
+
+<p>So I added the following line</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mail.domain.tld    IN    CNAME    ghs.google.com.
+</code></pre></div>
+<p>I also updated the serial at the start of the file and rebooted my server. I
+know there must be a less savage way that rebooting the server but I still
+haven&#39;t find it.</p>
+
+<p>P.S : I used this <a href="http://www.google.com/support/a/bin/answer.py?hl=en&amp;answer=116393">google / DNS Stuff
+page</a> to
+help me test my records all along the way</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/server">#server</a>
+      
+        <a href="/tags/ns">#ns</a>
+      
+        <a href="/tags/mx">#mx</a>
+      
+        <a href="/tags/linux">#linux</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/11/tinymce-mceremovenode-explained/">
+        tinyMCE mceRemoveNode explained
+      </a>
+    </h1>
+
+    <span class="post-date">11 Mar 2010</span>
+
+    <p>When writing my image plugin for tinyMCE today I came accross the
+<code>mceRemoveNode</code>command that one can use to alter the tinyMCE editor content.</p>
+
+<p>It has to be used with <code>editor.execCommand(&#39;mceRemoveNode&#39;, true/false,
+node)</code>.</p>
+
+<p>I don&#39;t really get what the <code>true</code>/<code>false</code>argument was about, setting either
+one or the other didn&#39;t change anything (that I could tell) in my case. The
+node argument is the DOM node you want to remove from the editor.</p>
+
+<p>At first I thought that the command would allow me to remove a node from the
+editor area. I needed it in my plugin. But it was not exactly what it really
+does.</p>
+
+<p>In fact it only removes the wrapping node, but keep the content intact. In
+other words if you have</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.domain.com/&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://www.domain.com/picture.jpg&quot;</span> <span class="nt">/&gt;&lt;/a&gt;</span>
+</code></pre></div>
+<p>And you remove the <code>&lt;a&gt;</code> node using <code>mceRemoveNode</code>, you&#39;ll end up with</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://www.domain.com/picture.jpg&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
+<p>in place of your link.</p>
+
+<p>I had to manually (well, with the great help of jQuery) remove the content of
+the link before removing it. I could have remove the node itself using jQuery
+but I thought that sticking to the tinyMCE methods would be a better approach,
+I don&#39;t want to mess all this stuff up, maybe &quot;simply&quot; removing html nodes
+like this could interfere with the <code>textarea</code>value update, I don&#39;t know. And
+in doubt, I prefer to use the methods and command exposed by the API</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/tinymce">#tinymce</a>
+      
+        <a href="/tags/mceremovenode">#mceremovenode</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/11/setting-content-type-in-link-attributes/">
+        Setting content-type in link attributes
+      </a>
+    </h1>
+
+    <span class="post-date">11 Mar 2010</span>
+
+    <p>Reading a <a href="http://forum.alsacreations.com/topic-9-47144-3-Debat--URL-%0ARewriting-avec-ou-sans-ID-.html#p332138">comment on
+AlsacrĂŠations</a>, I&#39;ve discovered that there is a
+<a href="http://www.w3.org/TR/html401/struct/links.html#adef-type-A">type attribute</a>
+defined in the link section of the HTML 4.01 spec.</p>
+
+<p>In a nutshell, it&#39;s an optional attribute that one can add to a <a> tag to
+tell the browser the content type it is supposed to receive if following the
+link.</p>
+
+<p>Unfortunatly, no browser seems to be using it, but I added this support to
+Caracole anyway.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/link">#link</a>
+      
+        <a href="/tags/html4">#html4</a>
+      
+        <a href="/tags/content-type">#content-type</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/10/unresponding-jquery-ui-dialog-box/">
+        Unresponding jQuery UI dialog box
+      </a>
+    </h1>
+
+    <span class="post-date">10 Mar 2010</span>
+
+    <p>As this is the second time I encounter this &quot;issue&quot;, I think it may be clever
+to post it here. At least, I won&#39;t have to debug it all the down again next
+time.</p>
+
+<p>In a nutshell, I was working on a complex UI that involve several layers of
+dialog boxes, each one on top of the previous one. Each new dialog box is
+supposed to offer the user something to do, and once it is done, the dialog
+box disapear and the user can get back to the previous one.</p>
+
+<p>The &quot;issues&quot; I was having was after closing a specific window, I wasn&#39;t able
+to focus the previous one. I mean, the window was there, I was even able to
+update its fields using jQuery, but I couldn&#39;t focus it either using keyboard
+or mouse.</p>
+
+<p>After some digging, it appears that I wasn&#39;t correctly &quot;closing&quot; the previous
+window. I was actually doing a <code>.dialog(&#39;destroy&#39;)</code> instead of a
+<code>.dialog(&#39;close&#39;)</code> and this was causing my issue.</p>
+
+<p>Calling <code>close</code>hides the dialog box, but keep it in the DOM. That way if I
+ever need the same dialog box again, jQuery is smart enough to re-use it.</p>
+
+<p>Calling <code>destroy</code>on the other hand actually remove the dialog box from the
+DOM, forcing jQuery to recreate it from scrath.</p>
+
+<p>It appears that calling <code>destroy</code>in my case caused a strange lose of focus,
+so I reverted to close instead.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/jquery-ui">#jquery-ui</a>
+      
+        <a href="/tags/focus">#focus</a>
+      
+        <a href="/tags/dialog">#dialog</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/03/08/why-is-my-disk-full/">
+        Why is my disk full ?
+      </a>
+    </h1>
+
+    <span class="post-date">08 Mar 2010</span>
+
+    <p>Ok, so remember when I was writing about that client of mine who had trouble
+with its SquirelMail implementation. I thought it was a problem of SquirelMail
+having trouble dealing with large directories.</p>
+
+<p>It was not exactly that, it more was a question of the IMAP server having
+issues with disk space. I made some backups of the mails, cleaned it up a
+little then everything went fine.</p>
+
+<p>But suddenly today, the same SquirrelMail started acting funny, blocking some
+login attempt telling me that the IMAP server stopped responding, or
+displaying message list without subject nor owner.</p>
+
+<p>Tired all of this, I decided (my client) to move its whole mail system to
+GMail, using the Google system, while keeping my clients domain name. To
+finish the registration process at Gmail, I had to put a
+googlehostedservice.html file online on the domain to prove that I am the
+owner and...</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">452 Transfer aborted.  No space left on device
+</code></pre></div>
+<p>Here is what the FTP server answered. What ? No more space ? But, but, but,
+but I just cleaned it all, deleting a whole 1Go log file. Wtf ?</p>
+
+<p>I connect to the server and got the list of the biggest files and directories
+by doing a :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">find  /var -type f -ls <span class="p">|</span> sort -k 7 -r -n <span class="p">|</span> head -10
+</code></pre></div>
+<p>I found that the maillog was 1.1Go... I deleted it and hurry the Gmail
+activation process. Problem solved.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/imap">#imap</a>
+      
+        <a href="/tags/squirrelmail">#squirrelmail</a>
+      
+        <a href="/tags/linux">#linux</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page40">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page38">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Caracole - Référencement - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Caracole - Référencement</h1>
+  <span class="post-date">18 Feb 2009</span>
+  <p>Le référencement est une des préocupations principales de nos clients, tous
+veulent savoir si avec le produit qu&#39;on leur propose ils seront en mesure
+d&#39;être les premiers dans les résultats Google.</p>
+
+<p>Bien qu&#39;il n&#39;existe pas de recette miracle pour parvenir à ce résultat,
+certaines sociétés sont spécialisés dans ce business et déploient des trésors
+d&#39;ingéniosité pour réussir à faire grimper les pages de leurs clients dans les
+index des moteurs.</p>
+
+<p>Mais c&#39;est un boulot à part entière, et ce n&#39;est pas le nôtre. Nous faisons
+des sites web, à chacun sa spécialité.</p>
+
+<p>Malgré tout, il existe plusieurs bonnes pratiques qui permettent d&#39;obtenir de
+bons résultats sans trop d&#39;efforts, et Caracole s&#39;en sort pas trop mal de ce
+coté là.</p>
+
+<p>Tout d&#39;abord il tire parti de la façon dont les urls sont gérées par cakePHP,
+et donc aucune url ne contient de paramètre de la forme ?foo=bar&amp;action=foobar
+qui sont très mal indexées. Chaque page possède donc sa propre url unique. Les
+méthodes d&#39;url rewriting proposées de base par cakePHP sont très puissantes et
+font déjà une très grosse partie du travail.</p>
+
+<p>Dans la même veine, il est possible de définir des &#39;slugs&#39; pour chaque
+élément, un slug permet de donner un identifiant à chacune des pages, ce qui
+signifie qu&#39;au lieu de retrouver un élément par son id dans l&#39;url (un simple
+nombre, qui ne donne pas d&#39;indication sur le contenu), on peut à la place le
+remplacer par un slug (du genre &#39;services&#39;, &#39;nous-contacter&#39;, etc). Cela donne
+des urls du genre /services.html, /posts/1:mon-premier-post, etc</p>
+
+<p>Cela facilite le référencement des pages car des mots clés se rapportant au
+contenu de la page peuvent déjà être mis dans l&#39;url, qui est une place
+privilégiée.</p>
+
+<p>Ici encore, il suffit d&#39;ajouter un champ &#39;slug&#39; dans la table correspondante
+au modèle pour que celui-ci soit automatiquement généré à partir du nom (il
+est bien sur possible de le modifier si besoin).</p>
+
+<p>Caracole est aussi doté d&#39;un système de génération automatique de sitemap (le
+plan du site). Celui-ci est généré en deux versions, une version html pour vos
+visiteurs, et une version XML (qui indique les fréquences de réactualisations
+ainsi que les dates de dernière modification) pour les moteurs.</p>
+
+<p>Et pour finir, je vais passer rapidement sur les essentiels : balise <title>
+et meta description différents pour chaque page, fichier robots.txt, texte
+alternatif sur les images et accessibilité du markup HTML mais bien sur,
+Caracole se charge de tout cela aussi.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+      <a href="/tags/caracole">#caracole</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

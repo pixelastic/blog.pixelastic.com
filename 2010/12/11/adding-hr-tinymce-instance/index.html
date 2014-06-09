@@ -1,0 +1,143 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Adding a <hr> in a tinyMCE instance - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Adding a &lt;hr&gt; in a tinyMCE instance</h1>
+  <span class="post-date">11 Dec 2010</span>
+  <p>When using the default tinyMCE implementation to add an <code>&lt;hr&gt;</code> element to the
+editor content, the <code>&lt;hr&gt;</code> is added inside its parent <code>&lt;p&gt;</code> element (when it
+should be an element on its own, without such a parent).</p>
+
+<p>I&#39;ve added my own plugin to resolve this small issue, here is the code :</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">tinymce</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;tinymce.plugins.pixelastic_hrPlugin&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">editor</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Register the command</span>
+      <span class="nx">editor</span><span class="p">.</span><span class="nx">addCommand</span><span class="p">(</span><span class="s1">&#39;mcepixelastic_hr&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// We get the parent node</span>
+        <span class="kd">var</span> <span class="nx">parentNode</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">selection</span><span class="p">.</span><span class="nx">getNode</span><span class="p">(),</span>
+        <span class="nx">uniqueId</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">uniqueId</span><span class="p">();</span>
+        <span class="c1">// We insert the hr (with a unique id to select it later)</span>
+        <span class="nx">editor</span><span class="p">.</span><span class="nx">execCommand</span><span class="p">(</span><span class="s1">&#39;mceInsertContent&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s1">&#39;&lt;hr id=&quot;&#39;</span><span class="o">+</span><span class="nx">uniqueId</span><span class="o">+</span><span class="s1">&#39;&quot; /&gt;&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">hr</span> <span class="o">=</span> <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="o">+</span><span class="nx">uniqueId</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="c1">// We split the parent element around the hr</span>
+        <span class="nx">editor</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">,</span> <span class="nx">hr</span><span class="p">);</span>
+        <span class="c1">// We remove the temporary id</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">hr</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+      <span class="p">});</span>
+      <span class="c1">// Adding a button</span>
+      <span class="nx">editor</span><span class="p">.</span><span class="nx">addButton</span><span class="p">(</span><span class="nx">pluginName</span><span class="p">,</span> <span class="p">{</span> <span class="nx">title</span> <span class="o">:</span> <span class="s1">&#39;pixelastic_hr.desc&#39;</span><span class="p">,</span> <span class="nx">cmd</span> <span class="o">:</span> <span class="s1">&#39;mcepixelastic_hr&#39;</span> <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="c1">// Register plugin</span>
+  <span class="nx">tinymce</span><span class="p">.</span><span class="nx">PluginManager</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;pixelastic_hr&#39;</span><span class="p">,</span> <span class="nx">tinymce</span><span class="p">.</span><span class="nx">plugins</span><span class="p">[</span><span class="s1">&#39;pixelastic_hrPlugin&#39;</span><span class="p">]);</span>
+<span class="p">})();</span>
+</code></pre></div>
+<p>The trick to use the <code>editor.dom.split</code> method to split the parent element
+around the <code>&lt;hr&gt;</code> element.</p>
+
+<p>The dirty hacks is that there is no way to get a direct reference to a DOM
+element added through <code>mceInsertContent</code>, so we need to set a temporary unique
+id and then select it through this id.</p>
+
+<p>I use jQuery in my example and I strongly suggest you to do the same, the
+selectors it provides are much sexier and helps writing these kind of plugins
+pretty fast.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/jquery">#jquery</a>
+    
+      <a href="/tags/tinymce">#tinymce</a>
+    
+      <a href="/tags/hr">#hr</a>
+    
+      <a href="/tags/mceinsertcontent">#mceinsertcontent</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,516 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/04/calling-a-parent-method-with-arguments-in-php/">
+        Calling a parent method with arguments in PHP
+      </a>
+    </h1>
+
+    <span class="post-date">04 Aug 2010</span>
+
+    <p>For testing purpose I just needed to overwrite an existing class to add some
+more logic to some methods before returning a call to its parent method.</p>
+
+<p>I needed to do that in a test case to save in an inner variable the result so
+I can clean up my mess after each test ran.</p>
+
+<p>The key is calling <code>call_user_func_array</code> with the right syntax. It seems that
+some version of PHP prior to 5.3 choke (like in segmentation fault) if an
+alternate syntax is given.</p>
+
+<p>Here is what worked for me :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class TestDocument extends Document {</span>
+<span class="x">    function foo() {</span>
+<span class="x">        return $this-&gt;fooResult= call_user_func_array(array(&#39;parent&#39;, &#39;foo&#39;), func_get_args());</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/parent">#parent</a>
+      
+        <a href="/tags/call-user-func-array">#call-user-func-array</a>
+      
+        <a href="/tags/arguments">#arguments</a>
+      
+        <a href="/tags/simpletest">#simpletest</a>
+      
+        <a href="/tags/unit-testing">#unit-testing</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/08/03/swfupload-and-cakephp/">
+        SWFUpload and cakePHP
+      </a>
+    </h1>
+
+    <span class="post-date">03 Aug 2010</span>
+
+    <p>One thing that always sent me an awful hours of debugging is the fact that the
+Flash player identify itself as a whole different browser that the one it is
+integrated into.</p>
+
+<p>I&#39;ve ran into this issue multiple times when dealing with SWFUpload and today
+was one more. As I always spent quite a lot of time debugging issues arising
+from this, I guess I should post about it here.</p>
+
+<h2>The Flash player uses a different userAgent that your browser</h2>
+
+<p>Most of the time, this is not a problem. But when dealing with restricted
+areas of a website built on top of cakePHP, it can become one.</p>
+
+<p>The thing is that as the <code>userAgent</code>string used by the Flash player is not
+the same as the one used by your browser. So, when you make a request to your
+site, cake will see that as whole new request and you won&#39;t be able to access
+your current session variables.</p>
+
+<p>As you can&#39;t overwrite the <code>userAgent</code>hash sent, you need to send the
+<code>sessionId</code>along with your flash request. That way, you&#39;ll be able to call a</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;Session-&gt;id($sessionId);</span>
+<span class="x">$this-&gt;Session-&gt;start();</span>
+</code></pre></div>
+<p>in your controller <code>beforeFilter</code>(or component <code>initialize</code>)</p>
+
+<p><em>In cake 1.2, you&#39;ll also have to call <code>$this-&gt;Session-&gt;destroy()</code> before to
+delete the Flash session created.</em></p>
+
+<h2>The Flash player uses a different cookie pool that your browser</h2>
+
+<p><em>This used to be an issue in 1.2 but not longer is.</em></p>
+
+<p>Cake stores in a cookie the name of the session you&#39;re supposed to use. Flash
+having its own cookie pool, it will save its own cookie (usually somewhere you
+don&#39;t even know) and will always check for the session specified inside.</p>
+
+<p>This took me quite a long time to found out why the flash request where
+reading an other request that the one I was setting.</p>
+
+<p>In 1.2, you needed to delete the cookie created by cake whenever you made a
+flash request to avoid conflicts</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">setcookie(Configure::read(&#39;Session.cookie&#39;), &#39;&#39;, time() - 42000, $this-&gt;Session-&gt;path);</span>
+</code></pre></div>
+<h2>cakePHP used to overwrite the userAgent string in session</h2>
+
+<p>In cake 1.2, when you manually change the current session, cake would update
+the inner <code>userAgent</code>hash saved to your current userAgent hash.</p>
+
+<p>This meant that whenever you were moving from the Flash session to the correct
+session, you had to overwrite the <code>userAgent</code>hash to the correct one.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;Session-&gt;write(&#39;Config.userAgent&#39;, $userAgent);</span>
+</code></pre></div>
+<p><em>This is no longer the case in 1.3, changing the current session does not
+alter it anymore.</em></p>
+
+<h2>Doesn&#39;t all that stuff alter security ?</h2>
+
+<p>Well, most of the answers I found online were among the lines of &quot;Just disable
+the check of the <code>userAgent</code>&quot;, so I think my method is a little bit more
+secure.</p>
+
+<p>Anyway, passing a <code>sessionId</code>as a parameter seems a little risky, even to me.
+I guess there should be a way of encrypting it to not pass it as clear text</p>
+
+<h2>UPDATE !</h2>
+
+<p>I had to fiddle with this script some more. It appears that, as we are
+changing the <code>sessionId</code>, we need to do that BEFORE we access the session. It
+means that any call to <code>Session::read()</code> or <code>Session::check()</code>, or almost any
+other Session method BEFORE setting the id will block this trick from working.
+So, make sure that this code is executed before anything else, put it in a
+component that will be loaded first.</p>
+
+<p>It also appears that if you follow my advice, you&#39;ll only have to call
+<code>id($sessionId)</code>, and none of the hocum pocum about <code>destroy</code>, <code>write</code>and
+<code>userAgent</code>hashes I talked about...</p>
+
+<p>I just lost some hours finding this out. I add a call to Session in my <code>I18n
+</code>component that was rendering this whole fix useless. It was driving me
+crazy...</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/swfupload">#swfupload</a>
+      
+        <a href="/tags/sessions">#sessions</a>
+      
+        <a href="/tags/php">#php</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/useragent">#useragent</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/23/forcing-joins-in-a-cakephp-find/">
+        Forcing joins in a cakePHP find
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jul 2010</span>
+
+    <p>Today I had to setup a complex find relation. Here is the simplifed version of
+what I had :</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">TABLE</span> <span class="n">timestamps</span>
+<span class="nb">int</span> <span class="n">id</span>
+<span class="n">datetime</span> <span class="nb">date</span>
+<span class="n">string</span> <span class="k">type</span>
+<span class="nb">int</span> <span class="n">user_id</span>
+</code></pre></div>
+<p>The type field only had two types of values : <code>START</code>and <code>END</code>. As you can
+guess, this was used to log the time users where using an application. Every
+time a user started using the app, a <code>START</code> record was created, and when he
+loggued out, an <code>END</code>record was created. So basically, the records where
+working as pairs.</p>
+
+<p>I wanted to get a list of all records that could be easily displayed. I wanted
+to bind the timestamp model to itself, so that when querying all the start
+records, I&#39;ll automatically have the end ones as related models.</p>
+
+<p>Here&#39;s how I did that :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;find(&#39;all&#39;, array(</span>
+<span class="x">  &#39;conditions&#39; =&gt; array(</span>
+<span class="x">    &#39;Timestamp.type&#39; =&gt; &#39;START&#39;</span>
+<span class="x">  ),</span>
+<span class="x">  &#39;joins&#39; =&gt; array(</span>
+<span class="x">    array(</span>
+<span class="x">      &#39;table&#39; =&gt; &#39;timestamp&#39;,</span>
+<span class="x">      &#39;alias&#39; =&gt; &#39;EndTimestamp&#39;,</span>
+<span class="x">      &#39;type&#39; =&gt; &#39;LEFT&#39;,</span>
+<span class="x">      &#39;conditions&#39; =&gt; array(</span>
+<span class="x">        &#39;EndTimestamp.type&#39; =&gt; &#39;END&#39;,</span>
+<span class="x">        &#39;EndTimestamp.user_id = Timestamp.user_id&#39;,</span>
+<span class="x">        &#39;EndTimestamp.date &gt; Timestamp.date&#39;,</span>
+<span class="x">      )</span>
+<span class="x">    )</span>
+<span class="x">  ),</span>
+<span class="x">  &#39;order&#39; =&gt; array(</span>
+<span class="x">    &#39;Timestamp.date&#39; =&gt; &#39;ASC&#39;</span>
+<span class="x">  ),</span>
+<span class="x">  &#39;group&#39; =&gt; &#39;Timestamp.date&#39;</span>
+<span class="x">));</span>
+</code></pre></div>
+<p>It will fetch all the start timestamp (<code>fields</code>) in chronological order
+(<code>order</code>). We will also define a custom join relation (<code>joins</code>). We set the
+table name and the alias we need, and set it as a <code>JOIN LEFT</code>.</p>
+
+<p>Then we add the conditions : we want only the <code>END</code>records, that belongs to
+the same user, and that occurs after the <code>START</code>records. We also add a <code>group
+</code>key to make sure not to get twice the same result (or it will corrupt our
+results)</p>
+
+<p>Note that the joins syntax needs to be wrapped in an unkeyed array. This is
+because you may need to add several joins.</p>
+
+<p>I had never heard of this joins key before today, but it is quite handy, I
+guess I&#39;ll use it again.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/joins">#joins</a>
+      
+        <a href="/tags/find">#find</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/23/click-html-element/">
+        Allow click through an HTML element
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jul 2010</span>
+
+    <p>When one HTML element is over another one (like when positioning an element
+using <code>position:absolute</code>), you usually can&#39;t click through the top element to
+access the bottom element.</p>
+
+<p>That&#39;s used as a common technique to prevent the right click on images by some
+sites (like Flickr). They just add an empty transparent div over their images
+to prevent the lambda user from right clicking and saving the image.</p>
+
+<p>Sometimes, when integrating complex designs, you need those additional layers,
+but you also want the user to be able to click through them, as if they
+weren&#39;t there.</p>
+
+<p>Just use the <code>pointer-events:none</code> css property to allow click events to go
+through the element.</p>
+
+<p>This is only supported by Firefox 3.6+, Chrome and Safari for now.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/pointer-events">#pointer-events</a>
+      
+        <a href="/tags/css">#css</a>
+      
+        <a href="/tags/click">#click</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/23/beginner-s-introduction-to-unit-testing-and-tdd/">
+        Beginner&#39;s introduction to Unit Testing and TDD
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jul 2010</span>
+
+    <p>I first heard of TDD and Unit Testing one year ago, by reading discussions
+about cakePHP. Cake was boasting about its complete testing.</p>
+
+<p>Back in these days I only had a vague understanding of what that meant. I
+guessed it was a way to prove that the code you wrote did not have any bug, or
+if it had, you could find them easily and make sure that you did not break
+existing code with a new release.</p>
+
+<p>That sounded exciting and I tried to write some tests for my own app. I gave
+up really quickly as I found that you need both a good understanding of the
+inner workings of cake and some familiarity with testing before being able to
+write tests.</p>
+
+<p>Some weeks ago, I decided to gave it another try. This time I started by
+reading more general concepts about the whole testing thing before writing
+anything. That&#39;s how I learned that Unit Testing and TDD are two different
+thing, the former leading to the latter.</p>
+
+<h2>So, what exactly is Unit Testing ?</h2>
+
+<p>A Unit Test is a simple test (function) you write that will test that one tiny
+little part of your whole application is doing what it is supposed to do. Most
+of the time, you&#39;ll end up testing one particular method of one particular
+class. You pass a specified input parameter to you function, and you test that
+the returned value is the one you were expecting.</p>
+
+<p>Unit Testing is <em>just</em> that : writing automated tests for methods you wrote.
+You&#39;ll then have to run all your tests and you&#39;ll be able to spot in a matter
+of seconds which tests failed, and thus see where a bug occured. Testing this
+way is order of magnitude faster than manually testing your app, one page at a
+time.</p>
+
+<p>Before learning what Unit Testing was, I was writing my methods whenever I
+needed them and just assumed that they were bugless. Now, I can write a test
+to formerly prove that they are. And I can even re-run this same test every
+time I refactor my code to see if my refactoring did not broke any previous
+behavior.</p>
+
+<p>The more precise your tests are, the easier it will be for you to debug where
+the bug is coming from.</p>
+
+<h2>And what is Test Driven Development ?</h2>
+
+<p>TDD is a whole new way of writing code. Instead of writing your method then
+write the test for it, you write the test before. You can even write several
+tests before, in fact as much as you can think of.</p>
+
+<p>It forces you to conceptualise (in your head) what you exactly want your
+method to do. What inputs should be accepted, what should be returned, what
+are the edge cases, what arguments are optional, etc.</p>
+
+<p>Once you&#39;ve done all this, you just write the tests for each of this things.
+Test your method with a specifically formatted input, and check the expected
+result. Do that for every edge case you can think of. Then, run the tests. It
+will fail, because you haven&#39;t even started writing the method. But that&#39;s ok,
+and should I say, that&#39;s the goal.</p>
+
+<p>Now you have a set of rules, kinda like specs. You know what your method
+should do because you&#39;ve written that down with your tests. You can start
+writing your method, and you&#39;ll know that you haven&#39;t finished it until all
+the tests passes. Thanks to the tests, you&#39;ll know for sure when you&#39;re done
+on a specific method.</p>
+
+<p>Thanks to TDD, you&#39;ll have a precise measure of where you are in the
+development cycle. If all your code is test covered and that you only add new
+code that is also covered, you can release you app as often as you want.</p>
+
+<h2>And how is it good for me ?</h2>
+
+<p>First of all, you will know for sure when you&#39;re done working on a method. If
+all the tests passes, you&#39;re good. If at least one test fails, it means that
+you can&#39;t still use this method in production because it may have undesirable
+side effects.</p>
+
+<p>it will force you to better think about what you really want to do before
+writing anything. I used to rarely take time to stop and think, but instead
+rushed into writing code to &quot;make it work&quot;. Now, I&#39;m spending more time with a
+pen an paper before, writing down all I want my method to do.</p>
+
+<p>I didn&#39;t see the benefit of it at first, but I forced myself to do it, and
+it&#39;s suprising how fast you can see the benefits. It will allow you to see
+more easily edge cases you hadn&#39;t thought of, and prepare yourself in
+consequence.</p>
+
+<h2>But I spend so much time writing tests, while I could be adding new features instead !</h2>
+
+<p>Yeah, I thougt that too. Writing tests is a chore. It takes a lot of time,
+especially if you&#39;ve never wrote any before (but it gets much easier with
+practice).</p>
+
+<p>Writing tests for an existing app is even more difficult. Most of the time,
+the code is not easily testable and will need refactoring to allow testing.
+While refactoring code just to test it may seem kind of useless (at least
+that&#39;s what I thought), the benefits are huge. You only have to write tests
+once, and the debug value it offers you will stay forever. Compare this to the
+time you&#39;ll have to spend manually debugging a complicated class.</p>
+
+<p>Tests are also universal and they act as a pretty good documentation. If you
+ever work in a team, tests are a great way to make other people understand
+what your code is supposed to do. And if someone else needs to edit your code,
+they&#39;ll just have to run the tests to see if they break something.</p>
+
+<p>It is true that writing testable code and corresponding tests takes time. But
+it is not true that you could spend this time on new features. If you don&#39;t
+write tests for a feature, how could you tell that it&#39;s bugless ? We can just
+have your word for it, while when using tests we have a boolean answer to this
+question. Tests passes, it works, tests failed, it does not work.</p>
+
+<p>If you don&#39;t know for sure that a feature is bugless, you&#39;ll never be sure if
+a bug won&#39;t appear later and that&#39;s you&#39;ll have to come back and track it
+down. Maybe the bug won&#39;t show until one month or two, but you know how hard
+it is to debug a two-month old code, even written by yourself.</p>
+
+<p>With tests, you do yourself a favor, by asserting that you won&#39;t have to get
+back to this code later. So yes, it will take longer to write a new feature
+with tests, but at least you&#39;ll be able to say &quot;Ok, it&#39;s done, and it&#39;s
+working&quot;, while with a feature that hasn&#39;t been tested, you&#39;ll ended up saying
+&quot;Ok it&#39;s done, I think it should work. Well, we&#39;ll see...&quot;.</p>
+
+<h2>You&#39;ve convinced me, I want to start writing tests now.</h2>
+
+<p>Great !</p>
+
+<p>First, I discourage you to start and write tests for your whole application
+right now. The bigger the app, the faster you&#39;ll be fed up with tests. It&#39;s
+much more harder to write tests after, than before. So just write tests for
+one class or two at the moment, add new features to your app (using the TDD
+approach), and get back to writing tests to the rest of the app later.</p>
+
+<p>For your firsts tests, you can choose an existing class. I found that models
+are the easiest classes to tests. You&#39;ll need fixtures for that, but I won&#39;t
+detail it here, the cake documentation is clear enough on the subject. You&#39;ll
+also have to create a test case, but again, everything is in the
+documentation. If it does not feel clear enough for you, just ask in the
+comments and I&#39;ll add a more detailed explanation.</p>
+
+<p>And now, here are some advices I&#39;ve learned, I thought I could share them with
+you :</p>
+
+<ul>
+<li>The number of tests you&#39;ll have to write is not dependent on the number of methods you have in your class. Most of the methods will need several tests, while some rare methods won&#39;t need any. Just write one test for each outcome you want to test. The cake Core tests usually make one test method for each method in the class. I prefer to make several small tests, that way I can more easily spot the part that is failing.</li>
+<li>You can name your test methods the way you want, they just have to start with <code>test</code>. Do not hesitate to be very specific in the method name. I have methods called <code>test404ErrorIfInvalidUserId</code> or <code>test404ErrorIfNonExistentuser</code></li>
+<li>Make calls to <code>App::import()</code> at the top of your file to load every class you&#39;ll need.</li>
+<li>Use and abuse the <code>startTest</code>method. This method is called before every test, this is a good way to reset vars to make sure one previous test call will not impact subsequent calls. I got the habit to define a property of the test case as the object I want to test. For example, when testing a model, I&#39;ll write something along the lines of :</li>
+</ul>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function startTest() {</span>
+<span class="x">$this-&gt;model = ClassRegistry::init(&#39;User&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+<ul>
+<li>Try to refactor you code to split logic into several small methods, each with its own goal and logic. This will be easier to test.</li>
+<li>If you have to test code that relies on an external library and make static calls to it, just wrap the static calls inside a method of your class and mock (see MockObjects) the method.</li>
+<li>You&#39;ll have to create a test case (extending <code>CakeWebTestCase</code>) to test view generation. This test case will be able to make get (using <code>get()</code>)queries to your site, and allowing you to test the resulting source code of the page against regular expression using <code>assertPattern()</code>/<code>assertNoPattern()</code></li>
+<li>If you have code that rely on <code>exit</code>, just replace that code to <code>$this-&gt;_stop()</code>, it&#39;s a method wrapping <code>exit</code>that was created just to make testing easier. If you have code using <code>die()</code>, then you&#39;re screwed.</li>
+</ul>
+
+<p>As I&#39;m also still discovering Unit Testing in cake, I&#39;ll surely post other
+tips as I encounter them.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/simpletest">#simpletest</a>
+      
+        <a href="/tags/tests">#tests</a>
+      
+        <a href="/tags/unit-testing">#unit-testing</a>
+      
+        <a href="/tags/tdd">#tdd</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page29">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page27">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

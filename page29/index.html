@@ -1,0 +1,360 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item active">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/23/adding-some-logic-in-your-mysql/">
+        Adding some logic in your MySQL
+      </a>
+    </h1>
+
+    <span class="post-date">23 Jul 2010</span>
+
+    <p>I&#39;m not an expert in SQL queries, I just know how to do simple queries and the
+more advanced options I&#39;ve ever used are <code>DISTINCT</code>, <code>HAVING</code>and <code>GROUP BY</code>.</p>
+
+<p>For the project I&#39;m working on, I had to add some logic to my SQL queries, to
+concatenate various field and compare them.</p>
+
+<p>Here is, as a reminder, how I&#39;ve managed to I&#39;ve managed to get the time spent
+by comparing two dates :</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">TIMESTAMPDIFF</span><span class="p">(</span><span class="k">SECOND</span><span class="p">,</span> <span class="k">Timestamp</span><span class="p">.</span><span class="nb">date</span><span class="p">,</span> <span class="n">EndTimestamp</span><span class="p">.</span><span class="nb">date</span><span class="p">)</span> <span class="k">AS</span> <span class="n">timeSpent</span>
+</code></pre></div>
+<p>And is practice is never as easy as theory, I didn&#39;t really had a timestamp
+but two string fields instead (one <code>date</code>and one <code>time</code>), so here&#39;s how I
+combined them</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">TIMESTAMPDIFF</span><span class="p">(</span><span class="k">SECOND</span><span class="p">,</span> <span class="n">CONCAT</span><span class="p">(</span><span class="k">Timestamp</span><span class="p">.</span><span class="nb">date</span><span class="p">,</span> <span class="ss">&quot; &quot;</span><span class="p">,</span> <span class="k">Timestamp</span><span class="p">.</span><span class="n">time</span><span class="p">),</span> <span class="n">CONCAT</span><span class="p">(</span><span class="k">Timestamp</span><span class="p">.</span><span class="nb">date</span><span class="p">,</span> <span class="ss">&quot; &quot;</span><span class="p">,</span> <span class="k">Timestamp</span><span class="p">.</span><span class="n">time</span><span class="p">))</span> <span class="k">AS</span> <span class="n">timeSpent</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/mysql">#mysql</a>
+      
+        <a href="/tags/having">#having</a>
+      
+        <a href="/tags/group-by">#group-by</a>
+      
+        <a href="/tags/distinct">#distinct</a>
+      
+        <a href="/tags/timestampdiff">#timestampdiff</a>
+      
+        <a href="/tags/concat">#concat</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/19/javascript-speed-tip-reduce-variable-lookup/">
+        Javascript speed tip : reduce variable lookup
+      </a>
+    </h1>
+
+    <span class="post-date">19 Jul 2010</span>
+
+    <p>It appears that, according to this video, when inside a Javascript function
+(or closure), if you want to access a variable, the closer your scope is to
+this variable, the faster you&#39;ll get it.</p>
+
+<p>In simpler words, accessing a global variable (like <code>document</code>, or <code>window</code>)
+from inside a function will always be slower that accessing a locally defined
+variable.</p>
+
+<p>It also means that, when inside a method of an object, accessing a variable
+defined in this method will be faster that accessing a property of the parent
+object, which itself will be faster that accessing a global variable.</p>
+
+<p>So, for example, if you need to access at least twice a global variable like
+<code>window</code>or <code>document</code>in a method, you&#39;d better cache it in a local variable
+first.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function myTestFunction() {</span>
+<span class="x">  var button = document.getElementById(&#39;button&#39;);</span>
+<span class="x">  var header = document.getElementById(&#39;header&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>is bad and could be rewritten as :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function myTestFunction() {</span>
+<span class="x">  var doc = document;</span>
+<span class="x">  var button = doc.getElementById(&#39;button&#39;);</span>
+<span class="x">  var header = doc.getElementById(&#39;header&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/javascript">#javascript</a>
+      
+        <a href="/tags/performance">#performance</a>
+      
+        <a href="/tags/closure">#closure</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/15/using-a-fixture-with-a-model-using-usetable-in-cakephp/">
+        Using a fixture with a model using $useTable in cakePHP
+      </a>
+    </h1>
+
+    <span class="post-date">15 Jul 2010</span>
+
+    <p>It seems that if you&#39;re creating a fixture for a model that uses an
+unconventional table name, the <code>CakeTestFixture</code>does not manage to correctly
+create the needed table when your test starts.</p>
+
+<p>In fact, it will try to insert the fixture records into the right table (the
+one defined in <code>$useTable</code>), but won&#39;t have created the table beforehand.</p>
+
+<p>In fact this is because it will correctly rely on the model <code>$useTable</code>
+property when inserting records but will try to guess the table name based on
+the model name when creating the table.</p>
+
+<p>Anyway, the quick fix I&#39;ve found so far is to define the <code>$table</code> property of
+your fixture to match your model <code>$useTable</code>.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class Client extends Model {</span>
+<span class="x">  var $useTable = &#39;users&#39;;</span>
+<span class="x">}</span>
+
+<span class="x">class ClientFixture extends CakeTestFixture {</span>
+<span class="x">  var $table= &#39;users&#39;;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>I&#39;ve filed a bug report as well as suggested a fix to allow cake to
+automatically use the correct table.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/bug">#bug</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+        <a href="/tags/unit-testing">#unit-testing</a>
+      
+        <a href="/tags/fixture">#fixture</a>
+      
+        <a href="/tags/usetable">#usetable</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/15/catching-php-errors-with-simpletest/">
+        Catching PHP errors with simpleTest
+      </a>
+    </h1>
+
+    <span class="post-date">15 Jul 2010</span>
+
+    <p>I needed to write a test that should fail if the method I was testing
+triggered a PHP <code>E_NOTICE</code> error (namely, an &quot;<em>undefined index</em>&quot; kind of
+error).</p>
+
+<p>SimpleTest provides both <code>expectError()</code> and <code>expectException()</code> methods. I
+have only been able to make the former work with manually triggered errors
+(using <code>trigger_error()</code>), and the latter only catchs Exceptions.</p>
+
+<p>After hours of googling, and reading SimpleTest source code, I finally managed
+to come up with a solution.</p>
+
+<h2>Redefining the error handler</h2>
+
+<p>It still amaze me how awfuly complicated it is to do such a simple thing.
+Anyway, the key is to redefine the error handler function so you can
+shortcircuit both PHP and SimpleTest on the way they managed errors.</p>
+
+<p>Doing so you can detect when the code you test produce an error. Based on the
+<code>$errno</code> and <code>$errstr</code> supplied, you can even filter to exactly the error
+you&#39;re looking for.</p>
+
+<p>Unfortunatly, you&#39;ll be blocked inside your newly defined <code>error_handler</code>
+function. It means you won&#39;t have access to the test, so won&#39;t be able to call
+<code>$this-&gt;pass()</code> nor <code>$this-&gt;fail()</code>, because <code>$this</code> does not reference
+anything.</p>
+
+<h2>Throw me out of here</h2>
+
+<p>The only trick I&#39;ve found to get out of this function and back in the scope of
+your test is to throw an Exception. Namely, an <code>ErrorException</code>.</p>
+
+<p>Doing so we can rewrote our test to put the part that is triggering the error
+inside a <code>try</code>/ <code>catch</code>statement and manually pass or fail the test.</p>
+
+<h2>Don&#39;t you forget something ?</h2>
+
+<p>One <strong>very</strong> important thing not to forget here is to restore the
+<code>error_handler</code> to its original value once you won&#39;t need it. If you don&#39;t,
+you will surely broke all your subsequent tests because SimpleTest use its own
+<code>error_handler</code> too.</p>
+
+<p>We have to restore it in two places, both when the code triggered and error /
+throw an exception and when it don&#39;t.</p>
+
+<h2>Cut the speech, show me the code</h2>
+
+<p>Okay, here&#39;s the code. Don&#39;t forget to adapt the condition in the
+<code>error_handler</code> to match your error.</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function testGotUndefinedIndex() {</span>
+<span class="x">    // Overriding the error handler</span>
+<span class="x">    function errorHandlerCatchUndefinedIndex($errno, $errstr, $errfile, $errline ) {</span>
+<span class="x">        // We are only interested in one kind of error</span>
+<span class="x">        if ($errstr==&#39;Undefined index: bar&#39;) {</span>
+<span class="x">            //We throw an exception that will be catched in the test</span>
+<span class="x">            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);</span>
+<span class="x">        }</span>
+<span class="x">        return false;</span>
+<span class="x">    }</span>
+<span class="x">    set_error_handler(&quot;errorHandlerCatchUndefinedIndex&quot;);</span>
+
+<span class="x">    try {</span>
+<span class="x">        // triggering the error</span>
+<span class="x">        $foo = array();</span>
+<span class="x">        echo $foo[&#39;bar&#39;];</span>
+<span class="x">    } catch (ErrorException $e) {</span>
+<span class="x">        // Very important : restoring the previous error handler</span>
+<span class="x">        restore_error_handler();</span>
+<span class="x">        // Manually asserting that the test fails</span>
+<span class="x">        $this-&gt;fail();</span>
+<span class="x">        return;</span>
+<span class="x">    }</span>
+
+<span class="x">    // Very important : restoring the previous error handler</span>
+<span class="x">    restore_error_handler();</span>
+<span class="x">    // Manually asserting that the test succeed</span>
+<span class="x">    $this-&gt;pass();</span>
+<span class="x">}</span>
+</code></pre></div>
+
+    <div class="tag-list">
+      
+        <a href="/tags/errors">#errors</a>
+      
+        <a href="/tags/unit-testing">#unit-testing</a>
+      
+        <a href="/tags/simpletest">#simpletest</a>
+      
+        <a href="/tags/e-notice">#e-notice</a>
+      
+    </div>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2010/07/13/cakephp-testing-tip-creating-or-edit-a-datasource-on-the-fly/">
+        cakePHP testing tip : Creating or edit a datasource on the fly
+      </a>
+    </h1>
+
+    <span class="post-date">13 Jul 2010</span>
+
+    <p>For one of the tests I&#39;m currently writing, I needed to assert that my method
+was correctly returning an error if the connection to the database was
+impossible.</p>
+
+<p>I couldn&#39;t find an easy way to change datasource credentials once the app was
+initiated, so I decided to manually update the <code>ConnectionManager</code> inner
+values.</p>
+
+<p>Here&#39;s how I did it :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">// Getting the datasource cache in the ConnectionManager object</span>
+<span class="x">$connectionManagerInstance = ConnectionManager::getInstance();</span>
+<span class="x">$databaseConfig = &amp;$connectionManagerInstance-&gt;_dataSources;</span>
+
+<span class="x">// Saving the initial setting for reverting it later</span>
+<span class="x">$_defaultConfig = $databaseConfig[&#39;default&#39;];</span>
+
+<span class="x">// Changing the password so the credentials will fail</span>
+<span class="x">$databaseConfig[&#39;default&#39;]-&gt;config[&#39;password&#39;].= &#39;pass&#39;;</span>
+
+<span class="x">// Getting the updated datasource</span>
+<span class="x">$connect = ConnectionManager::getDataSource(&#39;default&#39;);</span>
+
+<span class="x">// Error handling when connection unavailable</span>
+<span class="x">[...]</span>
+
+<span class="x">// And reverting the settings back</span>
+<span class="x">$databaseConfig[&#39;default&#39;] = $_defaultConfig;</span>
+</code></pre></div>
+<p>This proved really useful when testing to simulate a database server error.</p>
+
+
+    <div class="tag-list">
+      
+        <a href="/tags/datasource">#datasource</a>
+      
+        <a href="/tags/tests">#tests</a>
+      
+        <a href="/tags/connectionmanager">#connectionmanager</a>
+      
+        <a href="/tags/cakephp">#cakephp</a>
+      
+    </div>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page30">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page28">Newer</a>
+    
+  
+</div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     ZSH autocompletion for git unstage  - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">ZSH autocompletion for git unstage </h1>
+  <span class="post-date">30 Aug 2012</span>
+  <p>I recently switched to git as my main version control system (I used to use
+Mercurial before that). I quickly grasped the concept of the staging area and
+used the <code>git add</code> command extensively to add before committing.</p>
+
+<p>And zsh ships with nice git autocompletion features, and suggests files to add
+with <code>git add</code> when you press Tab.</p>
+
+<h2>Git unstage</h2>
+
+<p>What is missing from the basic git commands is a way to unstage a file from
+the staging area. Well, I can do it with <code>git reset HEAD</code>, but this command is
+a bit tedious to type.</p>
+
+<p>So I created an alias, named <code>git unstage</code> that does just that. I just added
+the following lines to my <code>~/.gitconfig</code>, under the <code>[alias]</code> header :</p>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="na">unstage</span> <span class="o">=</span> <span class="s">reset HEAD</span>
+</code></pre></div>
+<p>I can now easily add files to the staging area with <code>git add</code> and remove them
+with <code>git unstage</code></p>
+
+<h2>Autocompletion</h2>
+
+<p>At this point, <code>git unstage</code> autocompletion does not work. It simply suggest
+all files in the current directory, while I&#39;d like it to suggest only files in
+the staging area.</p>
+
+<p>When you create a git alias, you cannot simply add a zsh autocomplete method
+for that alias (meaning, you cannot create a <code>_git-unstage</code> method), you have
+to hook your custom autocomplete logic to the underlying git method your alias
+refers to. In this case, this is the <code>git reset</code> method.</p>
+
+<p>So, I created my own <code>_git-reset</code> autocompletion function. Actually, I
+borrowed the one already defined in
+<code>/usr/share/zsh/functions/Completion/Unix/_git</code> and tweaked it a little bit.</p>
+
+<p>I created a file named <code>_git-reset</code> and put it in my <code>$FPATH</code> so zsh will load
+it when asked for autocompletion and it will overwrite the <code>_git-reset</code> method
+already defined in <code>_git</code>.</p>
+
+<p>Here is the full content of the file :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#compdef git-reset</span>
+
+_git-reset <span class="o">()</span> <span class="o">{</span>
+    <span class="nb">local </span><span class="nv">curcontext</span><span class="o">=</span><span class="nv">$curcontext</span> state line
+    <span class="nb">typeset</span> -A opt_args
+
+    _arguments -C -S -A <span class="s1">&#39;-*&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(-q --quiet)&#39;</span><span class="o">{</span>-q,--quiet<span class="o">}</span><span class="s1">&#39;[be quiet, only report errors]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;::commit:__git_revisions&#39;</span> <span class="se">\</span>
+        - reset-head <span class="se">\</span>
+            <span class="s1">&#39;(        --soft --hard --merge --keep)--mixed[reset the index but not the working tree (default)]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed        --hard --merge --keep)--soft[do not touch the index file nor the working tree]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed --soft        --merge --keep)--hard[match the working tree and index to the given tree]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed --soft --hard         --keep)--merge[reset out of a conflicted merge]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;(--mixed --soft --hard --merge       )--keep[like --hard, but keep local working tree changes]&#39;</span> <span class="se">\</span>
+        - reset-paths <span class="se">\</span>
+            <span class="s1">&#39;(-p --patch)&#39;</span><span class="o">{</span>-p,--patch<span class="o">}</span><span class="s1">&#39;[select diff hunks to remove from the index]&#39;</span> <span class="se">\</span>
+            <span class="s1">&#39;*::file:-&gt;files&#39;</span> <span class="o">&amp;&amp;</span> <span class="nv">ret</span><span class="o">=</span>0
+
+    <span class="k">case</span> <span class="nv">$state</span> in
+        <span class="o">(</span>files<span class="o">)</span>
+            <span class="nb">local </span>commit
+            <span class="k">if</span> <span class="o">[[</span> -n <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> __git_is_committish <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">                </span><span class="nv">commit</span><span class="o">=</span><span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span>
+            <span class="k">else</span>
+<span class="k">                </span><span class="nv">commit</span><span class="o">=</span>HEAD
+            <span class="k">fi</span>
+            <span class="c"># Suggest files in index if `git reset HEAD`</span>
+            <span class="k">if</span> <span class="o">[[</span> <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span> <span class="o">=</span> HEAD <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">                </span>__git_changed_files
+            <span class="k">else</span>
+<span class="k">                </span>__git_tree_files . <span class="nv">$commit</span>
+            <span class="k">fi</span>
+<span class="k">            </span><span class="nv">ret</span><span class="o">=</span>0
+            <span class="p">;;</span>
+    <span class="k">esac</span>
+<span class="o">}</span>
+
+_git-reset <span class="s2">&quot;$@&quot;</span>
+</code></pre></div>
+<p>As you may have noticed this script is an almost exact copy/paste from the
+original <code>_git-reset</code> script. The only modification I&#39;ve done is in those
+lines :</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># Suggest files in index if `git reset HEAD`</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$line</span><span class="o">[</span>1<span class="o">]</span> <span class="o">=</span> HEAD <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+<span class="k">    </span>__git_changed_files
+<span class="k">else</span>
+<span class="k">    </span>__git_tree_files . <span class="nv">$commit</span>
+<span class="k">fi</span>
+</code></pre></div>
+<p>What it does is checking the first argument of <code>git reset</code>, and if it&#39;s
+<code>HEAD</code>, it suggests files in the staging area (<code>__git_changed_files</code>) instead
+of files in the current repo (<code>__git_tree_files</code>).</p>
+
+<p>It took me quite a bit of time to figure out which method to use to get files
+in the staging area as I had been looking for a <code>__git_staged_files</code> for quite
+a while and finally discovered that the <code>__git_changed_files</code> was actually
+what I was looking for.</p>
+
+<h2>Conclusion</h2>
+
+<p>The <code>git unstage</code> alias is quite common, you can find it in a lot of books and
+websites teaching git. But it becomes much more usable once zsh does the
+autocomplete for you and you can easily select files to unstage that way.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/autocomplete">#autocomplete</a>
+    
+      <a href="/tags/git">#git</a>
+    
+      <a href="/tags/zsh">#zsh</a>
+    
+      <a href="/tags/unstage">#unstage</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

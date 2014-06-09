@@ -1,0 +1,142 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Sansa Clip+ folder merging issue - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Sansa Clip+ folder merging issue</h1>
+  <span class="post-date">22 Sep 2011</span>
+  <p>I own a <a href="http://anythingbutipod.com/2009/08/sandisk-sansa-clip-%0Aplus-review/">Sansa Clip+</a> as my mp3 player. It&#39;s really small, has great audio quality and
+combined with a 32Go microSD card plus the internal 8Go, it&#39;s enough to hold
+almost all my music library.</p>
+
+<p>As with any mp3 player realeased nowadays, you can browse your files using mp3
+tags. I don&#39;t really like it and feel limited in my browsing. As I&#39;m listening
+to a lot of movie soundtracks I have a pretty long list of artists with only
+one song attached.</p>
+
+<p>Fortunatly, the Sansa also allows you to browse by folders, which is rare
+enough to be highlighted.</p>
+
+<p>So far so good. Except that I&#39;ve discovered a little bug a few days ago in the
+way folder navigation is done.</p>
+
+<p>I had two folders named <code>Soundtrack - Games</code> and <code>Soundtrack - Movies</code>. Each
+were holding a dozen albums. In each of those folders I had subfolders sharing
+the same prefix, like <code>Hitman Contracts</code>, <code>Hitman Blood Money</code> or <code>Kill Bill</code>
+and <code>Kill Bill volume 2</code>.</p>
+
+<p>When browsing my music folder on the Sansa I noticed that the <code>Soundtrack -
+Games</code> folder had disappeared. I check the SD card in my computer, and it
+really was there.</p>
+
+<p>I finally discovered that all the <code>Sountracks - Games</code> content had been merged
+in <code>Soundtracks - Movies</code> resulting in one big directory instead of two
+smaller ones.</p>
+
+<p>My second discovery was that all my <code>Hitman</code> sub folders were also merged into
+<code>Hitman Contracts</code>, and my <code>Kill Bill</code> music was in <code>Kill Bill volume 2</code>.</p>
+
+<p>It seems that when multiple directories shared the same prefix, all folders
+will be merged in one whose name is the last in alphabetical order.</p>
+
+<p>I&#39;m not the only one in this case, I saw a similar report on Sandisk forums,
+but the bug seems erratic. Folders does not always get merged if sharing a
+prefix.</p>
+
+<p>As a temporary fix, waiting for a regular fix in a firmware update, I&#39;ll
+update my folder tree to use <code>Soundtracks/Games/Hitman/Contracts</code> and
+<code>Soundtracks/Movies/Kill Bill/Volume 1</code> but this is far from optimal.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/bug">#bug</a>
+    
+      <a href="/tags/mp3">#mp3</a>
+    
+      <a href="/tags/sansa">#sansa</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

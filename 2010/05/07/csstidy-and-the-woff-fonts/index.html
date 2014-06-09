@@ -1,0 +1,138 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     @font-face with multiple fonts and CSSTidy - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">@font-face with multiple fonts and CSSTidy</h1>
+  <span class="post-date">07 May 2010</span>
+  <p>The <code>.woff</code> font extension is the standard-to-go in terms of font embedding on
+the web.</p>
+
+<p>You should add them first in the order of fonts you&#39;re loading, before the
+<code>.ttf</code>/<code>.otf</code> ones.</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="k">@font-face</span> <span class="p">{</span>
+  <span class="nt">font-family</span><span class="o">:</span> <span class="s2">&quot;Unibody8SmallCaps Regular&quot;</span><span class="o">;</span>
+  <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;fonts/unibody_8-smallcaps-webfont.woff&#39;</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff&#39;</span><span class="o">),</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;fonts/unibody_8-smallcaps-webfont.ttf&#39;</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;truetype&#39;</span><span class="o">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The interesting thing to note is that you cannot omit the quotes around the
+<code>format(&#39;woff&#39;)</code>/<code>format(&#39;truetype&#39;)</code> part. Otherwise the font won&#39;t be
+recognized (at least by FF3.6).</p>
+
+<p>CSSTidy seems to have a bug when there are multiple <code>format()</code>declarations in
+a rule, it removes quotes in each of them except the last one, thus making the
+whole rule unparsable by the browser.</p>
+
+<p>So I started, again, to dig into the CSSTidy code and see what I could do
+about that.</p>
+
+<p>I updated the <code>csstidy.php</code> file at around line 847 and changed the <code>if</code>
+statement to look like this :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">if($this-&gt;sub_value != &#39;&#39;) {</span>
+<span class="x">  $this-&gt;sub_value_arr[] = $this-&gt;sub_value;</span>
+<span class="x">  foreach($this-&gt;sub_value_arr as &amp;$sub_value) {</span>
+<span class="x">    if (substr($sub_value, 0, 6) == &#39;format&#39;) {</span>
+<span class="x">      $sub_value = str_replace(array(&#39;format(&#39;, &#39;)&#39;), array(&#39;format(&quot;&#39;, &#39;&quot;)&#39;), $sub_value);</span>
+<span class="x">    }</span>
+<span class="x">  }</span>
+<span class="x">  $this-&gt;sub_value = &#39;&#39;;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>This way all sub values of the <code>src:</code> rule will be correctly parsed, and not
+only the last one.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/font-face">#font-face</a>
+    
+      <a href="/tags/woff">#woff</a>
+    
+      <a href="/tags/format">#format</a>
+    
+      <a href="/tags/csstidy">#csstidy</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

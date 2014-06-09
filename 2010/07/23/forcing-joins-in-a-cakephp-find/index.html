@@ -1,0 +1,156 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Forcing joins in a cakePHP find - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Forcing joins in a cakePHP find</h1>
+  <span class="post-date">23 Jul 2010</span>
+  <p>Today I had to setup a complex find relation. Here is the simplifed version of
+what I had :</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">TABLE</span> <span class="n">timestamps</span>
+<span class="nb">int</span> <span class="n">id</span>
+<span class="n">datetime</span> <span class="nb">date</span>
+<span class="n">string</span> <span class="k">type</span>
+<span class="nb">int</span> <span class="n">user_id</span>
+</code></pre></div>
+<p>The type field only had two types of values : <code>START</code>and <code>END</code>. As you can
+guess, this was used to log the time users where using an application. Every
+time a user started using the app, a <code>START</code> record was created, and when he
+loggued out, an <code>END</code>record was created. So basically, the records where
+working as pairs.</p>
+
+<p>I wanted to get a list of all records that could be easily displayed. I wanted
+to bind the timestamp model to itself, so that when querying all the start
+records, I&#39;ll automatically have the end ones as related models.</p>
+
+<p>Here&#39;s how I did that :</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$this-&gt;find(&#39;all&#39;, array(</span>
+<span class="x">  &#39;conditions&#39; =&gt; array(</span>
+<span class="x">    &#39;Timestamp.type&#39; =&gt; &#39;START&#39;</span>
+<span class="x">  ),</span>
+<span class="x">  &#39;joins&#39; =&gt; array(</span>
+<span class="x">    array(</span>
+<span class="x">      &#39;table&#39; =&gt; &#39;timestamp&#39;,</span>
+<span class="x">      &#39;alias&#39; =&gt; &#39;EndTimestamp&#39;,</span>
+<span class="x">      &#39;type&#39; =&gt; &#39;LEFT&#39;,</span>
+<span class="x">      &#39;conditions&#39; =&gt; array(</span>
+<span class="x">        &#39;EndTimestamp.type&#39; =&gt; &#39;END&#39;,</span>
+<span class="x">        &#39;EndTimestamp.user_id = Timestamp.user_id&#39;,</span>
+<span class="x">        &#39;EndTimestamp.date &gt; Timestamp.date&#39;,</span>
+<span class="x">      )</span>
+<span class="x">    )</span>
+<span class="x">  ),</span>
+<span class="x">  &#39;order&#39; =&gt; array(</span>
+<span class="x">    &#39;Timestamp.date&#39; =&gt; &#39;ASC&#39;</span>
+<span class="x">  ),</span>
+<span class="x">  &#39;group&#39; =&gt; &#39;Timestamp.date&#39;</span>
+<span class="x">));</span>
+</code></pre></div>
+<p>It will fetch all the start timestamp (<code>fields</code>) in chronological order
+(<code>order</code>). We will also define a custom join relation (<code>joins</code>). We set the
+table name and the alias we need, and set it as a <code>JOIN LEFT</code>.</p>
+
+<p>Then we add the conditions : we want only the <code>END</code>records, that belongs to
+the same user, and that occurs after the <code>START</code>records. We also add a <code>group
+</code>key to make sure not to get twice the same result (or it will corrupt our
+results)</p>
+
+<p>Note that the joins syntax needs to be wrapped in an unkeyed array. This is
+because you may need to add several joins.</p>
+
+<p>I had never heard of this joins key before today, but it is quite handy, I
+guess I&#39;ll use it again.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/joins">#joins</a>
+    
+      <a href="/tags/find">#find</a>
+    
+      <a href="/tags/cakephp">#cakephp</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

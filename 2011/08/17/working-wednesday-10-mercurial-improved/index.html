@@ -1,0 +1,173 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+     Working on Wednesday #10 : Mercurial improved - Pixelastic 
+  </title>
+  <meta name="description" content="Personal blog of Tim Carry. Posting mostly on tech-related stuff.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/forms.css">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="layout-reverse theme-base-0b">
+  <div class="sidebar">
+    <div class="container">
+      <div class="sidebar-about">
+        <h1><a href="/index.html">Pixelastic</a></h1>
+        <p class="lead">Personal blog of Tim Carry. Posting mostly on tech-related stuff.</p>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-item">
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/about/">About</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="/archive/">Archive</a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+    </div>
+  </div>
+
+  <div class="content container">
+    <div class="post">
+  <h1 class="post-title">Working on Wednesday #10 : Mercurial improved</h1>
+  <span class="post-date">17 Aug 2011</span>
+  <p>Today I enjoyed the nice blue sky and moved to the park at the end of my
+street to finish reading the Mercurial guide.</p>
+
+<p>I skipped the last chapters about patches and queues. I know this would be
+useful, but I&#39;d rather get back to them when I&#39;ll need them instead of try
+them without any real world example.</p>
+
+<h2>Tweaking Mercurial</h2>
+
+<p>I updated my <code>.hgrc</code> to configure it as best as I could.</p>
+
+<p>I set <code>vimdiff</code> to handle the conflicted merge. <code>vim</code> is quite hard to get
+(but it is coming easier the more you use it), but it seems so powerful that
+I&#39;m willing to spend some time learning it.</p>
+
+<p>I&#39;ve also added a <code>cm</code> alias to <code>commit -Am</code>. This basically is the same as
+calling <code>hg addremove; hg commit</code> which I happen to do all the time before.</p>
+
+<p>I&#39;ve create two simple styles and matching templates for my new two aliases
+<code>peek</code> and <code>hist</code> that repectively display a peek at the last 4 commits, and
+display the latest 10 commits in history in a concise way. I still have to
+manage to find how I could add coloring to those.</p>
+
+<p>I&#39;ve also added a <code>discardlocal</code> alias to remove all local commit and get the
+repo back as it is on the remote repo. I never actually had to use it, but I
+found the code on Stack Overflow and thought I might need it later.</p>
+
+<p>I finally wrote a custom <code>resurect</code> method. It will bring back a deleted file
+(obviously, the file needs to be tracked by hg). I simply find the changeset
+that deleted the file, and then revert the file to the parent changeset of
+that changeset. I might post the exact code later as I&#39;m quite happy with the
+result.</p>
+
+<h2>A note on laptop screens</h2>
+
+<p>Also, I&#39;ve spent the last few weeks working on my netbook when at home. This
+is very tiny thing, the screen is really small (compared to my two 21&quot; at work
+for example). But (and I was the first surprised of it), you actually get
+accustomed to it after a while.</p>
+
+<p>Now that I&#39;m writing this post on my 13&quot; other laptop, I feel like it&#39;s huge.
+The more I use the netbook, the more I like it. I didn&#39;t quite use it back
+when it was running Windows because it was way too slow. Now with Ubuntu on
+it, it&#39;s a whole new story !</p>
+
+<h2>Next week</h2>
+
+<p>I still have some zsh to learn. I still don&#39;t quite get the quote and double
+quote differences, and a few other quirks (arithmetic, arrays, etc).</p>
+
+<p>I&#39;ve kinda dropped the Rails tutorial. I liked it. Really, I liked it a lot.
+But I&#39;m not sure I want to start again learning a framework for making
+websites. I&#39;ve made a living doing websites for clients, I still do partly
+that today, and I&#39;d like to change.</p>
+
+<p>I have a lot of personnal project on my mind that I&#39;d like to achieve. Almost
+all of them could be achieved using the traditional way of making websites
+that both cake and Rails would allow. But one of them might need another way
+to look at things. And for this one, I might better need node.</p>
+
+<p>So.. maybe I&#39;ll start learning node next week. This is actually something I&#39;d
+love to do, so this might happen. I&#39;m currently refactoring the JS code of my
+work app in Backbone at the moment, so I guess there&#39;s no perfect time for
+some JS practice.</p>
+
+  <div class="tag-list">
+    
+      <a href="/tags/rails">#rails</a>
+    
+      <a href="/tags/resurect">#resurect</a>
+    
+      <a href="/tags/hg">#hg</a>
+    
+      <a href="/tags/zsh">#zsh</a>
+    
+      <a href="/tags/wednesday">#wednesday</a>
+    
+      <a href="/tags/backbone">#backbone</a>
+    
+      <a href="/tags/node-js">#node-js</a>
+    
+  </div>
+</div>
+
+<!-- <div class="related"> -->
+<!--   <h2>Related Posts</h2> -->
+<!--   <ul class="related-posts"> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2014/01/07/utf-8-encoding-included-jsp-files/"> -->
+<!--             UTF-8 encoding for included .jsp files -->
+<!--             <small>07 Jan 2014</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/27/understanding-nginx-location-blocks-rewrite-rules/"> -->
+<!--             Understanding nginx location blocks and rewrite rules -->
+<!--             <small>27 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--       <li> -->
+<!--         <h3> -->
+<!--           <a href="/2013/09/09/telecharger-parisweb-2012-sous-forme-de-podcasts/"> -->
+<!--             Télécharger ParisWeb 2012 sous forme de podcasts -->
+<!--             <small>09 Sep 2013</small> -->
+<!--           </a> -->
+<!--         </h3> -->
+<!--       </li> -->
+<!--      -->
+<!--   </ul> -->
+<!-- </div> -->
+
+  </div>
+
+</body>
+
+</html>

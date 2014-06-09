@@ -17,6 +17,7 @@ author:
   url:            https://twitter.com/pixelastic
 
 paginate:         5
+destination:      ../gh-pages
 
 # Custom vars
 version:          2.0.0
@@ -25,4 +26,4 @@ github:
   repo:           https://github.com/pixelastic/blog.pixelastic.com
 
 # Build
-exclude: ['tmp', 'v2tov3']
+exclude: ['tmp', 'v2tov3', 'CNAME', 'README.md']

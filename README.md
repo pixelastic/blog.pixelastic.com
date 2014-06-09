@@ -22,16 +22,15 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
-- Améliorer les related posts en mettant ceux dans la même fréquence de temps
-  et avec les même tags ?
+### Must have
 - Images from previous posts
 - Favicon
-- Site simple sur www.pixelastic.com (equivalent haveyoumett.im). Lien vers
-  blog, meetup, github et twitter.
 
-- intégration de grunt/bower ?
-- Comments. Statique, pas d'ajout (next project).
-- Update CSS, split base theme and custom rules.
-- Remove underline on title link
-- Try a different default font
+### Should have
+- Home website on www.pixelastic.com
 
+### Nice to have
+- Adding related posts (time-based and/or tag-based).
+- Grunt/bower build process
+- Comments
+- Custom CSS

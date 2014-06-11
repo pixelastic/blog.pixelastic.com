@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+rsync \
+  --recursive \
+  --verbose \
+  --archive \
+  --update \
+  --delete \
+  --prune-empty-dirs \
+  --compress \
+  ./_site/*
+  pixelastic:/var/www/pixelastic.com/blog.pixelastic.com/
+

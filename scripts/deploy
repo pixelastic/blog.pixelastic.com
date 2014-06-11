@@ -7,6 +7,6 @@ rsync \
   --delete \
   --prune-empty-dirs \
   --compress \
-  ./_site/*
+  ./_site/* \
   pixelastic:/var/www/pixelastic.com/blog.pixelastic.com/
 

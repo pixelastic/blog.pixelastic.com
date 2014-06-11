@@ -23,12 +23,11 @@ workflow now involves `git`, it seems a natural evolution.
 ## Todo
 
 ### Must have
+- Redirect /blog/fre posts
 - Images from previous posts
 - Favicon
 
 ### Should have
-- Home website on www.pixelastic.com
-- robots.txt and humans.txt
 
 ### Nice to have
 - Adding related posts (time-based and/or tag-based).

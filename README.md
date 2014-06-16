@@ -23,10 +23,7 @@ workflow now involves `git`, it seems a natural evolution.
 ## Todo
 
 ### Must have
-- Redirect /blog/fre posts
-- Custom 404 pages
 - Images from previous posts
-- Favicon
 
 ### Should have
 

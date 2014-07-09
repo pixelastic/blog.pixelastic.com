@@ -8,12 +8,12 @@ You might have noticed that the skin of the website changed. Actually, I've
 updated pretty much every aspect of the stack underneath.
 
 This was a cakePHP blog, it is now a static site generated through
-[http://jekyllrb.com/](Jekyll). This was a custom skin, this is now heavily
-based on [https://github.com/poole/hyde](Hyde). This was versioned using
-Mercurial, and is now using Git (and the
-[https://github.com/pixelastic/blog.pixelastic.com](source code is available on
-GitHub)). And finally, it was hosted on a shared host on Dreamhost and is now
-served by a private [https://www.kimsufi.com/](ks-3).
+[Jekyll](http://jekyllrb.com/). This was a custom skin, this is now heavily
+based on [Hyde](https://github.com/poole/hyde). This was versioned using
+Mercurial, and is now using Git (and the [source code is available on
+GitHub)](https://github.com/pixelastic/blog.pixelastic.com). And finally, it
+was hosted on a shared host on Dreamhost and is now served by a private
+[ks-3](https://www.kimsufi.com/).
 
 No more mysql database for the posts, everything is now simple markdown files.
 This is much more easier to commit and backup, and it is also much more easier

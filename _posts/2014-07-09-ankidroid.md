@@ -4,10 +4,10 @@ title: "AnkiDroid"
 tags:
 ---
 
-A [http://teabough.com/](colleague of mine), which is as interested in life
+A [colleague of mine](http://teabough.com/), which is as interested in life
 hacking and getting more of the human brain as I am, showed me an Android
 application named
-[https://play.google.com/store/apps/details?id=com.ichi2.anki](AnkiDroid).
+[AnkiDroid](https://play.google.com/store/apps/details?id=com.ichi2.anki).
 
 This is technique to easily memorize list of things. The kind of thing you might
 need to know by heart but never took the time to actually learn. Like countries

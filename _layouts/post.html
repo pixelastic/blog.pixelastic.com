@@ -6,11 +6,16 @@ layout: default
   <h1 class="post-title">{{ page.title | xml_escape }}</h1>
   <span class="post-date">{{ page.date | date_to_string }}</span>
   {{ content }}
-  <div class="tag-list">
+  <hr>
+  <p class="tag-list">
+    Tags :  
     {% for tag in page.tags %}
       <a href="/tags/{{ tag }}">#{{ tag }}</a>
     {% endfor %}
-  </div>
+  </p>
+  <p class="comments">
+    Want to add something ? Feel free to get in touch on Twitter : <a href="https://twitter.com/pixelastic/">@pixelastic</a>
+  </p>
 </div>
 
 <!-- <div class="related"> -->

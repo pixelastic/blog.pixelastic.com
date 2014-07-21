@@ -31,4 +31,4 @@ workflow now involves `git`, it seems a natural evolution.
 - Adding related posts (time-based and/or tag-based).
 - Grunt/bower build process
 - Comments
-- Custom CSS
+- Custom CSS (Bourbon, BEM)

@@ -9,9 +9,9 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
   var sharedConfig = {
     config: {
-      tmp: './tmp',
+      tmp: './dist/tmp',
       jekyllSrc: './jekyll', // Jekyll source
-      jekyllSrcBuild: './tmp/jekyll-build', // Copy of the jekyll source, only for build process
+      jekyllSrcBuild: './dist/tmp/jekyll-build', // Copy of the jekyll source, only for build process
       jekyllDestBuild: './dist/jekyll-build', // Generated jekyll website for build
       jekyllDestClassic: './dist/jekyll-classic' // Fully classic generated Jekyll website
     }

@@ -5,17 +5,18 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>
-    {% if page.id == "index" %} {{ site.title }} {% else %} {{ page.title }} - {{ site.title }} {% endif %}
+    {% if page.id == "index" %} {{ site.title }} {% else %} {{ page.title | xml_escape }} - {{ site.title }} {% endif %}
   </title>
   <meta name="description" content="{{ site.description }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <link rel="stylesheet" href="/public/css/poole.css">
-  <link rel="stylesheet" href="/public/css/syntax.css">
-  <link rel="stylesheet" href="/public/css/hyde.css">
-  <link rel="stylesheet" href="/public/css/forms.css">
+  <!-- build:css /css/main.css -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/forms.css">
+  <!-- endbuild -->
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
   <link rel="shortcut icon" href="/favicon.ico">
 
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">

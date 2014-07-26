@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+npm install
+grunt build
 rsync \
   --recursive \
   --verbose \
@@ -7,6 +9,6 @@ rsync \
   --delete \
   --prune-empty-dirs \
   --compress \
-  ./_site/ \
+  ./dist/jekyll-build/ \
   pixelastic:/var/www/pixelastic.com/blog.pixelastic.com/
 

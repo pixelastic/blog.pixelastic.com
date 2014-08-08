@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   var sharedConfig = {
     config: {
       tmp: './dist/tmp',
-      jekyllSrc: './jekyll', // Jekyll source
+      jekyllSrc: './app', // Jekyll source
       jekyllSrcBuild: './dist/tmp/jekyll-build', // Copy of the jekyll source, only for build process
       jekyllDestBuild: './dist/jekyll-build', // Generated jekyll website for build
       jekyllDestClassic: './dist/jekyll-classic' // Fully classic generated Jekyll website

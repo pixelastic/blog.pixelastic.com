@@ -1,19 +1,18 @@
 module.exports = {
-  build: {
-    options: {
-      removeComments: true,
-      removeAttributesQuotes: true,
-      collapseBooleanAttributes: true,
-      removeRedundantAttributes: true,
-      removeEmptyAttributes: true,
-      collapseWhitespace: true
-    },
+  options: {
+    removeComments: true,
+    removeAttributesQuotes: true,
+    collapseBooleanAttributes: true,
+    removeRedundantAttributes: true,
+    removeEmptyAttributes: true,
+    collapseWhitespace: true
+  },
+  dev: {
     files: [{
       expand: true,
-      cwd: '<%= config.jekyllDestBuild %>',
-      dest: '<%= config.jekyllDestBuild %>',
+      cwd: '<%= config.destBuildDev %>',
+      dest: '<%= config.destBuildDev %>',
       src: ['**/*.html']
     }]
   }
 };
-

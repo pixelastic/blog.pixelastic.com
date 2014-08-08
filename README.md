@@ -36,13 +36,9 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Todo
 
-### Must have
-- Images from previous posts
-
-### Should have
-
-### Nice to have
-- Adding related posts (time-based and/or tag-based).
-- Grunt/bower build process
 - Comments
-- Custom CSS (Bourbon, BEM)
+- Images from previous posts
+- Sass
+- Dev and Build process
+- Faster grunt dev deployment
+

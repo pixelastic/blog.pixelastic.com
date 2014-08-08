@@ -10,28 +10,15 @@ module.exports = function(grunt) {
   var sharedConfig = {
     config: {
       tmp: './dist/tmp',
-      jekyllSrc: './app', // Jekyll source
-      jekyllSrcBuild: './dist/tmp/jekyll-build', // Copy of the jekyll source, only for build process
-      jekyllDestBuild: './dist/jekyll-build', // Generated jekyll website for build
-      jekyllDestClassic: './dist/jekyll-classic' // Fully classic generated Jekyll website
+      app: './app',
+      destBuildFull: './dist/build-full',
+      destBuildDev: './dist/build-dev'
     }
   };
 
   config = _.extend(config, sharedConfig, Helpers.loadConfig('./grunt_tasks/options/'));
   grunt.initConfig(config); // load all configs, from the folder './grunt_tasks/options'
   grunt.loadTasks('grunt_tasks'); // load all tasks, from the folder './grunt_tasks'
-
-  grunt.registerTask('build', function (target) {
-    var jekyllTask = (target === 'dev') ? 'jekyll:buildDev' : 'jekyll:build';
-    grunt.task.run([
-      'newer:copy:jekyll',
-      'optimize:init',
-      jekyllTask,
-
-      'optimize:css',
-      'optimize:html'
-    ]);
-  });
 
   grunt.registerTask('default', ['build']);
 

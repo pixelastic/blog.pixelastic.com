@@ -27,3 +27,4 @@ github:
 # Build
 timezone:         "Europe/Paris"
 encoding:         "utf-8"
+exclude:          ['css']

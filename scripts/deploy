@@ -9,6 +9,6 @@ rsync \
   --delete \
   --prune-empty-dirs \
   --compress \
-  ./dist/jekyll-build/ \
+  ./dist/build-full/ \
   pixelastic:/var/www/pixelastic.com/blog.pixelastic.com/
 

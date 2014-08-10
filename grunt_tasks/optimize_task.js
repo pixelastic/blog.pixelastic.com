@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     target = target || 'full';
 
     grunt.task.run([
-      'newer:cssmin:' + target
+      'cssmin:' + target
     ]);
   });
 

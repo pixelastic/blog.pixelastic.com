@@ -27,7 +27,8 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-newer": "~0.7.0",
     "grunt-contrib-htmlmin": "~0.3.0",
-    "grunt-contrib-watch": "~0.6.1"
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-file-blocks": "~0.3.0"
   },
   "dependencies": {}
 }

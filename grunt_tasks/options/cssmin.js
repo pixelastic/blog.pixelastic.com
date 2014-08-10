@@ -1,12 +1,8 @@
 module.exports = {
-  dev: {
-    files: {
-      '<%= config.destBuildDev %>/main.css': ['<%= config.app %>/css/*.css']
-    }
-  },
+  dev: {},
   full: {
     files: {
-      '<%= config.destBuildFull %>/main.css': ['<%= config.app %>/css/*.css']
+      '<%= config.srcBuildFull %>/main.css': ['<%= config.app %>/css/*.css']
     }
   }
 };

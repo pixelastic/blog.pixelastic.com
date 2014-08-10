@@ -11,6 +11,8 @@ module.exports = function(grunt) {
     config: {
       tmp: './dist/tmp',
       app: './app',
+      srcBuildFull: './dist/src-full',
+      srcBuildDev: './dist/src-dev',
       destBuildFull: './dist/build-full',
       destBuildDev: './dist/build-dev'
     }

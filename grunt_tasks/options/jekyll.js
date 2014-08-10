@@ -5,7 +5,7 @@ module.exports = {
   },
   dev: {
     options: {
-      src: '<%= config.app %>',
+      src: '<%= config.srcBuildDev %>',
       dest: '<%= config.destBuildDev %>',
       drafts: true,
       limit_posts: 10
@@ -13,7 +13,7 @@ module.exports = {
   },
   full: {
     options: {
-      src: '<%= config.app %>',
+      src: '<%= config.srcBuildFull %>',
       dest: '<%= config.destBuildFull %>'
     }
   }

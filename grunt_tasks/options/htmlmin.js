@@ -14,5 +14,13 @@ module.exports = {
       dest: '<%= config.destBuildDev %>',
       src: ['**/*.html']
     }]
+  },
+  full: {
+    files: [{
+      expand: true,
+      cwd: '<%= config.destBuildFull %>',
+      dest: '<%= config.destBuildFull %>',
+      src: ['**/*.html']
+    }]
   }
 };

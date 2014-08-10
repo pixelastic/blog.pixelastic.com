@@ -10,5 +10,12 @@ module.exports = {
       drafts: true,
       limit_posts: 10
     }
+  },
+  full: {
+    options: {
+      src: '<%= config.app %>',
+      dest: '<%= config.destBuildFull %>'
+    }
   }
+  
 };

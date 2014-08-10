@@ -32,7 +32,7 @@ Let's take a sample form :
 
 ### Give them a name
 
-Every input field should avec a `name` attribute. Otherwise you won't know
+Every input field should have a `name` attribute. Otherwise you won't know
 which input holds which value once submitted to your backend. Even if you're
 not submitting the form in the usual web 1.0 way but using
 fancy-ajaxy-asynchronous-SPA mechanisms, you're still basically sending a list

@@ -1,7 +1,7 @@
 module.exports = {
-  css: {
+  livereloadCss: {
     files: ['<%= config.app %>/css/*.css'],
-    tasks: ['optimize:css:dev'],
+    tasks: ['newer:copy:livereloadCss'],
     options: {
       livereload: true
     }

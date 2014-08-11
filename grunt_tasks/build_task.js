@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build:dev', function() {
     grunt.task.run([
-      'newer:copy:dev',
+      'newer:copy:preBuildDev',
       'fileblocks:dev',
       'jekyll:dev',
       'optimize:css:dev',
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build:full', function() {
     grunt.task.run([
-      'newer:copy:full',
+      'newer:copy:preBuildFull',
       'optimize:css:full',
       'fileblocks:full',
       'jekyll:full',

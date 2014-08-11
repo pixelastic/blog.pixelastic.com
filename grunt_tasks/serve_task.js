@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     if (target === 'dev') {
       return grunt.task.run([
         'connect:dev',
-        'watch'
+        'watch:livereloadCss'
       ]);
     }
 

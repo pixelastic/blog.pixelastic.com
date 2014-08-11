@@ -4,7 +4,7 @@ module.exports = {
     files: [{
       expand: true,
       cwd: '<%= config.app %>',
-      src: '**',
+      src: ['**', '!css', '!css/*'],
       dest: '<%= config.srcBuildDev %>'
     }]
   },
@@ -15,15 +15,6 @@ module.exports = {
       cwd: '<%= config.app %>',
       src: ['**', '!css', '!css/*'],
       dest: '<%= config.srcBuildFull %>'
-    }]
-  },
-  // Copy updated css files for dev livereload
-  livereloadCss: {
-    files: [{
-      expand: true,
-      cwd: '<%= config.app %>/css',
-      src: '*.css',
-      dest: '<%= config.destBuildDev %>/css'
     }]
   }
 };

@@ -2,13 +2,16 @@
 
 module.exports = function(grunt) {
 
-  grunt.registerTask('optimize:css', function(target) {
-    target = target || 'full';
+  grunt.registerTask('optimize:css:dev', [
+    'sass:dev'
+  ]);
 
-    grunt.task.run([
-      'cssmin:' + target
-    ]);
-  });
+
+  grunt.registerTask('optimize:css:full', [
+    'sass:full',
+    'cssmin:full'
+  ]);
+  grunt.registerTask('optimize:css', 'optimize:css:full');
 
   grunt.registerTask('optimize:html', function(target) {
     target = target || 'full';

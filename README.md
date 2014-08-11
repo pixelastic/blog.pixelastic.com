@@ -20,25 +20,26 @@ As an exercice, I also made the code available on GitHub. Using git makes
 backups a non-issue, and site updates are only a `git push` away. As most of my
 workflow now involves `git`, it seems a natural evolution.
 
-
 ## Build process
 
-// TODO: This part of the readme needs some rework
+All the jekyll processing is done through `grunt-jekyll`. The full website is
+build using `grunt build` and is then uploaded on the webserver with `rsync`.
+The full deploy script is in `./scripts/deploy`.
 
-> We first build the jekyll website with `grunt jekyll` (or `grunt jekyll:dev` to
-> only build a small part, for faster testing). This will put jekyll content in
-> `./dist/jekyll`.
-> 
-> Then, we can run the `grunt build` command to minify, compress and put the
-> final content in `./dist/final`.
-> 
-> One can still run the manual `jekyll build` and/or `jekyll serve`.
+One can locally serve the build output using `grunt serve`.
+
+## Development process
+
+There is also a secondary process, used in development that does not involve
+concatenating and minifiying assets, and only builds a subset of the whole
+posts.
+
+It is build using `grunt build:dev` and served with `grunt serve:dev`. This
+only includes the 10 last posts (and drafts) and enable livereload.
 
 ## Todo
 
 - Comments
-- Images from previous posts
-- Sass
-- Dev and Build process
-- Faster grunt dev deployment
-
+- Images from v2
+- Sass / Bourbon
+- UnCSS

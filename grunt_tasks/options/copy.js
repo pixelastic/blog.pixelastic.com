@@ -4,8 +4,17 @@ module.exports = {
     files: [{
       expand: true,
       cwd: '<%= config.app %>',
-      src: ['**', '!css', '!css/*'],
+      src: ['**', '!css', '!css/**'],
       dest: '<%= config.srcBuildDev %>'
+    }]
+  },
+  devBowerCss: {
+    files: [{
+      expand: true,
+      cwd: '<%= config.bower %>',
+      src: ['**/*.css'],
+      flatten: true,
+      dest: '<%= config.srcBuildDev %>/css'
     }]
   },
   // Copy jekyll source for full build

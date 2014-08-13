@@ -3,7 +3,7 @@
 module.exports = function(grunt) {
 
   grunt.registerTask('build:dev', [
-    'newer:copy:preBuildDev',
+    'rsync:preBuildDev',
     'optimize:css:dev',
     'fileblocks:dev',
     'jekyll:dev',
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build:full', [
-    'newer:copy:preBuildFull',
+    'rsync:preBuildFull',
     'optimize:css:full',
     'fileblocks:full',
     'jekyll:full',

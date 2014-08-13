@@ -7,7 +7,10 @@ module.exports = {
     blocks: {
       css: {
         cwd: '<%= config.srcBuildDev %>',
-        src: 'css/*.css'
+        src: [
+          'css/normalize.css',
+          'css/*.css'
+        ]
       }
     }
   },

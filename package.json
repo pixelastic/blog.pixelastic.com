@@ -24,12 +24,12 @@
     "grunt-contrib-connect": "~0.8.0",
     "grunt-contrib-concat": "~0.5.0",
     "grunt-contrib-cssmin": "~0.10.0",
-    "grunt-contrib-copy": "~0.5.0",
     "grunt-newer": "~0.7.0",
     "grunt-contrib-htmlmin": "~0.3.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-file-blocks": "~0.3.0",
-    "grunt-contrib-sass": "~0.7.4"
+    "grunt-contrib-sass": "~0.7.4",
+    "grunt-rsync": "~0.6.2"
   },
   "dependencies": {}
 }

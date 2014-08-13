@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('optimize:css:dev', [
     'sass:dev',
-    // 'copy:devBowerCss'
+    'copy:devBowerCss'
   ]);
 
 

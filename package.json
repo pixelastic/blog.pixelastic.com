@@ -29,7 +29,9 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-file-blocks": "~0.3.0",
     "grunt-contrib-sass": "~0.7.4",
-    "grunt-rsync": "~0.6.2"
+    "grunt-rsync": "~0.6.2",
+    "grunt-autoprefixer": "~1.0.0",
+    "grunt-mkdir": "~0.1.2"
   },
   "dependencies": {}
 }

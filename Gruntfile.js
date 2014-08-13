@@ -9,11 +9,13 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
   var sharedConfig = {
     config: {
-      tmp: './dist/tmp',
+      tmp: './tmp',
+      tmpCssLivereload: './tmp/css-livereload',
+      tmpCssBuildFull: './tmp/css-build-full',
       app: './app',
       bower: './bower_components',
-      srcBuildFull: './dist/src-full',
-      srcBuildDev: './dist/src-dev',
+      srcBuildFull: './tmp/src-full',
+      srcBuildDev: './tmp/src-dev',
       destBuildFull: './dist/build-full',
       destBuildDev: './dist/build-dev'
     }
@@ -24,5 +26,4 @@ module.exports = function(grunt) {
   grunt.loadTasks('grunt_tasks'); // load all tasks, from the folder './grunt_tasks'
 
   grunt.registerTask('default', ['build']);
-
 };

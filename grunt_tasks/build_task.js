@@ -3,6 +3,7 @@
 module.exports = function(grunt) {
 
   grunt.registerTask('build:dev', [
+    'mkdir',
     'rsync:preBuildDev',
     'optimize:css:dev',
     'fileblocks:dev',
@@ -11,6 +12,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build:full', [
+    'mkdir',
     'rsync:preBuildFull',
     'optimize:css:full',
     'fileblocks:full',

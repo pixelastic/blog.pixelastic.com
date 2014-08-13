@@ -1,5 +1,6 @@
 module.exports = {
   options: {
+    // args: ['--verbose'],
     recursive: true,
     'delete': true
   },
@@ -11,7 +12,7 @@ module.exports = {
       exclude: ['css/']
     }
   },
-  // Copy all bower css files to css
+  // Copy all bower css files to build-dev
   devBowerCss: {
     options: {
       src: '<%= config.bower %>/**/*.css',
@@ -24,6 +25,13 @@ module.exports = {
       src: '<%= config.app %>/*',
       dest: '<%= config.srcBuildFull %>',
       exclude: ['css/']
+    }
+  },
+  // Copy all bower css files to tmp
+  fullBowerCss: {
+    options: {
+      src: '<%= config.bower %>/**/*.css',
+      dest: '<%= config.tmpCssBuildFull %>'
     }
   }
 };

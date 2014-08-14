@@ -1,4 +1,7 @@
 module.exports = {
+  options: {
+    style: 'expanded'
+  },
   // Compile source files to src-dev
   dev: {
     files: [{

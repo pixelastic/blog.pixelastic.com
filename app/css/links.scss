@@ -1,0 +1,11 @@
+@import '_config';
+
+a {
+  color: $green;
+  text-decoration: none;
+  &:hover, 
+  &:focus {
+    text-decoration: underline;
+  }
+}
+

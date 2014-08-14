@@ -1,10 +1,11 @@
 # Build
-/dist
+/dist/*/
 /_site
 /.tmp
 
 # Dependencies
 /node_modules
+/bower_components
 /vendors
 
 

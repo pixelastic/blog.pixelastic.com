@@ -1,0 +1,8 @@
+{
+  "name": "blog.pixelastic.com",
+  "version": "0.0.1",
+  "dependencies": {
+    "normalize-css": "~3.0.1"
+  },
+  "devDependencies": {}
+}

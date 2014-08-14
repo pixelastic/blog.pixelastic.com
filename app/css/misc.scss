@@ -1,0 +1,36 @@
+@import '_config';
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+strong {
+  color: $grey-darker;
+}
+
+hr {
+  position: relative;
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #EEEEEE;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+abbr {
+  font-size: .85em;
+  font-weight: bold;
+  color: #555555;
+  text-transform: uppercase;
+  &[title] {
+    cursor: help;
+    border-bottom: 1px dotted $grey-lightest;
+  }
+}
+
+img {
+  display: block;
+  margin: 0 0 1rem;
+  border-radius: 5px;
+  max-width: 100%;
+}

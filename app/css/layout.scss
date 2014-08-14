@@ -1,0 +1,80 @@
+@import '_config';
+
+.container {
+  max-width: 38rem;
+  padding-left:  1rem;
+  padding-right: 1rem;
+  margin-left:  auto;
+  margin-right: auto;
+}
+
+.sidebar {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: rgba(255,255,255,.5);
+  background-color: $green;
+  @media (min-width: 48rem) {
+    position: fixed;
+    top: 0;
+    right:0;
+    bottom: 0;
+    width: 18rem;
+    text-align: left;
+  }
+  a {
+    color: #fff;
+  }
+}
+
+
+/* About section */
+.sidebar-about h1 {
+  color: #fff;
+  margin-top: 0;
+  font-size: 3.25rem;
+  a:hover {
+    text-decoration:none;
+  }
+}
+
+/* Sidebar nav */
+.sidebar-nav {
+  padding-left: 0;
+  list-style: none;
+}
+.sidebar-nav-item {
+  display: block;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+  &.active {
+    font-weight: bold;
+  }
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  text-align:center;
+  font-size:0.6em;
+}
+
+.content {
+  padding-top:    4rem;
+  padding-bottom: 4rem;
+  @media (min-width: 48rem) {
+    max-width: 38rem;
+    margin-left: 2rem;
+    margin-right: 20rem;
+  }
+  @media (min-width: 64rem) {
+    margin-left: 4rem;
+    margin-right: 22rem;
+  }
+}
+
+

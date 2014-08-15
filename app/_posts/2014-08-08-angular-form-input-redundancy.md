@@ -14,7 +14,7 @@ with a great deal more logic than it should.
 
 Angular is good for making complex forms, so you'll write quite a bit of them.
 You'll end up with some very long views, with a great deal of redundancy. This
-is not DRY at all, at it leaves a bad taste in my mouth.
+is not DRY at all, and it leaves a bad taste in my mouth.
 
 Let's take a sample form :
 

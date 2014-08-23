@@ -4,6 +4,24 @@ title: "Adding Grunt to Jekyll"
 tags: jekyll, grunt
 ---
 
+grunt jekyll écrase tout, donc si on doit modifier les sources (fileblocks,
+etc), il vaut mieux copier les sources dans un dossier temp
+passer du minify html sur l'output
+
+tache longue, donc en dev je prefere avoir un build jekyll plus rapide qui ne
+prends que les drafts et quelques 10 posts pour aller vite
+
+de plus, en dev on copie tout (css, etc) alors qu'en prod on va minifier ça,
+donc ne pas copier ces fichiers depuis la source pour pas qu'ils arrivent dans
+le truc final
+
+copier des fichiers c'est cool, mais on a des fichiers à effacer aussi. Donc
+utiliser grunt-rsync plutot que grunt-copy pour bien supprimer les fichiers
+inutile
+
+
+
+
 ## Main build
 
 ### Directory structure

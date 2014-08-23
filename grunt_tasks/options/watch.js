@@ -16,8 +16,11 @@ module.exports = {
       livereload: true
     }
   },
-  devRebuildLayout: {
-    files:['<%= config.app %>/_layouts/*.html'],
+  devRebuild: {
+    files:[
+      '<%= config.app %>/_layouts/*.html',
+      '<%= config.app %>/_drafts/*.md'
+    ],
     tasks:['build:dev'],
     options: {
       livereload: true

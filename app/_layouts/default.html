@@ -1,31 +1,32 @@
 <!doctype html>
 <html class="no-js" lang="en-us">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>
-    {% if page.id == "index" %} {{ site.title }} {% else %} {{ page.title | xml_escape }} - {{ site.title }} {% endif %}
-  </title>
-  <meta name="description" content="{{ site.description }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+      {% if page.id == "index" %} {{ site.title }} {% else %} {{ page.title | xml_escape }} - {{ site.title }} {% endif %}
+    </title>
+    <meta name="description" content="{{ site.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <!-- fileblock:css css -->
-  <!-- endfileblock -->
+    <!-- fileblock:css css -->
+    <!-- endfileblock -->
 
-  <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
 
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-</head>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  </head>
 
-<body class="layout">
-  <div class="sidebar">
-    <div class="container">
+  <body>
+    <div class="sidebar">
       <div class="sidebar-about">
         <h1><a href="/index.html">{{ site.title }}</a></h1>
         <p class="lead">{{ site.description }}</p>
       </div>
 
+      <!--This is a CSS trick to hide/show the sidebar for mobiles-->
+      <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-item{% if page.id == "index" %} active{% endif %}">
           <a href="/">Home</a>
@@ -37,14 +38,15 @@
           <a href="/archive/">Archive</a>
         </li>
       </ul>
-      <div class="sidebar-footer">Website code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+      <label for="sidebar-checkbox" class="sidebar-toggle-menu"></label>
     </div>
-  </div>
+    <div class="layout">
+      <div class="content">
+        {{ content }}
+        <div class="footer">Code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
+      </div>
+    </div>
 
-  <div class="content container">
-    {{ content }}
-  </div>
-
-</body>
+  </body>
 
 </html>

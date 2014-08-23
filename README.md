@@ -39,6 +39,8 @@ only includes the 10 last posts (and drafts) and enable livereload.
 
 ## Todo
 
+- "Code on GitHub" on bottom of page for desktops
+- colors for code parts
 - Using grunt-rsync to deploy
 - Comments
 - Images from v2

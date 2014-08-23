@@ -6,10 +6,11 @@
 
 html {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
-  @media (min-width: $breakpoint-desktop) {
-    font-size: 20px;
+  // Make the font smaller on smaller screens
+  @media (max-width: $width-base-page) {
+    font-size: 16px;
   }
 }
 

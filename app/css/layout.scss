@@ -1,39 +1,86 @@
 @import '_config';
 
-.container {
-  max-width: 38rem;
-  padding-left:  1rem;
-  padding-right: 1rem;
-  margin-left:  auto;
-  margin-right: auto;
+.layout {
+  margin-right:$width-base-sidebar;
+  // Not enough space to fit sidebar and content, we make the content take all
+  // the width available
+  @media(max-width: $width-base-page) {
+    margin-right:0;
+    margin-top:$height-tablet-header;
+  }
+}
+.content {
+  max-width:$width-base-content;
+  padding: 4rem 1rem;
+  margin:0 auto;
+  // Tablets: Reducing top padding
+  @media(max-width: $width-base-page) {
+    padding-top:2rem;
+  }
 }
 
+/* Sidebar */
 .sidebar {
+  position: fixed;
+  top: 0;
+  right:0;
+  bottom: 0;
+  width:$width-base-sidebar;
+  padding:2rem;
   text-align: center;
-  padding: 2rem 1rem;
   color: rgba(255,255,255,.5);
   background-color: $green;
-  @media (min-width: 48rem) {
-    position: fixed;
-    top: 0;
-    right:0;
-    bottom: 0;
-    width: 18rem;
-    text-align: left;
+  text-align: left;
+  // Tablets : putting sidebar as a header
+  @media(max-width: $width-base-page) {
+    padding: .5rem 1rem;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: $height-tablet-header;
+    box-shadow: 0 5px 15px rgba(255,255,255,.7);
   }
   a {
-    color: #fff;
+    color: $white;
+  }
+}
+.sidebar-about {
+  // Tablets: Hiding lead, centering title
+  @media(max-width: $width-base-page) {
+    display:table;
+    float:left;
+    height:100%;
+    .lead {
+      display:none;
+    }
+  }
+}
+.sidebar-about h1 {
+  margin-top: 0;
+  font-family: "AmaranthBold";
+  font-size: 3.25rem;
+  color: $white;
+  // Tablets: Centering title
+  @media(max-width: $width-base-page) {
+    display:table-cell;
+    vertical-align:middle;
+  }
+  // Phones : Reducing title size
+  @media(max-width: $width-phone-page) {
+    font-size:3rem;
+  }
+  a:hover {
+    text-decoration:none;
   }
 }
 
-
-/* About section */
-.sidebar-about h1 {
-  color: #fff;
-  margin-top: 0;
-  font-size: 3.25rem;
-  a:hover {
-    text-decoration:none;
+// Always hide the checkbox
+.sidebar-checkbox {
+  display:none;
+  @media(max-width: $width-phone-page) {
+    &:checked + .sidebar-nav {
+      display:block;
+    }
   }
 }
 
@@ -41,9 +88,36 @@
 .sidebar-nav {
   padding-left: 0;
   list-style: none;
+  margin:0;
+  // Tablets : Menu on the right, centered
+  @media(max-width: $width-base-page) {
+    display:table;
+    float:right;
+    height:100%;
+    font-size:1.25rem;
+  }
+  // Phones : Overlay with big links on click on menu
+  @media(max-width: $width-phone-page) {
+    display:none;
+    position:absolute;
+    top:$height-tablet-header;
+    right:0;
+    left:0;
+    height:auto;
+    background:$green;
+  }
 }
 .sidebar-nav-item {
   display: block;
+  // Tablets : Centering menu elements
+  @media(max-width: $width-base-page) {
+    display:table-cell;
+    vertical-align:middle;
+    a {
+      padding:1rem;
+      display:block;
+    }
+  }
   &:hover,
   &:focus {
     text-decoration: underline;
@@ -53,28 +127,44 @@
   }
 }
 
-/* Sidebar footer */
-.sidebar-footer {
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
+// Menu icon for small phones
+.sidebar-toggle-menu {
+  display:none;
+  @media(max-width: $width-phone-page) {
+    display:block;
+    position:absolute;
+    top:0;
+    right:0;
+    height:$height-tablet-header;
+    width:4rem;
+    cursor:pointer;
+  }
+  // Displaying a menu icon using before/after borders
+  &:before,
+  &:after {
+    content:"";
+    display:block;
+    position:absolute;
+    box-sizing:border-box;
+    width:2rem;
+    right:1rem;
+  }
+  &:before {
+    border-top:6px solid white;
+    border-bottom:6px solid white;
+    height:16px;
+    top:50%;
+    margin-top:-13px;
+  }
+  &:after {
+    border-top:6px solid white;
+    top:50%;
+    margin-top:7px;
+  }
+}
+
+/* Footer */
+.footer {
   text-align:center;
-  font-size:0.6em;
+  font-size:0.8rem;
 }
-
-.content {
-  padding-top:    4rem;
-  padding-bottom: 4rem;
-  @media (min-width: 48rem) {
-    max-width: 38rem;
-    margin-left: 2rem;
-    margin-right: 20rem;
-  }
-  @media (min-width: 64rem) {
-    margin-left: 4rem;
-    margin-right: 22rem;
-  }
-}
-
-

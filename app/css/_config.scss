@@ -17,7 +17,35 @@ $code-color: #BF616A;
 $background: #FFFFFF;
 
 
+/**
+ * Layout principles :
+ *
+ * The base (or optimal) layout is for desktop use. A large content for text,
+ * and a fixed sidebar on the right.
+ *
+ * For larger content, the sidebar will stay on the right side, with its
+ * constant width, but the content will be centered in the available space.
+ *
+ * For smaller content (like tablets), the sidebar will become a header with
+ * tabs menus, while for really small content (phones), the header will only
+ * contain a menu icon.
+ **/
 
 // RWD breakpoints
-$content-width: 38rem;
-$breakpoint-desktop: 38rem;
+$width-base-sidebar: 400px;
+$width-base-content: 800px;
+$width-base-page: $width-base-sidebar + $width-base-content;
+
+// Height of the header/sidebar for tablets
+$height-tablet-header: 75px;
+
+// Breakpoint under which we consider we are on a small screen phone
+$width-phone-page: 500px;
+
+@mixin clearfix {
+  &:after {
+    content:"";
+    display:table;
+    clear:both;
+  }
+}

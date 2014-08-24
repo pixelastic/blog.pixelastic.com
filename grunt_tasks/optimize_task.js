@@ -16,11 +16,13 @@ module.exports = function(grunt) {
   // Copies all bower css to tmp directory
   // autoprefix all css files in tmp directory
   // concatenate and minify all css in tmp into src-full
+  // adds hash to get a unique filename
   grunt.registerTask('optimize:css:full', [
     'sass:full',
     'rsync:fullBowerCss',
     'autoprefixer:full',
-    'newer:cssmin:full'
+    'newer:cssmin:full',
+    'filerev:full'
   ]);
   grunt.registerTask('optimize:css', 'optimize:css:full');
 

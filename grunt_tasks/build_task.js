@@ -12,12 +12,13 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build:full', [
-    'mkdir',
-    'rsync:preBuildFull',
-    'optimize:css:full',
-    'fileblocks:full',
-    'jekyll:full',
-    'optimize:html:full'
+    'mkdir', // Creates needed directories
+    'rsync:preBuildFull', // Copy Jekyll base to tmp
+    'optimize:fonts:full', // Copy and version fonts
+    'optimize:css:full', // Copy and minify css
+    'fileblocks:full', // Update HTML markup to include CSS
+    'jekyll:full', // Run Jekyll
+    'optimize:html:full' // Optimize output HTML
   ]);
   grunt.registerTask('build', 'build:full');
 

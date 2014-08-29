@@ -1,6 +1,6 @@
 module.exports = {
   options: {
-    // args: ['--verbose'],
+    args: ['--verbose'],
     recursive: true,
     'delete': true
   },
@@ -24,7 +24,16 @@ module.exports = {
     options: {
       src: '<%= config.app %>/*',
       dest: '<%= config.srcBuildFull %>',
-      exclude: ['css/']
+      exclude: ['css/', 'fonts/']
+    }
+  },
+  // Copy all fonts to for full build
+  // Note: not included in preBuildFull so we can run all font-related tasks
+  // together
+  fullFonts: {
+    options: {
+      src: '<%= config.app %>/fonts/',
+      dest: '<%= config.srcBuildFull %>/fonts'
     }
   },
   // Copy all bower css files to tmp

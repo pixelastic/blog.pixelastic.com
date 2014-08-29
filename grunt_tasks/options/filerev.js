@@ -4,8 +4,11 @@ module.exports = {
     algorithm: 'md5',
     length: 8
   },
-  full: {
+  fullFonts: {
+    src: '<%= config.app %>/fonts/*',
+    dest: '<%= config.srcBuildFull %>/fonts'
+  },
+  fullCss: {
     src: '<%= config.srcBuildFull %>/main.css'
   }
 };
-

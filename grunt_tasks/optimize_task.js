@@ -2,37 +2,36 @@
 
 module.exports = function(grunt) {
 
-  // Compiles SCSS into src-dev, 
-  // then copy all bower css into src-dev
-  // autoprefix all css files in src-dev
-  grunt.registerTask('optimize:css:dev', [
-    'sass:dev',
-    'rsync:devBowerCss',
-    'autoprefixer:dev'
+  // FONTS
+  grunt.registerTask('optimize:fonts:full', [
+    'rsync:fullFonts', // Copy fonts
+    'filerev:fullFonts' // Version them
   ]);
 
 
-  // Compiles all scss into tmp directory
-  // Copies all bower css to tmp directory
-  // autoprefix all css files in tmp directory
-  // concatenate and minify all css in tmp into src-full
-  // adds hash to get a unique filename
+  // CSS
+  grunt.registerTask('optimize:css:dev', [
+    'sass:dev', // Compile all scss into dist-dev
+    'rsync:devBowerCss', // Adds all bower dependencies to dist-dev
+    'autoprefixer:dev' // Autoprefix everything
+  ]);
+
   grunt.registerTask('optimize:css:full', [
-    'sass:full',
-    'rsync:fullBowerCss',
-    'autoprefixer:full',
-    'newer:cssmin:full',
-    'filerev:full'
+    'sass:full', // Compile all scss to tmp directory
+    'rsync:fullBowerCss', // Copy all bower files to tmp directory
+    'cssrevfonts', // Update references to versioned fonts files
+    'autoprefixer:full', // Autoprefix all files
+    'newer:cssmin:full', // Minify and combine in one file in dist
+    'filerev:fullCss' // Version output file
   ]);
   grunt.registerTask('optimize:css', 'optimize:css:full');
 
+  // HTML
   grunt.registerTask('optimize:html', function(target) {
     target = target || 'full';
-
     grunt.task.run([
       'htmlmin:' + target
     ]);
-
   });
 
 };

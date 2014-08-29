@@ -4,8 +4,7 @@ module.exports = function(grunt) {
 
   // FONTS
   grunt.registerTask('optimize:fonts:full', [
-    'rsync:fullFonts', // Copy fonts
-    'filerev:fullFonts' // Version them
+    'filerev:fullFonts' // Copy and version fonts
   ]);
 
 

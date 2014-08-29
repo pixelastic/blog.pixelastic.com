@@ -28,6 +28,7 @@ module.exports = function(grunt) {
           content = content.replace(new RegExp(key, 'g'), value);
         });
         grunt.file.write(filepath, content);
+        console.log('Rewriting '+filepath+' with versioned font files.');
       });
     });
     

@@ -1,6 +1,6 @@
 module.exports = {
   options: {
-    args: ['--verbose'],
+    // args: ['--verbose'],
     recursive: true,
     'delete': true
   },

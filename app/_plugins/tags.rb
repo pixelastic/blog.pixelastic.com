@@ -14,7 +14,8 @@ module Jekyll
       "\\" => "backslash",
       "."  => "dot",
       "+"  => "plus",
-      " "  => "-"
+      " "  => "-",
+      "$"  => "$"
     }
 
     attr_accessor :name

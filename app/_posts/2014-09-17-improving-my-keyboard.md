@@ -38,9 +38,9 @@ underused. This modifier is mostly applied to the number row (and pressing
 `AltGr` and anything on the number row is not the easiest thing to do).
 
 The most important change I made is to add `AltGr+i` to create a `-` (dash) and
-`AltGr+o` to create a `_` (underscore). Those two chars are overused when coding, and having
-them on those keys allowed me to type them much much faster without having to
-move my hand on the keyboard.
+`AltGr+o` to create a `_` (underscore). Those two chars are overused when
+coding, and having them on those keys allowed me to type them much much faster
+without having to move my hand on the keyboard.
 
 The others little changes I made were to add `AltGr+h` as `#` (hash, the
 mnemonic is that a capital H looks a bit like a `#`). Following the same idea
@@ -58,7 +58,7 @@ I never use them.
 You find below the `xmodmap` I use. Put it in a `~/.xmodmaprc` file and run
 `setxkbmap fr && xmodmap ~/.xmodmaprc` to apply them.
 
-````
+```ini
 keycode 27 = r R r R grave
 keycode 30 = u U u U backslash
 keycode 31 = i I i I minus
@@ -68,12 +68,20 @@ keycode 43 = h H h H numbersign
 keycode 44 = j J j J bar
 keycode 45 = k K k K bracketleft parenleft
 keycode 46 = l L l L bracketright parenright
-````
+```
 
 As I recently had to work on a Windows machine, I installed AutoHotKey and
 created this little script to emulate the same shortcuts :
 
+```ahk
+<^>!r::Send ``{Space}
+<^>!u::Send \
+<^>!i::Send -
+<^>!o::Send _
+<^>!q::Send `~{Space}
+<^>!h::Send {#}
+<^>!j::Send |
+```
 
-````ahk
-````
-
+This little changes were a huge timesave for me, hope they gave you some ideas
+too.

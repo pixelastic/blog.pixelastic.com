@@ -45,6 +45,15 @@ pre {
   .no { color: #ff875f; } // Boolean No
   .c1 { color: #626262; } // Comment (one line)
   .k { color: #87AF87; } // Key (as in Key: value)
+  .n { color: #D0D0D0; } // Declarative text
+}
+
+.language-ahk {
+ // Parser incorrectly flag errors, displaying it as text
+ .err {
+   color:#D0D0D0;
+   background:none;
+  }
 }
 
 

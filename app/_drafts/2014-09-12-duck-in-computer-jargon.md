@@ -25,4 +25,7 @@ plasatique pour trouver la solution tout seul sans avoir besoind 'aide
 ## Glazou ?
 Glazman a des histoires avec son canard mais je ne me souviens plus du détail
 
+## Canary release
+Chrome et Firefox Canary, pour les versions les plus à la pointe
+
 ## Any other ?

@@ -11,7 +11,7 @@
 }
 .content {
   max-width:$width-base-content;
-  padding: 4rem 1rem;
+  padding: 2rem 1rem;
   margin:0 auto;
   // Tablets: Reducing top padding
   @media(max-width: $width-base-page) {

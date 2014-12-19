@@ -7,12 +7,16 @@ module.exports = function(grunt) {
     'filerev:fullFonts' // Copy and version fonts
   ]);
 
-
   // CSS
   grunt.registerTask('optimize:css:dev', [
     'sass:dev', // Compile all scss into dist-dev
     'rsync:devBowerCss', // Adds all bower dependencies to dist-dev
     'autoprefixer:dev' // Autoprefix everything
+  ]);
+
+  // JS
+  grunt.registerTask('optimize:js:dev', [
+    'rsync:devBowerJs' // Adds all bower dependencies to dist-dev
   ]);
 
   grunt.registerTask('optimize:css:full', [

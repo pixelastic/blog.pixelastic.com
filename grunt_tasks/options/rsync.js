@@ -19,12 +19,31 @@ module.exports = {
       dest: '<%= config.srcBuildDev %>/css'
     }
   },
+  // Copy all bower js files to build-dev
+  devBowerJs: {
+    options: {
+      src: [
+        '<%= config.bower %>/zepto/zepto.js',
+        '<%= config.bower %>/lodash/dist/lodash.min.js',
+        '<%= config.bower %>/typeahead.js/dist/typeahead.bundle.js',
+        '<%= config.bower %>/algoliasearch/dist/algoliasearch.min.js',
+      ],
+      dest: '<%= config.srcBuildDev %>/js'
+    }
+  },
   // Copy jekyll source for full build
   preBuildFull: {
     options: {
       src: '<%= config.app %>/*',
       dest: '<%= config.srcBuildFull %>',
       exclude: ['css/', 'fonts/']
+    }
+  },
+  // Copy app JS files to dist when updated
+  watchJsCopyAppToDist: {
+    options: {
+      src: '<%= config.app %>/js/*.js',
+      dest: '<%= config.destBuildDev %>/js'
     }
   },
   // Copy all fonts to for full build

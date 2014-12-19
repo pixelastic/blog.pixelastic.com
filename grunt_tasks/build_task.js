@@ -6,6 +6,7 @@ module.exports = function(grunt) {
     'mkdir',
     'rsync:preBuildDev',
     'optimize:css:dev',
+    'optimize:js:dev',
     'fileblocks:dev',
     'jekyll:dev',
     'optimize:html:dev'

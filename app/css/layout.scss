@@ -163,6 +163,21 @@
   }
 }
 
+// Algolia instant search
+.sidebar-search {
+  margin-top:1rem;
+
+}
+.sidebar-search-label {
+  color:$white;
+}
+.sidebar-search-input {
+  padding:5px;
+  color:$text-color;
+  outline:none;
+  width:100%;
+}
+
 /* Footer */
 .footer {
   color: rgba(255,255,255,.5);

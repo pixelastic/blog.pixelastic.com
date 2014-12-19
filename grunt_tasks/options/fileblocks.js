@@ -11,6 +11,16 @@ module.exports = {
           'css/normalize.css',
           'css/*.css'
         ]
+      },
+      js: {
+        cwd: '<%= config.srcBuildDev %>',
+        src: [
+          'js/zepto.js',
+          'js/lodash.min.js',
+          'js/search.js',
+          'js/typeahead.bundle.js',
+          'js/algoliasearch.min.js',
+        ]
       }
     }
   },

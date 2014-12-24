@@ -4,6 +4,7 @@ title: "Indexing files downloaded through Transmission in Synology"
 tags: synology, transmission
 ---
 
+
 Login as root
 Edit /etc/crontab
 Add 

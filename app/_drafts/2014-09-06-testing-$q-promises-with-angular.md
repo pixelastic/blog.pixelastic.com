@@ -4,6 +4,12 @@ title: "Testing $q promises with Angular"
 tags: angular, $q, promises, test
 ---
 
+I've been work a few Angular projects lately, and had to test some `$q`
+promises. And there was one little thing in how `$q` and the `$digest` interact
+that bit me once or twice.carca
+
+one little edgecase of Angular promise implementation
+
 beforeEach(inject(function($injector) {
     Validator = $injector.get('Validator');
  

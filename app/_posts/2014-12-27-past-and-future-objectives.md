@@ -8,7 +8,7 @@ This is the end of the year, and I do realize now that I learned and did a lot
 this year. I would like to write it down today, as well as what I would like to
 achieve next year, and see in one year how it went.
 
-### 2014
+## 2014, the year that ends
 
 First of all, I spend the year in an [awesome company](http://www.octo.com/en)
 with very talented and kind people, with immense pools of knowledge and always
@@ -51,7 +51,7 @@ hosting to a Jekyll generated website on a private server. I now love the
 clean simplicity of markdown files versionned with git, and am much more at
 ease administrating my own server.
 
-### 2015
+## 2015, the year to come
 
 So, what will next year bring ? 
 
@@ -85,6 +85,6 @@ I haven't played enough with Vagrant and/or Docker for my taste. Docker is the
 future and I would really like to have each of the websites hosted on my server
 encapsulated in their own containers.
 
-### Conclusion
+## Conclusion
 
 Never stop trying, never stop learning.

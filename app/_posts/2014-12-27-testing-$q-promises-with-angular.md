@@ -5,8 +5,8 @@ tags: angular, $q, promises, test
 ---
 
 I've been working on a few Angular projects lately, and had to test some `$q`
-promises. And there was one little thing in how `$q` and the `$digest` interact
-that bit me once or twice.
+promises. And there was one little thing in how Angular implementation of `$q`
+and the `$digest` cycle interact that bit me once or twice.
 
 If you ever fire a promise using `$q` in one of your tests, know that Angular
 will not resolve it until you tell it to. It means that your promise will stay
@@ -23,7 +23,7 @@ afterEach(inject(function ($injector) {
 }));
 ```
 
-But this has a side-effet of triggering all your promises, even thoses you
+But this has a side-effet of triggering all your promises, even those you
 forgot about, like loading the `templateUrl` for your directives. This will in
 turn block your tests because some promises will fail. The easiest way to
 correct this is to mock the responses and always respond an empty object.

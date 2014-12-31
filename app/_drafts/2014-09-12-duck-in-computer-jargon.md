@@ -1,21 +1,72 @@
 ---
 layout: post
 title: "Duck in computer jargon"
-tags:
+tags: duck, jargon
 ---
 
-On utilise pas mal le mot "Duck" en informatique, pour dire plein de choses
-différentes.
+I've been struck by how often we, developer, use the word _duck_ in our jargon.
+Here is a little list of the usages that came from the top of my mind
 
-## Duck Typing.
-If it squeaks like a Duck, it should be a Duck.
+## Duck Typing
+
+This might be the more [common usage][Duck Typing]. It comes from the saying
+that, _if it quacks like a duck, it is probably a duck_. I've mostly encoutered
+it in the Ruby ecosystem, where you don't really care about which class an
+object belongs to, as long as it answer your calls to a specific method.
+
+```ruby
+class Duck
+  def quack
+    puts "Quaaaaack!"
+  end
+end
+
+class NotReallyADuckButIDontCare
+  def quack
+    puts "Coin-Coin!"
+  end
+end
+
+Duck.new().quack # Quaaaaack
+NotReallyADuckButIDontCare.new().quack # Coin-Coin!
+```
+
+This is quite useful when iterating over collections of
+similar-but-yet-different objects and wanting to call a specific method on each
+of them, when every object implements it slightly differently.
 
 ## Duck Feature
-Histoire à Interplay sur l'animation de Battle Chess. L'animateur avait rajouté
-un canard qui se baladait à coté de la reine. ET il savait que son producer
-avait toujours un mot à dire pour justifier son travail. il a donc dit
-"parfait, mais enlevez le canard".
-Donc une feature qu'on mets exprès pour attirer l'attention et laisser passer
+
+That's the name we use for a feature in a project who adds absolutely no value,
+and we know it will never make it to the final product. But we keep it because
+we know that at some point, either the marketing departement or the management
+departement will feel the urge to ask us to change something to our product.
+And when that moment arise, we just remove the _duck feature_ to please them.
+
+This one, allegedly, come from the good old days of Interplay, when [they were
+developing Battle Chess][Duck Feature]. The animation artist did a very great
+job at animating one of the pieces and was very proud of his job. But he knew
+that someone will have something to say about it and ask him to change
+something (just because they could). So he added a little duck, walking
+side-by-side with the Queen. As expected, he was asked to remove the duck,
+which he did.
+
+## Rubber Duck Speaking
+
+How many times have we been stuck on a problem for minutes or hours, and
+finally asking a colleague for help, or posting a question on StackOverflow
+? And when writing our question, or exposing our problem to our colleague, the
+solution came right at us, clear as day. That's because we were so focused on
+the issue, that we did not take the time to reassess why we needed to do it,
+and most of the time, we just discovered that we actually had no issue to fix
+at all.
+
+So next time, instead of disturbing a colleage, 
+
+[Duck Typing]: http://en.wikipedia.org/wiki/Duck_typing
+[Duck Feature]: http://programmers.stackexchange.com/questions/122009/developing-a-feature-which-sole-purpose-to-be-taken-out
+
+
 les autres.
 
 ## Rubber Duck Speaking

@@ -4,6 +4,8 @@ module.exports = {
     recursive: true,
     'delete': true
   },
+
+  // JEKYLL
   // Copy jekyll source for dev build
   preBuildDev: {
     options: {
@@ -12,6 +14,8 @@ module.exports = {
       exclude: ['css/']
     }
   },
+
+  // CSS
   // Copy all bower css files to build-dev
   devBowerCss: {
     options: {
@@ -19,18 +23,31 @@ module.exports = {
       dest: '<%= config.srcBuildDev %>/css'
     }
   },
+
+  // JS
   // Copy all bower js files to build-dev
   devBowerJs: {
     options: {
       src: [
         '<%= config.bower %>/zepto/zepto.js',
         '<%= config.bower %>/lodash/dist/lodash.min.js',
-        '<%= config.bower %>/typeahead.js/dist/typeahead.bundle.js',
-        '<%= config.bower %>/algoliasearch/dist/algoliasearch.min.js',
+        '<%= config.bower %>/algoliasearch/dist/algoliasearch.min.js'
       ],
       dest: '<%= config.srcBuildDev %>/js'
     }
   },
+  // Copy all app js files to build-dev
+  devAppJs: {
+    options: {
+      src: [
+        '<%= config.app %>/js/steppe.js',
+        '<%= config.app %>/js/search.js'
+      ],
+      dest: '<%= config.srcBuildDev %>/js'
+    }
+  },
+
+  // JEKYLL
   // Copy jekyll source for full build
   preBuildFull: {
     options: {
@@ -39,6 +56,17 @@ module.exports = {
       exclude: ['css/', 'fonts/']
     }
   },
+
+  // CSS
+  // Copy all bower css files to tmp
+  fullBowerCss: {
+    options: {
+      src: '<%= config.bower %>/**/*.css',
+      dest: '<%= config.tmpCssBuildFull %>'
+    }
+  },
+
+  // JS
   // Copy app JS files to dist when updated
   watchJsCopyAppToDist: {
     options: {
@@ -46,6 +74,8 @@ module.exports = {
       dest: '<%= config.destBuildDev %>/js'
     }
   },
+
+  // FONTS
   // Copy all fonts to for full build
   // Note: not included in preBuildFull so we can run all font-related tasks
   // together
@@ -53,13 +83,6 @@ module.exports = {
     options: {
       src: '<%= config.app %>/fonts/',
       dest: '<%= config.srcBuildFull %>/fonts'
-    }
-  },
-  // Copy all bower css files to tmp
-  fullBowerCss: {
-    options: {
-      src: '<%= config.bower %>/**/*.css',
-      dest: '<%= config.tmpCssBuildFull %>'
     }
   }
 };

@@ -17,9 +17,9 @@ module.exports = {
         src: [
           'js/zepto.js',
           'js/lodash.min.js',
-          'js/search.js',
-          'js/typeahead.bundle.js',
           'js/algoliasearch.min.js',
+          'js/steppe.js',
+          'js/search.js'
         ]
       }
     }

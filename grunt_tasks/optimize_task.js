@@ -16,7 +16,8 @@ module.exports = function(grunt) {
 
   // JS
   grunt.registerTask('optimize:js:dev', [
-    'rsync:devBowerJs' // Adds all bower dependencies to dist-dev
+    'rsync:devBowerJs', // Adds all bower dependencies to dist-dev
+    'rsync:devAppJs' // Adds all custom js to dist-dev
   ]);
 
   grunt.registerTask('optimize:css:full', [

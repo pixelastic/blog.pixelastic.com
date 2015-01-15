@@ -17,5 +17,4 @@ module.exports = {
       dest: '<%= config.destBuildFull %>'
     }
   }
-  
 };

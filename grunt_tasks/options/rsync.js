@@ -4,7 +4,9 @@ module.exports = {
     recursive: true,
     'delete': true
   },
-
+  /**
+   * DEV
+   **/
   // JEKYLL
   // Copy jekyll source for dev build
   preBuildDev: {
@@ -47,6 +49,9 @@ module.exports = {
     }
   },
 
+  /**
+   * FULL
+   **/
   // JEKYLL
   // Copy jekyll source for full build
   preBuildFull: {
@@ -83,6 +88,23 @@ module.exports = {
     options: {
       src: '<%= config.app %>/fonts/',
       dest: '<%= config.srcBuildFull %>/fonts'
+    }
+  },
+
+  /**
+   * DEPLOY
+   **/
+  deployToPixelastic: {
+    options: {
+      src: '<%= config.destBuildFull %>/',
+      dest: 'pixelastic:/var/www/pixelastic.com/blog.pixelastic.com/',
+      args: [
+        '--verbose',
+        '--archive',
+        '--update',
+        '--prune-empty-dirs',
+        '--compress'
+      ]
     }
   }
 };

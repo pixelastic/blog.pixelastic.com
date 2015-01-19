@@ -7,13 +7,15 @@ module.exports = function(grunt) {
 
     if (target === 'dev') {
       return grunt.task.run([
+        'build:dev',
         'connect:dev',
         'watch'
       ]);
     }
 
     grunt.task.run([
-      'connect:' + target + ':keepalive'
+      'build:full',
+      'connect:full:keepalive'
     ]);
   });
 

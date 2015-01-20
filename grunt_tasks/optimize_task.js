@@ -14,12 +14,6 @@ module.exports = function(grunt) {
     'autoprefixer:dev' // Autoprefix everything
   ]);
 
-  // JS
-  grunt.registerTask('optimize:js:dev', [
-    'rsync:devBowerJs', // Adds all bower dependencies to dist-dev
-    'rsync:devAppJs' // Adds all custom js to dist-dev
-  ]);
-
   grunt.registerTask('optimize:css:full', [
     'sass:full', // Compile all scss to tmp directory
     'rsync:fullBowerCss', // Copy all bower files to tmp directory
@@ -29,6 +23,11 @@ module.exports = function(grunt) {
     'filerev:fullCss' // Version output file
   ]);
   grunt.registerTask('optimize:css', 'optimize:css:full');
+
+  // JS
+  grunt.registerTask('optimize:js:dev', [
+    'rsync:devJs' // Adds all js files to dist-dev
+  ]);
 
   // HTML
   grunt.registerTask('optimize:html', function(target) {

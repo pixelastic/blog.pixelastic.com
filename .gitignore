@@ -8,6 +8,9 @@
 /bower_components
 /vendors
 
+# Credentials
+/grunt_tasks/options/algolia.js
+
 
 # Various junk
 .DS_Store

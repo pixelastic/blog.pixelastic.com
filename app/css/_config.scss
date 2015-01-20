@@ -1,5 +1,8 @@
 @import '_oroshi';
-// Colors definition
+/**
+ * COLORS
+ **/
+// Definition
 $grey-lightest: #E5E5E5;
 $grey-lighter:  #F9F9F9;
 $grey-light:    #7A7A7A;
@@ -12,10 +15,28 @@ $green: #90a959;
 $code-background: #F9F9F9;
 $code-color: #BF616A;
 
+// Application
 $text-color: $grey;
+$background: $white;
 
-// Colors application
-$background: #FFFFFF;
+/**
+ * Z-INDEX
+ **/
+// Definition
+$zIndex-1: 100;
+$zIndex-2: 200;
+$zIndex-3: 300;
+$zIndex-4: 400;
+$zIndex-5: 500;
+$zIndex-6: 600;
+$zIndex-7: 700;
+$zIndex-8: 800;
+$zIndex-9: 900;
+$zIndex-10: 1000;
+
+// Application
+$zIndex-1--footer: $zIndex-1;
+$zIndex-5--sidebar-search: $zIndex-5;
 
 
 
@@ -40,6 +61,9 @@ $width-base-page: $width-base-sidebar + $width-base-content;
 
 // Height of the header/sidebar for tablets
 $height-tablet-header: 75px;
+
+// Height of the sidebar for desktop tall enough to fit all primary content
+$height-desktop-sidebar: 450px;
 
 // Breakpoint under which we consider we are on a small screen phone
 $width-phone-page: 500px;

@@ -19,7 +19,9 @@
   }
 }
 
-/* Sidebar */
+/**
+ * SIDEBAR
+ **/
 .sidebar {
   position: fixed;
   top: 0;
@@ -74,17 +76,55 @@
   }
 }
 
-// Always hide the checkbox
+
+/**
+ * SIDEBAR NAV
+ **/
 .sidebar-checkbox {
+  // Always hide the checkbox
   display:none;
+  // If checked, display the nav
   @media(max-width: $width-phone-page) {
     &:checked + .sidebar-nav {
       display:block;
     }
   }
 }
-
-/* Sidebar nav */
+.sidebar-toggle-menu {
+  // Menu icon for small phones
+  display:none;
+  @media(max-width: $width-phone-page) {
+    display:block;
+    position:absolute;
+    top:0;
+    right:0;
+    height:$height-tablet-header;
+    width:4rem;
+    cursor:pointer;
+  }
+  // Displaying a menu icon using before/after borders
+  &:before,
+  &:after {
+    content:"";
+    display:block;
+    position:absolute;
+    box-sizing:border-box;
+    width:2rem;
+    right:1rem;
+  }
+  &:before {
+    border-top:6px solid white;
+    border-bottom:6px solid white;
+    height:16px;
+    top:50%;
+    margin-top:-13px;
+  }
+  &:after {
+    border-top:6px solid white;
+    top:50%;
+    margin-top:7px;
+  }
+}
 .sidebar-nav {
   padding-left: 0;
   list-style: none;
@@ -127,59 +167,59 @@
   }
 }
 
-// Menu icon for small phones
-.sidebar-toggle-menu {
-  display:none;
-  @media(max-width: $width-phone-page) {
-    display:block;
-    position:absolute;
-    top:0;
-    right:0;
-    height:$height-tablet-header;
-    width:4rem;
-    cursor:pointer;
-  }
-  // Displaying a menu icon using before/after borders
-  &:before,
-  &:after {
-    content:"";
-    display:block;
-    position:absolute;
-    box-sizing:border-box;
-    width:2rem;
-    right:1rem;
-  }
-  &:before {
-    border-top:6px solid white;
-    border-bottom:6px solid white;
-    height:16px;
-    top:50%;
-    margin-top:-13px;
-  }
-  &:after {
-    border-top:6px solid white;
-    top:50%;
-    margin-top:7px;
-  }
-}
 
-// Algolia instant search
+/**
+ * SEARCH
+ * 1. We must force a z-index higher than the one in the footer. And for the
+ *    z-index to be taken, it needs to be on an element with a position
+ *    (relative/absolute/fixed) set.
+ **/
 .sidebar-search {
   margin-top:1rem;
-
-}
-.sidebar-search-label {
-  color:$white;
+  position:relative; /* 1 */
+  z-index:$zIndex-5--sidebar-search; /* 1 */
+  a {
+    color:$text-color;
+  }
+  @media(max-width: $width-base-page) {
+    // Hide search for non-desktop for now
+    display:none;
+  }
 }
 .sidebar-search-input {
-  padding:5px;
+  padding:10px;
   color:$text-color;
   outline:none;
   width:100%;
+  border:none;
+}
+.sidebar-search-suggestion {
+  display:block;
+  background:white;
+  padding:5px;
+  border-bottom:1px solid $grey-lightest;
+  border-right:1px solid $grey-lightest;
+  border-left:1px solid $grey-lightest;
+  cursor:pointer;
+  font-size:0.8rem;
+  &:hover, &.steppe-suggestion-selected {
+    text-decoration:none;
+    background:$grey-lightest;
+  }
+}
+.sidebar-search-suggestion:first-child {
+  border-top:1px solid $grey-lightest;
 }
 
-/* Footer */
+/**
+ * FOOTER
+ * 1. Should be lower than the one in sidebar-search.
+ **/
 .footer {
+  // Hide footer if not enough space to display it
+  @media(max-height: $height-desktop-sidebar) {
+    display:none;
+  }
   color: rgba(255,255,255,.5);
   text-align:center;
   font-size:0.8rem;
@@ -187,6 +227,7 @@
   position:fixed;
   bottom:0;
   right:0;
+  z-index:$zIndex-1--footer; /* 1 */
   a {
     color:white;
   }

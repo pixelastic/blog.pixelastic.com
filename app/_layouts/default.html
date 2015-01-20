@@ -38,16 +38,23 @@
           <a href="/archive/">Archive</a>
         </li>
       </ul>
-      <form class="sidebar-search" method="GET">
-        <label for="search" class="sidebar-search-label">Search</label>
-        <input type="text" id="search" class="sidebar-search-input" />
+
+      <form id="sidebar-search-form" class="sidebar-search" method="GET">
+        <input type="text" id="sidebar-search-input" class="sidebar-search-input" placeholder="Search"/>
       </form>
+      <script id="sidebar-search-suggestion-template" language="x-template">
+        <a class="sidebar-search-suggestion" href="<%= url %>">
+          <div class="title"><%= title %></div>
+        </a>
+      </script>
+
       <label for="sidebar-checkbox" class="sidebar-toggle-menu"></label>
+
+      <div class="footer">Code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
     </div>
     <div class="layout">
       <div class="content">
         {{ content }}
-        <div class="footer">Code available on <a href="https://github.com/pixelastic/blog.pixelastic.com">GitHub</a></div>
       </div>
     </div>
 

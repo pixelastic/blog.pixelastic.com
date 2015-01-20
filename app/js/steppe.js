@@ -37,6 +37,7 @@ window.Steppe = (function() {
   }
 
   function displaySuggestions(userSuggestions) {
+    userSuggestions = userSuggestions || [];
     _private.suggestions = userSuggestions;
 
     var content = _.map(userSuggestions, _private.options.render).join('');
@@ -107,6 +108,8 @@ window.Steppe = (function() {
   }
 
   function onKeyDown(event) {
+    // Triggered on every keypress, but we're only interested in special keys
+    // (up and down)
     if (!_private.value) {
       return;
     }
@@ -127,7 +130,9 @@ window.Steppe = (function() {
   }
 
   function onFocusOut() {
-    _private.suggestionWrapper.hide();
+    _.delay(function() {
+      _private.suggestionWrapper.hide();
+    }, 100);
   }
 
   function init(initInput, initOptions) {

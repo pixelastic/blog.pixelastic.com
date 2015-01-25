@@ -8,12 +8,12 @@ module.exports = {
     options: {
       port: 9400,
       livereload: true,
-      base: '<%= config.destBuildDev %>'
+      base: 'dist'
     }
   },
   full: {
     options: {
-      port: 9800,
+      port: 9400,
       base: '<%= config.destBuildFull %>'
     }
   }

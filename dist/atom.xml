@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Pixelastic</title>
+ <link href="http://blog.pixelastic.com/atom.xml" rel="self"/>
+ <link href="http://blog.pixelastic.com/"/>
+ <updated>2015-01-25T17:10:19+01:00</updated>
+ <id>http://blog.pixelastic.com/</id>
+ <author>
+   <name>Tim Carry</name>
+ </author>
+
+ 
+ <entry>
+   <title>Duck in computer jargon</title>
+   <link href="http://blog.pixelastic.com/2015/01/24/duck-in-computer-jargon/"/>
+   <updated>2015-01-24T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2015/01/24/duck-in-computer-jargon</id>
+   <content type="html">&lt;p&gt;I&amp;#39;ve been struck by how often we, developers, use the word &lt;em&gt;duck&lt;/em&gt; in our
+jargon.  Here is a little list of the usages that came from the top of my mind.&lt;/p&gt;
+
+&lt;h2&gt;Duck Typing&lt;/h2&gt;
+
+&lt;p&gt;This might be the more &lt;a href=&quot;http://en.wikipedia.org/wiki/Duck_typing&quot;&gt;common usage&lt;/a&gt;. It comes from the saying
+that, &lt;em&gt;if it quacks like a duck, it is probably a duck&lt;/em&gt;. I&amp;#39;ve mostly
+encountered it in the Ruby ecosystem, where you don&amp;#39;t really care about which
+class an object belongs to, as long as it answers your calls to a specific
+method.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Duck&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;quack&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Quaaaaack!&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NotReallyADuckButIDontCare&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;quack&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Coin-Coin!&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Duck&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quack&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Quaaaaack&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;NotReallyADuckButIDontCare&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quack&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Coin-Coin!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This is quite useful when iterating over collections of
+similar-but-yet-different objects and wanting to call a specific method on each
+of them, when every object implements it slightly differently.&lt;/p&gt;
+
+&lt;h2&gt;Duck Feature&lt;/h2&gt;
+
+&lt;p&gt;That&amp;#39;s the name we use for a feature in a project who adds absolutely no value,
+and we know it will never make it to the final product. But we keep it because
+we know that at some point, either the marketing departement or the management
+departement will feel the urge to ask us to change something to our product.
+And when that moment arise, we just remove the &lt;em&gt;duck feature&lt;/em&gt; to please them.&lt;/p&gt;
+
+&lt;p&gt;This one, allegedly, come from the good old days of Interplay, when &lt;a href=&quot;http://programmers.stackexchange.com/questions/122009/developing-a-feature-which-sole-purpose-to-be-taken-out&quot;&gt;they were
+developing Battle Chess&lt;/a&gt;. The animation artist did a very great
+job at animating one of the pieces and was very proud of his job. But he knew
+that someone will have something to say about it and ask him to change
+something (just because they could). So he added a little duck, walking
+side-by-side with the Queen. As expected, he was asked to remove the duck,
+which he did, without altering the real Queen animation.&lt;/p&gt;
+
+&lt;h2&gt;Rubber Duck Debugging&lt;/h2&gt;
+
+&lt;p&gt;How many times have we been stuck on a problem for minutes or hours, and
+finally asking a colleague for help, or posting a question on StackOverflow
+? And when writing our question, or exposing our problem to our colleague, the
+solution came right at us, clear as day. &lt;/p&gt;
+
+&lt;p&gt;That&amp;#39;s because we were so focused on the issue, that we did not take the time
+to reassess why we needed to do it, and most of the time, we just discovered
+that we actually had no issue to fix at all.&lt;/p&gt;
+
+&lt;p&gt;So next time, instead of disturbing a colleage, try talking to yourself, or
+even better, to a &lt;a href=&quot;http://en.wikipedia.org/wiki/Rubber_duck_debugging&quot;&gt;rubber duck&lt;/a&gt;, explaining your issue,
+and you might find the answer simply by explaining the problem.&lt;/p&gt;
+
+&lt;h2&gt;Canary Release&lt;/h2&gt;
+
+&lt;p&gt;You might have heard of &lt;a href=&quot;https://www.google.fr/chrome/browser/canary.html&quot;&gt;Chrome Canary&lt;/a&gt;. This is the next Chrome
+official release, but available sooner, for front-end developers. This allow
+developers to test new features and API earlier, and report bugs, so the
+official release will be more polished. This can also be applied to &lt;a href=&quot;http://martinfowler.com/bliki/CanaryRelease.html&quot;&gt;full
+architecture&lt;/a&gt; deployment, when you&amp;#39;re running the old and new
+versions in parallel, but only a selected few are using the new platform at
+first.&lt;/p&gt;
+
+&lt;p&gt;But why is it named &lt;em&gt;Canary&lt;/em&gt; ? Well, it comes from the old coal mines, where
+miners where carriying crates of small canaries to test for poisonous gases.
+The analogy is the same, we first test on a small subset of users, and if
+everything is working fine, we&amp;#39;ll deploy to everybody.&lt;/p&gt;
+
+&lt;h2&gt;Any others ?&lt;/h2&gt;
+
+&lt;p&gt;The duck jargon seems to be used a lot in programming and I&amp;#39;m sure there are
+other instances that I&amp;#39;m not aware of. I&amp;#39;ll update this post whenever I&amp;#39;ll
+encounter a new one.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>This blog now has an API</title>
+   <link href="http://blog.pixelastic.com/2015/01/15/this-blog-now-has-an-api/"/>
+   <updated>2015-01-15T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2015/01/15/this-blog-now-has-an-api</id>
+   <content type="html">&lt;h2&gt;An API, really ?&lt;/h2&gt;
+
+&lt;p&gt;Well, sort of.&lt;/p&gt;
+
+&lt;p&gt;All posts can now be accessed in a &lt;code&gt;json&lt;/code&gt; format (just replace the final &lt;code&gt;/&lt;/code&gt;
+with a &lt;code&gt;.json&lt;/code&gt;). This is obviously a read-only API.&lt;/p&gt;
+
+&lt;p&gt;For example, my &lt;a href=&quot;http://blog.pixelastic.com/2014/12/27/past-and-future-objectives/&quot;&gt;previous post&lt;/a&gt; is accessible in &lt;code&gt;json&lt;/code&gt; format
+&lt;a href=&quot;http://blog.pixelastic.com/2014/12/27/past-and-future-objectives.json&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;id&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/2014/12/27/past-and-future-objectives&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;2014 learnings and 2015 objectives&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;url&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;http://blog.pixelastic.com/2014/12/27/past-and-future-objectives/&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;tags&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;date&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;2014-12-27 00:00:00 +0100&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;html&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;lt;p&amp;gt;This is the end of the year, and I do realize now that [...]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;quot;markdown&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;This is the end of the year, and I do realize now that [...]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;It currently exposes the initial text in markdown as well as the formatted HTML
+text, along with some metadata (id, url, date and tags).&lt;/p&gt;
+
+&lt;p&gt;I had a need to have my post in &lt;code&gt;json&lt;/code&gt; format for processing them through
+Grunt, so I thought I might as well expose them publicly. I&amp;#39;m not sure people
+will ever use it, but at least it does exist !&lt;/p&gt;
+
+&lt;h2&gt;How was it done ?&lt;/h2&gt;
+
+&lt;p&gt;Jekyll lets you plug custom made scripts to be called in the generation process
+in an aptly named &lt;code&gt;_plugins&lt;/code&gt; directory. I just had to create
+a &lt;a href=&quot;https://github.com/pixelastic/blog.pixelastic.com/blob/master/app/_plugins/json.rb&quot;&gt;json.rb&lt;/a&gt; file that will take every post and create a new json page
+from them, using a very minimalistic &lt;a href=&quot;https://github.com/pixelastic/blog.pixelastic.com/blob/master/app/_layouts/post.json&quot;&gt;post.json&lt;/a&gt; layout.&lt;/p&gt;
+
+&lt;p&gt;All I had to do was build the custom object I wanted to return, which was a mix
+of generated content, and metadata.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Indexing files downloaded through Transmission in Synology</title>
+   <link href="http://blog.pixelastic.com/2015/01/12/2014-09-17-indexing-files-downloaded-through-transmission-in-synology/"/>
+   <updated>2015-01-12T23:33:24+01:00</updated>
+   <id>http://blog.pixelastic.com/2015/01/12/2014-09-17-indexing-files-downloaded-through-transmission-in-synology</id>
+   <content type="html">&lt;p&gt;Login as root
+Edit /etc/crontab
+Add 
+    0       *       *       *       *       root    /usr/syno/bin/synoindex -A /volume1/video/tmp/transmission/downloads&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>2014 learnings and 2015 objectives</title>
+   <link href="http://blog.pixelastic.com/2014/12/27/past-and-future-objectives/"/>
+   <updated>2014-12-27T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2014/12/27/past-and-future-objectives</id>
+   <content type="html">&lt;p&gt;This is the end of the year, and I do realize now that I learned and did a lot
+this year. I would like to write it down today, as well as what I would like to
+achieve next year, and see in one year how it went.&lt;/p&gt;
+
+&lt;h2&gt;2014, the year that ends&lt;/h2&gt;
+
+&lt;p&gt;First of all, I spend the year in an &lt;a href=&quot;http://www.octo.com/en&quot;&gt;awesome company&lt;/a&gt;
+with very talented and kind people, with immense pools of knowledge and always
+ready to share it.&lt;/p&gt;
+
+&lt;p&gt;They taught me how to test my code, from unit testing to integration testing,
+and I now can&amp;#39;t code without writing the failing test first (TDD FTW!). And
+this goes without saying all I learned about Agile methodology and conflict
+resolution.&lt;/p&gt;
+
+&lt;p&gt;I also discovered that my areas of expertises were not where I thought they
+were.  I&amp;#39;ve always considered myself a &lt;em&gt;full stack developer&lt;/em&gt; (whatever that
+means), but I actually don&amp;#39;t know that much about back-end code. Never coded
+anything in Java or .NET (and don&amp;#39;t really want to, either). But I actually
+have a large experience in front-end matters (from CSS to Javascript).
+I realized that good CSS skills are actually quite rare.&lt;/p&gt;
+
+&lt;p&gt;I went to a wide variety of tech conferences and meetups, and wrote &lt;a href=&quot;http://meetups.pixelastic.com/&quot;&gt;extended
+summaries&lt;/a&gt;. At first it was for my colleagues,
+but I then made them available to everyone. Those meetups were invaluable
+source of R&amp;amp;D. Seeing 20mn of live performance of someone convinced of what he&amp;#39;s
+talking about is worth hours of blog reading. And the discussions afterwards
+made me meet some very interesting people and spawn nice discussions.&lt;/p&gt;
+
+&lt;p&gt;So I decided to go to the other side and became
+a &lt;a href=&quot;http://talks.pixelastic.com/&quot;&gt;speaker&lt;/a&gt;. I chose a subject I really enjoyed
+and tried to make it as accessible as possible, while keeping the message
+simple. I quite enjoyed it.&lt;/p&gt;
+
+&lt;p&gt;Writing summaries of conferences you&amp;#39;ve attended makes you rethink what you
+heard and makes you remember it more. But writing your own talk really makes
+you go deep in what you know and what you don&amp;#39;t know and is an invaluable
+exercise.&lt;/p&gt;
+
+&lt;p&gt;On a purely tech-related side, I extensively learned AngularJs and Grunt.
+I also discovered Jenkins and sharpened my git skills.&lt;/p&gt;
+
+&lt;p&gt;I also migrated this website from a cakePHP based application on a shared
+hosting to a Jekyll generated website on a private server. I now love the
+clean simplicity of markdown files versionned with git, and am much more at
+ease administrating my own server.&lt;/p&gt;
+
+&lt;h2&gt;2015, the year to come&lt;/h2&gt;
+
+&lt;p&gt;So, what will next year bring ? &lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ll continue attending meetups and conferences, and would like to be a speaker
+more often. There are some subjects I am passionate about and could talk
+about and share.&lt;/p&gt;
+
+&lt;p&gt;I also would like to invest myself more in the open-source world. I actually
+only submit bug reports, small pull requests and use GitHub mainly as a backup
+storage for some of my projects. But none get ever used by anybody else than
+me. In 2015, I would like to be proud enough of one of my projects to release
+it and have other people use it.&lt;/p&gt;
+
+&lt;p&gt;I only scratched the surface of Rails and Node this year, and never actually
+pushed a full project in production. I would like to go deeper than tutorials
+and TODO applications.&lt;/p&gt;
+
+&lt;p&gt;I would like to stop developing with AngularJS (after 1.5 years using it, I&amp;#39;m
+still not at all convinced). React seems a very good approach to the view
+rendering and I would like to test if further. Why not giving Backbone another
+chance, and trying Ember.&lt;/p&gt;
+
+&lt;p&gt;I would like to go back to one of my first loves, CSS. I haven&amp;#39;t touched it
+enough lately and I really want to have a bit of fun with all the new
+possibilities flexbox can give us.&lt;/p&gt;
+
+&lt;p&gt;Grunt is fine, once you know your way around, but I really need to try out Gulp
+or Brunch also.&lt;/p&gt;
+
+&lt;p&gt;I haven&amp;#39;t played enough with Vagrant and/or Docker for my taste. Docker is the
+future and I would really like to have each of the websites hosted on my server
+encapsulated in their own containers.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Never stop trying, never stop learning.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Testing $q promises with Angular</title>
+   <link href="http://blog.pixelastic.com/2014/12/26/testing-$q-promises-with-angular/"/>
+   <updated>2014-12-26T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2014/12/26/testing-$q-promises-with-angular</id>
+   <content type="html">&lt;p&gt;I&amp;#39;ve been working on a few Angular projects lately, and had to test some &lt;code&gt;$q&lt;/code&gt;
+promises. And there was one little thing in how Angular implementation of &lt;code&gt;$q&lt;/code&gt;
+and the &lt;code&gt;$digest&lt;/code&gt; cycle interact that bit me once or twice.&lt;/p&gt;
+
+&lt;p&gt;If you ever fire a promise using &lt;code&gt;$q&lt;/code&gt; in one of your tests, know that Angular
+will not resolve it until you tell it to. It means that your promise will stay
+in an undefined state (neither resolved nor rejected) and your test will surely
+fail. This is because Angular promises are tied to the &lt;code&gt;$scope&lt;/code&gt; lifecycle and
+as we do not have one when running our tests, we have to add a bit of plumbing.&lt;/p&gt;
+
+&lt;p&gt;To force Angular to finish every promise, just add the following &lt;code&gt;afterEach&lt;/code&gt;
+implementation :&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;afterEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;inject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$injector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;$injector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;$rootScope&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$digest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;But this has a side-effet of triggering all your promises, even those you
+forgot about, like loading the &lt;code&gt;templateUrl&lt;/code&gt; for your directives. This will in
+turn block your tests because some promises will fail. The easiest way to
+correct this is to mock the responses and always respond an empty object.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;beforeEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;inject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$injector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;$injector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;$httpBackend&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;whenGET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/.*/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;respond&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Hope this little tricks helped.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>pantone2hex</title>
+   <link href="http://blog.pixelastic.com/2014/12/03/pantone2hex/"/>
+   <updated>2014-12-03T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2014/12/03/pantone2hex</id>
+   <content type="html">&lt;p&gt;I recently put together a small command-line tool to convert Pantone colors to
+their hexadecimal value.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;pantone2hex 122C
+&lt;span class=&quot;c&quot;&gt;#fed141&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can grab the code on &lt;a href=&quot;https://github.com/pixelastic/pantone2hex&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Password storage, are you doing it wrong ?</title>
+   <link href="http://blog.pixelastic.com/2014/11/30/password-storage-are-you-doing-it-wrong/"/>
+   <updated>2014-11-30T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2014/11/30/password-storage-are-you-doing-it-wrong</id>
+   <content type="html">&lt;p&gt;Here are a few simple questions to ask yourself to know if you&amp;#39;re storing
+password incorrectly.&lt;/p&gt;
+
+&lt;h3&gt;Are you storing them as plaintext ?&lt;/h3&gt;
+
+&lt;p&gt;Really ? Well, that&amp;#39;s bad. Very bad. Whenever a website sends me my password in
+cleartext in an email I delete my account. I know I can&amp;#39;t trust their security.
+Whatever the size of your company, you&amp;#39;ll eventually get a leak of your
+database, so don&amp;#39;t make it easily readable.&lt;/p&gt;
+
+&lt;h3&gt;Are you hashing password with md5 or sha1 ?&lt;/h3&gt;
+
+&lt;p&gt;That&amp;#39;s a bit better, but is as much useless. md5 and sha1 hash passwords to
+a limited (albeit very large) set of values. While you can&amp;#39;t &amp;quot;un-md5&amp;quot; or
+&amp;quot;un-sha1&amp;quot; something, you can still create a list of all possible hashes (known
+as a rainbow table). Rainbow tables for md5 and sha1 can be downloaded and
+stored on a few hundred gigabytes nowadays. Then an attacker just have to search
+for a hash in the table to get one of the possible original passwords.&lt;/p&gt;
+
+&lt;h3&gt;Are you hashing with md5 or sha1, but with a app-wide salt ?&lt;/h3&gt;
+
+&lt;p&gt;Salting is a very good idea. Instead of hashing the password, you hash the
+password and a random string (known as the salt). That way, rainbow table found
+online became useless because they do not know your salt. But chances are
+that if an attacker got your database, they also got the source code of your
+app, including the salt. It&amp;#39;s just a matter of time for them to build the
+specific rainbow table matching your salt.&lt;/p&gt;
+
+&lt;h3&gt;Are your hashing with md5 or sha1, but with a specific salt per user ?&lt;/h3&gt;
+
+&lt;p&gt;Now we&amp;#39;re talking. That is a very effective way to slow down attackers. Even if
+they get their hands on your database, and the salt associated with each user,
+they will have to create as many custom rainbow tables as you have users in
+your database. This moves the attacks from massive brute force to specific
+users and so diminishes the threat. The only drawback is that, thanks to
+Moore&amp;#39;s Law, computer are getting faster and faster and in a few years times
+generating hundred or thousands of custom rainbow tables will be inexpensive.&lt;/p&gt;
+
+&lt;h3&gt;Are your hashing with bcrypt ?&lt;/h3&gt;
+
+&lt;p&gt;To get the more future-proof implementation, you should use bcrypt. Bcrypt acts
+as a md5 or sha1 with specific salt per user, except that it&amp;#39;s designed to be
+super slow. And that&amp;#39;s a good thing. If an attacker needs to build a rainbow
+table, it will take him forever. And the best thing is, you can even adjust the
+level of time the method should take, and increase it in a few years when
+computers will be faster. The resulting bcrypt hash will contain the salt, and
+the level of complexity used to generate it.&lt;/p&gt;
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;You now have a good overview of what to do and not do when storing password.
+Remember that the main goal is to make life as hard as possible for a potential
+attacker to read one of your users password. And the best solution not only
+work today, but will still work tomorrow.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Automatically save pictures from phone to Dropbox folder</title>
+   <link href="http://blog.pixelastic.com/2014/11/28/automatically-save-pictures-from-phone-to-dropbox-folder/"/>
+   <updated>2014-11-28T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2014/11/28/automatically-save-pictures-from-phone-to-dropbox-folder</id>
+   <content type="html">&lt;p&gt;The Dropbox app on my Android offers to automatically save pictures I take to
+my Dropbox account. That is a very great feature, removing the pain of
+doing backup of pictures on a regular basis.&lt;/p&gt;
+
+&lt;p&gt;But it actually saves them in a special Dropbox folder named &lt;code&gt;Camera Uploads&lt;/code&gt;,
+one that cannot be moved, and is not synchronized with the desktop Dropbox.&lt;/p&gt;
+
+&lt;p&gt;So I create a special &lt;a href=&quot;https://ifttt.com&quot;&gt;ifttt&lt;/a&gt; recipe that will copy any new
+picture added to this folder into a &lt;em&gt;real&lt;/em&gt; Dropbox folder. I simply chose
+Dropbox as the input, with &lt;code&gt;/Camera Uploads&lt;/code&gt; as the folder to listen to. Then
+I also chose Dropbox as the ouput, &lt;code&gt;&lt;/code&gt; as the File URL,
+&lt;code&gt;&lt;/code&gt; as the File name, and chose one of my folders for the
+Dropbox path folder.&lt;/p&gt;
+
+&lt;p&gt;Now, whenever I take a picture on my phone, it gets saved on my Dropbox
+account, and then ifttt kicks in and copy it to another directory in my Dropbox
+which will in turn save it on my local Dropbox folder.&lt;/p&gt;
+
+&lt;p&gt;That&amp;#39;s quite circumvoluted to simply save a picture from my phone to my
+computer, but that&amp;#39;s still the easiest way I found.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Generate dummy images for testing file upload</title>
+   <link href="http://blog.pixelastic.com/2014/11/27/generate-dummy-images-for-testing-file-upload/"/>
+   <updated>2014-11-27T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2014/11/27/generate-dummy-images-for-testing-file-upload</id>
+   <content type="html">&lt;p&gt;Today, I needed to test a file upload mechanism, and needed a bunch of
+different files, to be able to test that the max file size, max/min file
+dimensions and image type where correctly checked.&lt;/p&gt;
+
+&lt;p&gt;I asked my good friend the command line and came up with the following command
+to generate the needed files.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;dd &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/dev/urandom &lt;span class=&quot;nv&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1mo.binary &lt;span class=&quot;nv&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1024 &lt;span class=&quot;nv&quot;&gt;bs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1024
+1024+0 records in
+1024+0 records out
+1048576 bytes &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1,0 MB&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; copied, 0,0684895 s, 15,3 MB/s
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+total 1,1M
+-rw-r--r-- 1 tca tca 1,0M nov.  27 12:00 1mo.binary
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This created a &lt;code&gt;1mo.binary&lt;/code&gt; binary file of exactly 1Mo. That can be useful
+if you simply need to test size limits. But I also needed my files to be valid
+jpg files. So I used &lt;code&gt;convert&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;convert -size 640x640 xc:blue 640.jpg
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+total 12K
+-rw-r--r-- 1 tca tca 2,7K nov.  27 12:04 640.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This created a valid blue jpg file of 600x600 px. But the file size was way to
+small, and I simply needed to have bigger filesize but not bigger file
+dimensions.  Best way to do it was to add crappy metadata that will simply adds
+to the filesize. So I used &lt;code&gt;/dev/urandom&lt;/code&gt; again to get random data.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /dev/urandom &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; tr -dc &lt;span class=&quot;s1&quot;&gt;&amp;#39;a-zA-Z0-9&amp;#39;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; fold -w 1048576 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; head -n 1 &amp;gt; 1mo.txt
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+total 1,1M
+-rw-r--r-- 1 tca tca 1,1M nov.  27 12:04 1mo.txt
+-rw-r--r-- 1 tca tca 2,7K nov.  27 12:04 640.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This generated a &lt;code&gt;1mo.txt&lt;/code&gt; file of random alphanumeric garbage. You can
+change the &lt;code&gt;fold -w&lt;/code&gt; value to increase the size of the generated file. Next
+step was to feed this value to our jpg file.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;exiftool 640.jpg -comment&lt;span class=&quot;se&quot;&gt;\&amp;lt;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1mo.txt
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+total 2,1M
+-rw-r--r-- 1 tca tca 1,1M nov.  27 12:04 1mo.txt
+-rw-r--r-- 1 tca tca 1,1M nov.  27 12:05 640.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This updated the &lt;code&gt;640.jpg&lt;/code&gt; file by adding the content of &lt;code&gt;1mo.txt&lt;/code&gt; into the
+&lt;code&gt;comment&lt;/code&gt; metadata. You need to use the &lt;code&gt;&amp;lt;=&lt;/code&gt; syntax to feed it the content of
+the file because your shell might not like having a 1Mo argument. Also, you
+need to escape the &lt;code&gt;&amp;lt;&lt;/code&gt; or your shell will try to interpret it.&lt;/p&gt;
+
+&lt;p&gt;Now you&amp;#39;re ready to generate jpg files of any dimensions and any filesize.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Pushing to production and Github in one command</title>
+   <link href="http://blog.pixelastic.com/2014/11/23/pushing-to-production-and-github-in-one-command/"/>
+   <updated>2014-11-23T00:00:00+01:00</updated>
+   <id>http://blog.pixelastic.com/2014/11/23/pushing-to-production-and-github-in-one-command</id>
+   <content type="html">&lt;p&gt;I&amp;#39;m using git for all my workflow. I use either GitHub or BitBucket to store my
+code online. And for &lt;a href=&quot;http://www.pixelastic.com&quot;&gt;some&lt;/a&gt;
+&lt;a href=&quot;http://talks.pixelastic.com&quot;&gt;tiny&lt;/a&gt; projects, I&amp;#39;m also using git directly to
+push in production.&lt;/p&gt;
+
+&lt;h2&gt;Pushing to own remote&lt;/h2&gt;
+
+&lt;p&gt;I have a few repositories that simply holds a bunch of &lt;code&gt;html&lt;/code&gt; and &lt;code&gt;css&lt;/code&gt; files,
+to display a very simple page. Whenever I push some changes to thoses
+repositories, I want to have the changes directly reflected online.&lt;/p&gt;
+
+&lt;p&gt;For this I created on my server a new repo, aptly named &lt;code&gt;repo&lt;/code&gt;. In &lt;code&gt;repo&lt;/code&gt;,
+I simply ran &lt;code&gt;git init --bare&lt;/code&gt; to create a bare repository. Now, from my local
+repository I just update my local git repository to point the &lt;code&gt;origin&lt;/code&gt; remote
+to this bare repository. Running &lt;code&gt;git push&lt;/code&gt; pushed my changes to this repo.&lt;/p&gt;
+
+&lt;p&gt;Easy, I have my own repo on my own server to store my files.&lt;/p&gt;
+
+&lt;h2&gt;Pushing to production&lt;/h2&gt;
+
+&lt;p&gt;But that&amp;#39;s only a bare repo, holding the list of changes but not exposing the
+working directory. For that, I cloned &lt;code&gt;repo&lt;/code&gt; into another directory using &lt;code&gt;git
+clone ./repo ./dist&lt;/code&gt;. This &lt;code&gt;dist&lt;/code&gt; directory is actually served by nginx.&lt;/p&gt;
+
+&lt;p&gt;I added a hook to &lt;code&gt;repo/hook/post-receive&lt;/code&gt; with the following code :&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;unset &lt;/span&gt;GIT_DIR
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /path/to/my/dist/directory
+git pull
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will ran everytime the &lt;code&gt;repo&lt;/code&gt; receives a new push. It will go to the
+&lt;code&gt;dist&lt;/code&gt; folder and pull changes from &lt;code&gt;repo&lt;/code&gt; (as &lt;code&gt;repo&lt;/code&gt; is the default origin for
+&lt;code&gt;dist&lt;/code&gt; as we cloned from it).&lt;/p&gt;
+
+&lt;p&gt;The part about &lt;code&gt;unset GIT_DIR&lt;/code&gt; is needed so that the hook correctly run in
+a bare repo.&lt;/p&gt;
+
+&lt;p&gt;Now, everytime I push my code, the hook will be run and the &lt;code&gt;dist&lt;/code&gt; repo will be
+updated. And as this directory is exposed through nginx, it will be directly
+available to all.&lt;/p&gt;
+
+&lt;h2&gt;Pushing to multiple remotes&lt;/h2&gt;
+
+&lt;p&gt;But that&amp;#39;s not finished yet. I don&amp;#39;t like having my code saved only in one
+place. I&amp;#39;d like to also have my sources available on GitHub. So
+I updated the &lt;code&gt;post-receive&lt;/code&gt; hook by adding the following lines :&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /path/to/my/repo/directory
+git push
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Of course, I also configured my &lt;code&gt;origin&lt;/code&gt; remote to be GitHub, but you can make
+it any repo. This will automatically push the content to a secondary repo
+whenever the primary one receives new data.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;With simple git hooks I managed to push my code to production and save the
+source in two different repository whenever I &lt;code&gt;git push&lt;/code&gt;. Less commands to
+type, more time to code something else.&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>

@@ -1,22 +1,22 @@
 module.exports = {
-  dev: {
+  devTmpToJekyll: {
     expand: true,
     flatten: true,
-    src: '<%= config.srcBuildDev %>/css/*.css',
-    dest: '<%= config.srcBuildDev %>/css/'
+    src: 'tmp/css/src/*.css',
+    dest: 'tmp/jekyll/css'
   },
-  livereload: {
+  watchTmpToDist: {
     expand: true,
     flatten: true,
-    src: '<%= config.tmpCssLivereload %>/*.css',
-    dest: '<%= config.destBuildDev %>/css/'
+    src: 'tmp/css/src/*.css',
+    dest: 'dist/css'
   },
-  full: {
-    expand: true,
-    flatten: true,
-    src: '<%= config.tmpCssBuildFull %>/*.css',
-    dest: '<%= config.tmpCssBuildFull %>'
-  }
+  // full: {
+  //   expand: true,
+  //   flatten: true,
+  //   src: '<%= config.tmpCssBuildFull %>/*.css',
+  //   dest: '<%= config.tmpCssBuildFull %>'
+  // }
 
 };
 

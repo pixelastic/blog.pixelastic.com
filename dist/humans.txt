@@ -1,0 +1,21 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# AUTHOR
+    
+    Tim Carry -- @pixelastic
+
+# THANKS
+
+    For the Hyde theme : Mark D. Otto -- @mdo
+
+# TECHNOLOGY COLOPHON
+
+    Build on Linux, written with vim, versionned with git
+    Generated with Jekyll with the Hyde theme
+    Custom Jekyll plugins written in Ruby
+    Using HTML5 and CSS3, with an HTML5 boilerplate base
+    Hosted on private ks3 server
+    Served by nginx
+
+    Source: https://github.com/pixelastic/blog.pixelastic.com

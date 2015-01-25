@@ -1,22 +1,24 @@
 'use strict';
 
 module.exports = function(grunt) {
+  grunt.registerTask('serve', function() {
+    var type = (this.args[0] || 'dev');
 
-  grunt.registerTask('serve', function(target) {
-    target = target || 'full';
+    switch (type) {
+      case 'prod':
+        grunt.task.run([
+          'build',
+          'connect:dist'
+        ]);
+        break;
 
-    if (target === 'dev') {
-      return grunt.task.run([
-        'build:dev',
-        'connect:dev',
-        'watch'
-      ]);
+      case 'dev':
+        grunt.task.run([
+          'compile',
+          'connect:dev',
+          'watch'
+        ]);
+        break;
     }
-
-    grunt.task.run([
-      'build:full',
-      'connect:full:keepalive'
-    ]);
   });
-
 };

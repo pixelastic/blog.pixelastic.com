@@ -5,8 +5,8 @@ module.exports = {
   },
   dev: {
     options: {
-      src: '<%= config.srcBuildDev %>',
-      dest: '<%= config.destBuildDev %>',
+      src: 'tmp/jekyll',
+      dest: 'dist/',
       drafts: true,
       limit_posts: 10
     }

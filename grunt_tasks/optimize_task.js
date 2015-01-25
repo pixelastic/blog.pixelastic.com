@@ -29,6 +29,10 @@ module.exports = function(grunt) {
     'rsync:devJs' // Adds all js files to dist-dev
   ]);
 
+  grunt.registerTask('optimize:js:full', [
+    'rsync:devJs' // Adds all js files to dist-dev
+  ]);
+
   // HTML
   grunt.registerTask('optimize:html', function(target) {
     target = target || 'full';

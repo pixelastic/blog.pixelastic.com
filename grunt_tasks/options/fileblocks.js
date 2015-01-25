@@ -1,36 +1,35 @@
 module.exports = {
-  options: {
-    prefix: '/'
-  },
   dev: {
-    src: '<%= config.srcBuildDev %>/_layouts/default.html',
+    src: 'tmp/html/src/default.html',
     blocks: {
       css: {
-        cwd: '<%= config.srcBuildDev %>',
+        cwd: 'tmp/css/src',
+        prefix: '/css',
         src: [
-          'css/normalize.css',
-          'css/*.css'
+          'normalize.css',
+          '*.css'
         ]
       },
       js: {
-        cwd: '<%= config.srcBuildDev %>',
+        cwd: 'tmp/js/src',
+        prefix: '/js',
         src: [
-          'js/zepto.js',
-          'js/lodash.min.js',
-          'js/algoliasearch.min.js',
-          'js/steppe.js',
-          'js/search.js'
+          'zepto.min.js',
+          'lodash.min.js',
+          'algoliasearch.min.js',
+          'steppe.js',
+          'search.js'
         ]
       }
     }
   },
-  full: {
-    src: '<%= config.srcBuildFull %>/_layouts/default.html',
-    blocks: {
-      css: {
-        cwd: '<%= config.srcBuildFull %>',
-        src: '*.css'
-      }
-    }
-  }
+  // full: {
+  //   src: '<%= config.srcBuildFull %>/_layouts/default.html',
+  //   blocks: {
+  //     css: {
+  //       cwd: '<%= config.srcBuildFull %>',
+  //       src: '*.css'
+  //     }
+  //   }
+  // }
 };

@@ -1,9 +1,7 @@
+'use strict';
+
 module.exports = {
-  options: {
-    foo: 'bar'
-  },
-  fonts: {
-    src: ['<%= config.tmpCssBuildFull %>/fonts.css']
+  prodTmpToTmp: {
+    src: ['tmp/css/src/fonts.css']
   }
 };
-

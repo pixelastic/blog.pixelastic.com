@@ -2,20 +2,18 @@
 
 module.exports = {
   options: {
-    hostname: 'localhost'
+    port: 9400,
+    hostname: 'localhost',
+    base: 'dist'
   },
   dev: {
     options: {
-      port: 9400,
-      livereload: true,
-      base: '<%= config.destBuildDev %>'
+      livereload: true
     }
   },
-  full: {
+  prod: {
     options: {
-      port: 9800,
-      base: '<%= config.destBuildFull %>'
+      keepalive:true
     }
   }
-
 };

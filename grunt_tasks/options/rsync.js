@@ -1,46 +1,180 @@
+'use strict';
+
 module.exports = {
   options: {
-    // args: ['--verbose'],
     recursive: true,
-    'delete': true
+    args: [
+      '--archive',
+      '--prune-empty-dirs'
+    ]
   },
-  // Copy jekyll source for dev build
-  preBuildDev: {
+
+  /* DEV */
+  // CSS
+  devCssDependenciesToTmp: {
     options: {
-      src: '<%= config.app %>/*',
-      dest: '<%= config.srcBuildDev %>',
-      exclude: ['css/']
+      src: [
+        'bower_components/normalize-css/normalize.css'
+      ],
+      dest: 'tmp/css/src'
     }
   },
-  // Copy all bower css files to build-dev
-  devBowerCss: {
+  // JS
+  devJsDependenciesToTmp: {
     options: {
-      src: '<%= config.bower %>/**/*.css',
-      dest: '<%= config.srcBuildDev %>/css'
+      src: [
+        'bower_components/zepto/zepto.min.js',
+        'bower_components/lodash/dist/lodash.min.js',
+        'bower_components/algoliasearch/dist/algoliasearch.min.js'
+      ],
+      dest: 'tmp/js/src'
     }
   },
-  // Copy jekyll source for full build
-  preBuildFull: {
+  devJsAppToTmp: {
     options: {
-      src: '<%= config.app %>/*',
-      dest: '<%= config.srcBuildFull %>',
-      exclude: ['css/', 'fonts/']
+      src: [
+        'app/js/steppe.js',
+        'app/js/search.js'
+      ],
+      dest: 'tmp/js/src'
     }
   },
-  // Copy all fonts to for full build
-  // Note: not included in preBuildFull so we can run all font-related tasks
-  // together
-  fullFonts: {
+  devJsTmpToJekyll: {
     options: {
-      src: '<%= config.app %>/fonts/',
-      dest: '<%= config.srcBuildFull %>/fonts'
+      src: 'tmp/js/src/*.js',
+      dest: 'tmp/jekyll/js'
     }
   },
-  // Copy all bower css files to tmp
-  fullBowerCss: {
+  // HTML
+  devHtmlAppToTmp: {
     options: {
-      src: '<%= config.bower %>/**/*.css',
-      dest: '<%= config.tmpCssBuildFull %>'
+      src: 'app/_layouts/',
+      dest: 'tmp/html/src',
+      args: [
+        '--archive',
+        '--recursive',
+        '--delete',
+        '--prune-empty-dirs',
+        '--include=*/',
+        '--include=*.html',
+        '--exclude=*'
+      ]
+    }
+  },
+  devHtmlTmpToJekyll: {
+    options: {
+      src: 'tmp/html/src/',
+      dest: 'tmp/jekyll/_layouts',
+      args: [
+        '--archive',
+        '--recursive',
+        '--delete',
+        '--prune-empty-dirs',
+        '--include=*/',
+        '--include=*.html',
+        '--exclude=*'
+      ]
+    }
+  },
+  // JEKYLL
+  devJekyllPrepare: {
+    options: {
+      src: './app/*',
+      dest: './tmp/jekyll',
+      exclude: [
+        'css/',
+        'js/',
+        '_layouts'
+      ]
+    }
+  },
+
+  /* WATCH */
+  watchJsAppToDist: {
+    options: {
+      src: 'app/js/*.js',
+      dest: 'dist/js/'
+    }
+  },
+
+  /* PROD */
+  // CSS
+  prodCssDependenciesToTmp: {
+    options: {
+      src: [
+        'bower_components/normalize-css/normalize.css'
+      ],
+      dest: 'tmp/css/src'
+    }
+  },
+  // CSS
+  prodJsDependenciesToTmp: {
+    options: {
+      src: [
+        'bower_components/zepto/zepto.min.js',
+        'bower_components/lodash/dist/lodash.min.js',
+        'bower_components/algoliasearch/dist/algoliasearch.min.js'
+      ],
+      dest: 'tmp/js/src'
+    }
+  },
+  // HTML
+  prodHtmlAppToTmp: {
+    options: {
+      src: 'app/_layouts/',
+      dest: 'tmp/html/src',
+      args: [
+        '--archive',
+        '--recursive',
+        '--delete',
+        '--prune-empty-dirs',
+        '--include=*/',
+        '--include=*.html',
+        '--exclude=*'
+      ]
+    }
+  },
+  prodHtmlTmpToJekyll: {
+    options: {
+      src: 'tmp/html/src/',
+      dest: 'tmp/jekyll/_layouts',
+      args: [
+        '--archive',
+        '--recursive',
+        '--delete',
+        '--prune-empty-dirs',
+        '--include=*/',
+        '--include=*.html',
+        '--exclude=*'
+      ]
+    }
+  },
+  // JEKYLL
+  prodJekyllPrepare: {
+    options: {
+      src: './app/*',
+      dest: './tmp/jekyll',
+      exclude: [
+        'css/',
+        'js/',
+        'fonts/',
+        '_layouts'
+      ]
+    }
+  },
+
+  /* DEPLOY */
+  deployToPixelastic: {
+    options: {
+      src: 'dist/',
+      dest: 'pixelastic:/var/www/pixelastic.com/blog.pixelastic.com/',
+      args: [
+        '--verbose',
+        '--archive',
+        '--update',
+        '--prune-empty-dirs',
+        '--compress'
+      ]
     }
   }
 };

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   options: {
     removeComments: true,
@@ -7,20 +9,14 @@ module.exports = {
     removeEmptyAttributes: true,
     collapseWhitespace: true
   },
-  dev: {
+  prodDistToDist: {
     files: [{
       expand: true,
-      cwd: '<%= config.destBuildDev %>',
-      dest: '<%= config.destBuildDev %>',
-      src: ['**/*.html']
-    }]
-  },
-  full: {
-    files: [{
-      expand: true,
-      cwd: '<%= config.destBuildFull %>',
-      dest: '<%= config.destBuildFull %>',
-      src: ['**/*.html']
+      cwd: 'dist/',
+      dest: 'dist/',
+      src: [
+        '**/*.html'
+      ]
     }]
   }
 };

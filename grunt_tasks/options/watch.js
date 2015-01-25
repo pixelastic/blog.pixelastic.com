@@ -1,30 +1,54 @@
+'use strict';
+
 module.exports = {
-  // Note: The task that triggers the livereload in the browser must only watch
-  // .css file to trigger a soft reload (only reloading CSS files, not the
-  // whole page). So we put it in its own task (devLivereloadCss) that watches
-  // the build-dev folder
-  //
-  // The other task will compile css from SCSS to autoprefixed-css, by using
-  // a temporary folder and outputting the final result in build-dev
-  devCompileCss: {
-    files: ['<%= config.app %>/css/*.scss'],
-    tasks: ['newer:sass:livereload', 'newer:autoprefixer:livereload']
+  options: {
+    livereload: false
   },
-  devLivereloadScss: {
-    files: ['<%= config.destBuildDev %>/css/*.css'],
+  reload: {
     options: {
       livereload: true
-    }
+    },
+    files: [
+      'dist/css/*.css',
+      'dist/js/*.js'
+    ]
   },
-  devRebuild: {
-    files:[
-      '<%= config.app %>/_layouts/*.html',
-      '<%= config.app %>/_drafts/*.md'
+  sass_config: {
+    files: 'app/css/_*.scss',
+    tasks: [
+      'sass:devAppToTmp'
+    ]
+  },
+  sass: {
+    files: 'app/css/*.scss',
+    tasks: [
+      'newer:sass:devAppToTmp',
+      'newer:autoprefixer:watchTmpToDist'
+    ]
+  },
+  js: {
+    files: 'app/js/*.js',
+    tasks: [
+      'rsync:watchJsAppToDist'
+    ]
+  },
+  layouts: {
+    files: 'app/_layouts/**/*.html',
+    tasks: [
+      'rsync:devHtmlAppToTmp',
+      'fileblocks:dev',
+      'rsync:devHtmlTmpToJekyll',
+      'jekyll:dev'
+    ]
+  },
+  markdown: {
+    files: [
+      'app/_posts/*.md',
+      'app/_drafts/*.md'
     ],
-    tasks:['build:dev'],
-    options: {
-      livereload: true
-    }
+    tasks: [
+      'rsync:devJekyllPrepare',
+      'jekyll:dev'
+    ]
   }
 };
-

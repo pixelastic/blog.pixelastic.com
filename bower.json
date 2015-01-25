@@ -2,7 +2,9 @@
   "name": "blog.pixelastic.com",
   "version": "0.0.1",
   "dependencies": {
-    "normalize-css": "~3.0.1"
-  },
-  "devDependencies": {}
+    "normalize-css": "~3.0.1",
+    "algoliasearch": "~2.8.1",
+    "zepto": "~1.1.6",
+    "lodash": "~2.4.1"
+  }
 }

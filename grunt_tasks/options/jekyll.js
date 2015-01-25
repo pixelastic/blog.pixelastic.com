@@ -8,7 +8,7 @@ module.exports = {
       src: '<%= config.srcBuildDev %>',
       dest: '<%= config.destBuildDev %>',
       drafts: true,
-      limit_posts: 100
+      limit_posts: 10
     }
   },
   full: {

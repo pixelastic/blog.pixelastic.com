@@ -1,0 +1,82 @@
+/**
+ * Code color definitions:
+ *
+ * This colors are the exact same that I use in my custom vim `oroshi`
+ * colorscheme, adapated to RGB.
+ **/
+
+// Black, White and grey
+$oroshi-pureblack: #000000;
+$oroshi-black: #121212;
+$oroshi-almostblack: #1C1C1C;
+$oroshi-darkgrey: #262626;
+$oroshi-grey: #626262;
+$oroshi-lightgrey: #BCBCBC;
+$oroshi-white: #D0D0D0;
+$oroshi-purewhite: #000000;
+// Blue
+$oroshi-blue: #5F87FF;
+$oroshi-darkblue: #005F87;
+$oroshi-calmblue: #5F87AF;
+// Green
+$oroshi-green: #00AF5F;
+$oroshi-darkgreen: #008700;
+$oroshi-calmgreen: #87AF87;
+// Orange
+$oroshi-orange: #FF5F00;
+$oroshi-darkorange: #FFAF00;
+$oroshi-calmorange: #FF875F;
+// Pink 
+$oroshi-pink: #FF5FAF;
+$oroshi-darkpink: #AF005F;
+$oroshi-calmpink: #FF87AF;
+// Purple
+$oroshi-purple: #D75FFF;
+$oroshi-darkpurple: #AF5FAF;
+$oroshi-calmpurple: #AF87FF;
+// Red 
+$oroshi-red: #D70000;
+$oroshi-darkred: #870000;
+$oroshi-calmred: #FF5F5F;
+// Yellow
+$oroshi-yellow: #D7D700;
+$oroshi-darkyellow: #AF8700;
+$oroshi-calmyellow: #D7D75F;
+
+$oroshi-normal: $oroshi-white;
+$oroshi-chute: $oroshi-darkblue;
+$oroshi-comment: $oroshi-grey;
+$oroshi-functionName: $oroshi-green;
+$oroshi-identifier: $oroshi-calmgreen;
+$oroshi-constant: $oroshi-darkorange;
+$oroshi-string: $oroshi-calmblue;
+$oroshi-number: $oroshi-calmblue;
+$oroshi-symbol: $oroshi-orange;
+$oroshi-boolean: $oroshi-calmorange;
+$oroshi-regexp: $oroshi-darkblue;
+
+// CSS
+$oroshi-css-tag: $oroshi-darkgreen;
+$oroshi-css-class: $oroshi-green;
+$oroshi-css-pseudoclass: $oroshi-darkorange;
+$oroshi-css-media: $oroshi-yellow;
+$oroshi-css-property: $oroshi-calmred;
+$oroshi-css-value: $oroshi-calmblue;
+// RUBY
+$oroshi-ruby-class: $oroshi-calmred;
+$oroshi-ruby-className: $oroshi-constant;
+// JAVASCRIPT
+$oroshi-js-function: $oroshi-calmred; 
+$oroshi-js-undefined: $oroshi-calmred;
+$oroshi-js-statement: $oroshi-darkgreen;
+// SHELL
+$oroshi-sh-statement: $oroshi-darkgreen;
+// HTML
+$oroshi-html-tag: $oroshi-darkgreen;
+$oroshi-html-attribute: $oroshi-calmred;
+// PHP
+$oroshi-php-variable: $oroshi-calmgreen;
+$oroshi-php-function: $oroshi-green;
+
+
+

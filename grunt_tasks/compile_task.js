@@ -4,7 +4,6 @@ module.exports = function(grunt) {
   grunt.registerTask(
     'compile',
     'Compile the website to be served locally', [
-      'clean:all',
       'mkdir:dev',
       // CSS
       'rsync:devCssDependenciesToTmp',

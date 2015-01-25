@@ -5,7 +5,7 @@ var _ = require('lodash');
 module.exports = function(grunt) {
   grunt.registerTask('algolia', function() {
     var done = this.async();
-    var src = grunt.file.expand('./dist/build-full/**/*.json');
+    var src = grunt.file.expand('./dist/**/*.json');
 
     // Credentials must be set in config
     var options = this.options();

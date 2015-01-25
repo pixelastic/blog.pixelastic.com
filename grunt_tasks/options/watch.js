@@ -31,5 +31,24 @@ module.exports = {
     tasks: [
       'rsync:watchJsAppToDist'
     ]
+  },
+  layouts: {
+    files: 'app/_layouts/**/*.html',
+    tasks: [
+      'rsync:devHtmlAppToTmp',
+      'fileblocks:dev',
+      'rsync:devHtmlTmpToJekyll',
+      'jekyll:dev'
+    ]
+  },
+  markdown: {
+    files: [
+      'app/_posts/*.md',
+      'app/_drafts/*.md'
+    ],
+    tasks: [
+      'rsync:devJekyllPrepare',
+      'jekyll:dev'
+    ]
   }
 };

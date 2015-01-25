@@ -36,7 +36,8 @@
     "grunt-userev": "0.0.6",
     "algolia-search": "~1.7.1",
     "lodash": "~2.4.1",
-    "grunt-contrib-clean": "~0.6.0"
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-uglify": "~0.7.0"
   },
   "dependencies": {}
 }

@@ -2,17 +2,31 @@
 
 module.exports = function(grunt) {
   grunt.registerTask(
-    'build:full',
+    'build',
     'Build application into the ./dist folder, ready to be deployed', [
-      'mkdir',
-      'rsync:preBuildFull',
-      'optimize:fonts:full',
-      'optimize:css:full',
-      'optimize:js:full',
-      'fileblocks:full',
-      'jekyll:full',
-      'optimize:html:full'
+      'clean:all',
+      'mkdir:prod',
+      // FONTS
+      'filerev:prodFontsAppToJekyll',
+      // CSS
+      'rsync:prodCssDependenciesToTmp',
+      'sass:prodAppToTmp',
+      'cssrevfonts:prodTmpToTmp',
+      'newer:autoprefixer:prodTmpToTmp',
+      'newer:cssmin:prodTmpToOutput',
+      'filerev:prodCssOutputToJekyll',
+      // JS
+      'rsync:prodJsDependenciesToTmp',
+      'uglify:prodAppToTmp',
+      'concat:prodJsTmpToOutput',
+      'filerev:prodJsOutputToJekyll',
+      // HTML
+      'rsync:prodHtmlAppToTmp',
+      'fileblocks:prod',
+      'rsync:prodHtmlTmpToJekyll',
+      // JEKYLL
+      'rsync:prodJekyllPrepare',
+      'jekyll:prod',
+      'htmlmin:prodDistToDist'
     ]);
-  grunt.registerTask('build', 'build:full');
-
 };

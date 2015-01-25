@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   devTmpToJekyll: {
     expand: true,
@@ -11,12 +13,11 @@ module.exports = {
     src: 'tmp/css/src/*.css',
     dest: 'dist/css'
   },
-  // full: {
-  //   expand: true,
-  //   flatten: true,
-  //   src: '<%= config.tmpCssBuildFull %>/*.css',
-  //   dest: '<%= config.tmpCssBuildFull %>'
-  // }
-
+  prodTmpToTmp: {
+    expand: true,
+    flatten: true,
+    src: 'tmp/css/src/*.css',
+    dest: 'tmp/css/src'
+  }
 };
 

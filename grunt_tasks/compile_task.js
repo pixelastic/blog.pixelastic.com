@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     'compile',
     'Compile the website to be served locally', [
       'clean:all',
-      'mkdir:all',
+      'mkdir:dev',
       // CSS
       'rsync:devCssDependenciesToTmp',
       'sass:devAppToTmp',

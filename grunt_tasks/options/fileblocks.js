@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   dev: {
     src: 'tmp/html/src/default.html',
@@ -23,13 +25,19 @@ module.exports = {
       }
     }
   },
-  // full: {
-  //   src: '<%= config.srcBuildFull %>/_layouts/default.html',
-  //   blocks: {
-  //     css: {
-  //       cwd: '<%= config.srcBuildFull %>',
-  //       src: '*.css'
-  //     }
-  //   }
-  // }
+  prod: {
+    src: 'tmp/html/src/default.html',
+    blocks: {
+      css: {
+        cwd: 'tmp/jekyll',
+        prefix: '/',
+        src: 'main.*.css'
+      },
+      js: {
+        cwd: 'tmp/jekyll',
+        prefix: '/',
+        src: 'main.*.js'
+      }
+    }
+  }
 };

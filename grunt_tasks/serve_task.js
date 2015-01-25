@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       case 'prod':
         grunt.task.run([
           'build',
-          'connect:dist'
+          'connect:prod'
         ]);
         break;
 

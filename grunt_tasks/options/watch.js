@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   options: {
     livereload: false
@@ -30,11 +32,4 @@ module.exports = {
       'rsync:watchJsAppToDist'
     ]
   }
-  // devRebuild: {
-  //   files: [
-  //     '<%= config.app %>/_layouts/*.html',
-  //     '<%= config.app %>/_drafts/*.md'
-  //   ],
-  //   tasks: ['build:dev']
-  // }
 };

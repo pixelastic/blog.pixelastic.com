@@ -3,11 +3,6 @@ var Algolia = require('algolia-search');
 var _ = require('lodash');
 
 module.exports = function(grunt) {
-  //TODO : Passer rsync en tache grunt
-  //TODO : grunt serve comprends le grunt build
-  //TODO : `grunt deploy` qui fait `grunt build + algolia + rsync`
-
-
   grunt.registerTask('algolia', function() {
     var done = this.async();
     var src = grunt.file.expand('./dist/build-full/**/*.json');

@@ -1,3 +1,5 @@
+'use strict';
+
 /* jshint camelcase: false */
 module.exports = {
   options: {
@@ -11,10 +13,10 @@ module.exports = {
       limit_posts: 10
     }
   },
-  full: {
+  prod: {
     options: {
-      src: '<%= config.srcBuildFull %>',
-      dest: '<%= config.destBuildFull %>'
+      src: 'tmp/jekyll',
+      dest: 'dist/'
     }
   }
 };

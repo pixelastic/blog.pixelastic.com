@@ -1,7 +1,7 @@
 # Build
-/dist/*/
-/_site
-/.tmp
+/dist
+_site
+/tmp
 
 # Dependencies
 /node_modules

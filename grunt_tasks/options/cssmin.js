@@ -1,9 +1,11 @@
+'use strict';
+
 module.exports = {
-  full: {
+  prodTmpToOutput: {
     files: {
-      '<%= config.srcBuildFull %>/main.css': [
-        '<%= config.tmpCssBuildFull %>/normalize.css',
-        '<%= config.tmpCssBuildFull %>/*.css'
+      'tmp/css/output/main.css': [
+        'tmp/css/src/normalize.css',
+        'tmp/css/src/*.css'
       ]
     }
   }

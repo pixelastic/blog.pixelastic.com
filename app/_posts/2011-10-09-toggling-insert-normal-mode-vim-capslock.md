@@ -22,7 +22,7 @@ Just put the following code in it and the pressing the CapsLock key will no
 longer block your next keys in Caps.
 
 
-```
+```ini
 clear Lock
 ```
 
@@ -40,7 +40,7 @@ them. So, why not using them ?
 In your `~/.Xmodmap` file, this is as easy as adding the following line
 
 
-```
+```ini
 keycode 66 = F13
 ```
 

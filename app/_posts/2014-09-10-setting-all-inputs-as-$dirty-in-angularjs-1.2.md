@@ -36,7 +36,7 @@ through each form in the scope, and trigger each field validation in this form
 through the `setViewValue` hack explained above. It will also handle nested
 forms.
 
-```js
+```javascript
 function setAllInputsDirty(scope) {
   _.each(scope, function(value, key) {
     // We skip non-form and non-inputs

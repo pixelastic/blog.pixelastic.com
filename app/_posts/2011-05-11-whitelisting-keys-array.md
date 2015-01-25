@@ -14,6 +14,7 @@ whitelist.
 Here is the litte snippet that does it :
 
 ```php
+<?php
 /**
 *    Keep only specified keys of the specified array. This is useful to whitelist an array of parameters.
 *    \param    $array        Original array
@@ -22,5 +23,6 @@ Here is the litte snippet that does it :
 function array_whitelist($array, $whitelist = array()) {
   return array_intersect_key($array, array_flip($whitelist));
 }
+?>
 ```
 

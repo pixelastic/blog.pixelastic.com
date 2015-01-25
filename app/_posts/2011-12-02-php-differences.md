@@ -9,11 +9,13 @@ Just found this weird little behavior of PHP today :
 
 
 ```php
+<?php
 $a = false;
 $b = true;
 $c = $a OR $b;
 $d = ($a OR $b);
 var_dump(compact('a', 'b', 'c', 'd'));
+?>
 array(4) {
   ["a"]=>    bool(false)
   ["b"]=>    bool(true)

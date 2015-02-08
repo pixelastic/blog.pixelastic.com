@@ -38,7 +38,7 @@ didn't even see.
 
 ## Continuous integration
 
-Laurent Denis and Elie Slo誰m told us that accessibility should not be thought
+Laurent Denis and Elie Sloïm told us that accessibility should not be thought
 as the last part of a project, the one we do the day before launch. It has to
 be taken into account for the very start of the project, in the conception
 phase, and not at the end, as a correction phase.

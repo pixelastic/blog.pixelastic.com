@@ -9,8 +9,7 @@ Here is a little script I hacked together to display in your terminal all the
 colors available in the 256 color spectrum, as well as a visual representation
 of them.
 
-![Screenshot of spectrum output](http://s3.pixelastic.com/files/2012/09/06
-/504834cb-df14-4fa6-a08c-763445a3e447/spectrum2.png)
+![Screenshot of spectrum output](/img/files/spectrum.png)
 
 The `oh-my-zsh` project actually ships with a method named `spectrum` that
 does pretty much the same thing, but I found that it was hard to actually get

@@ -1,0 +1,46 @@
+@import '_config';
+
+/**
+ * SEARCH
+ * 1. We must force a z-index higher than the one in the footer. And for the
+ *    z-index to be taken, it needs to be on an element with a position
+ *    (relative/absolute/fixed) set.
+ **/
+.sidebar-search {
+  margin-top:1rem;
+  position:relative; /* 1 */
+  z-index:$zIndex-5--sidebar-search; /* 1 */
+  a {
+    color:$text-color;
+  }
+  @media(max-width: $width-base-page) {
+    // Hide search for non-desktop for now
+    display:none;
+  }
+}
+.sidebar-search-input {
+  padding:10px;
+  color:$text-color;
+  outline:none;
+  width:100%;
+  border:none;
+}
+
+// Show search results when search is enabled
+.content-search {
+  display:none;
+  .search-enabled & {
+    display:block;
+  }
+}
+.content-display {
+  .search-enabled & {
+    display:none;
+  }
+}
+
+// Highlight results
+.search-highlight {
+  background: yellow;
+  color:inherit;
+}

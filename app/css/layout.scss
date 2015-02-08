@@ -168,48 +168,6 @@
 }
 
 
-/**
- * SEARCH
- * 1. We must force a z-index higher than the one in the footer. And for the
- *    z-index to be taken, it needs to be on an element with a position
- *    (relative/absolute/fixed) set.
- **/
-.sidebar-search {
-  margin-top:1rem;
-  position:relative; /* 1 */
-  z-index:$zIndex-5--sidebar-search; /* 1 */
-  a {
-    color:$text-color;
-  }
-  @media(max-width: $width-base-page) {
-    // Hide search for non-desktop for now
-    display:none;
-  }
-}
-.sidebar-search-input {
-  padding:10px;
-  color:$text-color;
-  outline:none;
-  width:100%;
-  border:none;
-}
-.sidebar-search-suggestion {
-  display:block;
-  background:white;
-  padding:5px;
-  border-bottom:1px solid $grey-lightest;
-  border-right:1px solid $grey-lightest;
-  border-left:1px solid $grey-lightest;
-  cursor:pointer;
-  font-size:0.8rem;
-  &:hover, &.steppe-suggestion-selected {
-    text-decoration:none;
-    background:$grey-lightest;
-  }
-}
-.sidebar-search-suggestion:first-child {
-  border-top:1px solid $grey-lightest;
-}
 
 /**
  * FOOTER

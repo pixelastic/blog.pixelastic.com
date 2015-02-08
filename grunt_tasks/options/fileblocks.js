@@ -17,6 +17,7 @@ module.exports = {
         prefix: '/js',
         src: [
           'zepto.min.js',
+          'moment.js',
           'lodash.min.js',
           'algoliasearch.min.js',
           'steppe.js',

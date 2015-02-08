@@ -18,7 +18,11 @@ module.exports = function(grunt) {
     // Getting all posts
     var posts = _.map(src, function(post) {
       var data = grunt.file.readJSON(post);
+      // Setting a unique id for Algolia
       data.objectID = data.id;
+      // Saving escaped title
+      data.title_escaped = _.escape(data.title);
+
       return data;
     });
 

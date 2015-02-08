@@ -3,24 +3,43 @@
 (function() {
   var algolia = new AlgoliaSearch('O3F8QXYK6R', '6a027258345c8a569385505b041e6dec');
   var index = algolia.initIndex('pixelastic_blog_posts');
-  var input = $('#sidebar-search-input');
-  var form = $('#sidebar-search-form');
-  var template = $('#sidebar-search-suggestion-template').html();
+  var content = $('#content');
+  var searchInput = $('#sidebar-search-input');
+  var searchResults = $('#search-results');
+  var templateEmpty = $('#search-results-empty-template').html();
+  var templatePost = $('#search-results-post-template').html();
 
   // Used to find all suggestion for a given input
-  function find(input, callback) {
-    if (!input) {
+  function find(query, callback) {
+    if (!query) {
+      content.removeClass('search-enabled');
       callback();
       return;
     }
-    index.search(input, function(success, content) {
-      callback(content.hits);
+    index.search(query, function(success, results) {
+      content.addClass('search-enabled');
+      // Empty results
+      if (results.nbHits === 0) {
+        searchResults.html(templateEmpty);
+        return;
+      }
+
+      callback(results.hits);
     });
   }
 
   // Used to render a suggestion in the dropdown list
   function render(suggestion) {
-    return _.template(template, suggestion);
+    function getHighlight(key) {
+      return suggestion._highlightResult[key].value;
+    }
+    var props = {
+      title: getHighlight('title_escaped'),
+      content: getHighlight('html'),
+      url: suggestion.url,
+      date: moment(suggestion.date, 'X').format('D MMM YYYY')
+    };
+    return _.template(templatePost, props);
   }
 
   // Used to display the currently selected suggestion in the input field
@@ -28,20 +47,12 @@
     return suggestion.title;
   }
 
-  // Triggered when submitting the form
-  function submitForm(event) {
-    event.preventDefault();
-    if (!Steppe._private.selected || !Steppe._private.selected.url) {
-      return;
-    }
-    document.location.href = Steppe._private.selected.url;
-  }
-
   var options = {
+    mode: 'fulltext',
+    output: searchResults,
     find: find,
     render: render,
     val: val
   };
-  Steppe.init(input, options);
-  form.on('submit', submitForm);
+  Steppe.init(searchInput, options);
 })();

@@ -28,7 +28,7 @@ module Jekyll
         'title' => post_data['title'],
         'url' => site.config['url'] + post_data['id'] + '/',
         'tags' => post_data['tags'],
-        'date' => post_data['date'],
+        'date' => post_data['date'].to_i,
         'html' => post.transform,
         'markdown' => post_data['content']
       }

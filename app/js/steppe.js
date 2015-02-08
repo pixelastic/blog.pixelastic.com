@@ -1,7 +1,9 @@
 window.Steppe = (function() {
-  var $ = Zepto || jQuery;
+  var $ = Zepto;
   var _private;
   var defaultOptions = {
+    mode: 'dropdown',
+    output: null,
     find: function(input, callback) {
       callback();
     },
@@ -9,7 +11,7 @@ window.Steppe = (function() {
       return '<div class="steppe-suggestion">' + suggestion + '</div>';
     },
     val: function(suggestion) {
-      return suggestion.toString();
+      return suggestion.toString ? suggestion.toString() : null;
     }
   };
   var KEYCODES = {
@@ -30,9 +32,9 @@ window.Steppe = (function() {
 
   function renderWrapper() {
     if (_private.suggestions.length > 0) {
-      _private.suggestionWrapper.show();
+      _private.options.output.show();
     } else {
-      _private.suggestionWrapper.hide();
+      _private.options.output.hide();
     }
   }
 
@@ -41,11 +43,14 @@ window.Steppe = (function() {
     _private.suggestions = userSuggestions;
 
     var content = _.map(userSuggestions, _private.options.render).join('');
-    _private.suggestionWrapper.html(content);
+    _private.options.output.html(content);
     renderWrapper();
   }
 
   function selectNextSuggestion() {
+    if (_.isEmpty(_private.suggestions)) {
+      return;
+    }
     var currentSelectedIndex = _private.selectedIndex;
     if (currentSelectedIndex === null) {
       currentSelectedIndex = 0;
@@ -56,6 +61,9 @@ window.Steppe = (function() {
   }
 
   function selectPreviousSuggestion() {
+    if (_.isEmpty(_private.suggestions)) {
+      return;
+    }
     var currentSelectedIndex = _private.selectedIndex;
     if (currentSelectedIndex === null) {
       currentSelectedIndex = _private.suggestions.length - 1;
@@ -90,7 +98,7 @@ window.Steppe = (function() {
 
     moveCaretAtEnd();
 
-    var children = _private.suggestionWrapper.children();
+    var children = _private.options.output.children();
     children.removeClass('steppe-suggestion-selected');
     $(children[index]).addClass('steppe-suggestion-selected');
   }
@@ -131,7 +139,7 @@ window.Steppe = (function() {
 
   function onFocusOut() {
     _.delay(function() {
-      _private.suggestionWrapper.hide();
+      _private.options.output.hide();
     }, 100);
   }
 
@@ -142,21 +150,45 @@ window.Steppe = (function() {
       suggestions: [],
       selected: null,
       selectedIndex: null,
-      options: _.defaults({}, initOptions, defaultOptions),
-      suggestionWrapper: $('<div class="steppe-wrapper"></div>')
+      options: _.defaults({}, initOptions, defaultOptions)
     };
     this._private = _private;
+
+    // Dropdown mode
+    if (_private.options.mode === 'dropdown') {
+      initDropdownMode();
+    }
+
+    // Fulltext mode
+    if (_private.options.mode === 'fulltext') {
+      initFulltextMode();
+    }
 
     // Disable native browser dropdown suggestion list
     _private.input.attr('autocomplete', 'off');
 
     _private.input.on('input', onInput);
+  }
+
+  function initDropdownMode() {
     _private.input.on('keydown', onKeyDown);
     _private.input.on('mousewheel', onMouseWheel);
     _private.input.on('focusout', onFocusOut);
     _private.input.on('focus', renderWrapper);
 
-    _private.input.after(_private.suggestionWrapper.hide());
+    // default suggestion wrapper if none set
+    if (!_private.options.output) {
+      _private.options.output = $('<div class="steppe-wrapper"></div>');
+    }
+    _private.input.after(_private.options.output.hide());
+  }
+
+  function initFulltextMode() {
+    var output = _private.options.output;
+    // an output element must be set
+    if (!output || output.length === 0) {
+      throw new TypeError('You must pass an \'output\' element when in fulltext mode');
+    }
   }
 
   return {

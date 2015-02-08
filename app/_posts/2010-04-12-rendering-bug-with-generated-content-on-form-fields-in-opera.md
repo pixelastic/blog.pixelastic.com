@@ -35,4 +35,3 @@ on transparent background.
 
 I sent a bug report to Opera about that.
 
-![Opera, input  generated content bug](files/2010/04/12/4bc2f9103d4c2.jpg)

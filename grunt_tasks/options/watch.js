@@ -22,7 +22,7 @@ module.exports = {
   sass: {
     files: 'app/css/*.scss',
     tasks: [
-      'newer:sass:devAppToTmp',
+      'sass:devAppToTmp',
       'newer:autoprefixer:watchTmpToDist'
     ]
   },

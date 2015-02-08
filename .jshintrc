@@ -17,10 +17,11 @@
   "unused": true,
   "strict": true,
   "globals": {
-    "_"          : false,
+    "$": false,
     "AlgoliaSearch": false,
     "Steppe": false,
-    "$": false
+    "_" : false,
+    "moment": false
   }
 }
 

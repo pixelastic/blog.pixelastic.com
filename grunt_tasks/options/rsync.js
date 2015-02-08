@@ -24,6 +24,7 @@ module.exports = {
     options: {
       src: [
         'bower_components/zepto/zepto.min.js',
+        'bower_components/moment/moment.js',
         'bower_components/lodash/dist/lodash.min.js',
         'bower_components/algoliasearch/dist/algoliasearch.min.js'
       ],
@@ -112,6 +113,7 @@ module.exports = {
     options: {
       src: [
         'bower_components/zepto/zepto.min.js',
+        'bower_components/moment/moment.js',
         'bower_components/lodash/dist/lodash.min.js',
         'bower_components/algoliasearch/dist/algoliasearch.min.js'
       ],

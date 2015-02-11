@@ -112,7 +112,18 @@ window.Steppe = (function() {
     _private.value = _private.input.val();
     _private.selected = null;
     _private.selectedIndex = null;
-    _private.options.find(_private.value, displaySuggestions);
+
+    // We make sure to never render results that are too old. We count the
+    // number of find we launch, and keep track of the last find we displayed.
+    // We never display a result older than the latest we've displayed.
+    var firedFindIndex = ++_private.firedFindCount;
+    _private.options.find(_private.value, function(suggestions) {
+      if (firedFindIndex < _private.lastRenderedFind) {
+        return;
+      }
+      _private.lastRenderedFind = firedFindIndex;
+      displaySuggestions(suggestions);
+    });
   }
 
   function onKeyDown(event) {
@@ -150,6 +161,8 @@ window.Steppe = (function() {
       suggestions: [],
       selected: null,
       selectedIndex: null,
+      firedFindCount: 0,
+      lastRenderedFind: 0,
       options: _.defaults({}, initOptions, defaultOptions)
     };
     this._private = _private;

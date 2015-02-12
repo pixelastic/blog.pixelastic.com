@@ -10,6 +10,7 @@
   "funcscope": false,
   "globals": {
     "$": false,
+    "AlgoliaSearch": true,
     "Steppe": false,
     "Zepto": false,
     "_": true,

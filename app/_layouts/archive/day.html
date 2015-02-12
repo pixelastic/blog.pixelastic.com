@@ -4,7 +4,7 @@ id: archive-day
 ---
 
 <div class="archive">
-  <h1>Archive of {{ page.month | date: "%B" }} {{ page.day }}, {{ page.year }}</h1>
+  <h1 class="page-title">Archive of {{ page.month | date: "%B" }} {{ page.day }}, {{ page.year }}</h1>
   <ul class="archive-list">
     {% for post in page.posts %}
     <li> 

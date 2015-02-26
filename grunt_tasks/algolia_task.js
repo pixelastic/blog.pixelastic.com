@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     var options = this.options();
     if (!options.applicationId || !options.apiKey || !options.indexName) {
       console.log('Algolia credentials not set.');
-      done();
+      done(false);
       return;
     }
 

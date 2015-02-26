@@ -8,7 +8,7 @@ I'm using [Pocket](http://getpocket.com/) a lot. Whenever I find an interesting
 link, I add it to pocket to read it later. Then, whenever I have to take the
 subway, or wait in a queue, I read the latest articles I added.
 
-Pocket delivered a nice uncluttered API that lets you focus on what you're
+Pocket delivers a nice uncluttered API that lets you focus on what you're
 reading, and remember where you were in an article so you can easily continue
 where you left off.
 
@@ -28,8 +28,8 @@ What I did is convert the page I want to add to Pocket to markdown, then upload
 this page online to a service that will convert it back to html. I'm actually
 only doing a `html > markdown > html` conversion, and it just works.
 
-You first need to grab your file using `wget`, than convert it to markdown (I
-personnaly use this this [python
+You first need to grab your file (`wget`), than convert it to markdown (I
+personnaly use this [python
 script](http://www.aaronsw.com/2002/html2text/html2text.py)). The final step is
 simply to upload it to a service that can format markdown, like
 [NoteHub](https://www.notehub.org/) or [GitHub

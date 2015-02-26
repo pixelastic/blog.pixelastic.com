@@ -21,7 +21,11 @@ module.exports = function(grunt) {
       // Setting a unique id for Algolia
       data.objectID = data.id;
       // Saving escaped title
-      data.title_escaped = _.escape(data.title);
+      data.titleEscaped = _.escape(data.title);
+      
+      // Removing videos from html returned
+      var videoPattern = /<iframe(.*)src="([^ ]*)"(.*)<\/iframe>/g;
+      data.html = data.html.replace(videoPattern, '<a href="$2" target="_blank">Voir la vidéo</a>');
 
       return data;
     });
@@ -33,6 +37,7 @@ module.exports = function(grunt) {
       if (err) {
         console.log('Error clearing the index');
         console.log(data);
+        done(false);
         return;
       }
       console.log('Indexing ' + posts.length + ' items');
@@ -40,6 +45,7 @@ module.exports = function(grunt) {
         if (err) {
           console.log('Error adding posts');
           console.log(data);
+          done(false);
           return;
         }
         done();

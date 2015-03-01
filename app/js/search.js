@@ -34,7 +34,7 @@
       return suggestion._highlightResult[key].value;
     }
     var props = {
-      title: getHighlight('title_escaped'),
+      title: getHighlight('titleEscaped'),
       content: getHighlight('html'),
       url: suggestion.url,
       date: moment(suggestion.date, 'X').format('D MMM YYYY')

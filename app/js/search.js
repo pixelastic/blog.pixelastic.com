@@ -39,8 +39,26 @@
       url: suggestion.url,
       date: moment(suggestion.date, 'X').format('D MMM YYYY')
     };
+
+    scrollToFirstMatch();
+
     return _.template(templatePost, props);
   }
+  
+  // Scroll to first highlighted word
+  // Debounced so it won't be called too fast and too often
+  var scrollToFirstMatch = _.debounce(function() {
+    var highlight = $('strong.search-highlight')[0];
+    if (!highlight) {
+      return;
+    }
+    var elementOffset = highlight.getBoundingClientRect().top + window.pageYOffset;
+    var elementHeight = $(highlight).height();
+    var windowHeight = $(window).height();
+    var scrollOffset = elementOffset - windowHeight/2 - elementHeight/2;
+
+    window.scroll(0, scrollOffset);
+  }, 100, { trailing: true });
 
   // Used to display the currently selected suggestion in the input field
   function val(suggestion) {

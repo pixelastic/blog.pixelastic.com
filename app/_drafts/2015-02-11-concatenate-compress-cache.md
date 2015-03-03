@@ -5,30 +5,30 @@ tags: webperf, grunt, gzip, cache, http
 ---
 
 When trying to optimize the performance of your website, there are three main
-elements that should be on your top priority list. Three very easy to implement
+elements that should be on your top priority list. Three very easy-to-implement
 steps that can have a great impact on your website load time.
 
 These three methods are named concatenation, compression and cache. I've
-already talked about them a [previous
+already talked about them in a [previous
 talk](https://www.youtube.com/watch?v=ecc1zudWmX4) (in French), but we'll now
 cover them in full detail.
 
 ## Concatenate
 
 The main goal of concatenation is to merge several files of the same type in
-one final file. Doing so will allow us to transfer less files on the wire. CSS
-and JavaScript files are the one that yields the better results.
+one final file. Doing so will allow us to transfer less files over the wire.
+CSS and JavaScript files are the one that yields the better results.
 
 The nature of downloading assets itself makes your browser pay some costs on
-every request. This costs of lost milliseconds adds up, and can be of several
-causes:
+every request, and in the end all those lost milliseconds adds up. Let's have
+a look at the different costs we're paying:
 
 ### TCP Slow start
 
 TCP is the underlying protocol used by HTTP. It uses a mechanism known as
 slow-start to get to the optimal transfer speed. To do so, it must do a few
 round trips between the client and the server, sending more and more data,
-until some is dropped, in order to get the maximum possible sending/receiving
+until some are dropped, in order to get the maximum possible sending/receiving
 throughput.
 
 If we send a lot of small files, the mechanism never has time to reach the
@@ -45,8 +45,8 @@ parallel connection your server can handle.
 ### SSL
 
 Similarly, the same kind of cost is paid when serving the site using `https`.
-In order to prove that both client and server really are who they claim they
-are, an exchange of keys is done through a secure handshake. Once again, the
+In order to prove that both client and server really are who they claiming to
+be, an exchange of keys is done through a secure handshake. Once again, the
 cost of the handshake is paid on each downloaded asset. Putting all your files
 in one lets you pay the cost only one.
 
@@ -61,7 +61,7 @@ This means that if you ask your browser to download 5 stylesheets, 5 scripts
 and 10 images, it will only launch the download of the 12 first
 elements. The 13th asset download will only be started once one of the 12th
 first will be finished. Once again, grouping your files together will
-allow you to have more open channels that will be used to download important
+allow you to have more opened channels that will be used to download important
 assets of your page.
 
 CSS and JavaScript files can be very easily concatenated. You only have to
@@ -234,9 +234,9 @@ already have.
 
 In both cases, the server sends the freshness information again.
 
-The HTTP spec allow us to choose between two couples of headers. We can either
+The HTTP spec allows us to choose between two couples of headers. We can either
 use the `Last-Modified` / `If-Modified-Since` headers, as we just saw, or use
-Etags.
+ETags.
 
 An ETag is a unique identifier hash for a file. Whenever a file is updated, its
 ETag will change too. For example, on the first call the server will return an
@@ -245,8 +245,8 @@ again, it will send an `If-None-Match: "3e86-410-3596fbbc"` header.  The server
 will in turn compare the two ETags and either return a `304 Not Modified` if
 they are the same, or a `200 OK` with the new content if they are different.
 
-`Last-Modified` and `Etag` use very similar mechanism, but we advise you to use
-`Last-Modified` over `Etag`.
+`Last-Modified` and `ETag` use very similar mechanism, but we advise you to use
+`Last-Modified` over `ETag`.
 
 Indeed, the HTTP spec tells us that in the case of receiving both
 a `Last-Modified` and an `ETag`, the client should use the `Last-Modified`. In
@@ -260,7 +260,7 @@ different ETags for the same file. And your whole validation system will not
 work as soon as your user gets redirected to a new server.
 
 Note that nginx does not have this issue as it does not use the inode when
-generating ETags. If using Apache, you can fix it with the `FileEtag
+generating ETags. If using Apache, you can fix it with the `FileETag
 MTime Size` option, or with `etag.use-inode = "disable"` under lighttpd.
 
 ### Summary
@@ -312,7 +312,7 @@ quickly taken into account by clients.
 Old content will stay in our clients cache, but this does not matter because we
 will never request them again and unused items in cache are regularly erased.
 
-This technique is actually quite close to the `Etag` we saw earlier, with one
+This technique is actually quite close to the `ETag` we saw earlier, with one
 big difference. Here, we can choose when we want to invalidate our client
 cache.
 

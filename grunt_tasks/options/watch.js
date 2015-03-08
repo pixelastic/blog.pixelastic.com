@@ -6,14 +6,14 @@ module.exports = {
   },
   reload: {
     options: {
-      livereload: true
+      livereload: 35700
     },
     files: [
       'dist/css/*.css',
       'dist/js/*.js'
     ]
   },
-  sass_config: {
+  sassConfig: {
     files: 'app/css/_*.scss',
     tasks: [
       'sass:devAppToTmp'

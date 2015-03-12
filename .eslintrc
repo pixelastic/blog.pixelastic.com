@@ -1,0 +1,22 @@
+{
+  "ecmaFeatures": {
+  },
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-underscore-dangle": false,
+    "no-use-before-define": "nofunc",
+    "quotes": "double",
+    "strict": "global"
+  },
+  "globals" : {
+    "$": false,
+    "AlgoliaSearch": false,
+    "Steppe": false,
+    "Zepto": false,
+    "_": false,
+    "moment": false
+  }
+}
+

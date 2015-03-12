@@ -1,5 +1,3 @@
-'use strict';
-
 (function() {
   var algolia = new AlgoliaSearch('O3F8QXYK6R', '6a027258345c8a569385505b041e6dec');
   var index = algolia.initIndex('pixelastic_blog_posts');
@@ -44,7 +42,7 @@
 
     return _.template(templatePost, props);
   }
-  
+
   // Scroll to first highlighted word
   // Debounced so it won't be called too fast and too often
   var scrollToFirstMatch = _.debounce(function() {
@@ -55,7 +53,7 @@
     var elementOffset = highlight.getBoundingClientRect().top + window.pageYOffset;
     var elementHeight = $(highlight).height();
     var windowHeight = $(window).height();
-    var scrollOffset = elementOffset - windowHeight/2 - elementHeight/2;
+    var scrollOffset = elementOffset - (windowHeight / 2) - (elementHeight / 2);
 
     window.scroll(0, scrollOffset);
   }, 100, { trailing: true });

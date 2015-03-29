@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Git branch helpers"
+title: "Namespaced helpers for git branches"
 tags: git
 ---
 

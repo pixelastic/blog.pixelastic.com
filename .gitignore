@@ -11,6 +11,10 @@ _site
 # Credentials
 /grunt_tasks/options/algolia.js
 
+# Cache
+.sass-cache
+.changed-cache
+
 
 # Various junk
 .DS_Store

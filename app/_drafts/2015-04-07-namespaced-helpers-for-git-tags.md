@@ -47,9 +47,9 @@ list.
 
 ```sh
 $ git tag-list-remote
-v1.1.9                     9190a6c
-v1.1.10                    066198a
-v1.2.0                     cde09b3
+v1.1.9   9190a6c
+v1.1.10  066198a
+v1.2.0   cde09b3
 ```
 
 ```sh
@@ -143,6 +143,27 @@ to be able to specify the remote to check, have a look at the [complete ruby
 script][3] I'm using.
 
 ## Creating the `foo` tag
+
+This one will tag the current commit with the specified tag.
+
+```sh
+$ git tag-create foo
+
+$ git tag-list
+foo     Last commit message 
+v1.1.9  Version 1.1.9
+v1.1.10 Version 1.1.10
+v1.2.0  Version 1.2.0
+```
+
+```sh
+#!/usr/bin/env bash
+# git-tag-create
+git tag "$1"
+```
+
+Once again, this one is a very simple alias over the `git tag` command.
+
 
 ## Pushing the `foo` tag to the remote
 

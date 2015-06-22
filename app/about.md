@@ -22,7 +22,7 @@ knowledge.
 In the past, I've worked in small agencies, done some freelancing work, seen the
 birth and death of a startup, took a year off in New Zealand and worked as
 a consultant for [Octo Technology](http://www.octo.com/). I am currently doing
-awesome and fast stuff at [Algolia](https://www.algolia.com/)
+awesome and fast stuff at [Algolia](https://www.algolia.com/).
 
 This website is the third version of my blog, I hope you'll enjoy it.
 

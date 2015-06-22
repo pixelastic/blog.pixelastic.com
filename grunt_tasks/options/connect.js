@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-env node */
 
 module.exports = {
   options: {
@@ -13,7 +13,7 @@ module.exports = {
   },
   prod: {
     options: {
-      keepalive:true
+      keepalive: true
     }
   }
 };

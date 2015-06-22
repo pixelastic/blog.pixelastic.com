@@ -128,7 +128,7 @@
 .sidebar-nav {
   padding-left: 0;
   list-style: none;
-  margin:0;
+  margin: 0 0 1rem 0;
   // Tablets : Menu on the right, centered
   @media(max-width: $width-base-page) {
     display:table;

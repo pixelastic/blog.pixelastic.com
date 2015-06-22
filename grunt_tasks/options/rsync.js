@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-env node */
 
 module.exports = {
   options: {
@@ -23,10 +23,11 @@ module.exports = {
   devJsDependenciesToTmp: {
     options: {
       src: [
-        'bower_components/zepto/zepto.min.js',
-        'bower_components/moment/moment.js',
-        'bower_components/lodash/dist/lodash.min.js',
-        'bower_components/algoliasearch/dist/algoliasearch.min.js'
+        'bower_components/algoliasearch/dist/algoliasearch.min.js',
+        'bower_components/algoliasearch-helper/dist/algoliasearch.helper.min.js',
+        'bower_components/hogan/web/builds/3.0.2/hogan-3.0.2.min.js',
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/moment/min/moment.min.js'
       ],
       dest: 'tmp/js/src'
     }
@@ -34,8 +35,7 @@ module.exports = {
   devJsAppToTmp: {
     options: {
       src: [
-        'app/js/steppe.js',
-        'app/js/search.js'
+        'app/js/*.js'
       ],
       dest: 'tmp/js/src'
     }
@@ -108,14 +108,15 @@ module.exports = {
       dest: 'tmp/css/src'
     }
   },
-  // CSS
+  // CSS
   prodJsDependenciesToTmp: {
     options: {
       src: [
-        'bower_components/zepto/zepto.min.js',
-        'bower_components/moment/moment.js',
-        'bower_components/lodash/dist/lodash.min.js',
-        'bower_components/algoliasearch/dist/algoliasearch.min.js'
+        'bower_components/algoliasearch/dist/algoliasearch.min.js',
+        'bower_components/algoliasearch-helper/dist/algoliasearch.helper.min.js',
+        'bower_components/hogan/web/builds/3.0.2/hogan-3.0.2.min.js',
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/moment/min/moment.min.js'
       ],
       dest: 'tmp/js/src'
     }

@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-env node */
 
 module.exports = function(grunt) {
   // This will read the file specified in config and replace any reference to

@@ -1,7 +1,0 @@
-module.exports = {
-  options: {
-    applicationId: 'XXXXXX',
-    apiKey: 'XXXXXX',
-    indexName: 'XXXXXX'
-  }
-};

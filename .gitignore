@@ -9,7 +9,7 @@ _site
 /vendors
 
 # Credentials
-/grunt_tasks/options/algolia.js
+_algolia_api_key
 
 # Cache
 .sass-cache

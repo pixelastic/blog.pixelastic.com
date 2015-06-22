@@ -1,11 +1,10 @@
-'use strict';
+/* eslint-env node */
 
 module.exports = function(grunt) {
-
   grunt.registerTask('deploy', [
     'build',
-    'algolia',
-    'rsync:deployToPixelastic'
+    'rsync:deployToPixelastic',
+    'shell:jekyllAlgolia'
   ]);
 
 };

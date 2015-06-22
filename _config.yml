@@ -27,3 +27,12 @@ github:
 # Build
 timezone:         "Europe/Paris"
 encoding:         "utf-8"
+
+# Algolia
+gems:
+  - algoliasearch-jekyll
+
+algolia:
+  application_id: 'O3F8QXYK6R'
+  index_name: 'blog'
+  read_only_api_key: '6a027258345c8a569385505b041e6dec'

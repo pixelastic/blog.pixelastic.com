@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-env node */
 
 module.exports = {
   options: {
@@ -38,7 +38,7 @@ module.exports = {
       'rsync:devHtmlAppToTmp',
       'fileblocks:dev',
       'rsync:devHtmlTmpToJekyll',
-      'jekyll:dev'
+      'shell:jekyllDev'
     ]
   },
   markdown: {
@@ -48,7 +48,7 @@ module.exports = {
     ],
     tasks: [
       'rsync:devJekyllPrepare',
-      'jekyll:dev'
+      'shell:jekyllDev'
     ]
   }
 };

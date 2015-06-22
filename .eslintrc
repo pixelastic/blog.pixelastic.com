@@ -5,16 +5,22 @@
     "browser": true
   },
   "rules": {
+    "camelcase": false,
+    "key-spacing": [1, {
+      "beforeColon": false,
+      "afterColon": true
+    }],
+    "no-multi-str": false,
     "no-underscore-dangle": false,
     "no-use-before-define": "nofunc",
-    "quotes": "double",
+    "quotes": "single",
     "strict": "global"
   },
   "globals" : {
     "$": false,
-    "AlgoliaSearch": false,
-    "Steppe": false,
-    "Zepto": false,
+    "algoliasearch": false,
+    "algoliasearchHelper": false,
+    "Hogan": false,
     "_": false,
     "moment": false
   }

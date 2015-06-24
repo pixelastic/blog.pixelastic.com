@@ -59,6 +59,9 @@ $height-desktop-sidebar: 450px;
 // Breakpoint under which we consider we are on a small screen phone
 $width-phone-page: 500px;
 
+// Breakpoint where we stop displaying the search in the nav
+$width-search-min: 799px;
+
 @mixin clearfix {
   &:after {
     clear: both;

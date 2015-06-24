@@ -40,7 +40,11 @@
       </ul>
 
       <form class="algolia__form" method="POST">
-        <input type="text" class="algolia__input js-algolia__input" autocomplete="off" name="query" placeholder="Search on this site..." />
+        <div class="algolia__input-wrapper">
+          <input type="text" class="algolia__input js-algolia__input" name="query" 
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+          placeholder="Search on this site..." />
+        </div>
       </form>
 
       <label for="sidebar-checkbox" class="sidebar-toggle-menu"></label>

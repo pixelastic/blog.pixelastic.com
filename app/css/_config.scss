@@ -1,58 +1,49 @@
-@import '_oroshi';
-/**
- * COLORS
- **/
-// Definition
+@import 'oroshi';
+
+// COLORS
 $grey-lightest: #E5E5E5;
 $grey-lighter:  #F9F9F9;
 $grey-light:    #7A7A7A;
 $grey:          #515151;
 $grey-darker:   #313131;
 
-$white: #FFFFFF;
-$green: #90a959;
+$white: #FFF;
+$green: #90A959;
+$green-light: #E9EEDE;
 
 $code-background: #F9F9F9;
 $code-color: #BF616A;
-
-// Application
 $text-color: $grey;
 $background: $white;
 
-/**
- * Z-INDEX
- **/
-// Definition
-$zIndex-1: 100;
-$zIndex-2: 200;
-$zIndex-3: 300;
-$zIndex-4: 400;
-$zIndex-5: 500;
-$zIndex-6: 600;
-$zIndex-7: 700;
-$zIndex-8: 800;
-$zIndex-9: 900;
-$zIndex-10: 1000;
+// Z-INDEX
+$zindex-1: 100;
+$zindex-2: 200;
+$zindex-3: 300;
+$zindex-4: 400;
+$zindex-5: 500;
+$zindex-6: 600;
+$zindex-7: 700;
+$zindex-8: 800;
+$zindex-9: 900;
+$zindex-10: 1000;
 
-// Application
-$zIndex-1--footer: $zIndex-1;
-$zIndex-5--sidebar-search: $zIndex-5;
+$zindex-1--footer: $zindex-1;
+$zindex-5--sidebar-search: $zindex-5;
 
 
 
-/**
- * Layout principles :
- *
- * The base (or optimal) layout is for desktop use. A large content for text,
- * and a fixed sidebar on the right.
- *
- * For larger content, the sidebar will stay on the right side, with its
- * constant width, but the content will be centered in the available space.
- *
- * For smaller content (like tablets), the sidebar will become a header with
- * tabs menus, while for really small content (phones), the header will only
- * contain a menu icon.
- **/
+// Layout principles :
+//
+// The base (or optimal) layout is for desktop use. A large content for text,
+// and a fixed sidebar on the right.
+//
+// For larger content, the sidebar will stay on the right side, with its
+// constant width, but the content will be centered in the available space.
+//
+// For smaller content (like tablets), the sidebar will become a header with
+// tabs menus, while for really small content (phones), the header will only
+// contain a menu icon.
 
 // RWD breakpoints
 $width-base-sidebar: 400px;
@@ -70,8 +61,8 @@ $width-phone-page: 500px;
 
 @mixin clearfix {
   &:after {
-    content:"";
-    display:table;
-    clear:both;
+    clear: both;
+    content: '';
+    display: table;
   }
 }

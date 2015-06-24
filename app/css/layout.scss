@@ -1,167 +1,175 @@
-@import '_config';
+@import 'config';
 
 .layout {
-  margin-right:$width-base-sidebar;
+  margin-right: $width-base-sidebar;
   // Not enough space to fit sidebar and content, we make the content take all
   // the width available
   @media(max-width: $width-base-page) {
-    margin-right:0;
-    margin-top:$height-tablet-header;
-  }
-}
-.content {
-  max-width:$width-base-content;
-  padding: 2rem 1rem;
-  margin:0 auto;
-  // Tablets: Reducing top padding
-  @media(max-width: $width-base-page) {
-    padding-top:2rem;
+    margin-right: 0;
+    margin-top: $height-tablet-header;
   }
 }
 
-/**
- * SIDEBAR
- **/
+.content {
+  margin: 0 auto;
+  max-width: $width-base-content;
+  padding: 2rem 1rem;
+  // Tablets: Reducing top padding
+  @media(max-width: $width-base-page) {
+    padding-top: 2rem;
+  }
+}
+
+// SIDEBAR
 .sidebar {
-  position: fixed;
-  top: 0;
-  right:0;
-  bottom: 0;
-  width:$width-base-sidebar;
-  padding:2rem;
-  text-align: center;
-  color: rgba(255,255,255,.5);
   background-color: $green;
+  bottom: 0;
+  color: rgba(255, 255, 255, .5);
+  padding: 2rem;
+  position: fixed;
+  right: 0;
   text-align: left;
+  top: 0;
+  width: $width-base-sidebar;
   // Tablets : putting sidebar as a header
   @media(max-width: $width-base-page) {
-    padding: .5rem 1rem;
     bottom: auto;
-    left: 0;
-    width: auto;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, .7);
     height: $height-tablet-header;
-    box-shadow: 0 5px 15px rgba(255,255,255,.7);
+    left: 0;
+    padding: .5rem 1rem;
+    width: auto;
   }
+
   a {
     color: $white;
   }
 }
+
 .sidebar-about {
   // Tablets: Hiding lead, centering title
   @media(max-width: $width-base-page) {
-    display:table;
-    float:left;
-    height:100%;
+    display: table;
+    float: left;
+    height: 100%;
+
     .lead {
-      display:none;
+      display: none;
+    }
+  }
+
+  h1 {
+    color: $white;
+    font-family: 'AmaranthBold';
+    font-size: 3.25rem;
+    margin-top: 0;
+    // Tablets: Centering title
+    @media(max-width: $width-base-page) {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    // Phones : Reducing title size
+    @media(max-width: $width-phone-page) {
+      font-size: 3rem;
+    }
+
+    a:hover {
+      text-decoration: none;
     }
   }
 }
-.sidebar-about h1 {
-  margin-top: 0;
-  font-family: "AmaranthBold";
-  font-size: 3.25rem;
-  color: $white;
-  // Tablets: Centering title
-  @media(max-width: $width-base-page) {
-    display:table-cell;
-    vertical-align:middle;
-  }
-  // Phones : Reducing title size
-  @media(max-width: $width-phone-page) {
-    font-size:3rem;
-  }
-  a:hover {
-    text-decoration:none;
-  }
-}
 
-
-/**
- * SIDEBAR NAV
- **/
+// SIDEBAR NAV
 .sidebar-checkbox {
   // Always hide the checkbox
-  display:none;
+  display: none;
   // If checked, display the nav
   @media(max-width: $width-phone-page) {
     &:checked + .sidebar-nav {
-      display:block;
+      display: block;
     }
   }
 }
+
 .sidebar-toggle-menu {
   // Menu icon for small phones
-  display:none;
+  display: none;
   @media(max-width: $width-phone-page) {
-    display:block;
-    position:absolute;
-    top:0;
-    right:0;
-    height:$height-tablet-header;
-    width:4rem;
-    cursor:pointer;
+    cursor: pointer;
+    display: block;
+    height: $height-tablet-header;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 4rem;
   }
   // Displaying a menu icon using before/after borders
   &:before,
   &:after {
-    content:"";
-    display:block;
-    position:absolute;
-    box-sizing:border-box;
-    width:2rem;
-    right:1rem;
+    box-sizing: border-box;
+    content: '';
+    display: block;
+    position: absolute;
+    right: 1rem;
+    width: 2rem;
   }
+
   &:before {
-    border-top:6px solid white;
-    border-bottom:6px solid white;
-    height:16px;
-    top:50%;
-    margin-top:-13px;
+    border-bottom: 6px solid $white;
+    border-top: 6px solid $white;
+    height: 16px;
+    margin-top: -13px;
+    top: 50%;
   }
+
   &:after {
-    border-top:6px solid white;
-    top:50%;
-    margin-top:7px;
+    border-top: 6px solid $white;
+    margin-top: 7px;
+    top: 50%;
   }
 }
+
 .sidebar-nav {
-  padding-left: 0;
   list-style: none;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem;
+  padding-left: 0;
   // Tablets : Menu on the right, centered
   @media(max-width: $width-base-page) {
-    display:table;
-    float:right;
-    height:100%;
-    font-size:1.25rem;
+    display: table;
+    float: right;
+    font-size: 1.25rem;
+    height: 100%;
   }
   // Phones : Overlay with big links on click on menu
   @media(max-width: $width-phone-page) {
-    display:none;
-    position:absolute;
-    top:$height-tablet-header;
-    right:0;
-    left:0;
-    height:auto;
-    background:$green;
+    background: $green;
+    display: none;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: $height-tablet-header;
   }
 }
+
 .sidebar-nav-item {
   display: block;
   // Tablets : Centering menu elements
   @media(max-width: $width-base-page) {
-    display:table-cell;
-    vertical-align:middle;
+    display: table-cell;
+    vertical-align: middle;
+
     a {
-      padding:1rem;
-      display:block;
+      display: block;
+      padding: 1rem;
     }
   }
+
   &:hover,
   &:focus {
     text-decoration: underline;
   }
+
   &.active {
     font-weight: bold;
   }
@@ -169,25 +177,24 @@
 
 
 
-/**
- * FOOTER
- * 1. Should be lower than the one in sidebar-search.
- **/
+// FOOTER
+// 1. Should be lower than the one in sidebar-search.
 .footer {
   // Hide footer if not enough space to display it
   @media(max-height: $height-desktop-sidebar) {
-    display:none;
+    display: none;
   }
-  color: rgba(255,255,255,.5);
-  text-align:center;
-  font-size:0.8rem;
-  width:$width-base-sidebar;
-  position:fixed;
-  bottom:0;
-  right:0;
-  z-index:$zIndex-1--footer; /* 1 */
+  bottom: 0;
+  color: rgba(255, 255, 255, .5);
+  font-size: .8rem;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  width: $width-base-sidebar;
+  z-index: $zindex-1--footer; // 1
+
   a {
-    color:white;
+    color: $white;
   }
 }
 

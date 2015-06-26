@@ -1,11 +1,11 @@
-@import '_config';
+@import 'config';
 
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 20px;
   line-height: 1.5;
   // Make the font smaller on smaller screens
@@ -15,6 +15,7 @@ html {
 }
 
 body {
-  color: $text-color;
   background-color: $white;
+  color: $text-color;
+  overflow-y: scroll;
 }

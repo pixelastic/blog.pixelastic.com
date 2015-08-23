@@ -21,7 +21,7 @@ module.exports = {
       stderr: false
     },
     command: 'ALGOLIA_API_KEY="' + algoliaApiKey + '" \
-             jekyll algolia push \
+             bundle exec jekyll algolia push \
              --source tmp/jekyll \
              --destination dist/ \
              --config _config.yml'

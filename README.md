@@ -4,15 +4,15 @@ This repository holds all the content of my personal blog.
 
 ## Jekyll and Hyde
 
-It is build using the static website generator Jekyll and the Hyde theme, by
-@mdo.
+It is build using the static website generator Jekyll and is inspired by the
+Hyde theme, by @mdo.
 
 ## Previous versions
 
 This is the third iteration of my blog. I kept the content but updated both the
 theme and the underlying technology. Version 2 was based on cakePHP, but
 I decided to try the static generation adventure, hoping it will help me blog
-more often.
+more often. And so far, it worked.
 
 ## GitHub
 
@@ -22,11 +22,11 @@ workflow now involves `git`, it seems a natural evolution.
 
 ## Build process
 
-All the jekyll processing is done through `grunt-jekyll`. The full website is
+All the jekyll processing is done through `grunt`. The full website is
 build using `grunt build` and is then uploaded on the webserver with `rsync`.
-The full deploy script is in `./scripts/deploy`.
 
-One can locally serve the build output using `grunt serve`.
+One can locally serve the build output using `grunt serve`, and deploy it online
+with `grunt deploy`.
 
 ## Development process
 
@@ -39,10 +39,4 @@ only includes the 10 last posts (and drafts) and enable livereload.
 
 ## Todo
 
-- More colors for code blocks
-- cache headers
-- FOUT
-- Using grunt-rsync to deploy
 - Comments
-- Images from v2
-- UnCSS

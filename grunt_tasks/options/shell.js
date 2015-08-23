@@ -3,7 +3,7 @@
 var algoliaApiKey = require('grunt').file.read('./_algolia_api_key').trim();
 module.exports = {
   jekyllDev: {
-    command: 'jekyll build \
+    command: 'bundle exec jekyll build \
                --source tmp/jekyll \
                --destination dist/ \
                --config _config.yml \
@@ -11,7 +11,7 @@ module.exports = {
                --limit_posts 30'
   },
   jekyllProd: {
-    command: 'jekyll build \
+    command: 'bundle exec jekyll build \
                --source tmp/jekyll \
                --destination dist/ \
                --config _config.yml'

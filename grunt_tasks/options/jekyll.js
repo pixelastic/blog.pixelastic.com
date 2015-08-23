@@ -3,7 +3,8 @@
 /* jshint camelcase: false */
 module.exports = {
   options: {
-    config: '_config.yml'
+    config: '_config.yml',
+    bundleExec: true
   },
   dev: {
     options: {

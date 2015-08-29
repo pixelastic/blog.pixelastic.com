@@ -44,9 +44,10 @@ Other shells (with names like `ksh`, `zsh` or `fish`) also exists and provide
 different features than `bash`. 
 
 If you're writing shell scripts, different shells are like different scripting
-languages (but they do share a common basis and are all mostly
-`bash`-compatible). In your everyday life though, what a different shell might
-bring you is clever tab-completion, output coloring, smart aliases, etc.
+languages (but they do share a common basis and most Unix shells you'll find
+today are `bash`-compatible). In your everyday life though, what a different
+shell might bring you is clever tab-completion, output coloring, smart aliases,
+etc.
 
 I'm personnally using `zsh`. It offers a really nice tab-completion (even through
 distant `ssh` connections), and let me greatly configure what my prompt looks

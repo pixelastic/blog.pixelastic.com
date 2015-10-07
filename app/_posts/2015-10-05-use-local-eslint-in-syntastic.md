@@ -19,7 +19,7 @@ the global one.
 The code takes advantage of the fact that every locally installed binary can be
 found in `./node_modules/.bin`.
 
-```shell
+```sh
 #!/usr/bin/env zsh
 
 local npm_root=$(npm root)
@@ -49,7 +49,7 @@ whitespace from a vim string, and in my case the `system` call was returning
 a trailing weird `^@` char.
 
 ```vim
-function! StrTrim(txt) " {{{
+function! StrTrim(txt)
   return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 endfunction
 ```

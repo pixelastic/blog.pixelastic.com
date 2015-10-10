@@ -22,9 +22,9 @@ found in `./node_modules/.bin`.
 ```sh
 #!/usr/bin/env zsh
 
-local npm_root=$(npm root)
+local npm_bin=$(npm bin)
 local bin_name=$1
-local local_path="${npm_root}/.bin/${bin_name}"
+local local_path="${npm_bin}/${bin_name}"
 
 [[ -f $local_path ]] && echo $local_path && return
 
@@ -57,8 +57,13 @@ endfunction
 I can now use different `eslint` versions and configurations, directly in vim,
 depending on the current project I'm working on.
 
+Edit: [Matthew Smith][5] packed all this into one [neat Syntastic plugin][6].
+Thanks Matthew!
+
 
 [1]: https://github.com/scrooloose/syntastic
 [2]: https://github.com/bbatsov/rubocop
 [3]: http://eslint.org/
 [4]: https://github.com/pixelastic/oroshi/blob/master/scripts/bin/npm-which
+[5]: https://twitter.com/mtscout6
+[6]: https://github.com/mtscout6/syntastic-local-eslint.vim

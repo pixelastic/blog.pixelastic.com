@@ -11,6 +11,8 @@ The memory I talked about had nothing to do with RAM, but with the memory inside
 our brain. I read a book named _Moonwalking with Einstein_, by Joshua
 Foer and wanted to share what I learned from it.
 
+![Moonwalking with Einstein](/img/files/2015-10-16/moonwalking.jpg)
+
 It tells the story of a journalist that met a memory champion. Like me, he did
 not know that there were memory contests, and that one could become a champion
 of it. Nevertheless, he learned several techniques from this champion and in
@@ -18,6 +20,8 @@ one year was able to enter the world contest himself.
 
 The book is really easy to read, it flows like a novel. But everytime a new
 technique was explained, I tried it on my own brain, to see if this was working.
+
+## Mental images
 
 The first one is not a technique in itself. It's the main brick upon which
 all other techniques are based. The idea is to understand what our brain
@@ -37,6 +41,8 @@ that never happened. You can close your eyes and imagine that a giant dinosaure
 is walking down your street, breathing fire and burning buildings. This never
 happens (and never will), but you can picture it. In a few days you might even
 remember it.
+
+## Memory palace
 
 The first real technique is called the Memory Palace. It uses one
 more thing for which our brain is very powerful: spatial representation. You
@@ -65,6 +71,8 @@ try. The first time I did it I was able to remember a list of 20 elements easily
 (my appartement is not that big, you can put several elements per room). The
 best part is that I still remembered the list months later.
 
+## Spaced repetition
+
 The second technique is called spaced repetition and is a way to not forget what
 you learn. We've all experienced it before. On an exam eve, you
 stay up late and learn as much as you can in a short time. You
@@ -74,6 +82,8 @@ everything.
 This happens because your short term memory will disappear if you do not call
 it. The spaced repetition technique lets you remember things right before you
 forgot them. I personnally use the AnkiDroid application for that.
+
+![Anki](/img/files/2015-10-16/anki-03.png)
 
 You create (or download) a deck of cards on a subject (all
 the countries of the world and their flags for example). Each card of the deck
@@ -87,7 +97,7 @@ then a week, a month, etc. But if you're wrong it will ask you again in
 10mn until you got it right. Everyday it will add a few new cards to the one
 you've already seen.
 
-The oe you've trouble remembering will keep popping day after day until you
+The one you've trouble remembering will keep popping day after day until you
 remember them. The one you remember easily will not be asked often. 
 
 The best thing is not even that this works well, it's that it is really fun to
@@ -99,6 +109,8 @@ I would have loved to have known this technique when I was still a student. This
 would have made my learning so much quicker and enjoyable. Knowing this
 technique I am now confident that I can learn anything, given enough time, and
 without pain.
+
+## Conclusion
 
 This book told me how to write stuff to my brain so I can easily pull it later.
 To be honest I rarely use this technique. I do my shopping online and can always

@@ -4,6 +4,11 @@
   "description": "Tim Carry's personnal blog",
   "author": "Tim \"pixelastic\" Carry",
   "private": true,
+  "scripts":  {
+    "build": "grunt build",
+    "serve": "grunt serve",
+    "deploy": "grunt deploy"
+  },
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com:pixelastic/blog.pixelastic.com.git"

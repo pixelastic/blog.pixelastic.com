@@ -31,7 +31,7 @@ testing. I find it easier to fuzzy-find them that way.
 
 Here is a stripped down example of what my test file looks like:
 
-```javascript
+```
 # ./test/utils-test.js
 var expect = require('expect');
 var utils = require('utils');
@@ -86,7 +86,7 @@ locally, and then call `mocha --compilers js:babel/register` instead of `mocha`.
 You can also create a default config file (at `./test/mocha.opts`) and put the
 options there:
 
-```config
+```
 # ./test/mocha.opts
 --compilers js:babel/register
 ```

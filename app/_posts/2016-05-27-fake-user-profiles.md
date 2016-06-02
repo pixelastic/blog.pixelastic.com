@@ -40,9 +40,8 @@ Here is a sample of what a fake user looks like:
 }
 ```
 
-And the [full
-dataset][4] can be downloaded from GitHub as well, and a all pictures referenced
-in the list are also available in the repo.
+And the [full dataset][4] can be downloaded from GitHub as well, and all
+pictures referenced in the list are also available in the repo.
 
 [1]: https://randomuser.me
 [2]: https://www.algolia.com

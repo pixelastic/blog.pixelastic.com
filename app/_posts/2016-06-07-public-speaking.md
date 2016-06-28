@@ -11,10 +11,10 @@ Let's get started._
 ## Introduction
 
 One of the most valuable things I learned from my [previous company][1] was the
-public speaking course I attended. With just two days of training I went from
-"Speaking in public? Are you kidding me? I'll NEVER do that, that is way too
-scary" to "Speaking in public? Sure, I love that, I have a lot of things to
-share!".
+public speaking course I attended (thanks again [Marc][2]). With just two days of
+training I went from "Speaking in public? Are you kidding me? I'll NEVER do
+that, that is way too scary" to "Speaking in public? Sure, I love that, I have
+a lot of things to share!".
 
 So, let's see if I can write down here everything I was taught during
 the classes. It might be a bit rough, but this is basically a rewriting of my
@@ -169,7 +169,7 @@ don't really care. They already have plenty of things they don't care about,
 they don't need yours.
 
 Be synthetic. Everybody can talk about any subject, but only the real
-professionals can be synthetic about it. This is related to the [Dunning-Kruger][2]
+professionals can be synthetic about it. This is related to the [Dunning-Kruger][3]
 effect, but the more synthetic you are on a subject, the more people will see
 that you've mastered it. On the other hand if you start explaining every little
 details, it show that you do not see the big picture.
@@ -215,5 +215,7 @@ things to keep in mind:
 - Say things clearly, do not make him think he may have not understood things
   clearly or that you are hiding something.
 
+
 [1]: http://www.octo.com/en
-[2]: https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect
+[2]: https://fr.linkedin.com/in/marc-boujnah-81a38
+[3]: https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect

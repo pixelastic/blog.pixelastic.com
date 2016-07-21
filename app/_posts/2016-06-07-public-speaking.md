@@ -4,31 +4,30 @@ title: "Public Speaking"
 tags: public-speaking
 ---
 
-_I wanted to write a recap of this session for a long time. I'm currently in
+_I wanted to write a recap of this session for a long time. I'm in
 a flight trip above the Atlantic ocean, so I have a bit of time in front of me.
 Let's get started._
 
 ## Introduction
 
-One of the most valuable things I learned from my [previous company][1] was the
-public speaking course I attended (thanks again [Marc][2]). With just two days of
+One of the most valuable learnings from my [previous company][1] was the
+public speaking course I attended (thanks again [Marc][2]). With two days of
 training I went from "Speaking in public? Are you kidding me? I'll NEVER do
 that, that is way too scary" to "Speaking in public? Sure, I love that, I have
-a lot of things to share!".
+a lot to share!".
 
-So, let's see if I can write down here everything I was taught during
-the classes. It might be a bit rough, but this is basically a rewriting of my
-notes at that time.
+Let's see if I can write down here everything that class taught me. It might be
+a bit rough, but this is basically a rewriting of my notes at that time.
 
 The class was about what people see when they see you speaking
 publicly. We did not go into what is happening inside, because it is too
-intimate, we only focused on what was visible on the outside.
+intimate, we focused on what was visible on the outside.
 
 We were asked to tell how we thought our public speaking skill was. What scared
 us, what we thought we do well, etc. I said that if I know the subject I'm
 talking about, I think I can handle the situation well. If I have a complex set
 of ideas to share I might get confused and forgot important details. I also know
-that I have a tendency to speak fast, so I need to be careful. Also, I've been
+that I speak fast, so I need to be careful. Also, I've been
 game-mastering fantasy roleplay for more that 15 years, so I know a bit about
 improvisation. I'm also scared of how to start a talk, when everybody is talking
 among themselves.
@@ -43,18 +42,21 @@ We were taught the 4 most important rules:
 2. We must remember that this is nothing personal. You do not go on stage to be
   loved. You go on stage because you have something to share. People care about
   what you say, not who you are.
-3. We should not listen to that little tiny voice in a corner of our head that
-  says things like "you'll never be able to do it", "what you say is not
+3. We should not listen to that little voice in a corner of our head that
+  repeats "you'll never be able to do it", "what you say is not
   interesting", "they already know all I can say".
 4. The speaker is the only accountable person. The listeners are always right.
-   If they did not understand something it's not because they are stupid, it's
+   If they did not understand something it's not because they are foolish, it's
    because you did not explain it well enough.
 
-Public speaking is not only about speaking. Actually speaking is just a tiny
-part of it. Your whole body is expressing your ideas when you are on stage. We
+Public speaking is not only about speaking. Oral speaking is just a small part
+of it. Your whole body is expressing your ideas when you are on stage. We
 are trying to convince people of what we are saying, and we do that by more than
 words. We do that by being convinced ourselves and our whole body will show it,
 in the way we breath, the way we walk, the way we move, etc.
+
+We'll dive into it;
+I have a desire to look harder in this actor. Your customer his clever.
 
 ## Conversation, Information or Communication
 
@@ -64,7 +66,7 @@ a _communication_.
 A _conversation_ is mundane and informal. It's small-talk and there is no definite
 point. It can happen anywhere, anytime, there is no specific pattern.
 
-An _information_ is very formal. It goes only one way, from the one who knows to
+An _information_ is formal. It goes one way, from the one who knows to
 the one who does not know. The boundaries are clear. Think of the flight speech
 about exits in planes.
 
@@ -78,7 +80,7 @@ form, behavior and relationship.
 You want people to have a _before_ and an _after_ your talk. Because if they
 don't, what was the point? You must have a message they will remember.
 
-- You should be able to pitch that message in one or two very short sentences.
+- You should be able to pitch that message in one or two short sentences.
 - Do not hesitate to repeat the message throughout the talk, with different
   words, but with the same meaning.
 - Give context to what you say. Give examples, and facts.
@@ -113,7 +115,7 @@ Keep about 1mn for an introduction. Start by creating a desire, explaining why,
 sparking curiosity. Giving a real anecdote is nice way to start.
 
 At this point, we were suggested to use sentences like "Have you ever
-noticed...", "Are you like me and..." or "From the dawn of ages, mankind have..."
+noticed...", "Are you like me and..." or "From the dawn of ages, humankind have..."
 to quickly rally the audience to what we are going to say. I personally don't
 want those introduction because they look too much like one-man shows. Also, the
 talk being unidirectional, the audience cannot answer and if they do not agree
@@ -156,7 +158,7 @@ If you don't remember what you want to say next, just leave a blank. When people
 add silence to their talks, it makes the audience think about what was said
 before. It is way better to just put a silence than a "hmm, so... Hmm...  Yeah".
 The former makes your previous sentence feel really important while the
-latter makes you sound stupid.
+latter makes you sound foolish.
 
 ## Own the stage
 
@@ -182,12 +184,12 @@ can do to activate that message. Ask if people have any questions, and don't
 forget to smile, we don't like to ask questions to someone with a closed face.
 
 Do not, ever, finish your talk with "I hope you liked it", it undermine
-everything you just said. Instead, say "With everything I just talked about, you
-are now ready to do XXX".
+everything you said. Instead, say "With everything I talked about, you
+are now ready to do {whatever you talked about}".
 
 ## Bonus
 
-We also got a list of several mantras that you can repeat before going on stage:
+We also got a list of mantras that you can repeat before going on stage:
 
 - I do not talk because I want to be loved. I talk because I want to be
   understood.
@@ -200,21 +202,20 @@ We also got a list of several mantras that you can repeat before going on stage:
 ## Bonus number two
 
 We also had a nice discussion about face-to-face talks. For example when you're
-meeting with a customer and you want to explain why something he did is wrong
-and why your way is better. You want to convince him of your way. Here are a few
+meeting with customers and you want to explain why something they did is wrong
+and why your way is better. You want to convince them of your way. Here are a few
 things to keep in mind:
 
-- Never say to the other that he his wrong. His reasons are perfectly valid,
-  knowing what he knows.
+- Never say to the others that they are wrong. Their reasons are perfectly valid,
+  knowing what they know.
 - Being convinced of being right is not enough, you need to also be convincing.
 - No-one was ever convinced by an authoritative argument. You have to be
   reasonable, and nuanced.
 - Give facts, examples, evidences.
-- Avoid antagonism. You and him are working toward the same goal: using the best
-  possible solution. Understand his issues, put yourself in his shoes.
-- Say things clearly, do not make him think he may have not understood things
+- Avoid antagonism. You and them are working toward the same goal: using the best
+  possible solution. Understand their issues, put yourself in their shoes.
+- Say things clearly, do not make them think they may have not understood things
   clearly or that you are hiding something.
-
 
 [1]: http://www.octo.com/en
 [2]: https://fr.linkedin.com/in/marc-boujnah-81a38

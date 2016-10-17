@@ -5,9 +5,9 @@ tags: css
 ---
 
 If you're following me on Twitter, you might have seen that I released a crazy
-project called CSS Flags. People often ask me why I did such a thing. This blog
-post is an attempt at explaining the thought process that motivated me to build
-it.
+project called [CSS Flags][1]. People often ask me why I did such a thing. This
+blog post is an attempt at explaining the thought process that motivated me to
+build it.
 
 ## Trip to Tours
 
@@ -117,3 +117,5 @@ the latest one.
 I'll write a more complete (and CSS-focused) list of tips in an upcoming
 article.
 
+
+[1]: http://pixelastic.github.io/css-flags/

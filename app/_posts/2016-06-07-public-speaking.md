@@ -55,9 +55,6 @@ are trying to convince people of what we are saying, and we do that by more than
 words. We do that by being convinced ourselves and our whole body will show it,
 in the way we breath, the way we walk, the way we move, etc.
 
-We'll dive into it;
-I have a desire to look harder in this actor. Your customer his clever.
-
 ## Conversation, Information or Communication
 
 We also made a clear distinction between a _conversation_, an _information_ and

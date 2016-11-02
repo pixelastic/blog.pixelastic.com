@@ -293,7 +293,7 @@ the final UI, even including the JSON data files.
 [2]: http://marvel.com/
 [3]: https://www.algolia.com/
 [4]: https://community.algolia.com/instantsearch.js/
-[5]: http://pixelastic.github.io/marvel/
+[5]: https://community.algolia.com/marvel-search/
 [6]: http://developer.marvel.com/
 [7]: https://en.wikipedia.org/wiki/Main_Page
 [8]: https://en.wikipedia.org/wiki/Category:Marvel_Comics_superheroes
@@ -330,5 +330,5 @@ the final UI, even including the JSON data files.
 [39]: http://marvel.com/characters/11/daredevil
 [40]: /img/files/2016-06-01/hulk.png
 [41]: /img/files/2016-06-01/background.gif
-[42]: https://pixelastic.github.io/marvel/
-[43]: https://github.com/pixelastic/marvel/
+[42]: https://community.algolia.com/marvel-search/
+[43]: https://github.com/algolia/marvel/

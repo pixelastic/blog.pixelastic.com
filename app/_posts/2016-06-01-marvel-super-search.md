@@ -79,7 +79,7 @@ previous example into nice looking JSON responses.
   ]
 }
 ```
-Taken from [here][16].json)
+Taken from [here][16]
 
 Unfortunately, the DBPedia is not dynamic, and all the data returned by the API
 is frozen in time. Frozen on August 2015 to be exact. It means that all recent
@@ -304,7 +304,7 @@ the final UI, even including the JSON data files.
 [13]: https://en.wikipedia.org/w/api.php?format=json&action=query&titles=Captain_America&prop=revisions&rvprop=content
 [14]: http://wiki.dbpedia.org/
 [15]: https://en.wikipedia.org/wiki/Hercules_(Marvel_Comics)
-[16]: http://dbpedia.org/data/Hercules_(Marvel_Comics
+[16]: http://dbpedia.org/data/Hercules_(Marvel_Comics.json)
 [17]: /img/files/2016-06-01/infobox.png
 [18]: https://www.npmjs.com/package/wiki-infobox
 [19]: https://en.wikipedia.org/wiki/Iron_Man

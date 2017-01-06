@@ -168,7 +168,7 @@ endpoints were just returning empty results. But what I also discovered is that
 those results were Netflix-biased. I mean that at the time I did the crawling,
 Netflix just released its [Jessica Jones][31] show, so [Jessica Jones][32] and
 all the other characters from the show ([Purple Man][33] or [Luke Cage][34]) had
-the more important number of pageviewsr. While the show is great, Jessica Jones
+the more important number of pageviews. While the show is great, Jessica Jones
 is in no way a more popular character than, say, Spider-Man, Iron Man or Captain
 America in the comics.
 

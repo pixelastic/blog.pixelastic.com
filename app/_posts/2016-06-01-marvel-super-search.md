@@ -79,7 +79,7 @@ previous example into nice looking JSON responses.
   ]
 }
 ```
-Taken from [here][16].json)
+Taken from [here][16]
 
 Unfortunately, the DBPedia is not dynamic, and all the data returned by the API
 is frozen in time. Frozen on August 2015 to be exact. It means that all recent
@@ -168,7 +168,7 @@ endpoints were just returning empty results. But what I also discovered is that
 those results were Netflix-biased. I mean that at the time I did the crawling,
 Netflix just released its [Jessica Jones][31] show, so [Jessica Jones][32] and
 all the other characters from the show ([Purple Man][33] or [Luke Cage][34]) had
-the more important number of pageviewsr. While the show is great, Jessica Jones
+the more important number of pageviews. While the show is great, Jessica Jones
 is in no way a more popular character than, say, Spider-Man, Iron Man or Captain
 America in the comics.
 
@@ -304,7 +304,7 @@ the final UI, even including the JSON data files.
 [13]: https://en.wikipedia.org/w/api.php?format=json&action=query&titles=Captain_America&prop=revisions&rvprop=content
 [14]: http://wiki.dbpedia.org/
 [15]: https://en.wikipedia.org/wiki/Hercules_(Marvel_Comics)
-[16]: http://dbpedia.org/data/Hercules_(Marvel_Comics
+[16]: http://dbpedia.org/data/Hercules_(Marvel_Comics.json)
 [17]: /img/files/2016-06-01/infobox.png
 [18]: https://www.npmjs.com/package/wiki-infobox
 [19]: https://en.wikipedia.org/wiki/Iron_Man

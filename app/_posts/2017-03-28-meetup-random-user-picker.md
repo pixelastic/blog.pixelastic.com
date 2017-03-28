@@ -28,7 +28,8 @@ your script, make it run, and get the results. It accepts query string as
 inputs.
 
 The whole download, parse, format-as-JSON logic was then moved into this webtask
-script and that's this script that I'm requesting on my webpage.
+script and that's this script that I'm requesting on my webpage. You can find
+the code [on GitHub.][7]
 
 This kind of architecture is called serverless, and that is the future of the
 web. Static hosting through GitHub pages, while still allowing for server-side
@@ -41,3 +42,4 @@ scripting when you need it. All of that, for free.
 [4]: https://webtask.io/
 [5]: https://gist.github.com/
 [6]: https://www.heroku.com/
+[7]: https://github.com/pixelastic/meetup-random-user

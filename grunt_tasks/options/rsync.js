@@ -3,21 +3,16 @@
 module.exports = {
   options: {
     recursive: true,
-    args: [
-      '--archive',
-      '--prune-empty-dirs'
-    ]
+    args: ['--archive', '--prune-empty-dirs'],
   },
 
   /* DEV */
   // CSS
   devCssDependenciesToTmp: {
     options: {
-      src: [
-        'bower_components/normalize-css/normalize.css'
-      ],
-      dest: 'tmp/css/src'
-    }
+      src: ['bower_components/normalize-css/normalize.css'],
+      dest: 'tmp/css/src',
+    },
   },
   // JS
   devJsDependenciesToTmp: {
@@ -27,24 +22,22 @@ module.exports = {
         'bower_components/algoliasearch-helper/dist/algoliasearch.helper.min.js',
         'bower_components/hogan/web/builds/3.0.2/hogan-3.0.2.min.js',
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/moment/min/moment.min.js'
+        'bower_components/moment/min/moment.min.js',
       ],
-      dest: 'tmp/js/src'
-    }
+      dest: 'tmp/js/src',
+    },
   },
   devJsAppToTmp: {
     options: {
-      src: [
-        'app/js/*.js'
-      ],
-      dest: 'tmp/js/src'
-    }
+      src: ['app/js/*.js'],
+      dest: 'tmp/js/src',
+    },
   },
   devJsTmpToJekyll: {
     options: {
       src: 'tmp/js/src/*.js',
-      dest: 'tmp/jekyll/js'
-    }
+      dest: 'tmp/jekyll/js',
+    },
   },
   // HTML
   devHtmlAppToTmp: {
@@ -58,9 +51,9 @@ module.exports = {
         '--prune-empty-dirs',
         '--include=*/',
         '--include=*.html',
-        '--exclude=*'
-      ]
-    }
+        '--exclude=*',
+      ],
+    },
   },
   devHtmlTmpToJekyll: {
     options: {
@@ -73,40 +66,34 @@ module.exports = {
         '--prune-empty-dirs',
         '--include=*/',
         '--include=*.html',
-        '--exclude=*'
-      ]
-    }
+        '--exclude=*',
+      ],
+    },
   },
   // JEKYLL
   devJekyllPrepare: {
     options: {
       src: './app/*',
       dest: './tmp/jekyll',
-      exclude: [
-        'css/',
-        'js/',
-        '_layouts'
-      ]
-    }
+      exclude: ['css/', 'js/', '_layouts'],
+    },
   },
 
   /* WATCH */
   watchJsAppToDist: {
     options: {
       src: 'app/js/*.js',
-      dest: 'dist/js/'
-    }
+      dest: 'dist/js/',
+    },
   },
 
   /* PROD */
   // CSS
   prodCssDependenciesToTmp: {
     options: {
-      src: [
-        'bower_components/normalize-css/normalize.css'
-      ],
-      dest: 'tmp/css/src'
-    }
+      src: ['bower_components/normalize-css/normalize.css'],
+      dest: 'tmp/css/src',
+    },
   },
   // CSS
   prodJsDependenciesToTmp: {
@@ -116,10 +103,10 @@ module.exports = {
         'bower_components/algoliasearch-helper/dist/algoliasearch.helper.min.js',
         'bower_components/hogan/web/builds/3.0.2/hogan-3.0.2.min.js',
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/moment/min/moment.min.js'
+        'bower_components/moment/min/moment.min.js',
       ],
-      dest: 'tmp/js/src'
-    }
+      dest: 'tmp/js/src',
+    },
   },
   // HTML
   prodHtmlAppToTmp: {
@@ -133,9 +120,9 @@ module.exports = {
         '--prune-empty-dirs',
         '--include=*/',
         '--include=*.html',
-        '--exclude=*'
-      ]
-    }
+        '--exclude=*',
+      ],
+    },
   },
   prodHtmlTmpToJekyll: {
     options: {
@@ -148,29 +135,24 @@ module.exports = {
         '--prune-empty-dirs',
         '--include=*/',
         '--include=*.html',
-        '--exclude=*'
-      ]
-    }
+        '--exclude=*',
+      ],
+    },
   },
   // JEKYLL
   prodJekyllPrepare: {
     options: {
       src: './app/*',
       dest: './tmp/jekyll',
-      exclude: [
-        'css/',
-        'js/',
-        'fonts/',
-        '_layouts'
-      ]
-    }
+      exclude: ['css/', 'js/', 'fonts/', '_layouts'],
+    },
   },
 
   /* DEPLOY */
   deployToPixelastic: {
     options: {
       src: 'dist/',
-      dest: 'pixelastic:/var/www/pixelastic.com/blog.pixelastic.com/',
+      dest: 'pixelastic:/var/www/blog.pixelastic.com/',
       args: [
         '--chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r',
         '--verbose',
@@ -178,8 +160,8 @@ module.exports = {
         '--update',
         '--delete',
         '--prune-empty-dirs',
-        '--compress'
-      ]
-    }
-  }
+        '--compress',
+      ],
+    },
+  },
 };

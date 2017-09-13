@@ -21,7 +21,7 @@ and publishing to `npm`.
 I've extended it a bit to add an actual build step, as I have to compile SCSS
 files to final CSS (including a minified version).
 
-## Not using yarn, but goog old npm
+## Not using yarn, but good old npm
 
 Main problem I had was that I could run my `./scripts/release` script from the
 command line and have everything uploaded, but if I ever did the same through

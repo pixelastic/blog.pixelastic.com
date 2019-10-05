@@ -1,38 +1,16 @@
-# Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+title: Pixelastic
+email: tim@pixelastic.com
+description: >-
+  Personal blog of Tim Carry. Posting mostly on tech-related stuff.
+baseurl: ""
+url: "https://blog.pixelastic.com"
+twitter_username: pixelastic
+github_username: pixelastic
 
-# Permalinks
-permalink:        pretty
-
-# Setup
-title:            Pixelastic
-tagline:          'You can cut our wings but we will always remember what it was like to fly.'
-description:      'Personal blog of Tim Carry. Posting mostly on tech-related stuff.'
-url:              http://blog.pixelastic.com
-base_url:         blog.pixelastic.com
-
-author:
-  name:           'Tim Carry'
-  url:            https://twitter.com/pixelastic
-
-paginate:         5
-
-# Custom vars
-version:          3.0.0
-
-github:
-  repo:           https://github.com/pixelastic/blog.pixelastic.com
-
-# Build
-timezone:         "Europe/Paris"
-encoding:         "utf-8"
-
-# Algolia
-gems:
-  - algoliasearch-jekyll
-
-algolia:
-  application_id: 'O3F8QXYK6R'
-  index_name: 'blog'
-  read_only_api_key: '6a027258345c8a569385505b041e6dec'
+# Build settings
+source: blog
+destination: dist
+timezone: Europe/Paris
+theme: minima
+plugins:
+  - jekyll-feed

@@ -1,28 +1,16 @@
-# Build
-/dist
-_site
-/tmp
-
-# Dependencies
-/node_modules
-/bower_components
-/vendors
-
-# Credentials
-_algolia_api_key
-
-# Cache
-.sass-cache
-.changed-cache
-
-
-# Various junk
 .DS_Store
-._*
+.envrc
+.jekyll-cache
+.jekyll-metadata
+.sass-cache
+.yalc/
 Thumbs.db
-.cache
-.project
-.settings
-.tmproj
-.idea
-
+build/
+dist/
+node_modules/
+npm-debug.log
+tmp/
+vendor/
+yalc.lock
+yarn-error.log
+*~

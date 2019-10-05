@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'jekyll', '>=2.5.3'
-gem 'i18n', '>= 0.7.0'
-
+gem 'jekyll', '~> 4.0.0'
+gem 'minima', '~> 2.5'
 group :jekyll_plugins do
-  gem 'algoliasearch-jekyll'
+  gem 'jekyll-feed', '~> 0.12'
 end
-

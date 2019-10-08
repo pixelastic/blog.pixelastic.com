@@ -1,0 +1,19 @@
+!!! 5
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{'http-equiv': 'x-ua-compatible', content: 'ie-edge'}
+    %title {{ page.title }}
+    %meta{name: 'viewport', content: 'width=device-width,initial-scale=1.0,shrink-to-fit=no'}
+    %meta{name: 'description', content: '{{ page.description }}'}
+    %meta{name: 'twitter:card', content: 'summary_large_image'}
+    %meta{name: 'twitter:site', content: '{{ site.twitter_username }}'}
+    %meta{name: 'twitter:creator', content: '{{ site.twitter_username }}'}
+    %meta{property: 'og:url', content: '{{ site.url }}'}
+    %meta{property: 'og:title', content: '{{ site.title }}'}
+    %meta{property: 'og:description', content: '{{ site.title }}'}
+    %meta{property: 'og:image', content: 'opengraph.png'}
+    %link{rel: "shortcut icon", href: "./favicon.ico"}
+    %link{type: "text/css", rel: "stylesheet", href: "./style.css"}
+  %body
+    {{ content }}

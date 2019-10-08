@@ -12,3 +12,7 @@ source: blog
 destination: dist
 timezone: Europe/Paris
 theme: minima
+
+plugins:
+  - jekyll-postcss
+  - jekyll-purgecss

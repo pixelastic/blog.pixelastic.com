@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -e
+
+JEKYLL_ENV=production bundle exec jekyll build --trace

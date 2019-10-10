@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+set -e
+
+postcss -o ./dist/style.css ./src/style.css
+eleventy

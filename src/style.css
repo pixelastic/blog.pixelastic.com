@@ -1,0 +1,7 @@
+/* Add all your @import here, before ANYTHING else */
+/* @import "_styles/fonts.css"; */
+/* @import "_styles/header.css"; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

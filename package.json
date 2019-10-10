@@ -3,7 +3,12 @@
   "description": "Personal blog of @pixelastic",
   "devDependencies": {
     "@11ty/eleventy": "0.9.0",
-    "aberlaas": "0.6.0"
+    "aberlaas": "0.6.0",
+    "concurrently": "5.0.0",
+    "postcss-cli": "6.1.3",
+    "postcss-import": "12.0.1",
+    "tailwind-config-norska": "0.0.3",
+    "tailwindcss": "1.1.2"
   },
   "files": [
     "build/"
@@ -14,6 +19,7 @@
   "repository": "git@github.com:pixelastic/blog.pixelastic.com.git",
   "scripts": {
     "build": "./scripts/build",
+    "build:css": "./scripts/build-css",
     "serve": "./scripts/serve",
     "lint": "./scripts/lint",
     "lint:fix": "./scripts/lint-fix",

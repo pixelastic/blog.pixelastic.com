@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
 set -e
 
-eleventy --serve
+concurrently \
+  "postcss --watch --output ./dist/style.css ./src/style.css" \
+  "eleventy --serve"

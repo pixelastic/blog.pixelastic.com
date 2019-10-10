@@ -15,5 +15,9 @@ html(lang='en')
     meta(property='og:image', content=`${site.url}${page.image}`)
     link(rel="shortcut icon", href="./favicon.ico")
     link(type="text/css", rel="stylesheet", href="./style.css")
-    body.bg-gray-3.flcnw
-      | !{content}
+    body.bg-gray-1.debug
+      .flcnw.lg_flrnw
+        .fln
+          include /header
+        .fla
+          | !{content}

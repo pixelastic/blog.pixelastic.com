@@ -1,0 +1,25 @@
+{
+  "author": "Pixelastic <tim@pixelastic.com>",
+  "description": "Personal blog of @pixelastic",
+  "devDependencies": {
+    "@11ty/eleventy": "0.9.0",
+    "aberlaas": "0.6.0"
+  },
+  "files": [
+    "build/"
+  ],
+  "license": "MIT",
+  "main": "build/index.js",
+  "name": "blog.pixelastic.com",
+  "repository": "git@github.com:pixelastic/blog.pixelastic.com.git",
+  "scripts": {
+    "build": "./scripts/build",
+    "serve": "./scripts/serve",
+    "lint": "./scripts/lint",
+    "lint:fix": "./scripts/lint-fix",
+    "precommit": "./scripts/precommit",
+    "test": "./scripts/test",
+    "test:watch": "./scripts/test-watch"
+  },
+  "version": "4.0.0"
+}

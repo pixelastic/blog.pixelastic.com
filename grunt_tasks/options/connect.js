@@ -1,8 +1,8 @@
-/* eslint-env node */
+/*eslint-env node*/
 
 module.exports = {
   options: {
-    port: 9400,
+    port: 9410,
     hostname: 'localhost',
     base: 'dist'
   },

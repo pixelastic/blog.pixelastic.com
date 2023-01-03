@@ -1,4 +1,4 @@
-/* eslint-env node */
+/*eslint-env node*/
 
 var algoliaApiKey = require('grunt').file.read('./_algolia_api_key').trim();
 module.exports = {
@@ -27,4 +27,3 @@ module.exports = {
              --config _config.yml'
   }
 };
-

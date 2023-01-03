@@ -6,19 +6,21 @@ module.exports = function(grunt) {
     'Compile the website to be served locally', [
       'mkdir:dev',
       // CSS
-      'rsync:devCssDependenciesToTmp',
+      'rsync:devCssDependenciesToJekyll',
       'sass:devAppToTmp',
       'autoprefixer:devTmpToJekyll',
       // JS
-      'rsync:devJsDependenciesToTmp',
-      'rsync:devJsAppToTmp',
-      'rsync:devJsTmpToJekyll',
+      'rsync:devJsDependenciesToJekyll',
+      'rsync:devJsAppToJekyll',
       // HTML
       'rsync:devHtmlAppToTmp',
       'fileblocks:dev',
       'rsync:devHtmlTmpToJekyll',
       // JEKYLL
       'rsync:devJekyllPrepare',
-      'jekyll:dev'
+      'shell:jekyllDev',
+      // CSS and JS maps
+      'rsync:prodCssMapsToDist',
+      'rsync:prodJsMapsToDist',
     ]);
 };

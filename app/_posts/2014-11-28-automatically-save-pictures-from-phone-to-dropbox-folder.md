@@ -15,7 +15,7 @@ So I create a special [ifttt](https://ifttt.com) recipe that will copy any new
 picture added to this folder into a _real_ Dropbox folder. I simply chose
 Dropbox as the input, with `/Camera Uploads` as the folder to listen to. Then
 I also chose Dropbox as the ouput, `{{PhotoUrl}}` as the File URL,
-`{{{FilenameNoExt}}` as the File name, and chose one of my folders for the
+`{{FilenameNoExt}}` as the File name, and chose one of my folders for the
 Dropbox path folder.
 
 Now, whenever I take a picture on my phone, it gets saved on my Dropbox

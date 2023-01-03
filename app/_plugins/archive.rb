@@ -5,7 +5,7 @@ module Jekyll
     def generate(site)
       year_list = []
       # Year
-      site.posts.group_by{ |post| {"year" => post.date.year} }.each do |period, posts|
+      site.posts.docs.group_by{ |post| {"year" => post.date.year} }.each do |period, posts|
         year_list << period["year"]
         posts = posts.sort_by { |post| post.date }.reverse
         archive_year = ArchiveYearIndex.new(site, posts, period["year"])
@@ -15,7 +15,7 @@ module Jekyll
       end
 
       # Month
-      site.posts.group_by{ |post| {"month" => post.date.month, "year" => post.date.year} }.each do |period, posts|
+      site.posts.docs.group_by{ |post| {"month" => post.date.month, "year" => post.date.year} }.each do |period, posts|
         posts = posts.sort_by { |post| post.date }.reverse
         archive_month = ArchiveMonthIndex.new(site, posts, period["year"], period["month"])
         archive_month.render(site.layouts, site.site_payload)
@@ -24,7 +24,7 @@ module Jekyll
       end
 
       # Day
-      site.posts.group_by{ |post| {"day" => post.date.day, "month" => post.date.month, "year" => post.date.year} }.each do |period, posts|
+      site.posts.docs.group_by{ |post| {"day" => post.date.day, "month" => post.date.month, "year" => post.date.year} }.each do |period, posts|
         posts = posts.sort_by { |post| post.date }.reverse
         archive_day = ArchiveDayIndex.new(site, posts, period["year"], period["month"], period["day"])
         archive_day.render(site.layouts, site.site_payload)
@@ -49,7 +49,7 @@ module Jekyll
       @name = 'index.html'
       @dir = year.to_s()
       self.process(@name)
-      self.read_yaml(File.join(site.source, site.config['layouts'], 'archive'), 'year.html')
+      self.read_yaml(File.join(site.source, site.config['layouts_dir'], 'archive'), 'year.html')
       self.data['year'] = year
       self.data['posts'] = posts
       self.data['title'] = "Archive #{year}"
@@ -63,7 +63,7 @@ module Jekyll
       @name = 'index.html'
       @dir = File.join(year.to_s(), "%02d" % month.to_s())
       self.process(@name)
-      self.read_yaml(File.join(site.source, site.config['layouts'], 'archive'), 'month.html')
+      self.read_yaml(File.join(site.source, site.config['layouts_dir'], 'archive'), 'month.html')
       self.data['year'] = year
       self.data['month'] = month
       self.data['posts'] = posts
@@ -77,7 +77,7 @@ module Jekyll
       @base = site.source
       @name = 'index.html'
       self.process(@name)
-      self.read_yaml(File.join(site.source, site.config['layouts'], 'archive'), 'day.html')
+      self.read_yaml(File.join(site.source, site.config['layouts_dir'], 'archive'), 'day.html')
       self.data['year'] = year
       self.data['month'] = month
       self.data['day'] = day
@@ -94,10 +94,11 @@ module Jekyll
       @name = 'index.html'
       @dir = 'archive'
       self.process(@name)
-      self.read_yaml(File.join(site.source, site.config['layouts'], 'archive'), 'index.html')
+      self.read_yaml(File.join(site.source, site.config['layouts_dir'], 'archive'), 'index.html')
       self.data['years'] = years
       self.data['title'] = "Archive"
     end
   end
 
 end
+

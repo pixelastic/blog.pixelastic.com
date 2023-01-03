@@ -3,6 +3,8 @@
  * http://www.thomasboyt.com/2013/09/01/maintainable-grunt.html
  */
 
+'use strict';
+
 var grunt = require('grunt');
 var Helpers = {};
 

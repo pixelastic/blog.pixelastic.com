@@ -4,51 +4,59 @@ module.exports = {
   options: {
     livereload: false
   },
-  reload: {
+  livereload: {
     options: {
       livereload: true
     },
     files: [
       'dist/css/*.css',
-      'dist/js/*.js'
+      'dist/js/*.js',
+      'dist/fonts/*',
+      'dist/img/*'
     ]
   },
-  sassConfig: {
-    files: 'app/css/_*.scss',
+  jekyll: {
+    files: [
+      'app/**/index.html',
+      'app/**/_layouts/**/*.html',
+      'app/**/*.md',
+      'app/**/_plugins/*.rb'
+    ],
     tasks: [
-      'sass:devAppToTmp'
+      'rsync:devHtmlAppToTmp',
+      'fileblocks:dev',
+      'rsync:devHtmlTmpToJekyll',
+      'rsync:devJekyllPrepare',
+      'shell:jekyllDev'
     ]
   },
-  sass: {
+  bowerCss: {
+    files: 'bower_components/**/*.css',
+    tasks: [
+      'rsync:devCssDependenciesToJekyll',
+      'rsync:devCssDependenciesToDist'
+    ]
+  },
+  css: {
     files: 'app/css/*.scss',
     tasks: [
-      'sass:devAppToTmp',
-      'newer:autoprefixer:watchTmpToDist'
+      'newer:sass:devAppToTmp',
+      'newer:autoprefixer:devTmpToJekyll',
+      'rsync:devCssTmpToDist'
+    ]
+  },
+  bowerJs: {
+    files: 'bower_components/**/*.js',
+    task: [
+      'rsync:devJsDependenciesToJekyll',
+      'rsync:devJsDependenciesToDist'
     ]
   },
   js: {
     files: 'app/js/*.js',
     tasks: [
-      'rsync:watchJsAppToDist'
-    ]
-  },
-  layouts: {
-    files: 'app/_layouts/**/*.html',
-    tasks: [
-      'rsync:devHtmlAppToTmp',
-      'fileblocks:dev',
-      'rsync:devHtmlTmpToJekyll',
-      'shell:jekyllDev'
-    ]
-  },
-  markdown: {
-    files: [
-      'app/_posts/*.md',
-      'app/_drafts/*.md'
-    ],
-    tasks: [
-      'rsync:devJekyllPrepare',
-      'shell:jekyllDev'
+      'rsync:devJsAppToJekyll',
+      'rsync:devJsAppToDist'
     ]
   }
 };

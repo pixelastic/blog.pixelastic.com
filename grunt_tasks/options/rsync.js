@@ -1,5 +1,18 @@
 /* eslint-env node */
 
+const jsDependencies = [
+  'node_modules/hogan.js/dist/hogan-3.0.2.min.js',
+  'node_modules/algoliasearch/dist/algoliasearch-lite.umd.js',
+  'node_modules/instantsearch.js/dist/instantsearch.production.min.js',
+  'node_modules/jquery/dist/jquery.min.js',
+  'node_modules/lodash/lodash.min.js',
+  'node_modules/moment/min/moment.min.js',
+]
+const cssDependencies = [
+  'node_modules/normalize.css/normalize.css',
+  'node_modules/instantsearch.css/themes/satellite-min.css',
+]
+
 module.exports = {
   options: {
     recursive: true,
@@ -8,35 +21,47 @@ module.exports = {
 
   /* DEV */
   // CSS
-  devCssDependenciesToTmp: {
+  devCssDependenciesToJekyll: {
     options: {
-      src: ['bower_components/normalize-css/normalize.css'],
-      dest: 'tmp/css/src',
+      src: cssDependencies,
+      dest: 'tmp/jekyll/css',
+    },
+  },
+  devCssDependenciesToDist: {
+    options: {
+      src: cssDependencies,
+      dest: 'dist/css',
+    },
+  },
+  devCssTmpToDist: {
+    options: {
+      src: ['tmp/css/src/*.css'],
+      dest: 'dist/css',
     },
   },
   // JS
-  devJsDependenciesToTmp: {
+  devJsDependenciesToJekyll: {
     options: {
-      src: [
-        'bower_components/algoliasearch/dist/algoliasearch.min.js',
-        'bower_components/algoliasearch-helper/dist/algoliasearch.helper.min.js',
-        'bower_components/hogan/web/builds/3.0.2/hogan-3.0.2.min.js',
-        'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/moment/min/moment.min.js',
-      ],
-      dest: 'tmp/js/src',
-    },
-  },
-  devJsAppToTmp: {
-    options: {
-      src: ['app/js/*.js'],
-      dest: 'tmp/js/src',
-    },
-  },
-  devJsTmpToJekyll: {
-    options: {
-      src: 'tmp/js/src/*.js',
+      src: jsDependencies,
       dest: 'tmp/jekyll/js',
+    },
+  },
+  devJsDependenciesToDist: {
+    options: {
+      src: jsDependencies,
+      dest: 'dist/js',
+    },
+  },
+  devJsAppToJekyll: {
+    options: {
+      src: ['app/js/*'],
+      dest: 'tmp/jekyll/js',
+    },
+  },
+  devJsAppToDist: {
+    options: {
+      src: ['app/js/*'],
+      dest: 'dist/js',
     },
   },
   // HTML
@@ -79,33 +104,36 @@ module.exports = {
     },
   },
 
-  /* WATCH */
-  watchJsAppToDist: {
-    options: {
-      src: 'app/js/*.js',
-      dest: 'dist/js/',
-    },
-  },
-
   /* PROD */
   // CSS
   prodCssDependenciesToTmp: {
     options: {
-      src: ['bower_components/normalize-css/normalize.css'],
+      src: cssDependencies,
       dest: 'tmp/css/src',
     },
   },
-  // CSS
-  prodJsDependenciesToTmp: {
+  prodCssMapsToDist: {
     options: {
       src: [
-        'bower_components/algoliasearch/dist/algoliasearch.min.js',
-        'bower_components/algoliasearch-helper/dist/algoliasearch.helper.min.js',
-        'bower_components/hogan/web/builds/3.0.2/hogan-3.0.2.min.js',
-        'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/moment/min/moment.min.js',
+        'tmp/css/src/*.map',
       ],
+      dest: 'dist/css',
+    },
+  },
+  // Js
+  prodJsDependenciesToTmp: {
+    options: {
+      src: jsDependencies,
       dest: 'tmp/js/src',
+    },
+  },
+  prodJsMapsToDist: {
+    options: {
+      src: [
+        'node_modules/instantsearch.js/dist/instantsearch.production.min.js.map',
+        'node_modules/jquery/dist/jquery.min.map',
+      ],
+      dest: 'dist/js',
     },
   },
   // HTML
@@ -152,7 +180,7 @@ module.exports = {
   deployToPixelastic: {
     options: {
       src: 'dist/',
-      dest: 'pixelastic:/var/www/blog.pixelastic.com/',
+      dest: 'pixelastic:/var/www/meetups.pixelastic.com/',
       args: [
         '--chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r',
         '--verbose',

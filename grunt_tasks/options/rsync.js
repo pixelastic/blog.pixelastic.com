@@ -180,7 +180,7 @@ module.exports = {
   deployToPixelastic: {
     options: {
       src: 'dist/',
-      dest: 'pixelastic:/var/www/meetups.pixelastic.com/',
+      dest: 'pixelastic:/var/www/blog.pixelastic.com/',
       args: [
         '--chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r',
         '--verbose',

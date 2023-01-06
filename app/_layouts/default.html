@@ -39,13 +39,7 @@
         </li>
       </ul>
 
-      <form class="algolia__form" method="POST">
-        <div class="algolia__input-wrapper">
-          <input type="text" class="algolia__input js-algolia__input" name="query" 
-          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-          placeholder="Search on this site..." />
-        </div>
-      </form>
+      <div id="search-searchbar"></div>
 
       <label for="sidebar-checkbox" class="sidebar-toggle-menu"></label>
 
@@ -53,33 +47,23 @@
     </div>
     <div class="layout">
       <div class="content" id="content">
-        <div class="algolia__initial-content js-algolia__initial-content">{{ content }}</div>
-
-        <div class="algolia__search-content js-algolia__search-content">
+        <div id="content-search" class="hidden">
           <h1 class="page-title">Search</h1>
-          <div class="posts algolia__results"></div>
+          <div id="search-hits"></div>
         </div>
+
+        <div id="content-static">{{ content }}</div>
       </div>
     </div>
 
-    <script>
-      window.ALGOLIA_CONFIG = {
-        'applicationId': '{{ site.algolia.application_id }}',
-        'indexName': '{{ site.algolia.index_name }}',
-        'apiKey': '{{ site.algolia.read_only_api_key }}'
-      }
-    </script>
     <script id="algolia__template" type="text/template">
     {% raw %}
       <div class="algolia__result">
-        <a class="algolia__result-link" href="{{ url }}#algolia:{{ css_selector }}">{{{ _highlightResult.title.value }}}</a>
-        {{#posted_at}}
-        <div class="algolia__result-date">{{ posted_at_readable }}</div>
-        {{/posted_at}}
-        <div class="algolia__result-text">{{{ _highlightResult.content.value }}}</div>
+        <a class="algolia__result-link" href="{{ url }}">{{{ title }}}</a>
+        <div class="algolia__result-text">{{{ content }}}</div>
     {% endraw %}
     </script>
-    <script id="algolia__template--no-results" type="text/template">No results</script>
+    <script id="algolia__template--no-results" type="text/template">No results found</script>
     <!-- fileblock:js js -->
     <!-- endfileblock -->
   </body>

@@ -1,69 +1,46 @@
 @import 'config';
 
-// Search form
-.algolia__form {
-  margin-bottom: 1rem;
-  // Display search input in navbar on small screens
-  @media(max-width: $width-base-page) {
-    display: table;
-    float: right;
-    margin: 0;
-    padding: .75rem;
-  }
-  // Hide search on too small screens
-  @media(max-width: $width-search-min) {
-    display: none;
+// Fixes to the default CSS theme of InstantSearch, as our SASS+minification
+// seems to be removing some of the rules.
+.sidebar {
+  .ais-SearchBox-form:before {
+    background-repeat: no-repeat;
   }
 }
 
-.algolia__input-wrapper {
-  @media(max-width: $width-base-page) {
-    display: table-cell;
-    vertical-align: middle;
-  }
+// Search results hide and seek
+#content-search {
+  display: none;
 }
-
-.algolia__input {
-  border: 0;
-  color: $text-color;
-  font-size: 20px;
-  outline: none;
-  padding: .5rem;
-  width: 100%;
-}
-
-// Search results
-.algolia__initial-content {
+#content-static {
   display: block;
 }
 
-.algolia__initial-content--hidden {
-  display: none;
-}
+#search-hits {
+  .ais-Hits-item {
+    box-shadow: none;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 1rem 0;
+    border-bottom: 1px solid lightgrey;
+  }
+  .algolia__result-link {
+    font-family: 'PermanentMarker';
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding-bottom: .75rem;
+    display: block;
 
-.algolia__search-content {
-  display: none;
-}
+    mark {
+      background-color: $red-light;
+    }
+  }
 
-.algolia__search-content--active {
-  display: block;
-}
-
-.algolia__result-link {
-  font-family: 'AmarantRegular';
-  font-size: 1.25rem;
-  font-weight: bold;
-
-  .algolia__result-highlight {
-    background-color: $green-light;
+  .algolia__result-text mark {
+    background-color: $red-light;
+    font-weight: bold;
+    padding:0 0.1rem;
   }
 }
 
-.algolia__result-text .algolia__result-highlight {
-  background-color: $green-light;
-  font-weight: bold;
-}
 
-.algolia__result-date {
-  font-size: .8rem;
-}

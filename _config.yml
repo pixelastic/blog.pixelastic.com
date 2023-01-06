@@ -1,16 +1,16 @@
 title:            "Pixelastic"
-description:      'Personal blog of Tim Carry. Posting mostly on tech-related stuff.'
-tagline:          'You can cut our wings but we will always remember what it was like to fly.'
+description:      "Personal blog of Tim Carry. Posting mostly on tech-related stuff."
+tagline:          "You can cut our wings but we will always remember what it was like to fly."
 url:              http://blog.pixelastic.com
 base_url:         blog.pixelastic.com
 source: "app"
 author:
-  name:           'Tim Carry'
+  name:           "Tim Carry"
   url:            https://twitter.com/pixelastic
 
 # Dependencies
 markdown:         redcarpet
-plugins:             [jekyll-paginate]
+plugins:          [jekyll-paginate]
 
 # Permalinks
 permalink:        pretty
@@ -30,9 +30,8 @@ encoding:         "utf-8"
 
 # Algolia
 algolia:
-  application_id: 'O3F8QXYK6R'
-  index_name: 'blog'
-  read_only_api_key: '6a027258345c8a569385505b041e6dec'
+  application_id: "O3F8QXYK6R"
+  index_name: "blog"
 
 # Custom vars
 version:          3.0.0

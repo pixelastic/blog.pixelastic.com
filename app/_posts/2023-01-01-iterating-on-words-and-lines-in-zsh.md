@@ -1,5 +1,11 @@
-When writing zsh scripts, one often needs to iterate on elements, but depending
-on how you create them, they can either be a core zsh array, a string of words,
+---
+layout: post
+title: "Iterating on words and lines in zsh"
+tags: zsh
+---
+
+When writing zsh scripts, I often needs to iterate on elements, but depending
+on how I create them, they can either be a core zsh array, a string of words,
 or the output of a command, delimited by newlines.
 
 ## Iterating on an array
@@ -15,11 +21,11 @@ for project in $projects; do
 
 ## Handling string of words
 
-By default, zsh does not split a string in its words like other shells (Bash)
-do, so iterating on words requires the use of the `${=}` syntax.
+By default, zsh does not split a string in words like other shells (Bash)
+do, so iterating on words requires the `${=}` syntax.
 
-The `=` the Bash-compatible behavior by switching the `SH_WORD_SPLIT` zsh option
-just for that variable.
+The `${=}` notation triggers the Bash-compatible behavior by switching the
+`SH_WORD_SPLIT` zsh option for that variable.
 
 ### Iterating on the words
 
@@ -32,8 +38,8 @@ for project in ${=projects}; do
 
 ### Accessing one element specifically
 
-Note that if you want to convert the string of words into an array, to
-specifically access one of its elements, you need to wrap it in `()`.
+Note that if I want to convert the string of words into an array, to
+specifically access one of its elements, I need to wrap it in `()`.
 
 ```zsh
 local projects="firost aberlaas golgoth";

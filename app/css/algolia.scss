@@ -3,8 +3,14 @@
 // Fixes to the default CSS theme of InstantSearch, as our SASS+minification
 // seems to be removing some of the rules.
 .sidebar {
-  .ais-SearchBox-form:before {
-    background-repeat: no-repeat;
+  .ais-SearchBox-form {
+    background: none;
+    &:before {
+      background-repeat: no-repeat;
+    }
+    .ais-SearchBox-input:focus {
+      border-color: $green-light;
+    }
   }
 }
 
@@ -25,19 +31,21 @@
     border-bottom: 1px solid lightgrey;
   }
   .algolia__result-link {
-    font-family: 'PermanentMarker';
+    font-family: "AmarantRegular";
+    line-height: 1.25;
+    text-rendering: optimizeLegibility; /* 1 */
     font-size: 1.25rem;
     font-weight: bold;
     padding-bottom: .75rem;
     display: block;
 
     mark {
-      background-color: $red-light;
+      background-color: $green-light;
     }
   }
 
   .algolia__result-text mark {
-    background-color: $red-light;
+    background-color: $green-light;
     font-weight: bold;
     padding:0 0.1rem;
   }

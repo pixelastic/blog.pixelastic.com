@@ -1,19 +1,25 @@
+---
+layout: post
+title: "Scoping zsh variables"
+tags: zsh
+---
+
 By default in zsh, if you define a `local myVariable` it will be available to
 the whole script running it.
 
-By extension, it means that any of those variables you defined in your `.zshrc`
-will also be visible in your terminal. This can create weird bugs when you
-accidentally defined a variable with the same name as another zsh script.
+Any of those variables defined in your `.zshrc` will also be visible in your
+terminal. This can create weird bugs when you accidentally defined a variable
+with the same name as another zsh script.
 
 Note that those are *not* environment variables. Even if you can read them from
 your zsh terminal, they are not accessible from other tools. To explicitly make
 them available as environment variables, you need to `export` them.
 
-Now, if you define a variable inside a function in zsh, it stays scoped to that
-function. Recent versions of zsh allow you to define anonymous functions that
-are run instantly and then discarded.
+If you define a variable inside a function, it stays scoped to that
+function, though. Also, anonymous functions are run as soon as they are defined,
+and discarded afterwards.
 
-Using an anonymous function, we can define our variables without them being
+Using those two features, we can define our variables without them being
 available in the terminal global scope.
 
 I find it a best practice to wrap any of my sourced zsh scripts in a `function

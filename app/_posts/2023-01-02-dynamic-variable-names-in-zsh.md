@@ -1,3 +1,9 @@
+---
+layout: post
+title: "Dynamic variable names in zsh"
+tags: zsh
+---
+
 Imagine the following scenario:
 
 ```
@@ -11,7 +17,7 @@ And now you'd like to iterate on all projects, and display their associated
 color. You need dynamic variables, where part of the variable name is itself
 coming from another variable.
 
-This will be achieved using two zsh modifiers: `(P)` and `:-`.
+This will be achieved using two zsh modifiers: `${(P)}` and `${:-}`.
 
 ## Building a variable name using dynamic variables
 
@@ -20,7 +26,7 @@ of the `$real_name` variable. If `$real_name` is empty, use `Alice` as the
 default
 value.
 
-Anything after the `:-` is used after the default value, and it can even
+Anything after the `:-` is used as the default value, and it can even
 interpolate variables. So if you also have `local default_name="Alice"`, then
 you can have `local name=${real_name:-Default name set to $default_name}`.
 
@@ -37,8 +43,8 @@ variable names when setting variables.
 We now have a fancy way of building a string with variable interpolation inside
 a `${}`.
 
-We're going to couple that with `${(P)}` to read the content of such
-variable.
+To read it, it's a bit more complex as we need to use this (already
+barbaric-looking) syntax with another modifier. 
 
 ```zsh
 local projects=(blog www meetups)

@@ -7,8 +7,8 @@ tags:
 Sometimes, you need to download a whole website locally. And for that,
 [HTTrack](https://www.httrack.com/) is the best tool I ever found.
 
-Sure, __you__ **could** use `wget` and some recursion to get what you want, but HTTrack
-solves all that _for_ *you*.
+Sure, you could use `wget` and some recursion to get what you want, but HTTrack
+solves all that for you.
 
 Reasons you might need to download a whole website:
 - You need to browse it when you don't have an internet connection (on the go,

@@ -32,7 +32,7 @@ local filepath=./subdir/file.zsh
 
 ## Other goodies
 
-- `${~filepath}` will expand `~` to their full path, while `${filepath/#$HOME/'~'}` will use `~` instead of home path
+- `${~filepath}` will expand `~` to their full path, while `${filepath/#$HOME/~}` will use `~` instead of home path
 - `:c`ommand gives you the executable path of a command (a bit like `which`)
 - `:q` for quoting, `:U` for unquoting, `:x` for quoting individual words
 - `:l` for lowercase, `:u` for uppercase

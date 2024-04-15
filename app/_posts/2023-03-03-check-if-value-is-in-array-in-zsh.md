@@ -20,11 +20,14 @@ So, to summarize, to check if the value `zsh` is in the array `myArray`, you
 would test it that way:
 
 ```zsh
-if [[ ${myArray[(ie)zsh]} -lt ${#myArray} ]]; then
+if [[ ${myArray[(ie)zsh]} -le ${#myArray} ]]; then
   # ${#myArray} return the length of the array
 fi
 ```
 
 Alternatively, if the string you're looking for is dynamic (`$myVar`), you'll need one more
 wrapping level: `${myArray[(ie)${myVar}]}`.
+
+
+Edit: Thanks to Alan for fixing a typo.
 

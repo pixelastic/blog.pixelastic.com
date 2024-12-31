@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "My first steps ito automating knowledge sharing"
+title: "My first steps into automating knowledge sharing"
 tags: automation
 ---
 

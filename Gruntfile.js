@@ -2,11 +2,16 @@
 // More maintainable Gruntfiles: http://www.thomasboyt.com/2013/09/01/maintainable-grunt.html
 
 module.exports = function(grunt) {
+  var _ = grunt.util._;
+
   require('time-grunt')(grunt); // build statistics
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks); // load all Grunt tasks from node_modules
+
+  // load all Grunt tasks from node_modules
+  const allGruntPlugins = _.without(require('matchdep').filterDev('grunt-*'), 'grunt-cli');
+  allGruntPlugins.forEach(grunt.loadNpmTasks); 
+
   var Helpers = require('./grunt_tasks/helpers'); // Grunt helpers file, make it easier to load config
   var config = Helpers.defaultConfig;
-  var _ = grunt.util._;
   var sharedConfig = {
     config: {
       tmp: './tmp',

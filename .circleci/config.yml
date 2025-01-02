@@ -25,7 +25,7 @@ jobs:
             ssh-keyscan -H ${SSH_HOST} >> ~/.ssh/known_hosts
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:I73ETs/VuuUA2z6GexfJ0q4U7GLwjY8jZlC15uq/aMw"
+            - "SHA256:gkwER8AtG6gCCUuge7eC08xkUCcjW38izxvaytl1X6I"
 
       # Project dependencies
       - ruby/install-deps

@@ -1,0 +1,58 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5
+  ruby: circleci/ruby@2
+
+jobs:
+  deploy:
+    docker:
+      - image: cimg/ruby:3.0-node
+    steps:
+      # System install
+      - checkout
+      - run:
+          name: Install rsync
+          command: sudo apt-get update && sudo apt-get install -y rsync
+      - run:
+          name: Configure pixelastic SSH remote
+          command: |
+            mkdir -p ~/.ssh
+            echo "Host pixelastic" >> ~/.ssh/config
+            echo "    HostName ${SSH_HOST}" >> ~/.ssh/config
+            echo "    User ${SSH_USER}" >> ~/.ssh/config
+            chmod 600 ~/.ssh/config
+            ssh-keyscan -H ${SSH_HOST} >> ~/.ssh/known_hosts
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:I73ETs/VuuUA2z6GexfJ0q4U7GLwjY8jZlC15uq/aMw"
+
+      # Project dependencies
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Install Sass
+          command: gem install sass --version "=3.7.4"
+      - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - vendor/bundle
+            - node_modules
+
+      # Deploy
+      - run:
+          name: Write Algolia API key
+          command: echo $ALGOLIA_API_KEY > _algolia_api_key
+      - run:
+          name: Deploy
+          command: yarn run deploy
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: main

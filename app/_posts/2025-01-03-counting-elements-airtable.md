@@ -14,6 +14,10 @@ You can even use a Rollup field to, for example, gather all `name`s of the linke
 
 But I couldn't find a way to get the length of the array. There is no `ARRAYLENGTH` method.
 
+Edit: Seems like there is a **Count** type that does exactly that. It was there,
+in plain sight, and I never saw it. It's a much better solution than the hack
+I'm describing here.
+
 ### The workaround
 
 Still, I found a clever / hackish way to get that information, by using a mix of string and regexp functions. Let me walk you through it:

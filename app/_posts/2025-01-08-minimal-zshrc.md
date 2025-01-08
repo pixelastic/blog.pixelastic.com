@@ -26,7 +26,7 @@ The `^[` and `^?` chars here are not real characters, but escape characters. In 
 
 ### Completion
 
-```bash
+```zsh
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' menu select
@@ -36,7 +36,7 @@ This will enable a much better completion than the default one. Now, whenever th
 
 ### Colors
 
-```
+```zsh
 autoload -U colors && colors
 export COLOR_GREEN=2
 export COLOR_PURPLE=21
@@ -51,7 +51,7 @@ The `LS_COLORS` definition sets the directories in green, executable files in pu
 
 ### Aliases
 
-```
+```zsh
 alias v='vi'
 alias ls='ls -lhN --color=auto'
 alias la='ls -lahN --color=auto'
@@ -67,7 +67,7 @@ I added some very minimal aliases; those that are embedded in my muscle memory. 
 
 ### Prompt
 
-```
+```zsh
 PS1="[%m] %{[38;5;${COLOR_GREEN}m%}%~/%{[00m%} "
 ```
 

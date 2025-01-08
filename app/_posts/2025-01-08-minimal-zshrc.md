@@ -12,7 +12,7 @@ So this time, I built a very minimal `.zshrc` that I intend to `scp` to a remote
 
 ### Fix the keyboard
 
-```
+```zsh
 export TERM=xterm-256color
 bindkey "^[[3~" delete-char            # Delete
 bindkey "^?" backward-delete-char # Backspace
@@ -26,7 +26,7 @@ The `^[` and `^?` chars here are not real characters, but escape characters. In 
 
 ### Completion
 
-```
+```bash
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' menu select
@@ -79,6 +79,6 @@ I actually like to replace the `%m` with a machine-specific prefix, to more easi
 
 ![](/img/files/2025-01-08-minimal-zshrc/01-ef4be3e9c4.png)
 
-Here, for example, you can see I'm connected to my handheld console (I added the SNES-like colored button), currently in the `/roms2/` directory and I'm tabbing through completions in the `./n64/games/ folder.
+Here, for example, you can see I'm connected to my handheld console (I added the SNES-like colored button), currently in the `/roms2/` directory and I'm tabbing through completions in the `./n64/games/` folder.
 
 And that's it. A very minimal .`zshrc` for when I need to get my bearings on a new remote server and still be able to do what I want quickly.

@@ -4,6 +4,8 @@ title: "My journey through the ESM Tree Shaking forest"
 tags: cloudflare workers, esm, javascript
 ---
 
+![](/img/files/2025-01-14-journey-esm-tree-shaking/header.png)
+
 I had to work with Cloudflare Workers recently, and everything worked well until one day one of the HTTP calls I was doing started to fail.
 
 When I ran the same piece of code locally it worked (obviously!). But pushed and ran through Cloudflare Workers, it failed. This was the first step in what then became a day-long trip into the rabbit hole of debugging. After a couple of hours of debugging "live" (by pushing my code, hitting the server, and checking logs), I finally discovered that my issue was that the HTTP endpoint I targeted had a rate limit, based on the originating IP. And when doing calls from Cloudflare, sharing the same IP with other workers, the IP already had hit the limit and my calls would fail.

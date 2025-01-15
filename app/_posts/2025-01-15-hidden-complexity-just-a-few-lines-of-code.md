@@ -4,7 +4,7 @@ title: The hidden complexity of "just a few lines of code"
 tags: cloudflare, API
 ---
 
-![](app/img/files/2025-01-15-hidden-complexity-just-a-few-lines-of-code/header.png)
+![](/img/files/2025-01-15-hidden-complexity-just-a-few-lines-of-code/header.png)
 
 We're often hosting meetups in the Algolia Paris office. To make our lives easier, I decided to build an API that would allow us to fetch metadata about the event easily (like description, date, list of attendees, etc). I decided to host that on Cloudflare Workers.
 

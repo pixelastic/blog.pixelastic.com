@@ -12,7 +12,7 @@ also involved in tech communities such as the HumanTalks, Tech Lunch,
 SecAtScale or PlatformAtScale.
 
 I've been building websites since 1998, at a time where jQuery on IE6 was the
-most hype thing you could do. Today, I spend more time in the command-line or in
+most hype thing you could do. Today, I spend more time in the CLI or in
 vim, hacking scripts together, automating as much as I can and manually building
 the rest.
 

@@ -23,14 +23,14 @@ In that case, I push the file through [CloudConvert](https://cloudconvert.com/),
 Whisper doesn't need very high audio quality to create a transcript, so I can compress pretty aggressively and still get a good transcript. What I found to be impactful is to:
 
 - **Format:** Convert from `mp3` to `m4a` with the `AAC` codec. Slightly lower filesize for equal quality.
-- **Channels: **I set the channels to 1, actually making it a mono rather than stereo file.
+- **Channels:** I set the channels to 1, actually making it a mono rather than stereo file.
 - **Audio bitrate:** I halved it down from `128 kbps` to `64 kbps`.
-- **Sample rate: **I also halved it from `44.1 kHz` to `22.05 kHz`
+- **Sample rate:** I also halved it from `44.1 kHz` to `22.05 kHz`
 
 In [CloudConvert](https://cloudconvert.com/) parlance, this means setting conversion and engine specific options as:
 
 - `audio_codec` set to `aac`
-- `channels `set to `1`
+- `channels` set to `1`
 - `audio_bitrate` set to `64`
 - `sample_bitrate` set to `22050`
 

@@ -4,7 +4,7 @@ title: "Compression strategy for heavy Whisper files"
 tags: automation, whisper
 ---
 
-
+![](/img/files/2025-02-21-compression-strategy-whisper/header.png)
 
 I'm often taking audio notes with my phone recorder app. I then have a [make.com](http://make.com) workflow in place where I push the audio file through Whisper to get a transcript of it, and start other workflows based on the content of the transcript. 
 

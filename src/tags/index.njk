@@ -1,0 +1,12 @@
+---
+layout: default.njk
+title: Tags
+permalink: /tags/
+docsearchExclude: true
+---
+<h1>Tags</h1>
+<ul>
+  {% for tag in collections.tagList %}
+    <li><a href="/tags/{{ tag.slug }}/">#{{ tag.name }}</a></li>
+  {% endfor %}
+</ul>

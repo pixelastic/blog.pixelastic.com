@@ -1,3 +1,6 @@
+import { groupPostsByTag } from './lib/groupPostsByTag.js';
+import { tagSlug } from './lib/tagSlug.js';
+
 /**
  * Eleventy configuration
  * @param {object} eleventyConfig - Eleventy configuration API
@@ -9,6 +12,12 @@ export default function (eleventyConfig) {
 
   // Posts contain raw HTML that must reach the output untouched
   eleventyConfig.amendLibrary('md', (markdown) => markdown.set({ html: true }));
+
+  // One entry per tag, with its posts, to generate the /tags/ pages
+  eleventyConfig.addCollection('tagList', (collectionApi) =>
+    groupPostsByTag(collectionApi.getFilteredByGlob('src/posts/*.md')),
+  );
+  eleventyConfig.addFilter('tagSlug', tagSlug);
 
   return {
     dir: {

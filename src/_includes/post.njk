@@ -9,7 +9,7 @@ layout: default.njk
   <p class="tag-list">
     Tags :
     {% for tag in tags %}
-      <span>#{{ tag }}</span>
+      <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
     {% endfor %}
   </p>
 </article>

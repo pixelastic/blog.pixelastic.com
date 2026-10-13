@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>{{ title }} - Pixelastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if docsearchExclude %}<meta name="docsearch:exclude" content="true">{% endif %}
   </head>
   <body>
     {{ content | safe }}

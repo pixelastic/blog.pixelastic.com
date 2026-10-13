@@ -1,0 +1,15 @@
+---
+layout: default.njk
+---
+<article class="post">
+  <h1 class="post-title">{{ title }}</h1>
+  <time class="post-date" datetime="{{ page.date.toISOString() | truncate(10, true, '') }}">{{ page.date.toISOString() | truncate(10, true, '') }}</time>
+  {{ content | safe }}
+  <hr>
+  <p class="tag-list">
+    Tags :
+    {% for tag in tags %}
+      <span>#{{ tag }}</span>
+    {% endfor %}
+  </p>
+</article>

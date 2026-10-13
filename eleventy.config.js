@@ -1,3 +1,4 @@
+import { groupPostsByPeriod } from './lib/groupPostsByPeriod.js';
 import { groupPostsByTag } from './lib/groupPostsByTag.js';
 import { tagSlug } from './lib/tagSlug.js';
 
@@ -18,6 +19,11 @@ export default function (eleventyConfig) {
     groupPostsByTag(collectionApi.getFilteredByGlob('src/posts/*.md')),
   );
   eleventyConfig.addFilter('tagSlug', tagSlug);
+
+  // One entry per year, month and day containing posts, to generate the archive pages
+  eleventyConfig.addCollection('archiveList', (collectionApi) =>
+    groupPostsByPeriod(collectionApi.getFilteredByGlob('src/posts/*.md')),
+  );
 
   return {
     dir: {

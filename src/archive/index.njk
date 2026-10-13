@@ -1,0 +1,14 @@
+---
+layout: default.njk
+title: Archive
+permalink: /archive/
+docsearchExclude: true
+---
+<h1>Archive</h1>
+<ul>
+  {% for period in collections.archiveList %}
+    {% if period.level == 'year' %}
+      <li><a href="{{ period.url }}">{{ period.year }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>

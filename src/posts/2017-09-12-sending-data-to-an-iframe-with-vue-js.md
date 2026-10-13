@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Sending data to an iframe with Vue.js"
-tags: vuejs, iframe
+tags:
+  - vuejs
+  - iframe
 ---
 
 Communicating from a parent window to a child iframe is a known problem in

@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Replacing new lines with spaces in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 Another one of those things I need to often do in zsh and never remember the

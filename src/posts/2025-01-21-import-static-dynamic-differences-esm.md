@@ -1,7 +1,7 @@
 ---
-layout: "post"
 title: "Differences between static and dynamic imports in ESM"
-tags: javascript
+tags:
+  - javascript
 ---
 
 ![](/img/files/2025-01-21-import-static-dynamic-differences-esm/header.png)

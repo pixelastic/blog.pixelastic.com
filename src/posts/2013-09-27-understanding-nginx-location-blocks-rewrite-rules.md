@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Understanding nginx location blocks and rewrite rules"
 custom_v2_id: 357
-tags: htaccess, apache, cakephp, nginx
+tags:
+  - htaccess
+  - apache
+  - cakephp
+  - nginx
 ---
 
 I recently moved a cakePHP website from an Apache server to an Nginx one. I

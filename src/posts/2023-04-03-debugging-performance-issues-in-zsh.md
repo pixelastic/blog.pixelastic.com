@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Debugging performance issues in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 If I add too much code in my `.zshrc`, my zsh takes longer to load. As I use

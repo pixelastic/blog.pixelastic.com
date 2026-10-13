@@ -1,7 +1,9 @@
 ---
-layout: "post"
 title: "Make webhook status visual feedback in Airtable"
-tags: automation, airtable, make
+tags:
+  - automation
+  - airtable
+  - make
 ---
 
 I've been working on my Airtable and Make automations, and I wanted to share a small trick I've implemented to improve error handling and visibility. 

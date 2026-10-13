@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Iterating on words and lines in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 When writing zsh scripts, I often needs to iterate on elements, but depending

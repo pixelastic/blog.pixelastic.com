@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "PHP session on disk with lighttpd, and write access"
 custom_v2_id: 307
-tags: lighttpd, php, sessions
+tags:
+  - lighttpd
+  - php
+  - sessions
 ---
 
 On HappyLife, we used to use Memcache to handle the php sessions. We

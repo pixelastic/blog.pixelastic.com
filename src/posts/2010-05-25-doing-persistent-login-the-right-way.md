@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Doing persistent login the right way"
 custom_v2_id: 174
-tags: token, login, cookie, authenticate
+tags:
+  - token
+  - login
+  - cookie
+  - authenticate
 ---
 
 When I was a young web developer, I had to code an admin panel, with username

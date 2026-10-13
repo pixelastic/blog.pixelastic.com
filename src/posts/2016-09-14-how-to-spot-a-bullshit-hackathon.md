@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "How to spot a bullshit hackathon"
-tags: bullshit, hackathon
+tags:
+  - bullshit
+  - hackathon
 ---
 
 Being co-organizer of [a meetup group][1], I often receive messages from

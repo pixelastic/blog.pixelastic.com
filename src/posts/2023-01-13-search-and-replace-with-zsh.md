@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Search and replace with zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 To search and replace with `zsh`, there are two ways.

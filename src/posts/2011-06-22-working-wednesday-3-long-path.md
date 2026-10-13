@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "Working on Wednesday #3 : The long path to get it done"
 custom_v2_id: 291
-tags: keepass, vim, linux, mono, ruby-on-rails, ubuntu, wednesday
+tags:
+  - keepass
+  - vim
+  - linux
+  - mono
+  - ruby-on-rails
+  - ubuntu
+  - wednesday
 ---
 
 This morning I started reading a lot of online blog post, framework

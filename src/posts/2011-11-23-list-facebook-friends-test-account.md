@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Getting list of Facebook friends from a test account"
 custom_v2_id: 324
-tags: facebook
+tags:
+  - facebook
 ---
 
 To get the list of friends of a specific user, you are supposed to issue a

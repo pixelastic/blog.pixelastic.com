@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Meeting with Eric Daspet and Stoyan Stefanov in Paris"
 custom_v2_id: 187
-tags: stoyan-stefanov, smushit, performance, eric-daspet
+tags:
+  - stoyan-stefanov
+  - smushit
+  - performance
+  - eric-daspet
 ---
 
 On July 21st will be held an [informal meeting in

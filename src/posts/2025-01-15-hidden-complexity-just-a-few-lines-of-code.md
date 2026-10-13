@@ -1,7 +1,8 @@
 ---
-layout: "post"
 title: The hidden complexity of "just a few lines of code"
-tags: cloudflare, API
+tags:
+  - cloudflare
+  - API
 ---
 
 ![](/img/files/2025-01-15-hidden-complexity-just-a-few-lines-of-code/header.png)

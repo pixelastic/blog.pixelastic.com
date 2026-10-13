@@ -1,8 +1,17 @@
 ---
-layout: post
 title: "Testing file uploads in PHP"
 custom_v2_id: 210
-tags: move-uploaded-file, files, tests, phpt, is-uploaded-file, upload, simpletest, unit-testing, cakephp, php
+tags:
+  - move-uploaded-file
+  - files
+  - tests
+  - phpt
+  - is-uploaded-file
+  - upload
+  - simpletest
+  - unit-testing
+  - cakephp
+  - php
 ---
 
 I just had to write unit tests for a file upload script I had to write. As it

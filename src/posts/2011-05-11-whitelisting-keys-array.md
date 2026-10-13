@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Whitelisting keys of an array"
 custom_v2_id: 280
-tags: php, array-intersect, array-flip, array-whitelist
+tags:
+  - php
+  - array-intersect
+  - array-flip
+  - array-whitelist
 ---
 
 I needed to validate an array create from POSTed data. I wanted to discard all

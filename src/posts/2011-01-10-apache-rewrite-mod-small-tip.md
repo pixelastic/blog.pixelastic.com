@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Apache rewrite_mod small tip"
 custom_v2_id: 256
-tags: rewriterule, rewriteengine, mod-rewrite, apache, htaccess
+tags:
+  - rewriterule
+  - rewriteengine
+  - mod-rewrite
+  - apache
+  - htaccess
 ---
 
 Did you know that when debugging `RewriteRule`s, instead of

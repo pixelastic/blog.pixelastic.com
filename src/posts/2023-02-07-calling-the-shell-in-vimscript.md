@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Calling external scripts in the shell in vimscript"
-tags: vim
+tags:
+  - vim
 ---
 
 Some of my vimscripts need to call external commands, through the shell CLI.

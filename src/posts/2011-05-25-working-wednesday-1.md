@@ -1,8 +1,17 @@
 ---
-layout: post
 title: "Working on Wednesday #1"
 custom_v2_id: 282
-tags: ruby-on-rails, tdd, wednesday, git, vim, sass, haml, coffeescript, kaffeine, backbone
+tags:
+  - ruby-on-rails
+  - tdd
+  - wednesday
+  - git
+  - vim
+  - sass
+  - haml
+  - coffeescript
+  - kaffeine
+  - backbone
 ---
 
 Starting June 15th, I'll stop working at my day job for one day a week.

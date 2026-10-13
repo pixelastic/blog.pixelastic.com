@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Getting the list of Facebook pending requests of a user"
 custom_v2_id: 318
 

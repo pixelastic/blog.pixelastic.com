@@ -1,7 +1,10 @@
 ---
-layout: post
 title: "The making of programmingexcuses.sh"
-tags: linux, wget, pup, bash
+tags:
+  - linux
+  - wget
+  - pup
+  - bash
 ---
 
 I recently discovered [programmingexcuses.com][1]

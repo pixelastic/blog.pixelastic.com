@@ -1,7 +1,7 @@
 ---
-layout: "post"
 title: "Minimal .zshrc for remote servers"
-tags: automation
+tags:
+  - automation
 ---
 
 Recently, I found myself connecting to remote machines quite often. I have to debug remote servers for work or connect through `ssh` to an emulation handheld console I just bought (more posts coming on that later).

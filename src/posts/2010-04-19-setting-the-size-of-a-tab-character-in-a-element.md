@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Setting the size of a tab character in a pre element"
 custom_v2_id: 79
-tags: white-space, tab-stops, tab, o-tab-size, moz-tab-size
+tags:
+  - white-space
+  - tab-stops
+  - tab
+  - o-tab-size
+  - moz-tab-size
 ---
 
 When displaying code in an HTML page, you often want it to be correctly

@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Mysql auto backup"
 custom_v2_id: 63
-tags: mysql, backup
+tags:
+  - mysql
+  - backup
 ---
 
 I'm in the process of automating the backup of all the mysql databases of my

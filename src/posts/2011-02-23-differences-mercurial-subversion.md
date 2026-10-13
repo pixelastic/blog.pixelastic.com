@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Differences between Mercurial and Subversion"
 custom_v2_id: 265
-tags: svn, tortoisehg, mercurial, hg, subversion
+tags:
+  - svn
+  - tortoisehg
+  - mercurial
+  - hg
+  - subversion
 ---
 
 People at my current job are using Subversion, and our project will be tracked

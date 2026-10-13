@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "How to prevent a FOUC but still gracefully degrade the jQuery UI tabs"
 custom_v2_id: 223
-tags: jquery-ui, tabs, jquery, graceful-degradation, javascript, css, fouc
+tags:
+  - jquery-ui
+  - tabs
+  - jquery
+  - graceful-degradation
+  - javascript
+  - css
+  - fouc
 ---
 
 I finally managed to fix something that was bugging me for a very long time.

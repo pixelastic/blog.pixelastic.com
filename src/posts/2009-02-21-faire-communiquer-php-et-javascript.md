@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Faire communiquer PHP et Javascript"
 custom_v2_id: 12
-tags: jquery
+tags:
+  - jquery
 ---
 
 Pour un projet sur lequel je suis en ce moment, je dois faire une interface

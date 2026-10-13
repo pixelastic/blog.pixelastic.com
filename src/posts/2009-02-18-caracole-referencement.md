@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Caracole - Référencement"
 custom_v2_id: 7
-tags: cakephp, caracole
+tags:
+  - cakephp
+  - caracole
 ---
 
 Le référencement est une des préocupations principales de nos clients, tous

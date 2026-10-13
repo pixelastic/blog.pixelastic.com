@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Dynamic variable names in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 Imagine the following scenario:

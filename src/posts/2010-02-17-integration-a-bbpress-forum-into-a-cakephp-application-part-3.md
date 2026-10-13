@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Integration of a bbPress forum into a cakePHP application (part 3)"
 custom_v2_id: 48
-tags: cakephp, bbpress
+tags:
+  - cakephp
+  - bbpress
 ---
 
 Let's go back to bbPress now. With the previous post, you should be able to

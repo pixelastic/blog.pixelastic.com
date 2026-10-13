@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Opening a new tab using Ctrl+Click on Opera"
 custom_v2_id: 72
-tags: opera, javascript, css, autohotkey, ahk
+tags:
+  - opera
+  - javascript
+  - css
+  - autohotkey
+  - ahk
 ---
 
 One thing that bugs me everytime I use Opera are the weird keyboard shortcuts.

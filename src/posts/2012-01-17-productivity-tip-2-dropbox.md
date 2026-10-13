@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "Productivity tip #2 : Use a Dropbox"
 custom_v2_id: 335
-tags: doxie, keepass, productivity, dropbox, scanner, tomboy, paperwork
+tags:
+  - doxie
+  - keepass
+  - productivity
+  - dropbox
+  - scanner
+  - tomboy
+  - paperwork
 ---
 
 Here's one more post in my productivity serie. This one is about the Dropbox

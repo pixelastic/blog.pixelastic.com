@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "From no versioning to git"
 custom_v2_id: 343
-tags: git, mercurial, subversion
+tags:
+  - git
+  - mercurial
+  - subversion
 ---
 
 When I started working as a professional web developer, I wasn't using any

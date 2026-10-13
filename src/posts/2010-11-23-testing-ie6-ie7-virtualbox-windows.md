@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Testing IE6 and IE7 using VirtualBox on Windows"
 custom_v2_id: 243
-tags: virtualbox, ie7, windows, ie6
+tags:
+  - virtualbox
+  - ie7
+  - windows
+  - ie6
 ---
 
 Testing various IE version as always been a chore. Back in the days, I managed

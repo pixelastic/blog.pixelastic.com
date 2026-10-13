@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Memory techniques"
-tags: memory
+tags:
+  - memory
 ---
 
 _I recently gave a talk about memory techniques that I use. I'm posting a summary

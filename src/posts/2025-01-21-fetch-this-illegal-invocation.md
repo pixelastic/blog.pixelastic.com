@@ -1,7 +1,7 @@
 ---
-layout: "post"
 title: "Fetch this: Illegal invocation in Cloudflare Workers"
-tags: javascript
+tags:
+  - javascript
 ---
 
 ![](/img/files/2025-01-21-fetch-this-illegal-invocation/header.png)

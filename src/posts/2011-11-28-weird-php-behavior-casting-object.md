@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Weird PHP behavior when casting as an object"
 custom_v2_id: 327
-tags: object, php, empty
+tags:
+  - object
+  - php
+  - empty
 ---
 
 I've just stumbled upon that weird behavior when force casting the return of a

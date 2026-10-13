@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "UTF-8 encoding for nginx"
-tags: nginx, jekyll
+tags:
+  - nginx
+  - jekyll
 ---
 
 I just realised that my very own website wasn't correctly returning UTF-8 in

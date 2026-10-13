@@ -1,7 +1,9 @@
 ---
-layout: post
 title: "Marvel Super-Search"
-tags: algolia, search, marvel
+tags:
+  - algolia
+  - search
+  - marvel
 ---
 
 Last December I discovered that [Marvel had an API][1]. Yes, that's right,
@@ -14,7 +16,7 @@ with, and to battle test our [instantsearch.js][4] library. While Algolia lets
 you search in any kind of data (as long as you can convert it to JSON), fiddling
 with a dataset full of superheroes is way funnier than any other dataset.
 
-{% youtube https://www.youtube.com/watch?v=SwnP8U6vuWQ %}
+<iframe class="youtube-player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/SwnP8U6vuWQ" frameborder="0" allowfullscreen></iframe>
 You can see the [full demo here][5]
 
 So I started registering to the [Marvel developer program][6] to get an API key

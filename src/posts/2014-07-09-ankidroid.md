@@ -1,7 +1,5 @@
 ---
-layout: post
 title: "AnkiDroid"
-tags:
 ---
 
 A [colleague of mine](http://teabough.com/), which is as interested in life

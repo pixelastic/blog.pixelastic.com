@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Updated CSSTidy files"
 custom_v2_id: 67
-tags: css, csstidy, sourceforge
+tags:
+  - css
+  - csstidy
+  - sourceforge
 ---
 
 CSSTidy allows you to optimize your CSS files by aggregating them in one

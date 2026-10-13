@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Caracole - Brouillons"
 custom_v2_id: 4
-tags: caracole, cakephp
+tags:
+  - caracole
+  - cakephp
 ---
 
 Une des fonctionnalités les plus pratiques de Wordpress, c'est de pouvoir

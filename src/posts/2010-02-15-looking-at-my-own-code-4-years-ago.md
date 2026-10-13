@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Reading my own code from 3 years ago"
 custom_v2_id: 45
-tags: php
+tags:
+  - php
 ---
 
 Today I had to update an old site I developped some years ago. I had to move

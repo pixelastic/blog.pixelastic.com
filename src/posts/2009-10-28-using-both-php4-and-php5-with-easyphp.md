@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Using both php4 and php5 with Easyphp"
 custom_v2_id: 23
-tags: php5, php4, php, easyphp
+tags:
+  - php5
+  - php4
+  - php
+  - easyphp
 ---
 
 I'm mostly developing on my Windows machine, using EasyPHP (combining Apache,

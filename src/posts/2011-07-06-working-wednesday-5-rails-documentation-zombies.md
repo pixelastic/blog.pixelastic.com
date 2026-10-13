@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Working on Wednesday #5 : Rails documentation and Zombies"
 custom_v2_id: 298
-tags: ruby-on-rails, wednesday, gem, ruby, rails
+tags:
+  - ruby-on-rails
+  - wednesday
+  - gem
+  - ruby
+  - rails
 ---
 
 Today I continue on my Rails for Zombie learning. Actually, I wake up kind of

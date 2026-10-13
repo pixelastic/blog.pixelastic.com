@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Performance improvement : moving assets to subdomains"
 custom_v2_id: 238
-tags: subdomains, performance, apache
+tags:
+  - subdomains
+  - performance
+  - apache
 ---
 
 **Disclaimer : What I'm talking about in this blog post can be optimised. Yes,

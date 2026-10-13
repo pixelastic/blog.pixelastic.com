@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Working on Wednesday #4 : Rails for Zombies"
 custom_v2_id: 294
-tags: wednesday, ruby-on-rails, ror
+tags:
+  - wednesday
+  - ruby-on-rails
+  - ror
 ---
 
 (I finally managed to update Ubuntu to the 10.10 version, configure Unity to

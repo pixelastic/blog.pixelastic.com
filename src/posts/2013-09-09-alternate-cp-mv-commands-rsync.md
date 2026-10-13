@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "Alternate cp and mv commands using rsync"
 custom_v2_id: 355
-tags: linux, zsh, cp, mv, rsync, compdef, completion
+tags:
+  - linux
+  - zsh
+  - cp
+  - mv
+  - rsync
+  - compdef
+  - completion
 ---
 
 Sometime you need to copy or move files, but preserve their ownership,

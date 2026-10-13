@@ -1,8 +1,17 @@
 ---
-layout: post
 title: "SWF caching issues accross browsers"
 custom_v2_id: 287
-tags: webperf, ie8, flash, swf, ie7, ie6, firefox, chrome, cache, cache-control
+tags:
+  - webperf
+  - ie8
+  - flash
+  - swf
+  - ie7
+  - ie6
+  - firefox
+  - chrome
+  - cache
+  - cache-control
 ---
 
 Here are some quick notes on various browser caching behavior. I was fiddling

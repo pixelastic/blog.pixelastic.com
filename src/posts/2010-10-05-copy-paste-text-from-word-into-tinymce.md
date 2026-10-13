@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Copy/Paste text from Word into tinyMCE"
 custom_v2_id: 227
-tags: word, tinymce, javascript, copy-paste
+tags:
+  - word
+  - tinymce
+  - javascript
+  - copy-paste
 ---
 
 What good is building a really nice CMS with top-notch WYSIWYG editor if you

@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Quick overview of the Prestashop admin panel"
 custom_v2_id: 54
-tags: prestashop
+tags:
+  - prestashop
 ---
 
 One of my client wants to move an old osCommerce site to a new platform.

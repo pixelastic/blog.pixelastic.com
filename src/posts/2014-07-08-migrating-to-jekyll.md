@@ -1,7 +1,5 @@
 ---
-layout: post
 title: "Migrating to Jekyll"
-tags:
 ---
 
 You might have noticed that the skin of the website changed. Actually, I've

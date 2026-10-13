@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Another PHP casting weirdness"
 custom_v2_id: 277
-tags: casting, php, boolean, array
+tags:
+  - casting
+  - php
+  - boolean
+  - array
 ---
 
 Second weird PHP behavior behavior of the day :

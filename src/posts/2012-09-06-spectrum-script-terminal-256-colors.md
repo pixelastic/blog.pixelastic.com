@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Spectrum, a script to see your terminal 256 colors"
 custom_v2_id: 342
-tags: colors, spectrum, ubuntu, linux, terminal
+tags:
+  - colors
+  - spectrum
+  - ubuntu
+  - linux
+  - terminal
 ---
 
 Here is a little script I hacked together to display in your terminal all the

@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "CSS for Javascript enabled browsers"
 custom_v2_id: 224
-tags: css, javascript, performance, html
+tags:
+  - css
+  - javascript
+  - performance
+  - html
 ---
 
 In a previous post I was wondering if my way of loading js-specific CSS rules

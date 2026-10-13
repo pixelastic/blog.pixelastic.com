@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Removing an element from an array in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 To remove an element from an array at a specific index, you need to set the

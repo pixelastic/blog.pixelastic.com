@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Duck in computer jargon"
-tags: duck, jargon
+tags:
+  - duck
+  - jargon
 ---
 
 I've been struck by how often we, developers, use the word _duck_ in our

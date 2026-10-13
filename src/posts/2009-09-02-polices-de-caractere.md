@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Polices de caractère !"
 custom_v2_id: 20
-tags: ttf, otf, font-face, eot, cufon, css
+tags:
+  - ttf
+  - otf
+  - font-face
+  - eot
+  - cufon
+  - css
 ---
 
 Ah elles en ont du caractère ces polices ! Elle m'en font voir de toutes les

@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "SWFUpload and cakePHP"
 custom_v2_id: 208
-tags: swfupload, sessions, php, cakephp, useragent
+tags:
+  - swfupload
+  - sessions
+  - php
+  - cakephp
+  - useragent
 ---
 
 One thing that always sent me an awful hours of debugging is the fact that the

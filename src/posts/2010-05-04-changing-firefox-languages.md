@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Changing Firefox language"
 custom_v2_id: 82
-tags: locale, language, general-useragent-locale, firefox, en-us
+tags:
+  - locale
+  - language
+  - general-useragent-locale
+  - firefox
+  - en-us
 ---
 
 I'm French, live in France, but usually prefer having my software in English.

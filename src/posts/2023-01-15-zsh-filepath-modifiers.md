@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "ZSH filepath modifiers"
-tags: zsh
+tags:
+  - zsh
 ---
 
 `zsh` comes bundled with variable modifier to alter filepaths and extract the

@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Working on Wednesday #9 : Mercurial"
 custom_v2_id: 303
-tags: git, hg, mercurial, wednesday
+tags:
+  - git
+  - hg
+  - mercurial
+  - wednesday
 ---
 
 _I'm feeling like I'm getting more and more behind schedule for what I

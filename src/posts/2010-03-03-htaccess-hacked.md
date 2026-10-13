@@ -1,8 +1,10 @@
 ---
-layout: post
 title: ".htaccess hacked"
 custom_v2_id: 50
-tags: hack, ftp, htaccess
+tags:
+  - hack
+  - ftp
+  - htaccess
 ---
 
 Today a client called me telling me that its website was unavailable, or more

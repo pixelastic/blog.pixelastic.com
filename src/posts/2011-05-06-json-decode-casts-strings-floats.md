@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "json_decode casts strings to floats"
 custom_v2_id: 276
-tags: json, float, json-decode, string, php
+tags:
+  - json
+  - float
+  - json-decode
+  - string
+  - php
 ---
 
 The PHP function [json_decode](http://fr.php.net/manual/en/function.json-

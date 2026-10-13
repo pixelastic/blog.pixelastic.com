@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Array (List) functions in vimscript"
-tags: vim
+tags:
+  - vim
 ---
 
 Vimscript `Array`s are called `List`s. They have a set of rules and functions

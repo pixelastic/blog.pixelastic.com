@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Working on Wednesday #6-#7 : Correctly installing Ruby on Rails"
 custom_v2_id: 299
-tags: wednesday, ruby-on-rails, rvm, bundler, ruby, gem
+tags:
+  - wednesday
+  - ruby-on-rails
+  - rvm
+  - bundler
+  - ruby
+  - gem
 ---
 
 _This post spans two weeks because I couldn't manage to have a clean

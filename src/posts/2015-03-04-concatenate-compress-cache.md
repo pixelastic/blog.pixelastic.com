@@ -1,7 +1,11 @@
 ---
-layout: post
 title: "Concatenate, Compress, Cache"
-tags: webperf, grunt, gzip, cache, http
+tags:
+  - webperf
+  - grunt
+  - gzip
+  - cache
+  - http
 ---
 
 _This post is cross-posted on the [Octo Technology

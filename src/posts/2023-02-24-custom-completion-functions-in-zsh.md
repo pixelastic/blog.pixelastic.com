@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Custom completion methods in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 I needed to define a custom completion function to suggest files when typing

@@ -1,7 +1,11 @@
 ---
-layout: post
 title: "Testing several Jekyll versions"
-tags: ruby, jekyll, travis, appraisal, rspec
+tags:
+  - ruby
+  - jekyll
+  - travis
+  - appraisal
+  - rspec
 ---
 
 Maintaining a Jekyll plugin that must work for two major versions of

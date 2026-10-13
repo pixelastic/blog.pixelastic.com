@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Text emboss in CSS"
 custom_v2_id: 222
-tags: after, css, text-shadow, emboss
+tags:
+  - after
+  - css
+  - text-shadow
+  - emboss
 ---
 
 I know only two _unperfect _ways of displaying an emboss text in CSS. As we

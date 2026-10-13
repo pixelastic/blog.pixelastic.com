@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Selecting checked radio button with jQuery and IE8"
 custom_v2_id: 310
-tags: jquery, radio, ie8, checked
+tags:
+  - jquery
+  - radio
+  - ie8
+  - checked
 ---
 
 Ever tried to select the checked `radio `button of a form using jQuery ? Well

@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Strange requestAction bug changing the page Content-Type"
 custom_v2_id: 257
-tags: requesthandler, requestaction, content-type, cakephp
+tags:
+  - requesthandler
+  - requestaction
+  - content-type
+  - cakephp
 ---
 
 Today, I thought my current project was finished. But I had this bug report in

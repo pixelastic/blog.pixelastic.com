@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Sansa Clip+ folder merging issue"
 custom_v2_id: 314
-tags: bug, mp3, sansa
+tags:
+  - bug
+  - mp3
+  - sansa
 ---
 
 I own a [Sansa Clip+](http://anythingbutipod.com/2009/08/sandisk-sansa-clip-

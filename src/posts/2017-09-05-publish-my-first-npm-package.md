@@ -1,7 +1,10 @@
 ---
-layout: post
 title: "Publish my first npm package"
-tags: npm, yarn, tachyons, css
+tags:
+  - npm
+  - yarn
+  - tachyons
+  - css
 ---
 
 I published my [first npm package][1] today. It's a micro-css framework, based

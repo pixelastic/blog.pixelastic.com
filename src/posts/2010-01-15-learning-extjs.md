@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Learning extJs"
 custom_v2_id: 29
-tags: jquery, extjs, coldfusion
+tags:
+  - jquery
+  - extjs
+  - coldfusion
 ---
 
 Today, the [jquery 1.4](http://jquery14.com/day-01/jquery-14) version was

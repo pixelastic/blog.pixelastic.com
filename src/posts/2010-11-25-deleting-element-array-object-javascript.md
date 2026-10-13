@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Deleting an element from an Array/Object in Javascript"
 custom_v2_id: 245
-tags: object, javascript, delete, array
+tags:
+  - object
+  - javascript
+  - delete
+  - array
 ---
 
 I'm going to post that here because it's the second time I stumble upon this

@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Doxie + Dropbox + Ikea = Love"
 custom_v2_id: 346
-tags: dropbox, ikea, doxie
+tags:
+  - dropbox
+  - ikea
+  - doxie
 ---
 
 Thanks to [doxie](http://getdoxie.com/) and

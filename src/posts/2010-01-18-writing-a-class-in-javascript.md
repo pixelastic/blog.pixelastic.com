@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Writing a class in Javascript"
 custom_v2_id: 30
-tags: javascript, class
+tags:
+  - javascript
+  - class
 ---
 
 I always have to refer to a manual or a webpage to remember the correct syntax

@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Padding a string with zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 To pad a string with leading spaces in zs, you can use `${(r(15)( ))variableName)`.

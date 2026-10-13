@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "DNS caching and flushing"
 custom_v2_id: 40
-tags: dreamhost, gandi, cache, dns
+tags:
+  - dreamhost
+  - gandi
+  - cache
+  - dns
 ---
 
 Yesterday I moved this domain from one server to another on my Dreamhost

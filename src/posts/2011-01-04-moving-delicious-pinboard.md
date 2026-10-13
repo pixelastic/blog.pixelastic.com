@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Moving from Delicious to Pinboard"
 custom_v2_id: 253
-tags: pinboard, delicious
+tags:
+  - pinboard
+  - delicious
 ---
 
 As you may have heard, Yahoo! is closing

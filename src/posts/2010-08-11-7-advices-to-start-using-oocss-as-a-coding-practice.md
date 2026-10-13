@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "7 advices to start using OOCSS as a coding practice"
 custom_v2_id: 201
-tags: css, oocss
+tags:
+  - css
+  - oocss
 ---
 
 Not long ago, I stumbled across this [video about massive and unmaintainable

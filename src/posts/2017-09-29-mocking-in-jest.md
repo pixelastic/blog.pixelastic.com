@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Mocking in Jest"
-tags: jest
+tags:
+  - jest
 ---
 
 I used to do my JavaScript testing using a combination of `mocha`, `expect` and

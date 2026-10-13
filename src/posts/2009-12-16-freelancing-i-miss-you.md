@@ -1,8 +1,17 @@
 ---
-layout: post
 title: "Freelancing, I miss you"
 custom_v2_id: 25
-tags: xmp, phpsec, php, metadatas, iptc, google-analytics, gmail, exif, coldfusion, caracole
+tags:
+  - xmp
+  - phpsec
+  - php
+  - metadatas
+  - iptc
+  - google-analytics
+  - gmail
+  - exif
+  - coldfusion
+  - caracole
 ---
 
 Well, it's been one month and a half now that I've put my freelance activites

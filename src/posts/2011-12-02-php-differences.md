@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "PHP AND / OR differences with && / ||"
 custom_v2_id: 328
-tags: php
+tags:
+  - php
 ---
 
 Just found this weird little behavior of PHP today :

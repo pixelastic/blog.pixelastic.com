@@ -1,7 +1,5 @@
 ---
-layout: post
 title: "Fake user profiles"
-tags:
 ---
 
 For a demo website I just built I needed a set of fake user profiles. I needed

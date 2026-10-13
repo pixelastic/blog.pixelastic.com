@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Database in UTF8 with Coldfusion"
 custom_v2_id: 32
-tags: database, coldfusion, utf8
+tags:
+  - database
+  - coldfusion
+  - utf8
 ---
 
 When setting up a Coldfusion application, do not forget to add to your

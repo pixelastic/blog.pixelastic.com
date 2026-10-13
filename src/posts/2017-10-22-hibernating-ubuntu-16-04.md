@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "(Not)Hibernating Ubuntu 16.04 with full disk encryption"
-tags: ubuntu
+tags:
+  - ubuntu
 ---
 
 To maximize the usage of my new laptop battery, I wanted to have it hibernate

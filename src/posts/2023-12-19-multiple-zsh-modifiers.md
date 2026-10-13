@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Using multiple variable modifiers in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 `zsh` has a lot of variable modifiers, and sometimes trying to put more than one

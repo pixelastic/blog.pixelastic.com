@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Show and hide Flash elements without redraw"
 custom_v2_id: 312
-tags: show, hide, flash, css
+tags:
+  - show
+  - hide
+  - flash
+  - css
 ---
 
 Imagine you have a Flash element in your HTML markup. If you apply any

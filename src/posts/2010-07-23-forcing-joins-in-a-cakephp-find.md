@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Forcing joins in a cakePHP find"
 custom_v2_id: 199
-tags: joins, find, cakephp
+tags:
+  - joins
+  - find
+  - cakephp
 ---
 
 Today I had to setup a complex find relation. Here is the simplifed version of

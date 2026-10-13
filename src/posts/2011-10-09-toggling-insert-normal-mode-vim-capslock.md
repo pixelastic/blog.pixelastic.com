@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Toggling insert/normal mode in vim with CapsLock"
 custom_v2_id: 319
-tags: vim, zsh, xmodmap
+tags:
+  - vim
+  - zsh
+  - xmodmap
 ---
 
 You know that CapsLock key on your keyboard ? The sole usage of this key is to

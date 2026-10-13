@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Improved form spam protection"
 custom_v2_id: 186
-tags: spam, akismet
+tags:
+  - spam
+  - akismet
 ---
 
 My spam protection is really simple. Most spam bots will fill all input fields

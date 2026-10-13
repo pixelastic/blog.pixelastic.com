@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Namespaced helpers for git branches"
-tags: git
+tags:
+  - git
 ---
 
 I use `git` everyday and I often need to switch between branches, create one

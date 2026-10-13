@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Ouverture"
 custom_v2_id: 1
-tags: cakephp
+tags:
+  - cakephp
 ---
 
 Et voila le premier billet du blog de Pixelastic. Quel grand moment... Après

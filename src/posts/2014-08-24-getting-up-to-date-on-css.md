@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Getting up to date on CSS"
-tags: css
+tags:
+  - css
 ---
 
 I have been coding in CSS for a few years. I started when IE6 was the major

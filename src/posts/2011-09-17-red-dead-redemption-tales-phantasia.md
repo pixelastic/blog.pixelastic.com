@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Red Dead Redemption Vs Tales of Phantasia"
 custom_v2_id: 313
-tags: dingoo, red-dead-redemption, tales-phantasia, game-design, ui, ps3
+tags:
+  - dingoo
+  - red-dead-redemption
+  - tales-phantasia
+  - game-design
+  - ui
+  - ps3
 ---
 
 _Disclaimer : I usually post about technical web stuff, but this time I'll

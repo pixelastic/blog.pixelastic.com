@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Unable to send mail to same server"
 custom_v2_id: 166
-tags: postfix, mail
+tags:
+  - postfix
+  - mail
 ---
 
 I just realized that one of my domains was sending mails (in PHP), but I never

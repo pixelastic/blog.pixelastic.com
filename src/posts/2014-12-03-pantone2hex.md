@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "pantone2hex"
-tags: github, pantone2hex
+tags:
+  - github
+  - pantone2hex
 ---
 
 I recently put together a small command-line tool to convert Pantone colors to

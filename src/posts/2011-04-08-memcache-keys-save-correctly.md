@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Memcache keys not getting saved correctly"
 custom_v2_id: 272
-tags: memcached, php, cakephp
+tags:
+  - memcached
+  - php
+  - cakephp
 ---
 
 _Update : We were initially blaming Memcache not correctly setting/getting

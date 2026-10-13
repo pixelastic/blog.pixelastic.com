@@ -1,7 +1,11 @@
 ---
-layout: post
 title: "Difference between terminal, shell, prompt and command line"
-tags: terminal, shell, zsh, terminator, tmux
+tags:
+  - terminal
+  - shell
+  - zsh
+  - terminator
+  - tmux
 ---
 
 When I started using Linux, the command line was a whole new world to me. The

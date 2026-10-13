@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "New website"
 custom_v2_id: 177
-tags: skin, pixelastic
+tags:
+  - skin
+  - pixelastic
 ---
 
 I just uploaded the new version of the website. The old one was severely

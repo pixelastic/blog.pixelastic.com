@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Komodo Edit"
 custom_v2_id: 19
-tags: php, komodo, intype
+tags:
+  - php
+  - komodo
+  - intype
 ---
 
 J'ai utilisé de nombreux éditeurs depuis que j'ai commencé à coder, et au fil

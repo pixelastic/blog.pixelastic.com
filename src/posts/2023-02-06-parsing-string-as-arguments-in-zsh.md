@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Parsing string as arguments in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 I had a `commandOptions` string variable that I wanted to use as arguments to

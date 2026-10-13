@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Pushing to production and Github in one command"
-tags: git, github
+tags:
+  - git
+  - github
 ---
 
 I'm using git for all my workflow. I use either GitHub or BitBucket to store my

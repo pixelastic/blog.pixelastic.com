@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Losing session on each request with cakePHP and Chrome"
 custom_v2_id: 273
-tags: cakephp, chrome, session, referer-check
+tags:
+  - cakephp
+  - chrome
+  - session
+  - referer-check
 ---
 
 I finally found solution for one of the more tenacious bug I ever encountered.

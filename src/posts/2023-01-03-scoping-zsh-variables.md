@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Scoping zsh variables"
-tags: zsh
+tags:
+  - zsh
 ---
 
 By default in zsh, if you define a `local myVariable` it will be available to

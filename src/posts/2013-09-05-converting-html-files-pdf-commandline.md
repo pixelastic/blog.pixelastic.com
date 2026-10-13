@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Converting html files to pdf from the commandline"
 custom_v2_id: 352
-tags: pdf, html2pdf, wkhtmltopdf, html, css
+tags:
+  - pdf
+  - html2pdf
+  - wkhtmltopdf
+  - html
+  - css
 ---
 
 When you need to convert an `html` file to a `pdf`, often the default `pdf`

@@ -1,7 +1,10 @@
 ---
-layout: post
 title: "Testing $q promises with Angular"
-tags: angular, $q, promises, test
+tags:
+  - angular
+  - $q
+  - promises
+  - test
 ---
 
 I've been working on a few Angular projects lately, and had to test some `$q`

@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "A little introduction to image metadata"
 custom_v2_id: 28
-tags: metadatas, iptc, image, xmp, exif, coldfusion
+tags:
+  - metadatas
+  - iptc
+  - image
+  - xmp
+  - exif
+  - coldfusion
 ---
 
 For the project I'm working on, I have to save numerous[ ](http://en.wikipedia

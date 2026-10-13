@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "cakePHP wrapper for EmailComponent::send()"
 custom_v2_id: 264
-tags: cakephp, classregistry, component, email, squirrelmail, emailcomponent, view
+tags:
+  - cakephp
+  - classregistry
+  - component
+  - email
+  - squirrelmail
+  - emailcomponent
+  - view
 ---
 
 As I already wrote in a [previous post](/blog/230:displaying-html-mails-sent-

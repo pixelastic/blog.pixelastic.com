@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Unresponding jQuery UI dialog box"
 custom_v2_id: 55
-tags: jquery-ui, focus, dialog
+tags:
+  - jquery-ui
+  - focus
+  - dialog
 ---
 
 As this is the second time I encounter this "issue", I think it may be clever

@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Alternative way for multiple classes in IE6"
 custom_v2_id: 333
-tags: ie6, css, button
+tags:
+  - ie6
+  - css
+  - button
 ---
 
 In a pure OOCSS style of writing CSS, let's imagine you created a css class of

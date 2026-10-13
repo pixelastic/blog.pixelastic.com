@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Multiple foreach() with references in php"
 custom_v2_id: 271
-tags: php, foreach, reference
+tags:
+  - php
+  - foreach
+  - reference
 ---
 
 It took me a couple of hours to debug : I had an array with values that

@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Proxy command completion in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 Commands like `sudo` take other commands as input and run them in a specific

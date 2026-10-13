@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "tinyMCE mceRemoveNode explained"
 custom_v2_id: 57
-tags: tinymce, mceremovenode
+tags:
+  - tinymce
+  - mceremovenode
 ---
 
 When writing my image plugin for tinyMCE today I came accross the

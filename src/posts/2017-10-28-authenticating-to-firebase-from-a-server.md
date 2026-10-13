@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Authentication to Firebase Database from a Firebase Function"
-tags: firebase
+tags:
+  - firebase
 ---
 
 On one of the projects I'm working on, I'm using both Firebase functions and Firebase Database. I'm calling functions in reaction to specific events, that will save data in my Firebase Database.

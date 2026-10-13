@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Using custom find and paginate methods in cakePHP 1.3"
 custom_v2_id: 88
-tags: php, paginate, paginatecount, custom-find, cakephp
+tags:
+  - php
+  - paginate
+  - paginatecount
+  - custom-find
+  - cakephp
 ---
 
 For the blog plugin I'm writing I needed a way to fetch only blog posts that

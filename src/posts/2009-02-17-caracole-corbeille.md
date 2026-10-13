@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Caracole - Corbeille"
 custom_v2_id: 5
-tags: caracole, cakephp
+tags:
+  - caracole
+  - cakephp
 ---
 
 Dans la lignée du principe de brouillon j'ai aussi ajouté une fonction de

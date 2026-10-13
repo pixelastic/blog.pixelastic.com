@@ -1,8 +1,15 @@
 ---
-layout: post
 title: "Working on Wednesday #8 : Custom zsh scripts for housekeeping"
 custom_v2_id: 301
-tags: ssh, wednesday, zsh, sansa, linux, hosts, dropbox, dingoo
+tags:
+  - ssh
+  - wednesday
+  - zsh
+  - sansa
+  - linux
+  - hosts
+  - dropbox
+  - dingoo
 ---
 
 I made a break of the Ruby/Rails learning this week. Instead I learned a bit

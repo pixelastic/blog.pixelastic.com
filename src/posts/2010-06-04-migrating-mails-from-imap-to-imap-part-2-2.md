@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Migrating mails from IMAP to IMAP (part 2/2)"
 custom_v2_id: 180
-tags: linux, imapsync, imap
+tags:
+  - linux
+  - imapsync
+  - imap
 ---
 
 I'll finally have to migrate mails from one IMAP server to another because of

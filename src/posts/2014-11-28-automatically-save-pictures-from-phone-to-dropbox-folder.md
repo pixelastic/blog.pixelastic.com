@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Automatically save pictures from phone to Dropbox folder"
-tags: dropbox, ifttt
+tags:
+  - dropbox
+  - ifttt
 ---
 
 The Dropbox app on my Android offers to automatically save pictures I take to

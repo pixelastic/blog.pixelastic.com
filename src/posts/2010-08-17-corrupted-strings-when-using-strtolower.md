@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Corrupted strings when using strtolower()"
 custom_v2_id: 220
-tags: lc-ctype, setlocale, utf8, php
+tags:
+  - lc-ctype
+  - setlocale
+  - utf8
+  - php
 ---
 
 _Little blog post at 5am, I'll try to make it very short, I need some sleep._

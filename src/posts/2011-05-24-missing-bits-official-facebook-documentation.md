@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Missing bits of the official Facebook documentation"
 custom_v2_id: 281
-tags: fb, facebook
+tags:
+  - fb
+  - facebook
 ---
 
 As a complement to my post about FB.ui undocumented hard limit, here are some

@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Alternate content with SWFObject"
 custom_v2_id: 293
-tags: flash, swf, swfobject
+tags:
+  - flash
+  - swf
+  - swfobject
 ---
 
 SWFObject allow a web developer to add an alternate content in place of the

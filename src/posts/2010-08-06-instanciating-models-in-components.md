@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Correctly instanciating models in components"
 custom_v2_id: 216
-tags: behaviors, cakephp, classregistry, php, setup
+tags:
+  - behaviors
+  - cakephp
+  - classregistry
+  - php
+  - setup
 ---
 
 I sometime need access to a specific model in a component. Say a `User `model

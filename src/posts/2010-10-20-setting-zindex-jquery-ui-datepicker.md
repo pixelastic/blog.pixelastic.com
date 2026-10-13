@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Setting the z-index of a jQuery UI datepicker"
 custom_v2_id: 234
-tags: css, jquery-ui, index, datepicker
+tags:
+  - css
+  - jquery-ui
+  - index
+  - datepicker
 ---
 
 I ran into a collision issue with two of my absolutly positionned elements on

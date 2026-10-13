@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Better listing of docker images and containers"
-tags: docker
+tags:
+  - docker
 ---
 
 I recently started using Docker more and more for my development needs.

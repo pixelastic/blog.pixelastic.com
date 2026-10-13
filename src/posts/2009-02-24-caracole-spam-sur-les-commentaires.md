@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Caracole - Spam sur les commentaires"
 custom_v2_id: 15
-tags: cakephp, caracole
+tags:
+  - cakephp
+  - caracole
 ---
 
 Les trois derniers sites que j'ai fait avec Caracole avaient tous un

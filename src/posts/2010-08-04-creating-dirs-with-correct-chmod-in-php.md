@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Creating dirs with correct chmod in PHP"
 custom_v2_id: 209
-tags: mkdir, umask, php, chmod
+tags:
+  - mkdir
+  - umask
+  - php
+  - chmod
 ---
 
 One trick I've been dragging with me on all this years of PHP programing is a

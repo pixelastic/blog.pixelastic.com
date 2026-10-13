@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "Firing cakePHP components callbacks on error404"
 custom_v2_id: 254
-tags: errorhandler, apperror, cakephp, component, error404, errors, cakeerror
+tags:
+  - errorhandler
+  - apperror
+  - cakephp
+  - component
+  - error404
+  - errors
+  - cakeerror
 ---
 
 I often use `$this->cakeError('error404')` in my controllers to stop

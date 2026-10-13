@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Protecting a directory using HTTP Auth on Dreamhost with cakePHP"
 custom_v2_id: 258
-tags: dreamhost, htpasswd, router, cakephp, htaccess
+tags:
+  - dreamhost
+  - htpasswd
+  - router
+  - cakephp
+  - htaccess
 ---
 
 One can protect the browsing of a special directory with a simple set of

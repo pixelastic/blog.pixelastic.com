@@ -1,7 +1,10 @@
 ---
-layout: post
 title: "Setting all inputs as $dirty in AngularJS 1.2"
-tags: angular, $dirty, $valid, validation
+tags:
+  - angular
+  - $dirty
+  - $valid
+  - validation
 ---
 
 By design, in Angular, all forms and inputs are `$invalid` by default. They are

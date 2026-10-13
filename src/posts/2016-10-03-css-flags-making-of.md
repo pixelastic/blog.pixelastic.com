@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Making of CSS Flags"
-tags: css
+tags:
+  - css
 ---
 
 If you're following me on Twitter, you might have seen that I released a crazy

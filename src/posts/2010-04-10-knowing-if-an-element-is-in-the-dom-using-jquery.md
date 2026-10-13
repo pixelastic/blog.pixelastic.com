@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Knowing if an element is in the DOM using jQuery"
 custom_v2_id: 71
-tags: remove, jquery, contains
+tags:
+  - remove
+  - jquery
+  - contains
 ---
 
 If you ever need to know if the element you have a reference to is really in

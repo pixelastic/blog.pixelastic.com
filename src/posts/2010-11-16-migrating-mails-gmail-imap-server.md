@@ -1,8 +1,16 @@
 ---
-layout: post
 title: "Migrating mails from GMail to other IMAP server"
 custom_v2_id: 239
-tags: google, mail, dreamhost, gmail, squirrelmail, imap, webmail, imapsync, gandi
+tags:
+  - google
+  - mail
+  - dreamhost
+  - gmail
+  - squirrelmail
+  - imap
+  - webmail
+  - imapsync
+  - gandi
 ---
 
 I have previously blogged on how [I migrate mails](/blog/176:migrating-mails-

@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "-webkit-box-shadow inset value"
 custom_v2_id: 66
-tags: webkit, safari, inset, chrome, box-shadow, border-radius
+tags:
+  - webkit
+  - safari
+  - inset
+  - chrome
+  - box-shadow
+  - border-radius
 ---
 
 Webkit browsers (Safari and Chrome) have the `-webkit-box-shadow` property

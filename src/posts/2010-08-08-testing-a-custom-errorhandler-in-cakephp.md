@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "Testing a custom ErrorHandler in cakePHP"
 custom_v2_id: 218
-tags: php, unit-testing, errorhandler, tests, simpletest, apperror, cakephp
+tags:
+  - php
+  - unit-testing
+  - errorhandler
+  - tests
+  - simpletest
+  - apperror
+  - cakephp
 ---
 
 I just finished writing the test case for a custom `AppError `class. Writing

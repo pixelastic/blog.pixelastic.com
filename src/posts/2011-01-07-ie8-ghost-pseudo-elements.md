@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "IE8 ghost :after and :before pseudo elements"
 custom_v2_id: 255
-tags: bug, css, ghost, ie8, before, after
+tags:
+  - bug
+  - css
+  - ghost
+  - ie8
+  - before
+  - after
 ---
 
 IE8 has a strange bug (_what bugs aren't strange in IE ?_) when dealing with

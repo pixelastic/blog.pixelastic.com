@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Public Speaking"
-tags: public-speaking
+tags:
+  - public-speaking
 ---
 
 _I wanted to write a recap of this session for a long time. I'm in

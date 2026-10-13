@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "git resurrect to bring back deleted files from the dead"
 custom_v2_id: 350
-tags: resurrect, git
+tags:
+  - resurrect
+  - git
 ---
 
 Ever deleted a file several commits away and then suddenly realizing that you

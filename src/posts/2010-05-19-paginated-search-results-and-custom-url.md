@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Paginated search results and custom url"
 custom_v2_id: 170
-tags: cakephp, paginate, router, search
+tags:
+  - cakephp
+  - paginate
+  - router
+  - search
 ---
 
 I wanted for this blog a search feature, but I had some prerequisites for it :

@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Extra GET request when using SWFUpload"
 custom_v2_id: 60
-tags: swfupload, firebug, button_image_url
+tags:
+  - swfupload
+  - firebug
+  - button_image_url
 ---
 
 I've been using [SWFUpload ](http://swfupload.org/)for quite a long time now.

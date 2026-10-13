@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Converting files to UTF-8 from the command line"
 custom_v2_id: 348
-tags: iso-8859-1, encoding, utf8, iso-8859-2
+tags:
+  - iso-8859-1
+  - encoding
+  - utf8
+  - iso-8859-2
 ---
 
 Converting to and from charset encoding is boring. Life would be much easier

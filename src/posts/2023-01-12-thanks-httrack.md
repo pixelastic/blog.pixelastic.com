@@ -1,7 +1,5 @@
 ---
-layout: post
 title: "Thanks, HTTrack"
-tags: 
 ---
 
 Sometimes, you need to download a whole website locally. And for that,

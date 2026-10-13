@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Use the system trash with ZSH terminal"
 custom_v2_id: 340
-tags: autocomplete, rm, linux, zsh, rmdir
+tags:
+  - autocomplete
+  - rm
+  - linux
+  - zsh
+  - rmdir
 ---
 
 When you start using the terminal as your main file explorer instead of a GUI

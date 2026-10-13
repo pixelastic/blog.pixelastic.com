@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Creating a screencast from the commandline"
-tags: gif, video
+tags:
+  - gif
+  - video
 ---
 
 A picture is worth a thousand words, that's why I always try to add screencasts

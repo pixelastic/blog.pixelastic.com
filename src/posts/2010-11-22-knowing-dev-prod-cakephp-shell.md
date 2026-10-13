@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Knowing dev from prod in a cakePHP shell"
 custom_v2_id: 240
-tags: bash, cakephp, cli, console, database, shell
+tags:
+  - bash
+  - cakephp
+  - cli
+  - console
+  - database
+  - shell
 ---
 
 I wrote a cakePHP shell to synchronize an IMAP mailbox with a mysql table. I

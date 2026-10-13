@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Never use alert() for debugging"
 custom_v2_id: 31
-tags: keyboard, javascript, browser, alert
+tags:
+  - keyboard
+  - javascript
+  - browser
+  - alert
 ---
 
 One thing I learned today is to never use alert() for debugging pruposes. When

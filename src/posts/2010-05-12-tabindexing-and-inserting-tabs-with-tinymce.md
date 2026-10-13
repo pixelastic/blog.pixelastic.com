@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Tabindexing and inserting tabs with tinyMCE"
 custom_v2_id: 159
-tags: tinymce, javascript, tab, tabfocus, tabindex
+tags:
+  - tinymce
+  - javascript
+  - tab
+  - tabfocus
+  - tabindex
 ---
 
 You may have noticed that you can't press tab to jump from field to field in a

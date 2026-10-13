@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Give your variables meaningful names"
 custom_v2_id: 89
-tags: variables, tinymce, javascript
+tags:
+  - variables
+  - tinymce
+  - javascript
 ---
 
 I just realized that the fullscreen plugin I was using with tinyMCE (v3.3.5)

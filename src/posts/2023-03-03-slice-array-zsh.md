@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Slicing an array in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 To get only part of a specific array in zsh, you have to use the `[@]:X:Y`

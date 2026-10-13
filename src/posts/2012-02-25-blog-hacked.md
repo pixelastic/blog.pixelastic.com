@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "This blog got hacked"
 custom_v2_id: 337
-tags: security, hack
+tags:
+  - security
+  - hack
 ---
 
 Today, at about 9pm (GMT+12), I found my own blog hacked. When I wanted to

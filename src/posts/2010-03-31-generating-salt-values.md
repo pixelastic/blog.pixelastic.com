@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Generating salt values"
 custom_v2_id: 64
-tags: bbpress, wordpress, salt, hash
+tags:
+  - bbpress
+  - wordpress
+  - salt
+  - hash
 ---
 
 Wordpress made available a nice tool to generate fairly complicated strings,

@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Manually changing MX and CNAME resolving for Gmail"
 custom_v2_id: 59
-tags: server, ns, mx, linux
+tags:
+  - server
+  - ns
+  - mx
+  - linux
 ---
 
 I don't usually change MX resolving, but when I do, it always almost is using

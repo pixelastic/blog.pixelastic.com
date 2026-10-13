@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "The multi-tab admin problem"
 custom_v2_id: 236
-tags: security, tabs, session
+tags:
+  - security
+  - tabs
+  - session
 ---
 
 Today I had to update an important zone file at my registrar. Because it was

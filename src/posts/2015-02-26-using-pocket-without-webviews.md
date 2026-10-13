@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Using pocket without webviews"
-tags: pocket, markdown
+tags:
+  - pocket
+  - markdown
 ---
 
 I'm using [Pocket](http://getpocket.com/) a lot. Whenever I find an interesting

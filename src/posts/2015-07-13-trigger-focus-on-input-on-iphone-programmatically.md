@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Trigger focus on input on iPhone programmatically"
-tags: javascript iphone focus
+tags:
+  - javascript iphone focus
 ---
 
 It seems that Safari mobile on iPhone does not allow one to programmatically set

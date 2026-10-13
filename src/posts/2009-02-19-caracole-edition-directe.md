@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Caracole - Edition directe"
 custom_v2_id: 10
-tags: jquery, cakephp, caracole
+tags:
+  - jquery
+  - cakephp
+  - caracole
 ---
 
 En plus de son interface d'administration complète, Caracole permet un mode

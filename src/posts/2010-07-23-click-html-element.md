@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Allow click through an HTML element"
 custom_v2_id: 198
-tags: pointer-events, css, click
+tags:
+  - pointer-events
+  - css
+  - click
 ---
 
 When one HTML element is over another one (like when positioning an element

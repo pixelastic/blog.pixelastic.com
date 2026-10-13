@@ -1,7 +1,10 @@
 ---
-layout: post
 title: "Improving my keyboard"
-tags: productivity, linux, xmodmap, autohotkey
+tags:
+  - productivity
+  - linux
+  - xmodmap
+  - autohotkey
 ---
 
 Because I'm living in France, all my computers have a standard French keyboard

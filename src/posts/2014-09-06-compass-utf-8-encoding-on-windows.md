@@ -1,7 +1,10 @@
 ---
-layout: post
 title: "Sass UTF-8 encoding on Windows"
-tags: sass, compass, windows, utf8
+tags:
+  - sass
+  - compass
+  - windows
+  - utf8
 ---
 
 Ever had your UTF-8 string wrongly encoded in your output `.css` files when

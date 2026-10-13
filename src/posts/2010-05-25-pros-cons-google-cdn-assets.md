@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Pros and cons of using Google CDN for your assets"
 custom_v2_id: 175
-tags: performance, javascript, google, cdn
+tags:
+  - performance
+  - javascript
+  - google
+  - cdn
 ---
 
 With the recent Google Fonts breakout, much debate surfaces to know if it

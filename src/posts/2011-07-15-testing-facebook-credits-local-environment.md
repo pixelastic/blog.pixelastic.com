@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Testing Facebook Credits in a local environment"
 custom_v2_id: 300
-tags: fbcredits, facebook, dyndns, curl
+tags:
+  - fbcredits
+  - facebook
+  - dyndns
+  - curl
 ---
 
 Testing Facebook API has always been a pain for me. Their documentation is

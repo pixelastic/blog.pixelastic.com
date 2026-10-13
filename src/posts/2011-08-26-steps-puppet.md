@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "First steps with puppet"
 custom_v2_id: 308
-tags: lighttpd, php, puppet
+tags:
+  - lighttpd
+  - php
+  - puppet
 ---
 
 I've never used puppet before this project. It in installed on our main

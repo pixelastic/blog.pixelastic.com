@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Arsys, a registrar to avoid"
 custom_v2_id: 181
-tags: registrar, migration, arsys
+tags:
+  - registrar
+  - migration
+  - arsys
 ---
 
 When I use great registrars or hosting services, I say so, and loudly. From

@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "The :visited pseudo-class specificity gotcha"
 custom_v2_id: 334
-tags: css, visited
+tags:
+  - css
+  - visited
 ---
 
 In a [previous post](/blog/333:alternative-multiples-classes-ie6), I bloggued

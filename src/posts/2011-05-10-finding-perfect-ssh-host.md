@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Finding the perfect SSH host"
 custom_v2_id: 279
-tags: hosting, alwaysdata, ovh, ssh, gandi, dreamhost
+tags:
+  - hosting
+  - alwaysdata
+  - ovh
+  - ssh
+  - gandi
+  - dreamhost
 ---
 
 I'm trying to find a company providing hosting capabilities. I have a strong

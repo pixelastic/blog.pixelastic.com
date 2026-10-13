@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Paris Web 2011 : Accessibility"
 custom_v2_id: 326
-tags: paris-web, accessibility
+tags:
+  - paris-web
+  - accessibility
 ---
 
 In October, I was attending the Paris Web event. For those that haven't heard

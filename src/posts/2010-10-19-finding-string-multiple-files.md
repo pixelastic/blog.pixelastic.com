@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Finding a string in multiple files"
 custom_v2_id: 233
 

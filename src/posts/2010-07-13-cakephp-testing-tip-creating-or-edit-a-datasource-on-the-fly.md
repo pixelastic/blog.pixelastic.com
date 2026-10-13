@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "cakePHP testing tip : Creating or edit a datasource on the fly"
 custom_v2_id: 192
-tags: datasource, tests, connectionmanager, cakephp
+tags:
+  - datasource
+  - tests
+  - connectionmanager
+  - cakephp
 ---
 
 For one of the tests I'm currently writing, I needed to assert that my method

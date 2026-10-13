@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Aborting an AJAX request with jQuery"
 custom_v2_id: 229
-tags: javascript, jquery, xhr, ajax
+tags:
+  - javascript
+  - jquery
+  - xhr
+  - ajax
 ---
 
 I needed a way to abort a pending AJAX request. I had a dialog box loaded

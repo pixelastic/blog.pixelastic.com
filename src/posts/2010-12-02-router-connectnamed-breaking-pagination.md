@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Using Router::connectNamed without breaking pagination"
 custom_v2_id: 247
-tags: router, pagination, connectnamed, cakephp
+tags:
+  - router
+  - pagination
+  - connectnamed
+  - cakephp
 ---
 
 In cakePHP, you can pass all sort of parameters to your urls by following the

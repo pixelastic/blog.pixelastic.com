@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Splitting a string with zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 This is one of those transformations I know how to do with node, ruby, or even

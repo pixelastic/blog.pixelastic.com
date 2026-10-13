@@ -1,7 +1,8 @@
 ---
-layout: "post"
 title: "Counting Elements in Airtable"
-tags: automation, airtable
+tags:
+  - automation
+  - airtable
 ---
 
 Airtable is an impressive tool that keeps surprising me with its power. But sometimes, it seems to be missing what I assume would be very basic features.

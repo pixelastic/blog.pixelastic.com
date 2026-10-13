@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Caracole - Antispam des adresses mails"
 custom_v2_id: 16
-tags: jquery, caracole
+tags:
+  - jquery
+  - caracole
 ---
 
 **Attention : Ce post n'est plus d'actualité. Je n'utilise plus du tout cette technique pour masquer les adresses mails car elle bloquait complétement la lisibilité aux personnes sans Javascript. Je n'ai pas encoe trouvé de meilleure alternative pour le moment, néanmoins.**

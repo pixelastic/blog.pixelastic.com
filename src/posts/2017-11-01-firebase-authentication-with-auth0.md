@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Firebase authentication with Auth0"
-tags: firebase, auth0
+tags:
+  - firebase
+  - auth0
 ---
 
 I use Auth0 on my current project to authenticate my users. It prompts my users with a clear modal UI to ask them to authenticate using Google/GitHub/Other third parties. It's an easy way to handle authentication from the front-end without too much hassle.

@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Créer plusieurs formulaires sur la même page avec FormHelper::create"
 custom_v2_id: 11
-tags: cakephp
+tags:
+  - cakephp
 ---
 
 CakePHP permet de créer très facilement des formulaires dont l'action

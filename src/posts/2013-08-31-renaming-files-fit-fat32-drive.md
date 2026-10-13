@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Renaming files to fit on a FAT32 drive"
 custom_v2_id: 349
-tags: fat32
+tags:
+  - fat32
 ---
 
 When moving files from my hard-drive (formatted in ext3) to my mp3 music

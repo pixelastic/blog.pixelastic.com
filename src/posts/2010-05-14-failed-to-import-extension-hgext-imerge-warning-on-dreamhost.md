@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "\"failed to import extension hgext.imerge\" warning on Dreamhost"
 custom_v2_id: 162
-tags: dreamhost, hgext-imerge, hg, hgrc
+tags:
+  - dreamhost
+  - hgext-imerge
+  - hg
+  - hgrc
 ---
 
 Trying to push some new code to a Hg repository on my Dreamhost account, I had

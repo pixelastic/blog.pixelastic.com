@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Productivity tip #1 : Using global hotkeys"
 custom_v2_id: 332
-tags: productivity, tip, keyboard, autohotkey
+tags:
+  - productivity
+  - tip
+  - keyboard
+  - autohotkey
 ---
 
 This post will be the first of what I hope will be a long serie of posts. I'll

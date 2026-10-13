@@ -1,7 +1,9 @@
 ---
-layout: "post"
 title: "My journey through the ESM Tree Shaking forest"
-tags: cloudflare workers, esm, javascript
+tags:
+  - cloudflare workers
+  - esm
+  - javascript
 ---
 
 ![](/img/files/2025-01-14-journey-esm-tree-shaking/header.png)

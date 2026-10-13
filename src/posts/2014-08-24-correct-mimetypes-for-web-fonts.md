@@ -1,7 +1,12 @@
 ---
-layout: post
 title: "Otf, ttf, eot, woff and svg. What mimetypes to use ?"
-tags: fonts, eot, ttf, otf, woff, svg
+tags:
+  - fonts
+  - eot
+  - ttf
+  - otf
+  - woff
+  - svg
 ---
 
 If you're using a custom font on your website, you'll probably end up with

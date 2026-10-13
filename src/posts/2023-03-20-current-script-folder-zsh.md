@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Path to the current script folder in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 To get the path of the folder of the script currently running in zsh, use

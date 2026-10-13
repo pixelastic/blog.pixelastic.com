@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Downloading all the TEDTalk podcasts"
 custom_v2_id: 336
-tags: wget, tedtalk, podcast, linux
+tags:
+  - wget
+  - tedtalk
+  - podcast
+  - linux
 ---
 
 As I'm about to move for a couple of long months without an internet

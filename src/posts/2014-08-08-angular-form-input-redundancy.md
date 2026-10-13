@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Angular form input redundancy"
-tags: angular, html
+tags:
+  - angular
+  - html
 ---
 
 I love angular for the simplicity offered by the two-way binding between form

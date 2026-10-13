@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Komodo Edit Tip : Using regexp in search/replace"
 custom_v2_id: 244
-tags: komodo, regexp
+tags:
+  - komodo
+  - regexp
 ---
 
 Here's a little tip. As I started to use more and more often the regexp search

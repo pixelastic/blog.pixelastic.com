@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Meetup random user picker"
-tags: meetup, serverless
+tags:
+  - meetup
+  - serverless
 ---
 
 Being co-organizer of two meetups ([HumanTalks][1] and [TechLunch][2]) in Paris,

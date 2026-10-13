@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Running a cakePHP shell script as cronjob on Dreamhost"
 custom_v2_id: 242
-tags: cakephp, dreamhost, shell, cronjob
+tags:
+  - cakephp
+  - dreamhost
+  - shell
+  - cronjob
 ---
 
 Dreamhost as [a wonderful wiki](http://wiki.dreamhost.com/Crontab) on how to

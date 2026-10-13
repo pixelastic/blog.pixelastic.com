@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "CSS3 gradients with CSSTidy"
 custom_v2_id: 188
-tags: gradients, csstidy, css3, css
+tags:
+  - gradients
+  - csstidy
+  - css3
+  - css
 ---
 
 Gradients are one of the new cool stuff CSS3 brought with it. Like the others

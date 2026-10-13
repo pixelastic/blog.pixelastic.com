@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Using cakePHP OpenId plugin on Windows"
 custom_v2_id: 171
-tags: openid, php, cakephp, windows
+tags:
+  - openid
+  - php
+  - cakephp
+  - windows
 ---
 
 After all the praises I've read about OpenId, I decided to implement it in

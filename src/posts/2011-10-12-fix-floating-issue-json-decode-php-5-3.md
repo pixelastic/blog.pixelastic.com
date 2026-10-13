@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Fix the floating issue with json_decode in PHP 5.3"
 custom_v2_id: 321
-tags: facebook, float, json-decode, regexp, php
+tags:
+  - facebook
+  - float
+  - json-decode
+  - regexp
+  - php
 ---
 
 When dealing with online API that are handling a lot of items (like Twitter or

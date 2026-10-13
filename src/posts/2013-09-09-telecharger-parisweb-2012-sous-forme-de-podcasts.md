@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Télécharger ParisWeb 2012 sous forme de podcasts"
 custom_v2_id: 354
-tags: paris-web
+tags:
+  - paris-web
 ---
 
 _Note for my English readers : In this post in French, I'm talking about how

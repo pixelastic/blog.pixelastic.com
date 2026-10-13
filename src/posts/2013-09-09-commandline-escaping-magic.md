@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Commandline escaping magic"
 custom_v2_id: 356
-tags: completion, wget, zsh, url-quote-magic
+tags:
+  - completion
+  - wget
+  - zsh
+  - url-quote-magic
 ---
 
 Aren't your tired of having to wrap your url in quotes when using `wget` so

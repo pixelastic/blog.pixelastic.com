@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Getting raw JSON POST in PHP"
 custom_v2_id: 263
-tags: php, post, json
+tags:
+  - php
+  - post
+  - json
 ---
 
 Sometimes you need to post raw `POST `data without following the key/value

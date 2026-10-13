@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Configuring a .fr with Dreamhost"
 custom_v2_id: 24
-tags: zonecheck, gandi, dreamhost, afnic, fr
+tags:
+  - zonecheck
+  - gandi
+  - dreamhost
+  - afnic
+  - fr
 ---
 
 Hosting a website on a .fr is a little harder than a simple .com. The

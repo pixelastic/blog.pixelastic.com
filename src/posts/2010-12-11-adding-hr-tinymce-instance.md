@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Adding a <hr> in a tinyMCE instance"
 custom_v2_id: 249
-tags: jquery, tinymce, hr, mceinsertcontent
+tags:
+  - jquery
+  - tinymce
+  - hr
+  - mceinsertcontent
 ---
 
 When using the default tinyMCE implementation to add an `<hr>` element to the

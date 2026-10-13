@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "Ghost posting on FB.ui streams"
 custom_v2_id: 288
-tags: description, feed, caption, stream, javascript, fb-ui, facebook
+tags:
+  - description
+  - feed
+  - caption
+  - stream
+  - javascript
+  - fb-ui
+  - facebook
 ---
 
 We had a bit of an issue when launching our app a few weeks ago. Everything

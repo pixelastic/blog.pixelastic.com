@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Disabling a Behavior from inside its setup() method"
 custom_v2_id: 215
-tags: cakephp, php, behavior, actsas, behaviorcollection, setup
+tags:
+  - cakephp
+  - php
+  - behavior
+  - actsas
+  - behaviorcollection
+  - setup
 ---
 
 Sometime you write a nice Behavior, that will automate a lot of stuff that

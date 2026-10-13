@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Using :after and :before"
 custom_v2_id: 84
-tags: ff3-0, css, only-of-type, before, after
+tags:
+  - ff3-0
+  - css
+  - only-of-type
+  - before
+  - after
 ---
 
 `:after` and `:before `pseudo-elements allow one to add generated content

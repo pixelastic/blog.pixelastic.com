@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Displaying a date in the correct locale with cakePHP"
 custom_v2_id: 190
-tags: utf8, cakephp, i18n
+tags:
+  - utf8
+  - cakephp
+  - i18n
 ---
 
 The easiest way to display a date in a given format is to use a combination of

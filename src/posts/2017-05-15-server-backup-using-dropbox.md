@@ -1,7 +1,5 @@
 ---
-layout: post
 title: "Server backup using Dropbox"
-tags:
 ---
 
 Last week-end I received an email from the company that hosts this very own

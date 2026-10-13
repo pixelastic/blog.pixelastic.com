@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Passing flashVars with Flash 10 in IE"
 custom_v2_id: 323
-tags: flash, ie7, ie8, flashvars, flash10, flash11
+tags:
+  - flash
+  - ie7
+  - ie8
+  - flashvars
+  - flash10
+  - flash11
 ---
 
 I've spent the last two days debugging a weird issue involving https, IE and

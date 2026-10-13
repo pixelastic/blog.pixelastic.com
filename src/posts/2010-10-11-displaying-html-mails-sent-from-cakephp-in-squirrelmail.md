@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Displaying HTML mails sent from cakePHP in SquirrelMail"
 custom_v2_id: 230
-tags: cakephp, mail, squirrelmail, webmail, headers
+tags:
+  - cakephp
+  - mail
+  - squirrelmail
+  - webmail
+  - headers
 ---
 
 I just stumble upon the fact that my automated multipart (text + html) mails

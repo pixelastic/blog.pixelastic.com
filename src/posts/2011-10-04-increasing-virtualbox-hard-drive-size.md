@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Increasing VirtualBox hard drive size"
 custom_v2_id: 317
-tags: mysql, ubuntu, virtualbox, hard-drive
+tags:
+  - mysql
+  - ubuntu
+  - virtualbox
+  - hard-drive
 ---
 
 While trying to import a huge (1.7Go) mysql dump file into my VM I was blocked

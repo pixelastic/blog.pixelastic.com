@@ -1,7 +1,8 @@
 ---
-layout: "post"
 title: "Generating Bluesky embeds with templated.io"
-tags: nocode, templated
+tags:
+  - nocode
+  - templated
 ---
 
 ![](/img/files/2025-01-23-templated-io-embeds/header.png)

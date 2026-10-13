@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Locked sessions in cakePHP"
 custom_v2_id: 21
-tags: cakephp, php, sessions
+tags:
+  - cakephp
+  - php
+  - sessions
 ---
 
 I was working on a component heavily using session and was having trouble

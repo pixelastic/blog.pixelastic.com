@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "cakePHP i18n extract and plugins"
 custom_v2_id: 65
-tags: i18n, extract, core, cakephp
+tags:
+  - i18n
+  - extract
+  - core
+  - cakephp
 ---
 
 Cake has a lot of wonderful tools in its console. One of them is the `i18n

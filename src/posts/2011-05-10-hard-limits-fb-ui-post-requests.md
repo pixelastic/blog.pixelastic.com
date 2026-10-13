@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Hard limits using FB.ui to post Requests"
 custom_v2_id: 278
-tags: requests, javascript, fb-ui, facebook
+tags:
+  - requests
+  - javascript
+  - fb-ui
+  - facebook
 ---
 
 I hate Facebook documentation. All pages seems out of date, displaying wrong

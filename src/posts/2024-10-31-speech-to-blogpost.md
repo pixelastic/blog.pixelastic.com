@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Writing faster: just speak"
-tags: automation
+tags:
+  - automation
 ---
 
 As a web and software developer, I often see coding as a creative way to solve

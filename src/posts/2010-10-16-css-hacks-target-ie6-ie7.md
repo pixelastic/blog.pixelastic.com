@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Some CSS hacks to target IE6 and IE7"
 custom_v2_id: 232
-tags: csstidy, hack, css, ie6, ie, ie7
+tags:
+  - csstidy
+  - hack
+  - css
+  - ie6
+  - ie
+  - ie7
 ---
 
 After stopping using ugly IE hacks and moving to conditionnal comments to load

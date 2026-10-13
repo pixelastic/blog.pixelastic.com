@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Beginner's introduction to Unit Testing and TDD"
 custom_v2_id: 191
-tags: cakephp, simpletest, tests, unit-testing, tdd
+tags:
+  - cakephp
+  - simpletest
+  - tests
+  - unit-testing
+  - tdd
 ---
 
 I first heard of TDD and Unit Testing one year ago, by reading discussions

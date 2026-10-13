@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Making Flash and Javascript speaks to each other"
 custom_v2_id: 268
-tags: flash, javascript, externalinterface, swfobject, allowdomain
+tags:
+  - flash
+  - javascript
+  - externalinterface
+  - swfobject
+  - allowdomain
 ---
 
 I needed a Flash app and my Javascript code to be able to communicate. The

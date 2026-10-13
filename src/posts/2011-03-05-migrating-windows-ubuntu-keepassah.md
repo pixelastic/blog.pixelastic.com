@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Migrating from Windows to Ubuntu : KeePass"
 custom_v2_id: 266
-tags: ubuntu, mono, windows, xdotool, wine, keepass
+tags:
+  - ubuntu
+  - mono
+  - windows
+  - xdotool
+  - wine
+  - keepass
 ---
 
 I'm slowly trying to move my development machine from a desktop Windows Xp to

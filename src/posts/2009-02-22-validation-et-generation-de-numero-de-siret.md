@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Validation et génération de numero de SIRET"
 custom_v2_id: 13
-tags: cakephp, php, siret
+tags:
+  - cakephp
+  - php
+  - siret
 ---
 
 Pour le projet sur lequel je travaille actuellement, je dois tester la

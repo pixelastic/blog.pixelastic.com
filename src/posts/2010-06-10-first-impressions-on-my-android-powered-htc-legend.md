@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "First impressions on my Android powered HTC Legend"
 custom_v2_id: 182
-tags: android, google, htc-legend
+tags:
+  - android
+  - google
+  - htc-legend
 ---
 
 I recently bought an HTC Legend. My old phone was broken and I have plans to

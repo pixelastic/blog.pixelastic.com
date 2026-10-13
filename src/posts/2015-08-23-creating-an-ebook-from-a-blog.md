@@ -1,7 +1,10 @@
 ---
-layout: post
 title: "Creating an ebook from a blog"
-tags: epub, mobi, ebook, calibre
+tags:
+  - epub
+  - mobi
+  - ebook
+  - calibre
 ---
 
 I recently stumbled upon a blog with very nice articles. I didn't have time to

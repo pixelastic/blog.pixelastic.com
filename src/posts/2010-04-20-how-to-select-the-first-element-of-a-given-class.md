@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "How to select the first element of a given class"
 custom_v2_id: 80
-tags: first-of-type, css
+tags:
+  - first-of-type
+  - css
 ---
 
 Imagine the following HTML code :

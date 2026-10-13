@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Caracole - Export des adresses mails"
 custom_v2_id: 14
-tags: caracole, cakephp
+tags:
+  - caracole
+  - cakephp
 ---
 
 Je viens de rajouter une petite fonctionnalité sur Caracole qui permet

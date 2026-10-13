@@ -1,7 +1,5 @@
 ---
-layout: post
 title: "2014 learnings and 2015 objectives"
-tags: 
 ---
 
 This is the end of the year, and I do realize now that I learned and did a lot

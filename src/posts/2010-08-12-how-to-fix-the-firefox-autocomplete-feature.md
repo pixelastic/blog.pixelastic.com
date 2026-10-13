@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "How to fix the Firefox autocomplete 'feature'"
 custom_v2_id: 219
-tags: password, firefox, feature, autocomplete
+tags:
+  - password
+  - firefox
+  - feature
+  - autocomplete
 ---
 
 Firefox can be quite a pain sometimes. I usually praise this browser features

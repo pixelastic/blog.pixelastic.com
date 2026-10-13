@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Caracole - Gestion des flux RSS"
 custom_v2_id: 17
-tags: cakephp, caracole, rss
+tags:
+  - cakephp
+  - caracole
+  - rss
 ---
 
 Cela faisait quelques temps que je souhaitais ajouter une gestion des flux RSS

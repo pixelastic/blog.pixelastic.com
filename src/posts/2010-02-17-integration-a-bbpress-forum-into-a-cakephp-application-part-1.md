@@ -1,8 +1,9 @@
 ---
-layout: post
 title: "Integration of a bbPress forum into a cakePHP application (part 1)"
 custom_v2_id: 46
-tags: cakephp, bbpress
+tags:
+  - cakephp
+  - bbpress
 ---
 
 Today I had to integrate a forum into an existing cakePHP app. I didn't want

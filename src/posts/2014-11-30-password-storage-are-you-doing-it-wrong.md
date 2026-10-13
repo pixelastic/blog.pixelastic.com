@@ -1,7 +1,11 @@
 ---
-layout: post
 title: "Password storage, are you doing it wrong ?"
-tags: password, md5, sha1, bcrypt, security
+tags:
+  - password
+  - md5
+  - sha1
+  - bcrypt
+  - security
 ---
 
 Here are a few simple questions to ask yourself to know if you're storing

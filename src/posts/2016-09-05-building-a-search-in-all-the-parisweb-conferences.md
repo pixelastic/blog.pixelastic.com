@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Searching the ParisWeb conferences"
-tags: search, parisweb
+tags:
+  - search
+  - parisweb
 ---
 
 I've been going to [ParisWeb][1] almost every year since

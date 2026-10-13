@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Complex sed search and replace (multiline, regexp, non-greedy)"
-tags: zsh
+tags:
+  - zsh
 ---
 
 I had a large chunk of text (output from another command), and needed to

@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Default variable values with zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 `zsh` has two modifiers (`${:-}` and `${:=}`) to handle fallback for empty

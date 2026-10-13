@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Running multiple Firefox versions side by side on Windows"
 custom_v2_id: 83
-tags: windows, multiple, firefox
+tags:
+  - windows
+  - multiple
+  - firefox
 ---
 
 Whenever you upgrade your Firefox, the new version will overwrite the previous

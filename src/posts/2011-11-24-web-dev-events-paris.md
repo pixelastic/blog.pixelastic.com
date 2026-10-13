@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Web and dev events in Paris"
 custom_v2_id: 325
-tags: javascript, parisjs, paris, paris-web, parishacker
+tags:
+  - javascript
+  - parisjs
+  - paris
+  - paris-web
+  - parishacker
 ---
 
 For the past month or so, I've attended quite a bunch of dev and web events,

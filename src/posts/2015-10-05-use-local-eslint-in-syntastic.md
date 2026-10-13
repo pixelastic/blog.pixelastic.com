@@ -1,7 +1,9 @@
 ---
-layout: post
 title: "Use local eslint in syntastic"
-tags: npm, vim, eslint
+tags:
+  - npm
+  - vim
+  - eslint
 ---
 
 [Syntastic][1] is one of my favorite vim plugins. It helps me find code issues

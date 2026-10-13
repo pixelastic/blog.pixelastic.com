@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "How to trim a string in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 Trimming a string means removing any space at the beginning or end of it.

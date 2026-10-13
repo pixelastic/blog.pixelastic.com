@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "How I want my music files encoded"
 custom_v2_id: 338
-tags: encoding, mp3, ogg, flac
+tags:
+  - encoding
+  - mp3
+  - ogg
+  - flac
 ---
 
 I have a lot of music files on my computer. Some comes from CDs I encoded,

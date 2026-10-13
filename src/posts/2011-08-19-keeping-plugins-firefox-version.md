@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Keeping your plugins with any new Firefox version"
 custom_v2_id: 305
-tags: firefox
+tags:
+  - firefox
 ---
 
 The new Firefox cycle version is such that you might lose all your beloved

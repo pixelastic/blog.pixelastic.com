@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Deduplicating array values in zsh"
-tags: zsh
+tags:
+  - zsh
 ---
 
 Given an array with a lot of values, I want to keep only one occurence of each

@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "A small note about video encoding and formats"
 custom_v2_id: 339
-tags: video
+tags:
+  - video
 ---
 
 Following my previous note on audio files, I made some research on video

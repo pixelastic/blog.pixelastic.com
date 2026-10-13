@@ -1,7 +1,9 @@
 ---
-layout: post
 title: "This blog now has an API"
-tags: api, blog, jekyll
+tags:
+  - api
+  - blog
+  - jekyll
 ---
 
 ## An API, really ?

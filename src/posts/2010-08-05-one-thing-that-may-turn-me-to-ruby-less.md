@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "One thing that may turn me to Ruby : LESS"
 custom_v2_id: 214
-tags: ruby-on-rails, less, php, javascript, css
+tags:
+  - ruby-on-rails
+  - less
+  - php
+  - javascript
+  - css
 ---
 
 I often hear how Ruby is better than PHP, that cakePHP is only a port of the

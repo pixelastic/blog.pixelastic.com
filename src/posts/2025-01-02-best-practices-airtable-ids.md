@@ -1,7 +1,7 @@
 ---
-layout: "post"
 title: "Best Practices for Airtable IDs"
-tags: automation
+tags:
+  - automation
 ---
 
 When working with Airtable, I've started to develop some good practices regarding IDs in my tables.

@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Working on Wednesday #2 : Why I want to quit PHP"
 custom_v2_id: 289
-tags: php, cakephp, ruby-on-rails, wednesday
+tags:
+  - php
+  - cakephp
+  - ruby-on-rails
+  - wednesday
 ---
 
 Here it is : my first Wednesday off. Well, not completely off because I had a

@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Installing mitmproxy"
 custom_v2_id: 345
-tags: pip, http, proxy, python, mitmproxy
+tags:
+  - pip
+  - http
+  - proxy
+  - python
+  - mitmproxy
 ---
 
 I spend the last hour trying to install [mitmproxy](http://mitmproxy.org/).

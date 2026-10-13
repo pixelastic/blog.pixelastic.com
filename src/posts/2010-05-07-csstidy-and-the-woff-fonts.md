@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "@font-face with multiple fonts and CSSTidy"
 custom_v2_id: 86
-tags: font-face, woff, format, csstidy
+tags:
+  - font-face
+  - woff
+  - format
+  - csstidy
 ---
 
 The `.woff` font extension is the standard-to-go in terms of font embedding on

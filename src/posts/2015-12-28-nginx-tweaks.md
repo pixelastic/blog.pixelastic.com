@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Nginx tweaks"
-tags: nginx
+tags:
+  - nginx
 ---
 
 _I just realized I have a bunch of posts forgotten into my draft folder. I'll

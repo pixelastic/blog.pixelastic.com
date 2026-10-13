@@ -1,7 +1,9 @@
 ---
-layout: post
 title: "Importing iframe with Webpack and Vue.js"
-tags: vuejs, webpack, iframe
+tags:
+  - vuejs
+  - webpack
+  - iframe
 ---
 
 I've spent hours on a webpack + Vue.js + iframe issue yesterday. As I don't

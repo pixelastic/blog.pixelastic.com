@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "ZSH autocompletion for git unstage "
 custom_v2_id: 341
-tags: autocomplete, git, zsh, unstage
+tags:
+  - autocomplete
+  - git
+  - zsh
+  - unstage
 ---
 
 I recently switched to git as my main version control system (I used to use

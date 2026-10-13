@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "Working on Wednesday #10 : Mercurial improved"
 custom_v2_id: 304
-tags: rails, resurect, hg, zsh, wednesday, backbone, node-js
+tags:
+  - rails
+  - resurect
+  - hg
+  - zsh
+  - wednesday
+  - backbone
+  - node-js
 ---
 
 Today I enjoyed the nice blue sky and moved to the park at the end of my

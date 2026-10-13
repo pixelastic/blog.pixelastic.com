@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Checking potential throttling from Orange"
 custom_v2_id: 316
-tags: ssh, softlayer, orange
+tags:
+  - ssh
+  - softlayer
+  - orange
 ---
 
 Starting a few weeks back, we started having painfully slow ssh connections at

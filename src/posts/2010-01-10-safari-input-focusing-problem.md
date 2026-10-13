@@ -1,8 +1,11 @@
 ---
-layout: post
 title: "Safari input focusing problem"
 custom_v2_id: 26
-tags: css, safari, input, bug
+tags:
+  - css
+  - safari
+  - input
+  - bug
 ---
 
 I just ran into a strange behavior on Safari 3 (Win). I'm not quite sure what

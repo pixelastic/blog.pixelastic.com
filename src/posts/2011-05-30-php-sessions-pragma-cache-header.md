@@ -1,8 +1,14 @@
 ---
-layout: post
 title: "PHP sessions and the Pragma:no-cache header"
 custom_v2_id: 283
-tags: php, cache, session, webperf, wpo, pragma, cache-delimiter
+tags:
+  - php
+  - cache
+  - session
+  - webperf
+  - wpo
+  - pragma
+  - cache-delimiter
 ---
 
 You may have seen the `Pragma:no-cache` response header on various website (if

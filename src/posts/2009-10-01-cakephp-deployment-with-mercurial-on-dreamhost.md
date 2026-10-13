@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "cakePHP deployment with Mercurial on Dreamhost"
 custom_v2_id: 22
-tags: ssh, mercurial, hg, dreamhost, cakephp
+tags:
+  - ssh
+  - mercurial
+  - hg
+  - dreamhost
+  - cakephp
 ---
 
 I now use Mercurial on my daily work flow and have set up some methods on my

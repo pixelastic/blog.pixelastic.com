@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "My first steps into automating knowledge sharing"
-tags: automation
+tags:
+  - automation
 ---
 
 I’ve been saying, “I’ve been coding for over ten years.” for more than a decade

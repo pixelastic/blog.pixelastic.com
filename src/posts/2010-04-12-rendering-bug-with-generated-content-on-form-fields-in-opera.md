@@ -1,8 +1,13 @@
 ---
-layout: post
 title: "Rendering bug with generated content on form fields in Opera"
 custom_v2_id: 73
-tags: opera, input, css, content, bug, after
+tags:
+  - opera
+  - input
+  - css
+  - content
+  - bug
+  - after
 ---
 
 If you try the following code in Opera 10.51, you'll have some weird rendering

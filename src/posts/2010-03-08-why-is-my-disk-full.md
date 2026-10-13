@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Why is my disk full ?"
 custom_v2_id: 53
-tags: imap, squirrelmail, linux
+tags:
+  - imap
+  - squirrelmail
+  - linux
 ---
 
 Ok, so remember when I was writing about that client of mine who had trouble

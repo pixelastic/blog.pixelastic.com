@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "Life important lessons"
-tags: hack, life
+tags:
+  - hack
+  - life
 ---
 
 I just came accross the last issue of Hacker Monthly. There was an

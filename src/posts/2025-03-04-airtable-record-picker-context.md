@@ -1,7 +1,9 @@
 ---
-layout: "post"
 title: "Keeping the context of an Airtable Record Picker from page to page"
-tags: airtable, automation, make
+tags:
+  - airtable
+  - automation
+  - make
 ---
 
 ![](/img/files/2025-03-04-airtable-record-picker-context/header.png)

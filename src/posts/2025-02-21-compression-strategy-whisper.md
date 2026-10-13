@@ -1,7 +1,8 @@
 ---
-layout: "post"
 title: "Compression strategy for heavy Whisper files"
-tags: automation, whisper
+tags:
+  - automation
+  - whisper
 ---
 
 ![](/img/files/2025-02-21-compression-strategy-whisper/header.png)

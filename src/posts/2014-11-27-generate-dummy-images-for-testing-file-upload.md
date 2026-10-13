@@ -1,7 +1,9 @@
 ---
-layout: post
 title: "Generate dummy images for testing file upload"
-tags: convert, exiftool, upload
+tags:
+  - convert
+  - exiftool
+  - upload
 ---
 
 Today, I needed to test a file upload mechanism, and needed a bunch of

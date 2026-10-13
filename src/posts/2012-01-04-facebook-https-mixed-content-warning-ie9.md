@@ -1,8 +1,12 @@
 ---
-layout: post
 title: "Facebook https mixed content warning on IE9"
 custom_v2_id: 330
-tags: facebook, fb, https, ie9, javascript
+tags:
+  - facebook
+  - fb
+  - https
+  - ie9
+  - javascript
 ---
 
 When browsing the web, you might have seen a "mixed content warning" popup

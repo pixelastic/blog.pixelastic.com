@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Check if an array contains a value"
-tags: zsh
+tags:
+  - zsh
 ---
 
 zsh doesn't have a way to check if a value is in an array, but can tell us

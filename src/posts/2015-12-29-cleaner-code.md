@@ -1,7 +1,7 @@
 ---
-layout: post
 title: "Cleaner code"
-tags: clean code
+tags:
+  - clean code
 ---
 
 In a previous job, I did a lot of code reviews with a team of more junior

@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-grunt serve
+# Rebuild the stylesheet on change, in parallel with the Eleventy dev server
+yarn build:css
+yarn build:css --watch &
+trap 'kill 0' EXIT
+yarn eleventy --serve

@@ -1,7 +1,9 @@
 ---
 layout: default.njk
 ---
-<div class="page">
-  <h1 class="page-title">{{ title }}</h1>
-  {{ content | safe }}
+<div>
+  <h1 class="mb-4 text-3xl font-bold">{{ title }}</h1>
+  <div class="prose max-w-3xl break-words">
+    {{ content | safe }}
+  </div>
 </div>

@@ -1,15 +1,17 @@
 ---
 layout: default.njk
 ---
-<article class="post">
-  <h1 class="post-title">{{ title }}</h1>
-  <time class="post-date" datetime="{{ page.date.toISOString() | truncate(10, true, '') }}">{{ page.date.toISOString() | truncate(10, true, '') }}</time>
-  {{ content | safe }}
-  <hr>
-  <p class="tag-list">
+<article>
+  <h1 class="text-3xl font-bold">{{ title }}</h1>
+  <time class="mb-4 block text-sm text-gray-500" datetime="{{ page.date.toISOString() | truncate(10, true, '') }}">{{ page.date.toISOString() | truncate(10, true, '') }}</time>
+  <div class="prose max-w-3xl break-words">
+    {{ content | safe }}
+  </div>
+  <hr class="my-6 max-w-3xl border-gray-200">
+  <p class="text-sm text-gray-600">
     Tags :
     {% for tag in tags %}
-      <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
+      <a href="/tags/{{ tag | tagSlug }}/" class="mr-1 text-blue-700 hover:underline">#{{ tag }}</a>
     {% endfor %}
   </p>
 </article>

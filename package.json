@@ -12,6 +12,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
     "@11ty/eleventy-plugin-rss": "^3.1.0",
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/typography": "^0.5.20",
     "aberlaas": "2.19.0",
     "algolia-search": "1.7.1",
     "glob": "4.0.4",
@@ -34,6 +36,7 @@
     "grunt-shell": "1.1.2",
     "grunt-userev": "0.0.6",
     "matchdep": "0.3.0",
+    "tailwindcss": "^4.3.3",
     "time-grunt": "0.4.0"
   },
   "dependencies": {
@@ -48,9 +51,10 @@
     "normalize.css": "3.0.1"
   },
   "scripts": {
-    "build": "eleventy",
+    "build": "yarn build:css && eleventy",
+    "build:css": "tailwindcss -i src/styles/main.css -o src/static/css/main.css --minify",
     "deploy": "./scripts/deploy",
-    "serve": "eleventy --serve"
+    "serve": "./scripts/serve"
   },
   "bugs": {
     "url": "https://github.com/pixelastic/blog.pixelastic.com/issues"

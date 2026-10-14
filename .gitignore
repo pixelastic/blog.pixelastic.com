@@ -26,3 +26,5 @@ Thumbs.db
 .tmproj
 .idea
 
+# Generated stylesheet
+src/static/css/main.css

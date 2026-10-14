@@ -4,9 +4,9 @@ title: Tags
 permalink: /tags/
 docsearchExclude: true
 ---
-<h1>Tags</h1>
-<ul>
+<h1 class="mb-4 text-3xl font-bold">Tags</h1>
+<ul class="list-disc space-y-1 pl-6">
   {% for tag in collections.tagList %}
-    <li><a href="/tags/{{ tag.slug }}/">#{{ tag.name }}</a></li>
+    <li><a class="text-blue-700 hover:underline" href="/tags/{{ tag.slug }}/">#{{ tag.name }}</a></li>
   {% endfor %}
 </ul>

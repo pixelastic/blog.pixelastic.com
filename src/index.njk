@@ -7,32 +7,34 @@ pagination:
   alias: pagePosts
 permalink: "{{ '/' if pagination.pageNumber == 0 else '/page' + (pagination.pageNumber + 1) + '/' }}"
 ---
-<div class="posts posts-display">
+<div class="space-y-12">
   {% for post in pagePosts %}
-    <div class="post">
-      <h1 class="post-title">
-        <a href="{{ post.url }}">{{ post.data.title }}</a>
+    <article>
+      <h1 class="text-3xl font-bold">
+        <a href="{{ post.url }}" class="hover:underline">{{ post.data.title }}</a>
       </h1>
-      <time class="post-date" datetime="{{ post.date.toISOString() | truncate(10, true, '') }}">{{ post.date.toISOString() | truncate(10, true, '') }}</time>
-      {{ post.content | safe }}
-      <p class="tag-list">
+      <time class="mb-4 block text-sm text-gray-500" datetime="{{ post.date.toISOString() | truncate(10, true, '') }}">{{ post.date.toISOString() | truncate(10, true, '') }}</time>
+      <div class="prose max-w-3xl break-words">
+        {{ post.content | safe }}
+      </div>
+      <p class="mt-4 text-sm text-gray-600">
         {% for tag in post.data.tags %}
-          <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
+          <a href="/tags/{{ tag | tagSlug }}/" class="mr-1 text-blue-700 hover:underline">#{{ tag }}</a>
         {% endfor %}
       </p>
-    </div>
+    </article>
   {% endfor %}
 </div>
 
-<div class="pagination">
+<nav class="mt-12 flex max-w-3xl justify-between border-t border-gray-200 pt-4">
   {% if pagination.href.next %}
-    <a class="pagination-item older" href="{{ pagination.href.next }}">Older</a>
+    <a class="text-blue-700 hover:underline" href="{{ pagination.href.next }}">Older</a>
   {% else %}
-    <span class="pagination-item older">Older</span>
+    <span class="text-gray-400">Older</span>
   {% endif %}
   {% if pagination.href.previous %}
-    <a class="pagination-item newer" href="{{ pagination.href.previous }}">Newer</a>
+    <a class="text-blue-700 hover:underline" href="{{ pagination.href.previous }}">Newer</a>
   {% else %}
-    <span class="pagination-item newer">Newer</span>
+    <span class="text-gray-400">Newer</span>
   {% endif %}
-</div>
+</nav>

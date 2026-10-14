@@ -1,0 +1,38 @@
+---
+layout: default.njk
+title: Home
+pagination:
+  data: collections.postList
+  size: 5
+  alias: pagePosts
+permalink: "{{ '/' if pagination.pageNumber == 0 else '/page' + (pagination.pageNumber + 1) + '/' }}"
+---
+<div class="posts posts-display">
+  {% for post in pagePosts %}
+    <div class="post">
+      <h1 class="post-title">
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+      </h1>
+      <time class="post-date" datetime="{{ post.date.toISOString() | truncate(10, true, '') }}">{{ post.date.toISOString() | truncate(10, true, '') }}</time>
+      {{ post.content | safe }}
+      <p class="tag-list">
+        {% for tag in post.data.tags %}
+          <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
+        {% endfor %}
+      </p>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if pagination.href.next %}
+    <a class="pagination-item older" href="{{ pagination.href.next }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if pagination.href.previous %}
+    <a class="pagination-item newer" href="{{ pagination.href.previous }}">Newer</a>
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>

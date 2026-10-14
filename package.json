@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-plugin-rss": "^3.1.0",
     "aberlaas": "2.19.0",
     "algolia-search": "1.7.1",
     "glob": "4.0.4",

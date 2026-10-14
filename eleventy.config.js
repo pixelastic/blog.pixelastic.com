@@ -1,3 +1,4 @@
+import eleventyPluginRss from '@11ty/eleventy-plugin-rss';
 import { groupPostsByPeriod } from './lib/groupPostsByPeriod.js';
 import { groupPostsByTag } from './lib/groupPostsByTag.js';
 import { tagSlug } from './lib/tagSlug.js';
@@ -10,6 +11,17 @@ import { tagSlug } from './lib/tagSlug.js';
 export default function (eleventyConfig) {
   // Images keep their old /img/files/... URLs
   eleventyConfig.addPassthroughCopy({ 'src/img': 'img' });
+
+  // Fixed files (robots.txt, favicon, downloads...) are served from the root
+  eleventyConfig.addPassthroughCopy({ 'src/static': '/' });
+
+  // Date and URL filters used by the feeds
+  eleventyConfig.addPlugin(eleventyPluginRss);
+
+  // All posts, newest first, for the home pages and the feeds
+  eleventyConfig.addCollection('postList', (collectionApi) =>
+    collectionApi.getFilteredByGlob('src/posts/*.md').reverse(),
+  );
 
   // Posts contain raw HTML that must reach the output untouched
   eleventyConfig.amendLibrary('md', (markdown) => markdown.set({ html: true }));

@@ -6,7 +6,7 @@ orbs:
 jobs:
   deploy:
     docker:
-      - image: cimg/node:22.18
+      - image: cimg/node:22.18.0
     steps:
       # System install
       - checkout
@@ -27,8 +27,14 @@ jobs:
             - "SHA256:gkwER8AtG6gCCUuge7eC08xkUCcjW38izxvaytl1X6I"
 
       # Project dependencies
-      - node/install-packages:
-          pkg-manager: yarn
+      - run:
+          name: Install yarn
+          command: |
+            corepack enable --install-directory="/home/circleci/bin"
+            yarn set version 4.18.0
+      - run:
+          name: Install dependencies
+          command: yarn install
 
       # Deploy
       - run:

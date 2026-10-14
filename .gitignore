@@ -4,6 +4,7 @@ _site
 
 # Dependencies
 /node_modules
+.yarn/
 
 # Various junk
 .DS_Store

@@ -4,11 +4,13 @@ title: Archive
 permalink: /archive/
 docsearchExclude: true
 ---
-<h1 class="mb-4 text-3xl font-bold">Archive</h1>
-<ul class="list-disc space-y-1 pl-6">
+<div class="simple-page">
+<h1 class="article-title">Archive</h1>
+<ul class="simple-list">
   {% for period in collections.archiveList %}
     {% if period.level == 'year' %}
-      <li><a class="text-blue-700 hover:underline" href="{{ period.url }}">{{ period.year }}</a></li>
+      <li><a href="{{ period.url }}">{{ period.year }}</a></li>
     {% endif %}
   {% endfor %}
 </ul>
+</div>

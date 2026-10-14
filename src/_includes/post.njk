@@ -1,17 +1,42 @@
 ---
 layout: default.njk
 ---
-<article>
-  <h1 class="text-3xl font-bold">{{ title }}</h1>
-  <time class="mb-4 block text-sm text-gray-500" datetime="{{ page.date.toISOString() | truncate(10, true, '') }}">{{ page.date.toISOString() | truncate(10, true, '') }}</time>
-  <div class="prose max-w-3xl break-words">
+<article class="full-article">
+  <div class="article-meta">
+    <time datetime="{{ page.date.toISOString() | truncate(10, true, '') }}">{{ page.date.toISOString() | truncate(10, true, '') }}</time>
+  </div>
+  <h1 class="article-title" id="article-title">{{ title }}</h1>
+  <div class="article-content">
     {{ content | safe }}
   </div>
-  <hr class="my-6 max-w-3xl border-gray-200">
-  <p class="text-sm text-gray-600">
-    Tags :
+  <div class="article-tags">
     {% for tag in tags %}
-      <a href="/tags/{{ tag | tagSlug }}/" class="mr-1 text-blue-700 hover:underline">#{{ tag }}</a>
+      <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
     {% endfor %}
-  </p>
+  </div>
 </article>
+<script>
+  // Type the title letter by letter; the full title stays in the HTML for no-JS and crawlers
+  (() => {
+    const title = document.getElementById("article-title");
+    const text = title.textContent.trim();
+    title.innerHTML = "<span class=\"typed\"></span><span class=\"untyped\"></span>";
+    title.classList.add("is-typing");
+    const [typed, untyped] = title.children;
+    untyped.textContent = text;
+    let index = 0;
+    const type = () => {
+      index += 1;
+      typed.textContent = text.slice(0, index);
+      untyped.textContent = text.slice(index);
+      if (index < text.length) {
+        setTimeout(type, 20 + Math.random() * 30);
+        return;
+      }
+      title.classList.remove("is-typing");
+      title.textContent = text;
+      title.classList.add("is-finished");
+    };
+    setTimeout(type, 300);
+  })();
+</script>

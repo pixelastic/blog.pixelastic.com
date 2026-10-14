@@ -7,34 +7,37 @@ pagination:
   alias: pagePosts
 permalink: "{{ '/' if pagination.pageNumber == 0 else '/page' + (pagination.pageNumber + 1) + '/' }}"
 ---
-<div class="space-y-12">
+<section class="article-feed">
   {% for post in pagePosts %}
-    <article>
-      <h1 class="text-3xl font-bold">
-        <a href="{{ post.url }}" class="hover:underline">{{ post.data.title }}</a>
+    <article class="full-article">
+      <div class="article-meta">
+        <time datetime="{{ post.date.toISOString() | truncate(10, true, '') }}">{{ post.date.toISOString() | truncate(10, true, '') }}</time>
+      </div>
+      <h1 class="article-title">
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
       </h1>
-      <time class="mb-4 block text-sm text-gray-500" datetime="{{ post.date.toISOString() | truncate(10, true, '') }}">{{ post.date.toISOString() | truncate(10, true, '') }}</time>
-      <div class="prose max-w-3xl break-words">
+      <div class="article-content">
         {{ post.content | safe }}
       </div>
-      <p class="mt-4 text-sm text-gray-600">
+      <div class="article-tags">
         {% for tag in post.data.tags %}
-          <a href="/tags/{{ tag | tagSlug }}/" class="mr-1 text-blue-700 hover:underline">#{{ tag }}</a>
+          <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
         {% endfor %}
-      </p>
+      </div>
     </article>
   {% endfor %}
-</div>
+</section>
 
-<nav class="mt-12 flex max-w-3xl justify-between border-t border-gray-200 pt-4">
+<nav class="pagination" aria-label="Pagination">
   {% if pagination.href.next %}
-    <a class="text-blue-700 hover:underline" href="{{ pagination.href.next }}">Older</a>
+    <a href="{{ pagination.href.next }}">&larr; Older</a>
   {% else %}
-    <span class="text-gray-400">Older</span>
+    <span class="is-disabled">&larr; Older</span>
   {% endif %}
+  <span>Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
   {% if pagination.href.previous %}
-    <a class="text-blue-700 hover:underline" href="{{ pagination.href.previous }}">Newer</a>
+    <a href="{{ pagination.href.previous }}">Newer &rarr;</a>
   {% else %}
-    <span class="text-gray-400">Newer</span>
+    <span class="is-disabled">Newer &rarr;</span>
   {% endif %}
 </nav>

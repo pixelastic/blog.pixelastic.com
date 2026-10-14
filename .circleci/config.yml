@@ -53,6 +53,7 @@ workflows:
   deploy:
     jobs:
       - deploy:
+          # Deploys are manual (`yarn run deploy`), never triggered by a push
           filters:
             branches:
-              only: main
+              ignore: /.*/

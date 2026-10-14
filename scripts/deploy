@@ -1,3 +1,13 @@
 #!/usr/bin/env bash
 
-grunt deploy
+yarn build
+
+rsync \
+  --chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r \
+  --verbose \
+  --archive \
+  --update \
+  --delete \
+  --prune-empty-dirs \
+  --compress \
+  _site/ pixelastic:/var/www/blog.pixelastic.com/

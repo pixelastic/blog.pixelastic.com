@@ -1,19 +1,41 @@
 # blog.pixelastic.com
 
-This repository holds all the content of my personal blog. 
+This repository holds all the content of my personal blog.
 
 This is an old project, first blog post dates from 2009. It has seen several
-rewrite, from a custom set of PHP files, to a cakePHP version and now a Jekyll
-+ Grunt mix.
+rewrites, from a custom set of PHP files, to a cakePHP version, and now an
+[Eleventy][1] site styled with Tailwind CSS.
 
-Now, it's 2023 and I wanted to update it and of course nothing works anymore.
-Below are my notes on resurecting it:
+## Setup
 
-- Install ruby deps with `bundle install`
-- Install `grunt-cli` and `bower` globally
-- Install bower (yes, bower) deps with `bower install`
-- Install npm (yes, it *needs* npm) with `npm install`
-- If things don't work, remove the `package-lock.json` and `node_modules` and
-  retry `npm install`
-- Cross your fingers
-- Run `npm run build`
+Node 22 or later and `yarn` are the only requirements.
+
+```sh
+yarn install
+```
+
+## Commands
+
+- `yarn build` compiles the stylesheet and builds the site into `_site/`.
+- `yarn serve` rebuilds the stylesheet on change and serves the site with
+  Eleventy's dev server.
+- `yarn deploy` builds the site, then sends `_site/` to the server with `rsync`.
+  It expects a `pixelastic` SSH host.
+
+## Layout
+
+- `src/posts/` holds the blog posts, one Markdown file per post.
+- `src/img/` holds the images used in posts.
+- `src/_includes/` holds the Nunjucks layouts.
+- `src/static/` holds files copied as-is to the root of the site.
+- `eleventy.config.js` holds the Eleventy configuration.
+
+The search box is an Algolia DocSearch modal, see [DOCSEARCH.md](DOCSEARCH.md).
+
+## Continuous deployment
+
+CircleCI installs the dependencies and runs `yarn deploy` on every push to
+`main`. The `SSH_HOST` and `SSH_USER` environment variables are set in the
+CircleCI project.
+
+[1]: https://www.11ty.dev/

@@ -2,12 +2,11 @@ version: 2.1
 
 orbs:
   node: circleci/node@5
-  ruby: circleci/ruby@2
 
 jobs:
   deploy:
     docker:
-      - image: cimg/ruby:3.0-node
+      - image: cimg/node:22.18
     steps:
       # System install
       - checkout
@@ -28,22 +27,13 @@ jobs:
             - "SHA256:gkwER8AtG6gCCUuge7eC08xkUCcjW38izxvaytl1X6I"
 
       # Project dependencies
-      - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-      - run:
-          name: Install Sass
-          command: gem install sass --version "=3.7.4"
-      - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
-          paths:
-            - vendor/bundle
-            - node_modules
 
       # Deploy
       - run:
           name: Deploy
-          command: yarn run deploy
+          command: yarn deploy
 
 workflows:
   version: 2

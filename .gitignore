@@ -1,17 +1,9 @@
 # Build
-/dist
 _site
 /tmp
 
 # Dependencies
 /node_modules
-/bower_components
-/vendors
-
-# Cache
-.sass-cache
-.changed-cache
-
 
 # Various junk
 .DS_Store

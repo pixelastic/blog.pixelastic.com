@@ -16,13 +16,6 @@
     "quotes": "single",
     "strict": "global"
   },
-  "globals" : {
-    "$": false,
-    "algoliasearch": false,
-    "algoliasearchHelper": false,
-    "Hogan": false,
-    "_": false,
-    "moment": false
-  }
+  "globals" : {}
 }
 

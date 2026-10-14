@@ -8,9 +8,6 @@ _site
 /bower_components
 /vendors
 
-# Credentials
-_algolia_api_key
-
 # Cache
 .sass-cache
 .changed-cache

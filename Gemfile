@@ -7,7 +7,3 @@ gem 'awesome_print'
 gem 'jekyll-paginate'
 gem 'redcarpet'
 
-group :jekyll_plugins do
-  gem 'jekyll-algolia'
-end
-

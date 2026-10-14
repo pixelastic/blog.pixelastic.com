@@ -42,9 +42,6 @@ jobs:
 
       # Deploy
       - run:
-          name: Write Algolia API key
-          command: echo $ALGOLIA_API_KEY > _algolia_api_key
-      - run:
           name: Deploy
           command: yarn run deploy
 

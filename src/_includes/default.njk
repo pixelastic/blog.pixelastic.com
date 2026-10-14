@@ -5,6 +5,7 @@
     <title>{{ title }} - Pixelastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/vendor/docsearch.css">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
     {% if docsearchExclude %}<meta name="docsearch:exclude" content="true">{% endif %}
   </head>
@@ -23,5 +24,14 @@
         {{ content | safe }}
       </main>
     </div>
+    <script src="/vendor/docsearch.js"></script>
+    <script>
+      docsearch({
+        container: '#search',
+        appId: '{{ site.docsearch.appId }}',
+        apiKey: '{{ site.docsearch.apiKey }}',
+        indices: ['{{ site.docsearch.indexName }}'],
+      });
+    </script>
   </body>
 </html>

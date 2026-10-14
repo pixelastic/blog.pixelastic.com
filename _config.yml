@@ -28,10 +28,5 @@ github:
 timezone:         "Europe/Paris"
 encoding:         "utf-8"
 
-# Algolia
-algolia:
-  application_id: "O3F8QXYK6R"
-  index_name: "blog"
-
 # Custom vars
 version:          3.0.0

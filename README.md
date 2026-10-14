@@ -12,7 +12,6 @@ Below are my notes on resurecting it:
 - Install ruby deps with `bundle install`
 - Install `grunt-cli` and `bower` globally
 - Install bower (yes, bower) deps with `bower install`
-- Create `_algolia_api_key` file, it's required
 - Install npm (yes, it *needs* npm) with `npm install`
 - If things don't work, remove the `package-lock.json` and `node_modules` and
   retry `npm install`

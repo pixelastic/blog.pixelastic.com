@@ -15,6 +15,12 @@ export default function (eleventyConfig) {
   // Fixed files (robots.txt, favicon, downloads...) are served from the root
   eleventyConfig.addPassthroughCopy({ 'src/static': '/' });
 
+  // DocSearch script and stylesheet are served from the site, not a CDN
+  eleventyConfig.addPassthroughCopy({
+    'node_modules/@docsearch/js/dist/umd/docsearch.js': 'vendor/docsearch.js',
+    'node_modules/@docsearch/css/dist/style.css': 'vendor/docsearch.css',
+  });
+
   // Date and URL filters used by the feeds
   eleventyConfig.addPlugin(eleventyPluginRss);
 

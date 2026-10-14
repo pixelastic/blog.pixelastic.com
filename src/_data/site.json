@@ -4,5 +4,10 @@
   "url": "http://blog.pixelastic.com",
   "author": {
     "name": "Tim Carry"
+  },
+  "docsearch": {
+    "appId": "O3F8QXYK6R",
+    "apiKey": "6a027258345c8a569385505b041e6dec",
+    "indexName": "blog"
   }
 }

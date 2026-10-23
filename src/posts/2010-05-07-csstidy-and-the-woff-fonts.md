@@ -25,16 +25,15 @@ The interesting thing to note is that you cannot omit the quotes around the
 `format('woff')`/`format('truetype')` part. Otherwise the font won't be
 recognized (at least by FF3.6).
 
-CSSTidy seems to have a bug when there are multiple `format() `declarations in
-a rule, it removes quotes in each of them except the last one, thus making the
+CSSTidy seems to have a bug when there are multiple `format()` declarations in a
+rule, it removes quotes in each of them except the last one, thus making the
 whole rule unparsable by the browser.
 
-So I started, again, to dig into the CSSTidy code and see what I could do
-about that.
+So I started, again, to dig into the CSSTidy code and see what I could do about
+that.
 
 I updated the `csstidy.php` file at around line 847 and changed the `if`
-statement to look like this :
-
+statement to look like this:
 
 ```php
 if($this->sub_value != '') {

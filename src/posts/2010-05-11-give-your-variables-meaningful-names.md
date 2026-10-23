@@ -7,13 +7,12 @@ tags:
   - javascript
 ---
 
-I just realized that the fullscreen plugin I was using with tinyMCE (v3.3.5)
-was throwing an error in my Firebug panel everytime I closed it.
+I just realized that the fullscreen plugin I was using with tinyMCE (v3.3.5) was
+throwing an error in my Firebug panel everytime I closed it.
 
-As I wrote some tinyMCE plugins myself I thought I may have done something
-that was causing this. So I opened up the javascript file and checked for the
-error line :
-
+As I wrote some tinyMCE plugins myself I thought I may have done something that
+was causing this. So I opened up the javascript file and checked for the error
+line:
 
 ```js
 var win, de = DOM.doc.documentElement;
@@ -41,8 +40,7 @@ If you're not familiar with the complex tinyMCE syntax this may seems a
 little... well... complex.  I'll focus on the error line but I wanted to paste
 the whole code block so you can see my point.
 
-The error line is this one :
-
+The error line is this one:
 
 ```js
 ed.style.overflow = ed.getParam('fullscreen_html_overflow');
@@ -50,22 +48,22 @@ ed.style.overflow = ed.getParam('fullscreen_html_overflow');
 ```
 
 Of course it will throw an error, we try to access a property of an element we
-just removed from the DOM (two lines before : `tinyMCE.remove(ed);`). Why
-would someone want to do that ?
+just removed from the DOM (two lines before: `tinyMCE.remove(ed);`). Why would
+someone want to do that?
 
 Well in fact, this is not `ed` (that we should try to access, but `de` (short
 for `DOM.doc.documentElement`). In fact the code was correct in 3.3.2, but
 someone changed it around 3.3.3.
 
-My guess is that someone had the file opened, saw this bit of code, spotted
-the `de`, and seeing a lot of references to `ed` all around, thought it was a
-typo and 'fixed' it.
+My guess is that someone had the file opened, saw this bit of code, spotted the
+`de`, and seeing a lot of references to `ed` all around, thought it was a typo
+and 'fixed' it.
 
-Reading the tinyMCE code (whenever you want to understand how it works, or
-want to study plugins before creating your own) is pretty hard. There are
-almost no comments, and variable names are only one or two letters long.
+Reading the tinyMCE code (whenever you want to understand how it works, or want
+to study plugins before creating your own) is pretty hard. There are almost no
+comments, and variable names are only one or two letters long.
 
 The tinyMCE team released a survey asking user what should be improved on the
-tinyMCE product. I answered it, and my main point was to improve
-documentation, because reading the tinyMCE core to understand its inner goings
-is quite a chore.
+tinyMCE product. I answered it, and my main point was to improve documentation,
+because reading the tinyMCE core to understand its inner goings is quite a
+chore.

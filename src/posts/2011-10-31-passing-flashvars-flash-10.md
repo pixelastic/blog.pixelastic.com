@@ -18,19 +18,18 @@ In the end, I boiled the issue down to IE and Flash 10, https wasn't involved
 
 ## Markup hell
 
-It is known that to have a real crossbrowser markup to embed Flash we need an
-IE specific version and a non-IE one.
+It is known that to have a real crossbrowser markup to embed Flash we need an IE
+specific version and a non-IE one.
 
-What I didn't know was that `flashvars `needed to be passed in two different
+What I didn't know was that `flashvars` needed to be passed in two different
 formats between Flash player 10 and Flash player 11.
 
-11 expect the classic `flashvars `parameter while 10 expect them to be passed
-as simili GET parameters to the movie url.
+11 expect the classic `flashvars` parameter while 10 expect them to be passed as
+simili GET parameters to the movie url.
 
 ## Final HTML markup
 
-In the end, here is the PHP code I use to generate my SWF markup :
-
+In the end, here is the PHP code I use to generate my SWF markup:
 
 ```php
 sprintf(
@@ -48,14 +47,20 @@ sprintf(
 $width, $height, $id, $url, $params, $flashVars, $alternateContent);
 ```
 
-Where :
+Where:
 
-  * `$width` and `$height` are the size (in pixel) of your movie
-  * `$id` is the html/css id of the main object element (as used in `swfObject.getObjectById`)
-  * `$url` is the url address of your swf file
-  * `$params` is a string containing all the `<param name="name" value="value" />` that you want to pass. Usually it will contain the `wmode`, `allowfullscreen`, `allowscriptaccess `and `flashvars `keys.
-  * `$flashVars` is a duplicate of the `flashVars `key of `$params` and should contain a string in the form `foo=bar&baz=nyan` to be passed to the swf in Flash 10
-  * `$alternateContent` is the html text to be displayed when Flash is not installed in the browse
+- `$width` and `$height` are the size (in pixel) of your movie
+- `$id` is the html/css id of the main object element (as used in
+  `swfObject.getObjectById`)
+- `$url` is the url address of your swf file
+- `$params` is a string containing all the `<param name="name" value="value" />`
+  that you want to pass. Usually it will contain the `wmode`, `allowfullscreen`,
+  `allowscriptaccess` and `flashvars` keys.
+- `$flashVars` is a duplicate of the `flashVars` key of `$params` and should
+  contain a string in the form `foo=bar&baz=nyan` to be passed to the swf in
+  Flash 10
+- `$alternateContent` is the html text to be displayed when Flash is not
+  installed in the browse
 
-I hope that this markup will help you, because I spent a damn long time
-testing all that stuff, jungling between VM and IE instances.
+I hope that this markup will help you, because I spent a damn long time testing
+all that stuff, jungling between VM and IE instances.

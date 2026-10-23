@@ -6,8 +6,7 @@ tags:
   - css
 ---
 
-Imagine the following HTML code :
-
+Imagine the following HTML code:
 
 ```html
 <div class="wrapper">
@@ -19,12 +18,12 @@ Imagine the following HTML code :
 </div>
 ```
 
-How would one style the first `div.foo` ?
+How would one style the first `div.foo`?
 
 I've tried `div.wrapper div.foo:first-of-type` but unfortunatly it does not
 work. In fact the previous rule can be translated into "select the first child
-of div.wrapper only if it is a div.foo" and not "select the first div.foo
-inside div.wrapper" as I imagined.
+of div.wrapper only if it is a div.foo" and not "select the first div.foo inside
+div.wrapper" as I imagined.
 
 Using jQuery I could do a `$('div.wrapper div.foo:first')` but there's no such
 selector in CSS.

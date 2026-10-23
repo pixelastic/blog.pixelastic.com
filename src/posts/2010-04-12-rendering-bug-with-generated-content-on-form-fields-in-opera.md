@@ -11,8 +11,7 @@ tags:
 ---
 
 If you try the following code in Opera 10.51, you'll have some weird rendering
-bug :
-
+bug:
 
 ```html
 <style>
@@ -21,15 +20,14 @@ bug :
     background:red;
   }
  </style>
- Text input : <input type="text" value="I'm unstyled" class="test" />
+ Text input: <input type="text" value="I'm unstyled" class="test" />
 ```
 
 The generated content is added to the page, but the background color isn't
-rendered. Worse, the input lose all styling, it does not have a background
-color nor borders anymore.
+rendered. Worse, the input lose all styling, it does not have a background color
+nor borders anymore.
 
-The same effect also apply to every `input `(`radio`, `checkbox `and
-`password`).
+The same effect also apply to every `input`(`radio`, `checkbox` and `password`).
 
 On a `select` tag, the generated content correctly have it's background color,
 but still lose all styling.
@@ -39,4 +37,3 @@ Well, sort of, it is actually cropped after a while and the end of the text is
 on transparent background.
 
 I sent a bug report to Opera about that.
-

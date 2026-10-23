@@ -7,22 +7,21 @@ tags:
 ---
 
 Ever deleted a file several commits away and then suddenly realizing that you
-actually need it ? Well, here's an easy way to get your file back.
+actually need it? Well, here's an easy way to get your file back.
 
-First of all, we'll get the commit in which the file has been deleted with :
+First of all, we'll get the commit in which the file has been deleted with:
 `git log --diff-filter=D --format=format:%H -- {your_filename}`
 
 `--diff-filter=D` will only keep commits where files gets deleted,
-`--format=format:%H` will only display the commit hash and finally the `--`
-is a separator between your options and the argument. Argument should be your
+`--format=format:%H` will only display the commit hash and finally the `--` is a
+separator between your options and the argument. Argument should be your
 filename, and it even accepts `*` as a wildcard.
 
-Once you got the commit hash, it's just a matter of checking the file out
-using `git checkout {hash}~1 {your_filename}`. The `~1` targets the previous
-commit, right before the file gets deleted.
+Once you got the commit hash, it's just a matter of checking the file out using
+`git checkout {hash}~1 {your_filename}`. The `~1` targets the previous commit,
+right before the file gets deleted.
 
-All wrapped up in a nice shell script, here is what it looks like :
-
+All wrapped up in a nice shell script, here is what it looks like:
 
 ```sh
 #!/usr/bin/env bash

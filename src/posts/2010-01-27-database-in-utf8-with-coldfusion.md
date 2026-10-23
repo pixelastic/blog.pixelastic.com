@@ -8,12 +8,11 @@ tags:
 ---
 
 When setting up a Coldfusion application, do not forget to add to your
-datasource the following connection string :
-
+datasource the following connection string:
 
 ```cfm
 characterEncoding=UTF8&characterSetResults=UTF8
 ```
 
-It will ensure that your data is correctly saved and fetched using UTF8. This
-is the coldfusion equivalent of the more commonly known `SET NAMES 'utf8';`
+It will ensure that your data is correctly saved and fetched using UTF8. This is
+the coldfusion equivalent of the more commonly known `SET NAMES 'utf8';`

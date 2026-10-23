@@ -8,14 +8,13 @@ tags:
   - nodejs
 ---
 
-Yesterday, I've tried to install nodejs and the jshint package to add
-automatic jshint parsing to my vim.
+Yesterday, I've tried to install nodejs and the jshint package to add automatic
+jshint parsing to my vim.
 
 Well, it wasn't so simple due to a bug in the npm version shipped with node.
 
 Here are the complete commands to run to make it work, in case I had to do it
-again :
-
+again:
 
 ```sh
 # Download and extract node
@@ -36,5 +35,5 @@ npm cache clean jshint
 sudo npm install jshint -g
 ```
 
-Source : [https://github.com/isaacs/npm/issues/1888](https://github.com/isaac
+Source: [https://github.com/isaacs/npm/issues/1888](https://github.com/isaac
 s/npm/issues/1888)

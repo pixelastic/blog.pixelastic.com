@@ -7,7 +7,7 @@ tags:
 ---
 
 I always have to refer to a manual or a webpage to remember the correct syntax
-for creating a new class in Javascript. Here it is :
+for creating a new class in Javascript. Here it is:
 
 ```js
 myClass = function() {
@@ -23,4 +23,3 @@ myClass = function() {
     };
 }(); // Note that this function is executed and so the object is returned.
 ```
-

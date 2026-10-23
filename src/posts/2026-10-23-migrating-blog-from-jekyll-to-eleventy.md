@@ -64,7 +64,7 @@ language of a CLI (like the `~/pixelastic` header), and using my **real** neovim
 colorscheme.
 
 Claude then transformed that into a prompt for v0, that I pasted 4 times into 4
-different v0 windows :
+different v0 windows:
 
 ![Version 1: monospace post titles with underline, a green "$ ls posts/" label and plain-text tags](/img/files/migrating-blog-from-jekyll-to-eleventy/v0-option-1-mono-titles-ls-posts.png)
 

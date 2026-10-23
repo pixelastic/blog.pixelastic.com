@@ -8,8 +8,8 @@ tags:
   - checked
 ---
 
-Ever tried to select the checked `radio `button of a form using jQuery ? Well
-I did, and hundreds of time before, and never ran into any issues.
+Ever tried to select the checked `radio` button of a form using jQuery? Well I
+did, and hundreds of time before, and never ran into any issues.
 
 Today's the first time, and it involves my dear friend IE8. Seems like either
 jQuery or IE8 had trouble with my `radio` button selection.
@@ -34,14 +34,12 @@ IE8.
 </form>
 ```
 
-
-Pretty simple, isn't it ? I only have three `radio `buttons, and I would like
-to get the selected value when pressing the Select `button`.
+Pretty simple, isn't it? I only have three `radio` buttons, and I would like to
+get the selected value when pressing the Select `button`.
 
 ## What should work everywhere
 
 The following code is pretty straightforward and I expected it to just work.
-
 
 ```js
 var selected1 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]:checked');
@@ -49,20 +47,20 @@ var value1 = selected1.val();
 console.log(value1);
 ```
 
-Note that we have to double escape the `[` and `]` characters and wrap in
-quotes the `name `value. Nothing fancy, just classic string protection. This
-code works perfectly on Firefox and Chrome, and I deployed it in production
-for a few weeks.
+Note that we have to double escape the `[` and `]` characters and wrap in quotes
+the `name` value. Nothing fancy, just classic string protection. This code works
+perfectly on Firefox and Chrome, and I deployed it in production for a few
+weeks.
 
 Then, I got report of users that would have love to use the form, but got an
 error because no value was selected. I tested and tested it again without
 finding the cause. Then it occurs to me that all those reports came from user
 using IE8.
 
-So I rebooted my VM, launched IE8 and was able to reproduce the bug on my
-first try.
+So I rebooted my VM, launched IE8 and was able to reproduce the bug on my first
+try.
 
-## What the heck is IE8 doing ?
+## What the heck is IE8 doing?
 
 Well, that's a deep question, and I've ask this myself countless times before.
 Once more, IE is doing things in its own weird way.
@@ -70,17 +68,16 @@ Once more, IE is doing things in its own weird way.
 After some fiddling, I managed to make it work, by just slightly altering the
 syntax.
 
-
 ```js
 var selected2 = $('#myForm input[name="data\\[Payment\\]\\[value\\]"]').filter(':checked');
 var value2 = selected2.val();
 console.log(value2); 
 ```
 
-Yep, that's right, I simply moved the `:checked` selector in its own `filter
-`call and it worked. Took me a while to figure, but this finally turned out to
-be an easy fix.
+Yep, that's right, I simply moved the `:checked` selector in its own `filter`
+call and it worked. Took me a while to figure, but this finally turned out to be
+an easy fix.
 
-You can test it yourself with [this jsFiddle
-example](http://jsfiddle.net/pixelastic/WS53Q/1/). Don't forget to enable the
-log panel in IE8 by pressing F12 before running the code.
+You can test it yourself with
+[this jsFiddle example](http://jsfiddle.net/pixelastic/WS53Q/1/). Don't forget
+to enable the log panel in IE8 by pressing F12 before running the code.

@@ -8,15 +8,15 @@ tags:
   - php
 ---
 
-My development environment is set up thanks to EasyPHP. I've used this app
-since the first days that I started to write PHP and it followed me since.
+My development environment is set up thanks to EasyPHP. I've used this app since
+the first days that I started to write PHP and it followed me since.
 
 I guess I have a better understanding of what it does under the scenes now and
-could probably work with a clean and custom Apache/MySQL/PHP install. But I
-like simplicity.
+could probably work with a clean and custom Apache/MySQL/PHP install. But I like
+simplicity.
 
 Anyway, I just wanted to run my imap script from the CLI but ran into "_Fatal
-error : imap_open not defined_".
+error: imap_open not defined_".
 
 The same script was perfectly working when accessing it from my browser but
 failed when launched from the CLI.

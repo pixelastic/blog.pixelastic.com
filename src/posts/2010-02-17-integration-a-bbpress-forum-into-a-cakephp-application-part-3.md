@@ -13,11 +13,10 @@ create bbPress user directly from your app.
 
 What we'll be doing now is adding some hooks on every user-related action on
 bbPress to redirect them to their equivalent in your app. No need to have two
-different login form, hey ?
+different login form, hey?
 
 Create a new php file in your `app/webroot/forum/my-plugins/` directory, and
-copy and paste the following code :
-
+copy and paste the following code:
 
 ```php
 /*
@@ -70,14 +69,13 @@ the corresponding url in your own app.
 
 Don't forget to enable this plugin in your bbPress admin panel.
 
-Of course, feel free to change the destination url to reflect those of your
-app.
+Of course, feel free to change the destination url to reflect those of your app.
 
 ## Additional information
 
-Note that the` users/edit/ `method takes the bbPress `nicename `as argument,
-so you should have to convert it before displaying the edit form.
+Note that the `users/edit/` method takes the bbPress `nicename` as argument, so
+you should have to convert it before displaying the edit form.
 
-I also edited my template and added an hidden field in the bbPress login form
-to check if the login was coming from the app or the forum and redirect
+I also edited my template and added an hidden field in the bbPress login form to
+check if the login was coming from the app or the forum and redirect
 accordingly.

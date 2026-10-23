@@ -22,8 +22,7 @@ the error is on your side.
 
 That's not very user friendly and makes you look bad.
 
-So, to fix this, I added two error messages as alternate content :
-
+So, to fix this, I added two error messages as alternate content:
 
 ```html
 <div id="alternateContent" class="alternateContent">
@@ -32,8 +31,7 @@ So, to fix this, I added two error messages as alternate content :
 </div>
 ```
 
-Then, in CSS I decided to hide them both :
-
+Then, in CSS I decided to hide them both:
 
 ```css
 .alternateContent .message { display:none; }
@@ -42,10 +40,9 @@ Then, in CSS I decided to hide them both :
 ```
 
 And finally, in Javascript I checked for the current Flash version. If it's
-equal to zero, it means that Flash is not installed, so I display the `noFlash
-`error message, otherwise, I guess it's a 404 error and display the other
+equal to zero, it means that Flash is not installed, so I display the `noFlash`
+error message, otherwise, I guess it's a 404 error and display the other
 message.
-
 
 ```js
 var flashVersion = swfobject.getFlashPlayerVersion(),
@@ -59,6 +56,6 @@ if (flashVersion.minor=='0') {
 }
 ```
 
-This is not bulletproof : I only test for two cases. And a better solution
-would also have been to put the error message dynamically using Javascript
-instead of polluting the HTML markup with contradictory text.
+This is not bulletproof: I only test for two cases. And a better solution would
+also have been to put the error message dynamically using Javascript instead of
+polluting the HTML markup with contradictory text.

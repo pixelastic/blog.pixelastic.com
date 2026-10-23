@@ -8,14 +8,12 @@ tags:
   - url-quote-magic
 ---
 
-Aren't your tired of having to wrap your url in quotes when using `wget` so
-the various `&` and `?` do not mess up your terminal ?
+Aren't your tired of having to wrap your url in quotes when using `wget` so the
+various `&` and `?` do not mess up your terminal?
 
-Well, I was, until I stumbled upon this god-send zsh magic : `url-quote-
-magic`.
+Well, I was, until I stumbled upon this god-send zsh magic: `url-quote- magic`.
 
-Just initiate it in your `.zshrc` with the following lines :
-
+Just initiate it in your `.zshrc` with the following lines:
 
 ```sh
 autoload -U url-quote-magic

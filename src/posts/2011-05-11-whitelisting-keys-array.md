@@ -14,7 +14,7 @@ keys from this array that I didn't want.
 Actually, I wanted to whitelist the array, and only keep keys that were on my
 whitelist.
 
-Here is the litte snippet that does it :
+Here is the litte snippet that does it:
 
 ```php
 <?php
@@ -28,4 +28,3 @@ function array_whitelist($array, $whitelist = array()) {
 }
 ?>
 ```
-

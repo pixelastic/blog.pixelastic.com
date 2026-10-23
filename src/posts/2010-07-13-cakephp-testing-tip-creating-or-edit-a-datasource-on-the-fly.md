@@ -1,5 +1,5 @@
 ---
-title: "cakePHP testing tip : Creating or edit a datasource on the fly"
+title: "cakePHP testing tip: Creating or edit a datasource on the fly"
 custom_v2_id: 192
 tags:
   - datasource
@@ -13,11 +13,9 @@ was correctly returning an error if the connection to the database was
 impossible.
 
 I couldn't find an easy way to change datasource credentials once the app was
-initiated, so I decided to manually update the `ConnectionManager` inner
-values.
+initiated, so I decided to manually update the `ConnectionManager` inner values.
 
-Here's how I did it :
-
+Here's how I did it:
 
 ```php
 // Getting the datasource cache in the ConnectionManager object
@@ -39,6 +37,5 @@ $connect = ConnectionManager::getDataSource('default');
 // And reverting the settings back
 $databaseConfig['default'] = $_defaultConfig;
 ```
-
 
 This proved really useful when testing to simulate a database server error.

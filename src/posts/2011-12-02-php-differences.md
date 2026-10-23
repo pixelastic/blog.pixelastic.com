@@ -5,8 +5,7 @@ tags:
   - php
 ---
 
-Just found this weird little behavior of PHP today :
-
+Just found this weird little behavior of PHP today:
 
 ```php
 <?php
@@ -28,7 +27,7 @@ array(4) {
 parenthesis. On the other hand, `$a || $b` correctly returns the result of the
 expression.
 
-It seems that `AND `and `OR `are weak compared to `&&` and `||`.
+It seems that `AND` and `OR` are weak compared to `&&` and `||`.
 
-Be aware of that, or it might backfire on you. Or just discard all `AND `/ `OR
-`in favor of `&&` /` ||`
+Be aware of that, or it might backfire on you. Or just discard all `AND` / `OR`
+in favor of `&&` / `||`

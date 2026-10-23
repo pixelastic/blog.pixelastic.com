@@ -11,19 +11,18 @@ tags:
   - fouc
 ---
 
-I finally managed to fix something that was bugging me for a very long time.
-I'm talking about the jQuery UI tabs.
+I finally managed to fix something that was bugging me for a very long time. I'm
+talking about the jQuery UI tabs.
 
-They are pretty useful actually, but I always hated that FOUC they produce.
-For one split second, you'll see all your tabs content, then they'll be neatly
+They are pretty useful actually, but I always hated that FOUC they produce. For
+one split second, you'll see all your tabs content, then they'll be neatly
 re-arranged in tabs.
 
 What I want are my tabs displayed correctly right away, on first load.
 
 ## First, the markup
 
-Here's a typical tabs markup :
-
+Here's a typical tabs markup:
 
 ```html
 <div class="tabs">
@@ -42,13 +41,10 @@ Here's a typical tabs markup :
 </div>
 ```
 
-
 ## CSS to hide all tabs if Javascript is disabled
 
-If your Javascript is disabled, so will jQuery UI. We will then hide the
-`<ul>` because it serves no purpose here. We will only show it if js is
-enabled
-
+If your Javascript is disabled, so will jQuery UI. We will then hide the `<ul>`
+because it serves no purpose here. We will only show it if js is enabled
 
 ```css
 .tabs ul { display:none; }
@@ -57,14 +53,12 @@ enabled
 
 ## Applying jQuery UI tabs
 
-By doing a` $('.tabs').tabs();` jQuery UI will treat your `<ul>` as your tab
-menu and all your `.tabPanel` as their corresponding contents. It will hide
-all your panels, except for the first one. It does so by adding a` .ui-tabs-
-panel` class to every `.tabPanel` as well as a `.ui-tabs-hide` to every panel
-it hides.
+By doing a `$('.tabs').tabs();` jQuery UI will treat your `<ul>` as your tab
+menu and all your `.tabPanel` as their corresponding contents. It will hide all
+your panels, except for the first one. It does so by adding a `.ui-tabs- panel`
+class to every `.tabPanel` as well as a `.ui-tabs-hide` to every panel it hides.
 
-Right now, you should add another CSS rule to hide the unused panels :
-
+Right now, you should add another CSS rule to hide the unused panels:
 
 ```css
 .ui-tabs-hide { display: none; }
@@ -72,20 +66,19 @@ Right now, you should add another CSS rule to hide the unused panels :
 
 But if you look at your page now, you'll see all your tabs content before they
 get hidden. That is the FOUC I was talking about. The jQuery UI documentation
-indicate that to remove it, you should directly add the `.ui-tabs-hide` class
-to panels you'll want to hide.
+indicate that to remove it, you should directly add the `.ui-tabs-hide` class to
+panels you'll want to hide.
 
-As also pointed in the doc, it will not gracefully degrade because users
-without Javascript won't even be able to see your other tabs. Also, it asks
-you to add server-side logic (HTML markup with jQuery specific classes) for
-something that should be handled entirely client-side.
+As also pointed in the doc, it will not gracefully degrade because users without
+Javascript won't even be able to see your other tabs. Also, it asks you to add
+server-side logic (HTML markup with jQuery specific classes) for something that
+should be handled entirely client-side.
 
 ## Removing the FOUC while gracefully degrade
 
 Ok, so what I did was writing two simple rules that will directly hide all
-unused panels while still displaying the active one, even before jQuery UI
-takes action.
-
+unused panels while still displaying the active one, even before jQuery UI takes
+action.
 
 ```css
 .js .tabPanel + .tabPanel { display:none;}
@@ -99,22 +92,21 @@ happens and you get stuck with your default panel always visible.
 
 As jQuery will add new classes to my elements, I'll just have to write more
 specific rules that use those classes. Here's the little piece of logic I came
-up with :
-
+up with:
 
 ```css
 .js .tabPanel.ui-tabs-panel { display:block;}
 .js .tabPanel.ui-tabs-panel.ui-tabs-hide { display:none;}
 ```
 
-All the jQuery panels are shown, except for the one hidden by jQuery. All
-those rules being more and more specific, they will get applied once the tabs
-are activated but still override the previous `display:` declarations.
+All the jQuery panels are shown, except for the one hidden by jQuery. All those
+rules being more and more specific, they will get applied once the tabs are
+activated but still override the previous `display:` declarations.
 
 ## Conclusion
 
-This is how I fixed an issue that was bugging me for years. Unfortunatly the
-CSS rules being dependent on the markup used, I haven't yet been able to write
-them in a global form that could be added to the main jQuery UI css files.
+This is how I fixed an issue that was bugging me for years. Unfortunatly the CSS
+rules being dependent on the markup used, I haven't yet been able to write them
+in a global form that could be added to the main jQuery UI css files.
 
-  *[FOUC]: Flash Of Unstyled Content
+\*[FOUC]: Flash Of Unstyled Content

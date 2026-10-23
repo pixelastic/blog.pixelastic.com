@@ -14,11 +14,11 @@ I wrote a cakePHP shell to synchronize an IMAP mailbox with a mysql table. I
 wanted to test my shell on local first, then upload it and make a CRON job of
 it.
 
-Whenever I tried to run the shell from my development environment I was
-greeted with various "_Database table is missing_" messages.
+Whenever I tried to run the shell from my development environment I was greeted
+with various "_Database table is missing_" messages.
 
-After some digging, it occurs that the shell was connecting to my prod
-database, not the dev one.
+After some digging, it occurs that the shell was connecting to my prod database,
+not the dev one.
 
 ## The culprit
 
@@ -33,27 +33,25 @@ But when running a shell, the `env('SERVER_ADDR')` was empty, thus my test was
 always selecting the prod database.
 
 I couldn't find anyway to guess if I was running a shell from prod or dev. I
-sure had access to a lot of config informations through `env` and `$_SERVER`
-but none seemed to be enough to guess the correct environment.
+sure had access to a lot of config informations through `env` and `$_SERVER` but
+none seemed to be enough to guess the correct environment.
 
 ## Solution
 
-I finally decided that the only way was to manually pass a flag to my shell
-call to tell if it was to use the dev or prod credentials.
+I finally decided that the only way was to manually pass a flag to my shell call
+to tell if it was to use the dev or prod credentials.
 
 I decided that adding a `dev` arg to the shell call will switch to dev mode,
 while not adding it will use production mode.
 
-
-My final shell call looked like :
+My final shell call looked like:
 
 ```sh
 cake -app "path/to/app" mail_import dev
 
 ```
 
-And I added the following logic in my database switching logic :
-
+And I added the following logic in my database switching logic:
 
 ```php
 // Defining the Environment (prod or dev)

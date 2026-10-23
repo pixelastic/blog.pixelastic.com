@@ -37,7 +37,7 @@ define a specific 404 page for each website hosted, you have to use the
 server {
   [...]
   error_page 404 =404 /path/to/404.html
-  # You can also use: 
+  # You can also use:
   # error_page 404 /path/to/404.html
   # Which will do a 301 redirect and not a 404
 }
@@ -57,13 +57,10 @@ any requests made to the root to the `www` subdomain.
 
 ```nginx
 server {
-	server_name pixelastic.com;
-	rewrite ^ $scheme://www.pixelastic.com$uri permanent;
+    server_name pixelastic.com;
+    rewrite ^ $scheme://www.pixelastic.com$uri permanent;
 }
 ```
 
 Here was a short list of nginx tweaks. It's better published than sitting in my
 draft folder.
-
-
-

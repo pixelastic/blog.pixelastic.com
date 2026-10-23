@@ -8,16 +8,15 @@ tags:
   - search
 ---
 
-I wanted for this blog a search feature, but I had some prerequisites for it :
+I wanted for this blog a search feature, but I had some prerequisites for it:
 
-  * The search url could be bookmarked
-  * It should be paginated
-  * It should play well with my custom url starting with /blog
+- The search url could be bookmarked
+- It should be paginated
+- It should play well with my custom url starting with /blog
 
 ## Defining custom urls
 
 Here are the two routes I defined in my routes.php
-
 
 ```php
 Router::connect('/blog/search/:keyword',
@@ -30,24 +29,22 @@ Router::connect('/blog/search/:keyword',
 Router::connect('/blog/search/*', array('controller' => 'posts', 'action' => 'search'));
 ```
 
-Going to` /blog/search/*keyword*` will start a search on the keyword, while
-going to `/blog/search/ `would display a search form.
+Going to `/blog/search/*keyword*` will start a search on the keyword, while
+going to `/blog/search/` would display a search form.
 
 ## Writing the method
 
-I started by creating a `search `action in my `PostController`, then creating
-a form submitting to this action, with a `keyword `input field.
+I started by creating a `search` action in my `PostController`, then creating a
+form submitting to this action, with a `keyword` input field.
 
-In the `search `method, the first thing I do is checking if some POST data is
-submitted (coming from the search form). If so, I redirect to the same page,
-but passing the `keyword `as first parameter.
+In the `search` method, the first thing I do is checking if some POST data is
+submitted (coming from the search form). If so, I redirect to the same page, but
+passing the `keyword` as first parameter.
 
-If no `keyword `is passed nor data submitted, I'll display a simple search
-form.
+If no `keyword` is passed nor data submitted, I'll display a simple search form.
 
-And finally if a `keyword `is specified, I'll do a paginated search on every
-posts whose `name `or `text `contains the `keyword`.
-
+And finally if a `keyword` is specified, I'll do a paginated search on every
+posts whose `name` or `text` contains the `keyword`.
 
 ```php
 function search() {
@@ -85,5 +82,3 @@ function search() {
   ));
 }
 ```
-
-

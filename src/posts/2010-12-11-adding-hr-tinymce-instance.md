@@ -12,8 +12,7 @@ When using the default tinyMCE implementation to add an `<hr>` element to the
 editor content, the `<hr>` is added inside its parent `<p>` element (when it
 should be an element on its own, without such a parent).
 
-I've added my own plugin to resolve this small issue, here is the code :
-
+I've added my own plugin to resolve this small issue, here is the code:
 
 ```js
 (function() {

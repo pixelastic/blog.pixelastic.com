@@ -1,5 +1,5 @@
 ---
-title: "Javascript speed tip : reduce variable lookup"
+title: "Javascript speed tip: reduce variable lookup"
 custom_v2_id: 195
 tags:
   - javascript
@@ -7,9 +7,9 @@ tags:
   - closure
 ---
 
-It appears that, according to this video, when inside a Javascript function
-(or closure), if you want to access a variable, the closer your scope is to
-this variable, the faster you'll get it.
+It appears that, according to this video, when inside a Javascript function (or
+closure), if you want to access a variable, the closer your scope is to this
+variable, the faster you'll get it.
 
 In simpler words, accessing a global variable (like `document`, or `window`)
 from inside a function will always be slower that accessing a locally defined
@@ -20,9 +20,8 @@ defined in this method will be faster that accessing a property of the parent
 object, which itself will be faster that accessing a global variable.
 
 So, for example, if you need to access at least twice a global variable like
-`window `or `document `in a method, you'd better cache it in a local variable
+`window` or `document` in a method, you'd better cache it in a local variable
 first.
-
 
 ```php
 function myTestFunction() {
@@ -32,8 +31,7 @@ function myTestFunction() {
 
 ```
 
-is bad and could be rewritten as :
-
+is bad and could be rewritten as:
 
 ```php
 function myTestFunction() {

@@ -8,24 +8,23 @@ tags:
   - cronjob
 ---
 
-Dreamhost as [a wonderful wiki](http://wiki.dreamhost.com/Crontab) on how to
-set cron jobs and cakePHP has [a cookbook page on how to do
-it](http://book.cakephp.org/view/846/Running-Shells-as-cronjobs) too, but
-getting it just right was a little frustrating.
+Dreamhost as [a wonderful wiki](http://wiki.dreamhost.com/Crontab) on how to set
+cron jobs and cakePHP has
+[a cookbook page on how to do it](http://book.cakephp.org/view/846/Running-Shells-as-cronjobs)
+too, but getting it just right was a little frustrating.
 
 I finally managed to run my shell task as a cronjob, and here is how I did it.
 
 ## The magic command
 
-First, here is the command I wrote in my Dreamhost panel :
-
+First, here is the command I wrote in my Dreamhost panel:
 
 ```sh
 /home/username/domain.com/cake/console/cake -app /home/username/domain.com/app/ shell_name
 ```
 
-You have to set the full path to the cake console because it obviously is not
-in the pre-saved paths on a default Dreamhost install.
+You have to set the full path to the cake console because it obviously is not in
+the pre-saved paths on a default Dreamhost install.
 
 You also have to specify the `app` directory otherwise cake will search your
 shell in the wrong directories. This is even more important if your shell is
@@ -42,8 +41,7 @@ obvious, but you have to do it anyway.
 
 ## Set the TERM variable
 
-Update you `cake/console/cake` to replace the first lines with :
-
+Update you `cake/console/cake` to replace the first lines with:
 
 ```sh
 LIB=${0/%cake/}
@@ -57,11 +55,10 @@ it is cleaner that way.
 
 ## Forcing using php5
 
-While in command line, the php command refer to the php4 version. If you need
-to use php5 (and I guess you should), you would have to manually reference the
+While in command line, the php command refer to the php4 version. If you need to
+use php5 (and I guess you should), you would have to manually reference the
 binary file. Hence, you have to update your `cake/console/cake` file one more
-time and change the `exec `line to :
-
+time and change the `exec` line to:
 
 ```sh
 exec /usr/local/php5/bin/php -q ${LIB}cake.php -working "${APP}" "$@"

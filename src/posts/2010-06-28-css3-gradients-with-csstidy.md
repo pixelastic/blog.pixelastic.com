@@ -12,33 +12,32 @@ Gradients are one of the new cool stuff CSS3 brought with it. Like the others
 cool things, it still suffer from a partial implementation and vendor-specific
 properties.
 
-It also isn't correctly parsed by CSSTidy. Here I'll show you how to patch
-your CSSTidy to make it eat gradients correctly.
+It also isn't correctly parsed by CSSTidy. Here I'll show you how to patch your
+CSSTidy to make it eat gradients correctly.
 
 ## Quick and dirty patch
 
 First, you'll need to edit the huge `parse()` method in c`sstidy.ph`p. You'll
-have to add a condition to explictly tell CSSTidy not to discard `-webkit-
-gradient` and `-moz-linear-gradient`.
+have to add a condition to explictly tell CSSTidy not to discard
+`-webkit- gradient` and `-moz-linear-gradient`.
 
 Just open your `csstidy.php` file, find the `parse()` method and locate the
-`case 'instr'` in the huge `switch `statement.
-
+`case 'instr'` in the huge `switch` statement.
 
 ```php
 if (!($this->str_char === ')' && in_array($string{$i}, $GLOBALS['csstidy']['whitespace']) && !$this->str_in_str)) {
   $this->cur_string .= $temp_add;
-} **else {**
-**	if ($this->sub_value=="-webkit-gradient" || $this->sub_value=="-moz-linear-gradient") {**
-**		$this->cur_string.=' ';**
-**	}**
-**}**
+} else { // the whole else block is new
+    if ($this->sub_value=="-webkit-gradient" || $this->sub_value=="-moz-linear-gradient") {
+        $this->cur_string.=' ';
+    }
+}
 ```
 
-In bold, the `else `part to add. This will make sure your webkit and firefox
+The `else` part is the one to add. This will make sure your webkit and firefox
 gradient rules will get processed correctly.
 
-I don't really understand WHY it work, but it does. The `parse() `method is a
+I don't really understand WHY it work, but it does. The `parse()` method is a
 huge uncommented mess, it is quite difficult to understand it. There must be a
 better way, a more generic one than specifying some properties, but I didn't
 manage to come with anything better than that.
@@ -47,9 +46,8 @@ Fortunatly, the next part is cleaner.
 
 ## Telling CSSTidy which properties not to merge
 
-If you write a css like the following, only the latest (`color:white`) rule
-will get through CSSTidy.
-
+If you write a css like the following, only the latest (`color:white`) rule will
+get through CSSTidy.
 
 ```css
 body {
@@ -72,8 +70,7 @@ managed to allow them to be passed as a config value.
 ## Defining the config value
 
 First, open the `csstidy.php` file, and around line 310 you should find a list
-of default config values. Just add the following :
-
+of default config values. Just add the following:
 
 ```php
 $this->settings['multiple_properties'] = array('cursor', 'background');
@@ -83,8 +80,7 @@ This will define the default list of properties that are allowed to be defined
 several times in a css rule.
 
 Next, we'll edit the `set_cfg()` method to allow the passing of array values.
-Just replace the else statement with this one :
-
+Just replace the else statement with this one:
 
 ```css
 else if(isset($this->settings[$setting]) && $value !== '') {
@@ -103,22 +99,19 @@ else if(isset($this->settings[$setting]) && $value !== '') {
 }
 ```
 
-
 You can now pass a list of properties to be added to the existing list by
 calling `->set_cfg('multiple_properties', array('property1', 'property2'));`
 
-Now, find the `css_add_property(`) method, and around line 1066, change the`
-if (strtolower($property) == 'cursor') `if statement to this more generic one
+Now, find the `css_add_property(`) method, and around line 1066, change
+the`if (strtolower($property) == 'cursor')`if statement to this more generic one
 :
-
 
 ```php
 if (in_array($property, $this->get_cfg('multiple_properties')))
 ```
 
-And now, in `csstidy_print.php`, find the` _print()` method, and replace the
-`case PROPERTY` block with this (more concise) one :
-
+And now, in `csstidy_print.php`, find the `_print()` method, and replace the
+`case PROPERTY` block with this (more concise) one:
 
 ```php
 case PROPERTY:
@@ -138,7 +131,6 @@ case PROPERTY:
   $out .= $template[4] . $this->_htmlsp($token[1], $plain) . ':' . $template[5];
 break;
 ```
-
 
 ## And that's it
 

@@ -16,8 +16,7 @@ fast, powerful and readable.
 Today I had to parse a real-world XML file, and I discovered that when dealing
 with namespaces, all became suddenly much more difficult in the XPath world.
 
-Here is my xml source (shortened for the sake of clarity) :
-
+Here is my xml source (shortened for the sake of clarity):
 
 ```xml
 <?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
@@ -38,28 +37,24 @@ Here is my xml source (shortened for the sake of clarity) :
 <?xpacket end="w"?>
 ```
 
-
 I wanted to select the first `<rdf:Description>` (Dublin Core).
 
-First of all, you have to know that you can't do //rdf:description, you have
-to use a special syntax because the : is a reserved character. The solution is
-using the name() method : //*[name()='rdf:Description'].
+First of all, you have to know that you can't do //rdf:description, you have to
+use a special syntax because the: is a reserved character. The solution is using
+the name() method: //\*[name()='rdf:Description'].
 
 It will return both rdf:Description nodes. I can easily get the one i'm
-interested in by doing //*[name()='rdf:Description'][1] but I would have liked
-to use a much more simple syntax and select the one with an xmlns:dc
-attribute.
+interested in by doing //\*[name()='rdf:Description'][1] but I would have liked
+to use a much more simple syntax and select the one with an xmlns:dc attribute.
 
-And I did not find out how to do that. All the syntaxes I tried either
-returned nothing, threw and exception and even crash my app once.
+And I did not find out how to do that. All the syntaxes I tried either returned
+nothing, threw and exception and even crash my app once.
 
 I finally found a devious way to find it. I search for any xmlField whose
 namespace uri was http://purl.org/dc/elements/1.1/ and then get its parent. I
-still feel like its a dirty hack but I've allready spent too much time on it,
-so it will be enough for now.
-
+still feel like its a dirty hack but I've allready spent too much time on it, so
+it will be enough for now.
 
 ```xml
 //*[namespace-uri()='http://purl.org/dc/elements/1.1/'][1]/../
 ```
-

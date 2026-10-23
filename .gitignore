@@ -18,3 +18,8 @@ Thumbs.db
 
 # Generated stylesheet
 src/static/css/main.css
+
+# Generated site, sass cache and secrets
+/dist
+.sass-cache
+_algolia_api_key

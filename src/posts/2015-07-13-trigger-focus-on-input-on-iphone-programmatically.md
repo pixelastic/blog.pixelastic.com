@@ -1,7 +1,9 @@
 ---
 title: "Trigger focus on input on iPhone programmatically"
 tags:
-  - javascript iphone focus
+  - javascript
+  - iphone
+  - focus
 ---
 
 It seems that Safari mobile on iPhone does not allow one to programmatically set
@@ -21,7 +23,7 @@ hidden checkbox that I was using in a CSS selector selector.
 Something like:
 
 ```css
-.my-ui { 
+.my-ui {
   display:none;
 }
 .my-checkbox:checked + .my-ui {
@@ -31,8 +33,8 @@ Something like:
 
 ## Adding a bit of JavaScript
 
-And then, I was listening to the `change` event on my checkbox to trigger
-a `focus` event on an `input` in my UI.
+And then, I was listening to the `change` event on my checkbox to trigger a
+`focus` event on an `input` in my UI.
 
 This worked quite well on desktop but fails on iPhone. After some Googling, it
 turns out that Safari has a mechanism to protect auto focus of inputs. Inputs
@@ -54,9 +56,9 @@ $label.on('click', function(e) {
 });
 ```
 
-This is actually me listening to the `click` event on the label, triggering
-a `click` on the checkbox (which will toggle the checkbox value) and disabling
-the default behavior (using `e.preventDefault()`).
+This is actually me listening to the `click` event on the label, triggering a
+`click` on the checkbox (which will toggle the checkbox value) and disabling the
+default behavior (using `e.preventDefault()`).
 
 Then I'm doing my input focus, which will work because it originated from a user
 interaction.

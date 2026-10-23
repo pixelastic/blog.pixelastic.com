@@ -11,7 +11,7 @@
   {{ prose(content) }}
   <div class="mt-[38px] flex flex-wrap gap-2">
     {% for tag in tags %}
-      <a href="/tags/{{ tag | tagSlug }}/" class="border border-tag-line bg-tag-bg px-2 py-[5px] font-mono text-[11px] text-tag hover:border-tag hover:text-tag">#{{ tag | trim }}</a>
+      <a href="/tags/{{ tag | tagSlug }}/" class="border border-tag-line bg-tag-bg px-2 py-[5px] font-mono text-[11px] text-tag hover:border-tag hover:text-tag">#{{ tag }}</a>
     {% endfor %}
   </div>
 </article>

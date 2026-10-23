@@ -29,11 +29,13 @@
   "scripts": {
     "build": "yarn build:css && eleventy",
     "build:css": "tailwindcss -i src/styles/main.css -o src/static/css/main.css --minify",
+    "compress": "./scripts/compress",
     "deploy": "./scripts/deploy",
     "lint": "./scripts/lint",
     "lint:fix": "./scripts/lint-fix",
     "serve": "./scripts/serve",
-    "test": "./scripts/test"
+    "test": "./scripts/test",
+    "test:watch": "./scripts/test-watch"
   },
   "bugs": {
     "url": "https://github.com/pixelastic/blog.pixelastic.com/issues"

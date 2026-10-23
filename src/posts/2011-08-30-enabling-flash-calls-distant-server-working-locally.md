@@ -5,8 +5,8 @@ tags:
   - flash
 ---
 
-Default Flash security config prevents you from loading content from an
-external website when running a Flash file locally.
+Default Flash security config prevents you from loading content from an external
+website when running a Flash file locally.
 
 To prevent this, you have to go to [this link](http://www.macromedia.com/suppo
 rt/documentation/en/flashplayer/help/settings_manager04.html) and add the

@@ -7,15 +7,14 @@ tags:
   - sessions
 ---
 
-On HappyLife, we used to use Memcache to handle the php sessions. We
-discovered a while back after much trouble that Memcache might not have been
-the best solution for sessions on a high traffic site. But this will be the
-subject of another post.
+On HappyLife, we used to use Memcache to handle the php sessions. We discovered
+a while back after much trouble that Memcache might not have been the best
+solution for sessions on a high traffic site. But this will be the subject of
+another post.
 
 Anyway, I switched back to classical session, stored on disk.
 
 Here's the relevant `php.ini` config
-
 
 ```ini
 [Session]

@@ -29,8 +29,8 @@ empowering.
 
 I also find myself wanting to share what I learn. As a public-speaking trainer,
 I hear many interesting topics and wish to help others communicate their ideas
-effectively. I often think about the time I spend solving problems; sometimes
-I learn concepts that, if I could explain simply, would benefit others. However,
+effectively. I often think about the time I spend solving problems; sometimes I
+learn concepts that, if I could explain simply, would benefit others. However,
 creating an article or preparing a talk takes time I often don’t have.
 
 To bridge this gap, I've embarked on a project to automate how I turn raw ideas
@@ -40,8 +40,8 @@ articles or conference talks. The thought is to create a system that organizes
 and refines my notes, making it easier to share knowledge.
 
 This process of transforming spoken ideas into written content involves
-leveraging AI tools that can help refine and structure my raw notes. I imagine
-a comprehensive database where I store these ideas, making the content creation
+leveraging AI tools that can help refine and structure my raw notes. I imagine a
+comprehensive database where I store these ideas, making the content creation
 process easier and faster. The audio notes I take can serve as the seed from
 which various media, such as blog posts or presentations, can grow.
 
@@ -52,7 +52,7 @@ useful to you. This journey of integrating automation and AI into my workflow
 has only begun, and I look forward to sharing more about this exploration as it
 evolves.
 
-*Disclaimer: This blog post hasn't been written by me. I recorded an audio note
-of what I wanted to say, then built an automation process (using the tools
-I mention) to generate the final blogpost. The ideas are mine, the way it's
-written is not. It's not good enough (I feel), but is a good start.*
+_Disclaimer: This blog post hasn't been written by me. I recorded an audio note
+of what I wanted to say, then built an automation process (using the tools I
+mention) to generate the final blogpost. The ideas are mine, the way it's
+written is not. It's not good enough (I feel), but is a good start._

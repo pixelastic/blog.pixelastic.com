@@ -9,9 +9,9 @@ Communicating from a parent window to a child iframe is a known problem in
 JavaScript and has already been solved. How to do it in the context of a Vue.js
 application is slightly different but based on the same principles.
 
-I was confronted with the matter yesterday and had to find an elegant way to send
-data (credentials) from the parent window to a child iframe from my Vue.js app.
-Here's how I did it.
+I was confronted with the matter yesterday and had to find an elegant way to
+send data (credentials) from the parent window to a child iframe from my Vue.js
+app. Here's how I did it.
 
 ## Initial markup
 
@@ -63,8 +63,8 @@ When you'll load `App.vue`, the template will be rendered and will create the
 `iframe`, loading `iframe.html` in turn.
 
 Because we added a `v-on:load` event on the `iframe`, we'll be able to know
-__when__ the iframe will be loaded. At that point, we can read the
-property `.currentTarget` of the fired `event`. 
+**when** the iframe will be loaded. At that point, we can read the property
+`.currentTarget` of the fired `event`.
 
 This will give us a reference to the `iframe` HTML element. We can't do much
 with the HTML element; we can't access the `window` object that is inside of it
@@ -80,6 +80,6 @@ calling any method defined in the global `window` namespace of the child
 
 ## tl;dr
 
-The basic trick here is to wait for the iframe to load, then get hold of
-a reference to its inside `window` object, to then call any globally available
+The basic trick here is to wait for the iframe to load, then get hold of a
+reference to its inside `window` object, to then call any globally available
 method available in it.

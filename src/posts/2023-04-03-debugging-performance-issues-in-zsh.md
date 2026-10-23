@@ -4,10 +4,10 @@ tags:
   - zsh
 ---
 
-If I add too much code in my `.zshrc`, my zsh takes longer to load. As I use
-a lot of different terminal windows (splitting one main tmux window), I want
-those split to happen quickly. This is why I'm trying very hard to keep the
-loading time of zsh under 150ms.
+If I add too much code in my `.zshrc`, my zsh takes longer to load. As I use a
+lot of different terminal windows (splitting one main tmux window), I want those
+split to happen quickly. This is why I'm trying very hard to keep the loading
+time of zsh under 150ms.
 
 ## Hyperfine
 
@@ -32,7 +32,7 @@ The other debugging tool is to use `zprof`, which is the zsh profiler.
 Include `zmodload zsh/zprof` at the top of your `~/.zshrc` file, and `zprof` at
 the bottom. Next time you'll open zsh, you'll see a table like this:
 
-```
+```text
 num  calls                time                       self            name
 -----------------------------------------------------------------------------------
  1)    1         240,22   240,22   65,76%    240,22   240,22   65,76%  oroshi_tools_pyenv
@@ -59,6 +59,5 @@ In this example, it is clear that my `oroshi_tools_pyenv` method is too slow,
 and I need to optimize it.
 
 Note that this only tracks the time to run functions, not the time to source
-files, so if you need to benchmark a specific sourced file, wrap it in
-a function that you invoke immediatly.
-
+files, so if you need to benchmark a specific sourced file, wrap it in a
+function that you invoke immediatly.

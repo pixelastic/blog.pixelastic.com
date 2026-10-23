@@ -8,14 +8,13 @@ To search and replace with `zsh`, there are two ways.
 
 ## With `${var//XXX/YYY}`
 
-This will replace all occurences of `XXX` in `$var` with `YYY`. 
+This will replace all occurences of `XXX` in `$var` with `YYY`.
 
-Note that you
-can interpolate variables inside of `XXX`, so `${var//${input}/YYY}` with
-`input="foo"` will replace `foo` with `YYY` in `$var`.
+Note that you can interpolate variables inside of `XXX`, so
+`${var//${input}/YYY}` with `input="foo"` will replace `foo` with `YYY` in
+`$var`.
 
 You can use only one `/` instead of `//` to only replace the first occurence.
-
 
 ## With `${var:gs/XXX/YYY}`
 

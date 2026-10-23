@@ -5,9 +5,9 @@ tags:
   - parisweb
 ---
 
-I've been going to [ParisWeb][1] almost every year since
-it started ten years ago. I missed the first one and the 2012 edition (I was
-living in New Zealand at that time. I guess it's a good enough excuse).
+I've been going to [ParisWeb][1] almost every year since it started ten years
+ago. I missed the first one and the 2012 edition (I was living in New Zealand at
+that time. I guess it's a good enough excuse).
 
 I cannot say how much I learned from this event. I used to say that I could
 learn more in two days at ParisWeb than in 6 months of technical watch on my
@@ -20,37 +20,36 @@ make access to those little gems of knowledge easier for everyone.
 
 [![Live example][3]](https://pixelastic.github.io/parisweb/)
 
-As a project is only finished once it's documented, let's see how this was
-done.
+As a project is only finished once it's documented, let's see how this was done.
 
-I work at Algolia, the company that provides the underlying search engine.
-I'm familiar with this kind of projects, but I did not use any
-special Algolia treatment and everything I built has been done with open-source
-tools and free accounts.
+I work at Algolia, the company that provides the underlying search engine. I'm
+familiar with this kind of projects, but I did not use any special Algolia
+treatment and everything I built has been done with open-source tools and free
+accounts.
 
 ## Getting the data
 
 The first part of every search project is to get the data you want to search. It
-is the longest part of the job. A handful of websites expose useful
-data through an easy-to-parse API. Most of the time you have to manually crawl
-the website and extract the interesting bits through HTML parsing.
+is the longest part of the job. A handful of websites expose useful data through
+an easy-to-parse API. Most of the time you have to manually crawl the website
+and extract the interesting bits through HTML parsing.
 
 ParisWeb was no exception, but the staff did an amazing job of keeping online
 all the previous versions of the website. I manually downloaded all the program
 pages on my disk and run ruby scripts on them to extract basic information from
-all the talks. I used Nokogiri, the *de facto* gem for HTML parsing.
+all the talks. I used Nokogiri, the _de facto_ gem for HTML parsing.
 
 This first pass let me get basic information about each talk: title, authors and
 description. I then had to add the relevant slides and video urls to each talk
-(when available). Thoses are listed in another page, so I had to do
-another HTML parsing and merge the results together. This part of the code
-contains some [specific and ugly rules][4].
+(when available). Thoses are listed in another page, so I had to do another HTML
+parsing and merge the results together. This part of the code contains some
+[specific and ugly rules][4].
 
-Unfortunately for me, the website changed almost every year so I had to write
-a different version of the script for each year. My scripts looked
-more and more like hacks, with copy-pasted methods from one script to another.
-I could have done it better, but as they were supposed to be run once to
-generate the list, I figured I could live with that.
+Unfortunately for me, the website changed almost every year so I had to write a
+different version of the script for each year. My scripts looked more and more
+like hacks, with copy-pasted methods from one script to another. I could have
+done it better, but as they were supposed to be run once to generate the list, I
+figured I could live with that.
 
 ## Adding thumbnails
 
@@ -110,7 +109,6 @@ ideas and allowed me to improve it as I was building it.
 I'm still eager to know what you think about it, and hope it will be helpful to
 you. If you find any issue or would like to suggest an improvement, feel free to
 add it to the [issue tracker][14].
-
 
 [1]: https://www.paris-web.fr/
 [2]: https://pixelastic.github.io/parisweb/

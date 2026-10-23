@@ -11,9 +11,9 @@ So I got a sample of fake profiles from [randomuser.me][1], making sure that no
 two profiles had the same picture. I also added in the mix a few pictures from
 my coworkers at [Algolia][2] as an easter egg.
 
-Everything is pushed to [GitHub][3], along
-with the scripts used to generate the data. Everytime you launch the script, it
-will generate a new list of random profiles.
+Everything is pushed to [GitHub][3], along with the scripts used to generate the
+data. Everytime you launch the script, it will generate a new list of random
+profiles.
 
 Here is a sample of what a fake user looks like:
 

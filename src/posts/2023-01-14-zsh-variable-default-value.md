@@ -14,5 +14,5 @@ variable is empty.
 variable `$ahead`, and then display it.
 
 They are pretty similar, and in that example the result is the same. But with
-`:=`, the variable will still be set to `0` afterward, while with `:-` it's
-a one-off thing.
+`:=`, the variable will still be set to `0` afterward, while with `:-` it's a
+one-off thing.

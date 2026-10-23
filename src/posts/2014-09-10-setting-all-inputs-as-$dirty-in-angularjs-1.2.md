@@ -23,13 +23,12 @@ Each field will switch to `$dirty` when a value is typed in it. Switching to
 the parent form will also automatically become `$valid`.
 
 The problem with that is when you want to submit your form without entering
-anything in any of the fields. Your form is considered `$invalid`.
-You have to manually focus each field and enter a value to make it become
-`$valid`.
+anything in any of the fields. Your form is considered `$invalid`. You have to
+manually focus each field and enter a value to make it become `$valid`.
 
 I haven't found a nice way in Angular to trigger validation rules on all fields
-of a form at once, to recalculate its validity. What I've found is that if
-I update the `viewValue`, then the field becomes `$dirty` and validation rules
+of a form at once, to recalculate its validity. What I've found is that if I
+update the `viewValue`, then the field becomes `$dirty` and validation rules
 kicks in and can pass my field to `$valid`. So updating the `viewValue` with
 itself (thus, not changing anything) becomes a hackish way to trigger
 validation.

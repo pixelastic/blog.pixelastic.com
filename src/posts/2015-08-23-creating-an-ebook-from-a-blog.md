@@ -76,7 +76,7 @@ silent! %s/\v(\.|,)([^ "\.])/\1 \2/e
 silent! %s/\v(\l)(\u)/\1 \2/e
 " Force space when case change inside a word
 silent! %s/\v(\u{2})(\l)/\1 \2/e
-  
+
 " Fix lines that only contain whitespace
 silent! %s/\s+$//e
 
@@ -93,12 +93,11 @@ more information in the header.
 $ (echo '# Ebook title\n\n' && cat index.md page2.md) > book.txt
 ```
 
-Now that we have a nice text input, we just have to convert it to a `mobi`
-file using the `ebook-convert` script from
-[Calibre](http://calibre-ebook.com/).
+Now that we have a nice text input, we just have to convert it to a `mobi` file
+using the `ebook-convert` script from [Calibre](http://calibre-ebook.com/).
 
-Note that we need to have a `.txt` file here, `ebook-convert` won't accept
-a `.md` file as input.
+Note that we need to have a `.txt` file here, `ebook-convert` won't accept a
+`.md` file as input.
 
 ```sh
 $ ebook-convert book.txt book.mobi \

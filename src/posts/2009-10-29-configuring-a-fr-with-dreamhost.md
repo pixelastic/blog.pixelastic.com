@@ -22,13 +22,13 @@ DNS.
 
 The alternative is to not change you DNS, and keep the default one of your
 registrar, but manually edit the zones and copy the zones defined in your
-dreamhost panel (In Domains > Your domain > DNS, at the bottom of the page)
-into your zones.
+dreamhost panel (In Domains > Your domain > DNS, at the bottom of the page) into
+your zones.
 
 The most important part is modifying the default `A` entry to the IP of your
-dreamhost server. You should do the same for the `www A `entry to.
+dreamhost server. You should do the same for the `www A` entry to.
 
-Create a `mysql A `entry and a `ftp A` entry if you want to use both
+Create a `mysql A` entry and a `ftp A` entry if you want to use both
 `ftp.domain.com` and `mysql.domain.com`.
 
 I also changed the MX record to the google one, as well as creating a CNAME

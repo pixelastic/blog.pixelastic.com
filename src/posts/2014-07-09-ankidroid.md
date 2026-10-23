@@ -13,15 +13,15 @@ and capitals, the bones of the human body, HTTP codes, vim motions, anything.
 
 The idea is to present you each day with a list of 20 things to remember,
 represented as cards. It will first show you the front of the card (a country
-name for example), and you'll have to guess the matching capital. When you
-think you know it, you can reveal the answer by flipping the card.
+name for example), and you'll have to guess the matching capital. When you think
+you know it, you can reveal the answer by flipping the card.
 
 You then press Yes or No, depending if you found the correct answer or not. You
-then go to the next card. If you were wrong on a card, it will pop up again
-soon in the deck. The more often you are wrong on a card, the more often it
-will pop until you memorize it. On the other hand, if you were right, you won't
-be asked this same card until tomorrow, and if you are still correct tomorrow,
-it will wait 3 days before asking, then 7, a month, and so on and so on.
+then go to the next card. If you were wrong on a card, it will pop up again soon
+in the deck. The more often you are wrong on a card, the more often it will pop
+until you memorize it. On the other hand, if you were right, you won't be asked
+this same card until tomorrow, and if you are still correct tomorrow, it will
+wait 3 days before asking, then 7, a month, and so on and so on.
 
 Things you already know won't pollute the list of cards, but things you're not
 totally sure about will come up regularly and you'll then remember it just by

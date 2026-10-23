@@ -5,9 +5,9 @@ tags:
   - fat32
 ---
 
-When moving files from my hard-drive (formatted in ext3) to my mp3 music
-player or to any drive formatted in FAT32, some files never get to the
-destination due to illegal characters in their filename.
+When moving files from my hard-drive (formatted in ext3) to my mp3 music player
+or to any drive formatted in FAT32, some files never get to the destination due
+to illegal characters in their filename.
 
 Those includes characters like question marks, colons or quotes which can be
 quite common in media filenames.

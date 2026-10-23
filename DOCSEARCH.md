@@ -63,9 +63,9 @@ new Crawler({
 
 ## What is excluded
 
-| Pages                          | Path                      | Also excluded by                     |
-| ------------------------------ | ------------------------- | ------------------------------------ |
-| Tag index and tag pages        | `/tags/`, `/tags/<slug>/` | `<meta name="docsearch:exclude">`    |
+| Pages                           | Path                                               | Also excluded by                  |
+| ------------------------------- | -------------------------------------------------- | --------------------------------- |
+| Tag index and tag pages         | `/tags/`, `/tags/<slug>/`                          | `<meta name="docsearch:exclude">` |
 | Archive index and date archives | `/archive/`, `/YYYY/`, `/YYYY/MM/`, `/YYYY/MM/DD/` | `<meta name="docsearch:exclude">` |
 
 Tag and archive templates set `docsearchExclude`, which emits

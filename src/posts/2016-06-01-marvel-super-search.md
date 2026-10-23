@@ -7,7 +7,7 @@ tags:
 ---
 
 Last December I discovered that [Marvel had an API][1]. Yes, that's right,
-[Marvel][2], the publisher of all the comics I used to read.  I'm a developer,
+[Marvel][2], the publisher of all the comics I used to read. I'm a developer,
 but I'm also an avid consumer of APIs and love to build things with all the
 available data.
 
@@ -17,15 +17,17 @@ you search in any kind of data (as long as you can convert it to JSON), fiddling
 with a dataset full of superheroes is way funnier than any other dataset.
 
 <iframe class="youtube-player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/SwnP8U6vuWQ" frameborder="0" allowfullscreen></iframe>
+
 You can see the [full demo here][5]
 
 So I started registering to the [Marvel developer program][6] to get an API key
 and started pulling some data. Or actually that was my original plan, but the
 developer website was buggy at that time and I could not register at all.
 
-At first I was disappointed because I really wanted to index all these characters
-and superpowers, but I wasn't going to let that bring me down. I started rolling
-up my sleeves and went on the hunt for another interesting source of data.
+At first I was disappointed because I really wanted to index all these
+characters and superpowers, but I wasn't going to let that bring me down. I
+started rolling up my sleeves and went on the hunt for another interesting
+source of data.
 
 ## Wikipedia
 
@@ -48,11 +50,11 @@ x(targetUrl, selector)((urlList) => {
 
 Then my journey of extracting data from the Wikipedia begun.
 
-As I said, I love APIs. And the Wikipedia being the huge project that it is,
-I was sure that they had an API to get clean data from each page. They do have
-an API for sure, but it only returns the raw dump of the page, including a mix
-of HTML and custom Wikipedia markup. This is not formatted at all, so was of no
-use to me.
+As I said, I love APIs. And the Wikipedia being the huge project that it is, I
+was sure that they had an API to get clean data from each page. They do have an
+API for sure, but it only returns the raw dump of the page, including a mix of
+HTML and custom Wikipedia markup. This is not formatted at all, so was of no use
+to me.
 
 ![Wikipedia API example][12]
 
@@ -81,6 +83,7 @@ previous example into nice looking JSON responses.
   ]
 }
 ```
+
 Taken from [here][16]
 
 Unfortunately, the DBPedia is not dynamic, and all the data returned by the API
@@ -90,11 +93,11 @@ that, some really popular characters did not even had any data attached to them.
 
 ## Infoboxes
 
-That's about that time that I realized that the only information that
-I actually needed was the one displayed in the infobox. The infobox is this
-little white box on the right side of any Wikipedia page that displays an
-overview of the most important facts of the page. In my case it was the name of
-the character, its potential aliases, powers, known teams and authors.
+That's about that time that I realized that the only information that I actually
+needed was the one displayed in the infobox. The infobox is this little white
+box on the right side of any Wikipedia page that displays an overview of the
+most important facts of the page. In my case it was the name of the character,
+its potential aliases, powers, known teams and authors.
 
 ![Infobox example][17]
 
@@ -103,10 +106,10 @@ would be a simple way to search through all characters and filter them based on
 exactly those criteria (power, teams, authors) and being able to find them with
 any of their aliases. So I needed a way to extract content from the infobox.
 
-Fortunately, I started this project in node. And node comes with npm, where there
-is a module for anything. I quickly found [wiki-infobox][18] that let me extract
-a _mostly_ structured representation of the data in the infobox, by just feeding
-it the name of the page.
+Fortunately, I started this project in node. And node comes with npm, where
+there is a module for anything. I quickly found [wiki-infobox][18] that let me
+extract a _mostly_ structured representation of the data in the infobox, by just
+feeding it the name of the page.
 
 ```javascript
 import infobox from 'wiki-infobox';
@@ -137,8 +140,8 @@ grew even more at that time, because extracting formatted data from the initial
 dump is clearly not an easy task.
 
 Using both DBPedia and the data I got from my infoboxes, I started to have an
-interesting dataset. One thing that was missing were popularity metrics.
-I wanted my heroes to be displayed by order of popularity. If I start typing
+interesting dataset. One thing that was missing were popularity metrics. I
+wanted my heroes to be displayed by order of popularity. If I start typing
 _iron_, I want [Iron Man][19] to be displayed first, not the unknown [Iron
 Monger][20] character.
 
@@ -157,8 +160,8 @@ Of course, there's an npm module to do that easily as well: [wikidata-sdk][26].
 ## Page views
 
 The more I searched for Wikipedia-related APIs, the more I found weird projects.
-The last one I used is [stats.grok.se][27], which is the personal project of
-a core contributor that exposes as an API, the pageview count of each Wikipedia
+The last one I used is [stats.grok.se][27], which is the personal project of a
+core contributor that exposes as an API, the pageview count of each Wikipedia
 article on the past 90 days. This could give me the popularity ranking I was
 looking for. The page for [Iron Man][28] was visited way more often than the one
 for [Iron Monger][29], so I could use that data to rank them.
@@ -174,8 +177,8 @@ the more important number of pageviews. While the show is great, Jessica Jones
 is in no way a more popular character than, say, Spider-Man, Iron Man or Captain
 America in the comics.
 
-My dataset was starting to look promising but there was one information that
-I still did not manage to get. Believe me or not, but from all the APIs I tried,
+My dataset was starting to look promising but there was one information that I
+still did not manage to get. Believe me or not, but from all the APIs I tried,
 absolutely none of them were able to give me the url of the image used to
 display the character. I absolutely needed this image to build a demo that
 looked nice, so I coded another small `x-ray` script to go scrap every Wikipedia
@@ -186,8 +189,8 @@ obvious one.
 
 It took me a few days to do everything I mentioned above. Just to be sure, I had
 a new look at the Marvel developer portal and I discovered that they fixed it.
-So I registered for an API key and started exploring their API to see what
-I could extract from it.
+So I registered for an API key and started exploring their API to see what I
+could extract from it.
 
 First thing to know is that the Marvel API is tedious to use. I had countless
 timeouts, infinite redirect loops, empty results, errors and other things that
@@ -200,8 +203,8 @@ First of all, they do provide url to an avatar image of each hero. And not just
 any avatar image, one that is correctly cropped and with all background noise
 removed. It also gives you an _in-universe_ description of each character. So
 now I could display that Daredevil was the secret identity of Matt Murdock,
-whose father was a boxer. As opposed to simply saying that "Daredevil is
-a fictional character from the Marvel universe", which is not very relevant. And
+whose father was a boxer. As opposed to simply saying that "Daredevil is a
+fictional character from the Marvel universe", which is not very relevant. And
 finally the API gave me the popularity ranking I was looking for. For each
 character I have the count of comics, stories and events they were involved in.
 
@@ -216,9 +219,10 @@ character I have the count of comics, stories and events they were involved in.
   "storyCount": 1326
 }
 ```
+
 All data I could get from the Marvel API was of much better quality than
-anything I could have had from the Wikipedia. Still, each character only had
-a few bits of information, so I merged results with my previous Wikipedia
+anything I could have had from the Wikipedia. Still, each character only had a
+few bits of information, so I merged results with my previous Wikipedia
 scraping, using fallbacks to always use the best possible value.
 
 ## Marvel website
@@ -290,7 +294,6 @@ This was a really cool project to do. You can see the [demo online][42], or
 browse through [the code][43]. Everything is in it, from the import scripts to
 the final UI, even including the JSON data files.
 
-
 [1]: http://developer.marvel.com/
 [2]: http://marvel.com/
 [3]: https://www.algolia.com/
@@ -303,7 +306,8 @@ the final UI, even including the JSON data files.
 [10]: https://nodejs.org/en/
 [11]: https://github.com/lapwinglabs/x-ray
 [12]: /img/files/2016-06-01/wikipedia_api.png
-[13]: https://en.wikipedia.org/w/api.php?format=json&action=query&titles=Captain_America&prop=revisions&rvprop=content
+[13]:
+  https://en.wikipedia.org/w/api.php?format=json&action=query&titles=Captain_America&prop=revisions&rvprop=content
 [14]: http://wiki.dbpedia.org/
 [15]: https://en.wikipedia.org/wiki/Hercules_(Marvel_Comics)
 [16]: http://dbpedia.org/data/Hercules_(Marvel_Comics.json)

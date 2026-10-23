@@ -26,4 +26,3 @@ The following syntax also works:
 ```zsh
 echo ${(F)${(O)myArray}}
 ```
-

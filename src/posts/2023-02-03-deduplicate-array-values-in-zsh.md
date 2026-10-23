@@ -29,4 +29,3 @@ typeset -aU myArray
 local myArray=(a b c d a b b)
 echo ${(u)myArray} # a b c d
 ```
-

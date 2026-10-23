@@ -31,9 +31,9 @@ bullshit about it.
 > Participants will have access to the Spark and Bluemix tools to develop their
 > projects.
 >
-> More than €15.000 worth of prizes are to be won by the three best teams.
-> A trip to San Francisco (worth €3000/person), MacBook and Oculus virtual
-> reality headsets!
+> More than €15.000 worth of prizes are to be won by the three best teams. A
+> trip to San Francisco (worth €3000/person), MacBook and Oculus virtual reality
+> headsets!
 >
 > To participate, you just have create a team and present a first PowerPoint
 > document of 5 slides.
@@ -58,20 +58,19 @@ Because that's what you do. You are _asking_ to develop a prototype. That's not
 the spirit of a hackathon, where you build whatever you want. Here it looks more
 like a classical set of specifications for your average day job project. And
 look what kind of project, an internal tool for a bank to know more about their
-customers. That's not anybody's dream project. That's more like the kind
-of app you'd build because that's your job and you have no other choice. I might
-be exaggerating a bit here, some people may like building this kind of app,
-but that's not the point. The point is that you __do not tell people what to
-build in a hackathon__.
+customers. That's not anybody's dream project. That's more like the kind of app
+you'd build because that's your job and you have no other choice. I might be
+exaggerating a bit here, some people may like building this kind of app, but
+that's not the point. The point is that you **do not tell people what to build
+in a hackathon**.
 
 Oh, and you're too kind to let the participants use [Spark][4]. You know,
 because Spark is OSS and no-one need your approval to start using it.
 
 At that point in reading the email, I was already convinced that this thing,
 whatever that was, was a hackathon only by name. But the final selection on with
-a 5-slides PowerPoint was the nail to the coffin. First you're doing
-a filter _before_ it even began, and then you're doing it on a bullshit
-PowerPoint?
+a 5-slides PowerPoint was the nail to the coffin. First you're doing a filter
+_before_ it even began, and then you're doing it on a bullshit PowerPoint?
 
 Haha, thanks but no thanks.
 

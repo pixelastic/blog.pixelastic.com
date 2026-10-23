@@ -4,8 +4,8 @@ tags:
   - zsh
 ---
 
-I had a large chunk of text (output from another command), and needed to
-perform a search and replace on it. I usually do that either with zsh builting
+I had a large chunk of text (output from another command), and needed to perform
+a search and replace on it. I usually do that either with zsh builting
 `${var:gs/x/y/}` syntax or `sed`, but this time my pattern was spread on several
 lines.
 

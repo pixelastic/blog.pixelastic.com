@@ -14,4 +14,3 @@ $ pantone2hex 122C
 ```
 
 You can grab the code on [GitHub](https://github.com/pixelastic/pantone2hex).
-

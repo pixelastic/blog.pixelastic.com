@@ -13,8 +13,8 @@ its index, we want to access the index by its value.
 `e` is for `e`xact match; without it zsh will return the index of any value that
 contains the substring, instead of exactly matching it.
 
-The trick is that if the value is not found, zsh will return the `length of the
-array + 1`.
+The trick is that if the value is not found, zsh will return the
+`length of the array + 1`.
 
 So, to summarize, to check if the value `zsh` is in the array `myArray`, you
 would test it that way:
@@ -25,9 +25,7 @@ if [[ ${myArray[(ie)zsh]} -le ${#myArray} ]]; then
 fi
 ```
 
-Alternatively, if the string you're looking for is dynamic (`$myVar`), you'll need one more
-wrapping level: `${myArray[(ie)${myVar}]}`.
-
+Alternatively, if the string you're looking for is dynamic (`$myVar`), you'll
+need one more wrapping level: `${myArray[(ie)${myVar}]}`.
 
 Edit: Thanks to Alan for fixing a typo.
-

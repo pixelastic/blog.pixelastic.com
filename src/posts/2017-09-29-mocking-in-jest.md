@@ -6,7 +6,7 @@ tags:
 
 I used to do my JavaScript testing using a combination of `mocha`, `expect` and
 `sinon`, but [Jest](https://facebook.github.io/jest/) packages all those
-features into one cohesive package. 
+features into one cohesive package.
 
 Transitioning to Jest has been smooth. The part that took me a while to figure
 out is how to properly mock methods, and this is what I'm going to develop here.
@@ -46,9 +46,9 @@ tests still work. Actually, we could even completly change the return value of
 `bar` and still have our `foo` tests pass.
 
 To achieve that decoupling, the trick is to mock the `bar` method to control its
-behavior during our test. 
+behavior during our test.
 
-```
+```js
 import component from './component.js';
 
 describe('component', () => {
@@ -77,9 +77,9 @@ describe('component', () => {
 
 The first step is to call `jest.spyOn(component, 'bar')`. This will replace the
 `component.bar` method with a mock version. By default the mock version will
-behave like the original method. Spying on a method has other benefits
-(like being able to assert the number of times a method is called), but those
-won't be discussed in this article.
+behave like the original method. Spying on a method has other benefits (like
+being able to assert the number of times a method is called), but those won't be
+discussed in this article.
 
 Once we've replaced the original method with our spy, we can now call
 `.mockReturnValue('my-mock-name')` on it that will change the original method so
@@ -96,7 +96,7 @@ This first part was about mocking methods of one of our dependencies. But how do
 you mock sub-dependencies? Let's update our component so it now uses one of its
 own dependencies:
 
-```
+```js
 import dependency from 'dependency';
 const component = {
   foo(input) {
@@ -110,10 +110,10 @@ export default component;
 ```
 
 There is no `component.bar` method anymore here as `component` is directly
-calling its `dependency` `.bar` method. To mock dependencies, we need
-a bit more plumbing.
+calling its `dependency` `.bar` method. To mock dependencies, we need a bit more
+plumbing.
 
-```
+```js
 import component from './component.js';
 jest.mock('dependency'); // <-- Here
 
@@ -148,9 +148,9 @@ means that whenever we will import `dependency` (either in `component.js` or in
 our tests), it will be replaced with a mock version.
 
 Like we did in the previous example, we will hardcode the return value of the
-`bar` method in our test. This time, we first need to import it (`const
-dependency = require('dependency')`, so we can spy on it and mock its return
-value.
+`bar` method in our test. This time, we first need to import it
+(`const dependency = require('dependency')`, so we can spy on it and mock its
+return value.
 
 ## Conclusion
 
@@ -158,5 +158,4 @@ Hope that overview can help others. It took me some time to understand how
 mocking was working in Jest and I hope this will help other figure out all the
 pieces.
 
-__Tested with Jest v21.1.0__
-
+**Tested with Jest v21.1.0**

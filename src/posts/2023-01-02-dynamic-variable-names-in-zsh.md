@@ -6,7 +6,7 @@ tags:
 
 Imagine the following scenario:
 
-```
+```zsh
 local projects=(blog www meetups)
 local color_project_blog=146
 local color_project_www=75
@@ -23,8 +23,7 @@ This will be achieved using two zsh modifiers: `${(P)}` and `${:-}`.
 
 `local name=${real_name:-Alice}` means: set the `$name` variable to the content
 of the `$real_name` variable. If `$real_name` is empty, use `Alice` as the
-default
-value.
+default value.
 
 Anything after the `:-` is used as the default value, and it can even
 interpolate variables. So if you also have `local default_name="Alice"`, then
@@ -35,8 +34,8 @@ which case it's set to `Default name is Alice`.
 
 One can even remove the first variable to force zsh to use the default value. So
 `local name=${:-Default name is $default_name}` is valid syntax and will set
-`$name` to `Default name is Alice`, allowing one to interpolate
-variable names when setting variables.
+`$name` to `Default name is Alice`, allowing one to interpolate variable names
+when setting variables.
 
 ## Reading such a dynamic variable
 
@@ -44,7 +43,7 @@ We now have a fancy way of building a string with variable interpolation inside
 a `${}`.
 
 To read it, it's a bit more complex as we need to use this (already
-barbaric-looking) syntax with another modifier. 
+barbaric-looking) syntax with another modifier.
 
 ```zsh
 local projects=(blog www meetups)
@@ -57,6 +56,3 @@ for project_name in $projects; do
   echo "${project_name} color is ${project_color}"
 done
 ```
-
-
-

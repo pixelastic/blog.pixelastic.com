@@ -47,8 +47,8 @@ let b:syntastic_javascript_eslint_exec = StrTrim(system('npm-which eslint'))
 ```
 
 `StrTrim` is a custom vim method that will trim any starting and trailing
-whitespace from a vim string, and in my case the `system` call was returning
-a trailing weird `^@` char.
+whitespace from a vim string, and in my case the `system` call was returning a
+trailing weird `^@` char.
 
 ```vim
 function! StrTrim(txt)
@@ -61,7 +61,6 @@ depending on the current project I'm working on.
 
 Edit: [Matthew Smith][5] packed all this into one [neat Syntastic plugin][6].
 Thanks Matthew!
-
 
 [1]: https://github.com/scrooloose/syntastic
 [2]: https://github.com/bbatsov/rubocop

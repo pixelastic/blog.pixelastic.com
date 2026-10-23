@@ -9,6 +9,7 @@ Sure, you could use `wget` and some recursion to get what you want, but HTTrack
 solves all that for you.
 
 Reasons you might need to download a whole website:
+
 - You need to browse it when you don't have an internet connection (on the go,
   with low data usage, in a train, etc)
 - You want to run scripts on the content, and it's faster with a local copy than

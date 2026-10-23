@@ -5,8 +5,8 @@ tags:
 ---
 
 Commands like `sudo` take other commands as input and run them in a specific
-context. I also have a command similar, called `lazyloadNvm` that runs `nvm
-use` when needed.
+context. I also have a command similar, called `lazyloadNvm` that runs `nvm use`
+when needed.
 
 I wanted zsh to suggest completion for the passed commands instead of completion
 for the initial command (`sudo` or `lazyloadNvm`).
@@ -26,10 +26,9 @@ function _nvm-lazyload() {
 }
 ```
 
-- `shift words` removes the first element of the `words` array (`sudo git
-  status` becomes `git status`)
-- `(( CURRENT-- ))` decreases the index of the word focused by tab
-  completion. Updating `words` doesn't automatically updates `CURRENT`
+- `shift words` removes the first element of the `words` array
+  (`sudo git status` becomes `git status`)
+- `(( CURRENT-- ))` decreases the index of the word focused by tab completion.
+  Updating `words` doesn't automatically updates `CURRENT`
 - `_normal` re-runs the completion functions with the current `words` and
   `CURRENT` context.
-

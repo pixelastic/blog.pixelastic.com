@@ -36,17 +36,17 @@ Note that the order here is important:
 
 ## Writing the completion function
 
-The `_git-files-dirty` file must follow a strict convention for zsh to pick
-it up.
+The `_git-files-dirty` file must follow a strict convention for zsh to pick it
+up.
 
 - It must start with `#compdef` on its first line
 - It must contain a function named `_git-files-dirty`
 
-The core of the function itself is free form, the important thing it need
-to do is build an array of the suggestions and store it in a variable
+The core of the function itself is free form, the important thing it need to do
+is build an array of the suggestions and store it in a variable
 
-Once the array if built, it must call `_describe -V "Header name"
-{variableName}`.
+Once the array if built, it must call
+`_describe -V "Header name" {variableName}`.
 
 Note that it should not pass the variable directly (using `$`), but actually
 passing the _name_ of the variable.

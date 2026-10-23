@@ -50,9 +50,9 @@ That way, I won't forget that I need to run it through `npm` and not `yarn`.
 
 ## Publishing needed files
 
-Once published, I tried to install it as a dependency in
-another project and realized I was publishing unneeded files. I don't
-need to publish my `./script` repository for example.
+Once published, I tried to install it as a dependency in another project and
+realized I was publishing unneeded files. I don't need to publish my `./script`
+repository for example.
 
 My package is also based on `tachyons`, so I include the SCSS source file of
 tachyons in my own SCSS file to build the final CSS file. But I don't want to
@@ -69,15 +69,15 @@ The sneaky part here is that the `files` key has precedence over the
 exclude the `./src/vendors` directory. No luck there for me.
 
 In the end I had to completly ditch the `files` and use `.npmignore`. So instead
-of defining a list of files to include and then exclude some specific files,
-I had to define a list of all the files/directories I wanted to exclude. Not as
+of defining a list of files to include and then exclude some specific files, I
+had to define a list of all the files/directories I wanted to exclude. Not as
 easy, but it works and I now have the built `.css` files as well as my source
 `.scss` files in the final package.
 
 ## Fighting with the postinstall script
 
-Now, the last bit was a bit more tricky. I use a `postinstall` script in
-my `package.json` to automatically copy the `tachyons.scss` source files to
+Now, the last bit was a bit more tricky. I use a `postinstall` script in my
+`package.json` to automatically copy the `tachyons.scss` source files to
 `./src/vendors` (the directory I want excluded from the previous step) from my
 `node_modules`.
 
@@ -96,9 +96,9 @@ Still, I didn't want that to happen in my case because I actually excluded the
 `./scripts/postinstall` script from my build, so the `postinstall` hook was
 failing, and the whole installation of my package was failing.
 
-After more than 10 releases to test it, I settled on a trivial solution.  At
-first I tried to check if the `postinstall` hook was triggered as part of
-a local or dependency install but could not find any reliable way to test it.
+After more than 10 releases to test it, I settled on a trivial solution. At
+first I tried to check if the `postinstall` hook was triggered as part of a
+local or dependency install but could not find any reliable way to test it.
 
 Instead, I checked if the `./scripts/postinstall` file was present, and run it
 if so. Because I was excluding my `./scripts` folder from the published
@@ -115,7 +115,7 @@ actually succeed for the install to complete).
 }
 ```
 
-
 [1]: https://yarnpkg.com/en/package/tachyons-algolia
 [2]: http://tachyons.io/
-[3]: https://github.com/algolia/algoliasearch-helper-js/blob/develop/scripts/release.js
+[3]:
+  https://github.com/algolia/algoliasearch-helper-js/blob/develop/scripts/release.js

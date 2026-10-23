@@ -7,9 +7,9 @@ tags:
   - arsys
 ---
 
-When I use great registrars or hosting services, I say so, and loudly. From
-all those that I have tested, there is no better registrar than Gandi and no
-better hosting service than Dreamhost.
+When I use great registrars or hosting services, I say so, and loudly. From all
+those that I have tested, there is no better registrar than Gandi and no better
+hosting service than Dreamhost.
 
 But when I encounter really lousy services, I won't hide to say so too.
 
@@ -22,20 +22,20 @@ asking me to try again later.
 
 I did try again later, just to receive the exact same error message.
 
-I wouldn't have to leave Arsys default NS servers if at least they allowed me
-to configure A, CNAME and MX records as I wanted but unfortunatly, none of
-this is available.
+I wouldn't have to leave Arsys default NS servers if at least they allowed me to
+configure A, CNAME and MX records as I wanted but unfortunatly, none of this is
+available.
 
 I tried to contact their support service, to tell them my problem, but here
 again I was faced with an error message on a blank page (in spanish this time)
-telling me that the server encountered a problem and that I needed to contact
-an administrator (sic)
+telling me that the server encountered a problem and that I needed to contact an
+administrator (sic)
 
 So I tried to find a contact page on their public site, and after some 404
 errors finally found an email address.
 
-I send them a email telling them about my problems. They answer stating that
-if I have any problem, I should use their contact form to contact
+I send them a email telling them about my problems. They answer stating that if
+I have any problem, I should use their contact form to contact
 hostmaster@arsys.fr. I tried, and this time it worked.
 
 It's been 4 days, and I haven't heard from them yet. In the meantime, I choose

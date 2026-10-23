@@ -9,9 +9,8 @@ tags:
   - flash
 ---
 
-Sometimes you encounter bugs that smacks you in the face with their
-strangeness. And even when you defeated them you still have this sour taste of
-puzzlement.
+Sometimes you encounter bugs that smacks you in the face with their strangeness.
+And even when you defeated them you still have this sour taste of puzzlement.
 
 I encountered one of them today.
 

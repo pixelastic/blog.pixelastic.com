@@ -7,15 +7,14 @@ tags:
   - siret
 ---
 
-Pour le projet sur lequel je travaille actuellement, je dois tester la
-validatée d'un numero de SIRET. D'après [Wikipédia](http://fr.wikipedia.org/wi
-ki/Syst%C3%A8me_d%E2%80%99identification_du_r%C3%A9pertoire_des_%C3%A9tablisse
+Pour le projet sur lequel je travaille actuellement, je dois tester la validatée
+d'un numero de SIRET. D'après [Wikipédia](http://fr.wikipedia.org/wi
+ki/Syst%C3%A8me*d%E2%80%99identification_du_r%C3%A9pertoire_des*%C3%A9tablisse
 ments) les numéros de SIRET possèdent une clé finale permettant de vérifier
 qu'ils soient biens formés.
 
 J'ai donc retranscris ce calcul sous une règle de validation pour cakePHP, le
 voici :
-
 
 ```php
 function validateSiret($data, $field) {
@@ -30,16 +29,14 @@ function validateSiret($data, $field) {
 }
 ```
 
-Tout d'abord, je m'assure que le siret ne contienne pas d'espace. Puis je
-passe nombre après nombre pour calculer la somme (je multiplie par deux les
-nombres d'index pair et par un ceux d'index impair). Si le résultat est
-supérieur à 10, j'additionne chaque chiffre entre eux (ce qui équivant à
-soustraire 9).
+Tout d'abord, je m'assure que le siret ne contienne pas d'espace. Puis je passe
+nombre après nombre pour calculer la somme (je multiplie par deux les nombres
+d'index pair et par un ceux d'index impair). Si le résultat est supérieur à 10,
+j'additionne chaque chiffre entre eux (ce qui équivant à soustraire 9).
 
 Si le résultat final est congru à 10, alors le numero de SIRET est valide.
 
 Il ne reste plus qu'à l'ajouter à mes régles de validation :
-
 
 ```php
 var $validate = array(
@@ -51,9 +48,8 @@ var $validate = array(
 ```
 
 Mais ce n'est pas tout. Comme pour mes tests je crée à la volée des dizaines
-d'enregistrements, j'avais besoin d'un générateur automatique de numero de
-SIRET valides. Voici ce que j'ai fini par écrire :
-
+d'enregistrements, j'avais besoin d'un générateur automatique de numero de SIRET
+valides. Voici ce que j'ai fini par écrire :
 
 ```php
 public function siret() {
@@ -84,18 +80,17 @@ public function siret() {
  }
 ```
 
-
 Le principe consiste à générer les 8 premiers nombres de façon complétement
-aléatoire et d'en calculer la "somme" (selon le principe évoqué au dessus).
-Puis on ajoute des zero pour combler l'espace jusqu'à ajouter la clé de
-vérification.
+aléatoire et d'en calculer la "somme" (selon le principe évoqué au dessus). Puis
+on ajoute des zero pour combler l'espace jusqu'à ajouter la clé de vérification.
 
 Bien sur, la clé on va la créer pour que la somme de (2 x le premier chiffre)
-+ (1 x le second) soit égal à ce qu'il nous manque pour être congru à 10.
 
-Et on fini par retourner le numero de façon lisible, par exemple : 774 082 010
-00034.
+- (1 x le second) soit égal à ce qu'il nous manque pour être congru à 10.
 
-J'ai fait une petite recherche sur [societe.com](http://www.societe.com/),
-aucun de mes numeros générés ne semble donner de résultat, malgré tout ils
-sont syntaxiquement valides.
+Et on fini par retourner le numero de façon lisible, par exemple : 774 082
+010 00034.
+
+J'ai fait une petite recherche sur [societe.com](http://www.societe.com/), aucun
+de mes numeros générés ne semble donner de résultat, malgré tout ils sont
+syntaxiquement valides.

@@ -11,10 +11,10 @@ build it.
 
 ## Trip to Tours
 
-Two years ago I was on holidays and visited the city of Tours, in France. It's
-a small medieval city where you can find the museum of "Compagnonnage". I had no
-idea what this meant before visiting it, and learned everything about it during my
-visit.
+Two years ago I was on holidays and visited the city of Tours, in France. It's a
+small medieval city where you can find the museum of "Compagnonnage". I had no
+idea what this meant before visiting it, and learned everything about it during
+my visit.
 
 Companions were craftsmen regrouped in guilds. They could be blacksmiths,
 carpenters, shoemakers, painters, etc. They regrouped and shared their knowledge
@@ -39,14 +39,14 @@ still apply today was a surprising experience.
 
 ## The road to the Chef d'œuvre
 
-I felt close to those people, but there was one thing that they were
-doing back in the days that we do not do today, though. One important part
-of the initiation process, the step that makes you from disciple to master: the
-"Chef d'œuvre", or masterpiece.
+I felt close to those people, but there was one thing that they were doing back
+in the days that we do not do today, though. One important part of the
+initiation process, the step that makes you from disciple to master: the "Chef
+d'œuvre", or masterpiece.
 
 Every Companion has to build one single piece of fine craft to become a master.
-They spent an awful lot of time on it, between 10 to 15 years.  Masterpieces
-were miniature version of a bigger construction, where they had to use every
+They spent an awful lot of time on it, between 10 to 15 years. Masterpieces were
+miniature version of a bigger construction, where they had to use every
 technique of their craft, and then more.
 
 Doing it on a miniature version allowed them to mess up with no consequences.
@@ -65,8 +65,8 @@ validated by the previous masters, the disciples becomes masters themselves.
 ## What about doing the same?
 
 I strongly encourage you to go to Tours and visit the museum. There are hundreds
-of masterpieces from different crafts, each more impressive than the last.
-Even if you don't speak French, the beauty of it is worth it.
+of masterpieces from different crafts, each more impressive than the last. Even
+if you don't speak French, the beauty of it is worth it.
 
 After leaving the museum I thought about building my own masterpiece (in all
 modesty of course). After all, if it worked for them, considering everything we
@@ -74,12 +74,12 @@ had in common, it should work for me too.
 
 I didn't want to spend 10 to 15 years on it, though. I also have no skills with
 wood, so I decided to do it in CSS. I think it is a powerful language, but often
-underestimated. It's also a language I know well but that evolves so quickly
-I rarely have the chance to try the latest shiny features because I need to keep
+underestimated. It's also a language I know well but that evolves so quickly I
+rarely have the chance to try the latest shiny features because I need to keep
 backward compatibility with older browsers.
 
-The perspective of having my own miniature sandbox where I could try anything
-I wanted was appealing.
+The perspective of having my own miniature sandbox where I could try anything I
+wanted was appealing.
 
 The challenge I set myself was to reproduce all the flags of the world in pure
 CSS. But because even that sounded too easy, I added the rule that I should use
@@ -94,28 +94,27 @@ hours. Well, some people are passionate about flags and can talk about it for
 hours.
 
 I discovered a whole new world with it's own vocabulary about colors or shapes.
-I discovered that each flag has its own history. By reading the history of
-a flag, you learn about the history of the country behind it.
+I discovered that each flag has its own history. By reading the history of a
+flag, you learn about the history of the country behind it.
 
-This part was not a bonus, but core to what I was trying to achieve. CSS was
-a mean to an end, but what I was building were flags. I needed to understand my
+This part was not a bonus, but core to what I was trying to achieve. CSS was a
+mean to an end, but what I was building were flags. I needed to understand my
 subject if I was to build it correctly.
 
 When I started the project, I already knew how to make the easiest flags. Some
 other I knew were going to be a challenge but I had some ideas to try. But most
-of them I had no idea where to start. It did not stopped me, though. I knew
-I was going to learn along the way, all I needed was to get started.
+of them I had no idea where to start. It did not stopped me, though. I knew I
+was going to learn along the way, all I needed was to get started.
 
 ## The gritty details
 
 That's how I got the idea and the motivation for this project. By starting with
 the easy bits first it gave me confidence that I could do it. Going
-progressively to more and more complex flags I was faced by ne problem at
-a time.  The solutions I found in my first flags I could re-use and combine in
-the latest one.
+progressively to more and more complex flags I was faced by ne problem at a
+time. The solutions I found in my first flags I could re-use and combine in the
+latest one.
 
 I'll write a more complete (and CSS-focused) list of tips in an upcoming
 article.
-
 
 [1]: http://pixelastic.github.io/css-flags/

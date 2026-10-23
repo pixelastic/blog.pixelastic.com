@@ -4,9 +4,9 @@ tags:
   - zsh
 ---
 
-When writing zsh scripts, I often needs to iterate on elements, but depending
-on how I create them, they can either be a core zsh array, a string of words,
-or the output of a command, delimited by newlines.
+When writing zsh scripts, I often needs to iterate on elements, but depending on
+how I create them, they can either be a core zsh array, a string of words, or
+the output of a command, delimited by newlines.
 
 ## Iterating on an array
 
@@ -21,8 +21,8 @@ for project in $projects; do
 
 ## Handling string of words
 
-By default, zsh does not split a string in words like other shells (Bash)
-do, so iterating on words requires the `${=}` syntax.
+By default, zsh does not split a string in words like other shells (Bash) do, so
+iterating on words requires the `${=}` syntax.
 
 The `${=}` notation triggers the Bash-compatible behavior by switching the
 `SH_WORD_SPLIT` zsh option for that variable.
@@ -60,7 +60,7 @@ echo "$projectsArray[2] is still my second project"
 ## Iterating on lines in a string
 
 New lines are considered words separators, so technically the `${=}` could be
-used to split a string by newlines. But this will *also* split by spaces, so if
+used to split a string by newlines. But this will _also_ split by spaces, so if
 your lines contain spaces, you final array will not be what you expect.
 
 To split only by new lines and not by space, you need to use the `${(f)}`
@@ -82,4 +82,3 @@ local projects="$(ls)";
 local projectsArray=(${(f)projects})
 echo "$projectsArray[2] is my second project"
 ```
-

@@ -6,15 +6,15 @@ tags:
   - iframe
 ---
 
-I've spent hours on a webpack + Vue.js + iframe issue yesterday. As I don't
-want all those hours to be completly wasted, I'm going to document my issue and
-the final solution.
+I've spent hours on a webpack + Vue.js + iframe issue yesterday. As I don't want
+all those hours to be completly wasted, I'm going to document my issue and the
+final solution.
 
 ## The problem
 
 I'm working on a Vue.js application, using Webpack for building all the assets.
 One of the pages need to include an iframe, loading a stand-alone
-`keen-explorer.html` file. 
+`keen-explorer.html` file.
 
 My problem was that the `keen-explorer.html` was not included in the final build
 and resulted in a 404.
@@ -26,10 +26,9 @@ I need to instanciate a Keen.io explorer dashboard from inside my app. The
 I can tell. It needs to be loaded inside the global `window` object, along with
 its dependencies (Bootstrap and jQuery).
 
-I tried different ways to include it in my final Webpack build, but the
-iframe was the best solution I could find as it will isolate all the
-external dependencies from the rest of my app.
-Anyway, back to the problem at hand.
+I tried different ways to include it in my final Webpack build, but the iframe
+was the best solution I could find as it will isolate all the external
+dependencies from the rest of my app. Anyway, back to the problem at hand.
 
 ## Naive approach and first 404
 
@@ -50,7 +49,6 @@ attribute with no particular meaning.
 Turns out that `vue-loader` does not automatically import the `iframe[src]`
 values by default. You have to update your webpack config to define what it
 should parse:
-
 
 ```javascript
 module: {
@@ -99,7 +97,7 @@ iframe(src="~html/keen-explorer.html")
 Rerunning webpack results in no more filepath errors. The file is found and
 included in the final build.
 
-Problem is... the filepath has been replaced by the __content__ of the file, not
+Problem is... the filepath has been replaced by the **content** of the file, not
 its path in the final build. That means that my `iframe` is now trying to load
 `<doctype>[...]`, which does not work at all.
 

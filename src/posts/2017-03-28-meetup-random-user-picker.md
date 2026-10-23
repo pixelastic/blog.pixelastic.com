@@ -6,13 +6,13 @@ tags:
 ---
 
 Being co-organizer of two meetups ([HumanTalks][1] and [TechLunch][2]) in Paris,
-I often give random prizes to the attendees at the end of the sessions. It
-can be free tickets to conferences we are partners with, or gifts from some of
-our sponsors.
+I often give random prizes to the attendees at the end of the sessions. It can
+be free tickets to conferences we are partners with, or gifts from some of our
+sponsors.
 
-To choose who is going to get the prize, we resort to randomness and we have
-a bunch of JavaScript scripts lying around to do that. To make the process
-easier and scalable to more meetups, I created an online random attendee picker.
+To choose who is going to get the prize, we resort to randomness and we have a
+bunch of JavaScript scripts lying around to do that. To make the process easier
+and scalable to more meetups, I created an online random attendee picker.
 
 [![Screencast of the tool in
 action][3]](https://pixelastic.github.io/meetup-random-user/)
@@ -24,8 +24,8 @@ directly load and parse the remote meetup.com page from the website. I used
 
 webtask.io is mix between [Gists][5] and [Heroku][6]. You push a server-side
 snippet of js code to their platform (or write it directly in their online
-editor), and it automatically hosts it. You then have a url you can use to target
-your script, make it run, and get the results. It accepts query string as
+editor), and it automatically hosts it. You then have a url you can use to
+target your script, make it run, and get the results. It accepts query string as
 inputs.
 
 The whole download, parse, format-as-JSON logic was then moved into this webtask
@@ -35,7 +35,6 @@ the code [on GitHub.][7]
 This kind of architecture is called serverless, and that is the future of the
 web. Static hosting through GitHub pages, while still allowing for server-side
 scripting when you need it. All of that, for free.
-
 
 [1]: https://www.meetup.com/fr-FR/HumanTalks-Paris/
 [2]: https://www.meetup.com/fr-FR/Tech-Lunch/

@@ -15,19 +15,17 @@ of them.
 
 ![Screenshot of spectrum output](/img/files/spectrum.png)
 
-The `oh-my-zsh` project actually ships with a method named `spectrum` that
-does pretty much the same thing, but I found that it was hard to actually get
-a real feel of what the color where with the original output. So I coded this
-one.
+The `oh-my-zsh` project actually ships with a method named `spectrum` that does
+pretty much the same thing, but I found that it was hard to actually get a real
+feel of what the color where with the original output. So I coded this one.
 
 It does not display the colors in the range `{000..015}` because those are
-dependent on your terminal configuration. Also, the output is split in blocks
-of 6 lines, with 2 blocks displayed side by side. You can modify those values
-in the script if you want to make it easier to read on you screen. I use 2 and
-6 because it is what is the more readable on my tiny netbook screen.
+dependent on your terminal configuration. Also, the output is split in blocks of
+6 lines, with 2 blocks displayed side by side. You can modify those values in
+the script if you want to make it easier to read on you screen. I use 2 and 6
+because it is what is the more readable on my tiny netbook screen.
 
 Ok, enough talk, here is the script
-
 
 ```sh
 #!/usr/bin/zsh

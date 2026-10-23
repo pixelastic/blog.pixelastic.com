@@ -8,11 +8,11 @@ tags:
 The new Firefox cycle version is such that you might lose all your beloved
 plugins on each new release.
 
-Fortunatly, most of the plugins still work even when the version updates, so
-you can still use them.
+Fortunatly, most of the plugins still work even when the version updates, so you
+can still use them.
 
-The easiest way to automatically enable them all is to update a boolean value
-in `about:config` that will tell Firefox to not disable older plugins.
+The easiest way to automatically enable them all is to update a boolean value in
+`about:config` that will tell Firefox to not disable older plugins.
 
 The key changes for each version, but is called
 `extensions.checkCompatibility.X.Y` where `X` and `Y` are the version number

@@ -16,7 +16,7 @@ The Ubuntu UI uses the meta key to open what they call the "Dash". I never use
 it and want my meta key back to define my own keybindings.
 
 There is no way to disable it from the default Ubuntu options. You have to
-install `compizconfig-settings-manager` and launch it using `ccsm`. There, go
-to the Ubuntu Unity Plugin and disable the "Key to show the launcher" binding.
+install `compizconfig-settings-manager` and launch it using `ccsm`. There, go to
+the Ubuntu Unity Plugin and disable the "Key to show the launcher" binding.
 
 You will now be free to use the meta key in your keybindings, again.

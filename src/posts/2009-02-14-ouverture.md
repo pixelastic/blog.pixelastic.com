@@ -6,9 +6,8 @@ tags:
 ---
 
 Et voila le premier billet du blog de Pixelastic. Quel grand moment... Après
-tout ces durs mois de labeur pour réussir à se mettre d'accord sur le design
-et le logo (d'ailleurs, rien n'est encore définitif), le site est enfin en
-ligne.
+tout ces durs mois de labeur pour réussir à se mettre d'accord sur le design et
+le logo (d'ailleurs, rien n'est encore définitif), le site est enfin en ligne.
 
 Il reste encore beaucoup de choses à faire, de pages à styler, de texte à
 écrire, mais on déballe nos cartons petit à petit.

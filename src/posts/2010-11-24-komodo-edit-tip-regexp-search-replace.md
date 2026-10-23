@@ -9,8 +9,8 @@ tags:
 Here's a little tip. As I started to use more and more often the regexp search
 and replace feature of Komodo Edit, I guessa quick blog note could be useful.
 
-I had to "simplify" a big HTML file a while ago, and searching for useless
-tags and then replacing them using this feature saved me a lot of time.
+I had to "simplify" a big HTML file a while ago, and searching for useless tags
+and then replacing them using this feature saved me a lot of time.
 
 Note that you can use `\n` and `\t` for new line and tabulation respectively.
 
@@ -20,10 +20,10 @@ data).
 
 I just had to search for
 
-
 ```html
 <img src="(.*)" width="(.*)" height="(.*)" alt="(.*)">
 ```
+
 and replace with
 
 ```html

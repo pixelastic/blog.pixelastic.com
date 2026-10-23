@@ -18,17 +18,17 @@ I just download the latest Firefox version from their website, and without
 knowing it, it was a French localized one. They do some sniffing on the user
 agent string and automatically download the corresponding file.
 
-That seems a great idea, but I prefer my software in english, so I searched
-for a `en-US.xpi` file to update firefox. It does exists for any other
-language, but not for `en-US`, this being the default language, as stated in
+That seems a great idea, but I prefer my software in english, so I searched for
+a `en-US.xpi` file to update firefox. It does exists for any other language, but
+not for `en-US`, this being the default language, as stated in
 [this bug report](https://bugzilla.mozilla.org/show_bug.cgi?id=485860).
 
 It seems the only way to have an english Firefox is to download the english
 version, there is no way to change it afterwards.
 
 You can type `about:config` and change the `general.useragent.locale` value to
-`en-US` but it does not update the main language, only tell plugins to use
-that language (AFAIK).
+`en-US` but it does not update the main language, only tell plugins to use that
+language (AFAIK).
 
 Changing the language in the options only change the user agent string.
 

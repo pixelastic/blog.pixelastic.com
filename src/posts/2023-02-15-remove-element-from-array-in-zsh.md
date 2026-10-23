@@ -5,7 +5,7 @@ tags:
 ---
 
 To remove an element from an array at a specific index, you need to set the
-value to `()`. 
+value to `()`.
 
 ```zsh
 local myArray=(one two three)
@@ -25,4 +25,3 @@ echo $myArray # one three
 # Or, as a oneliner
 myArray[$myArray[(i)two]]=()
 ```
-

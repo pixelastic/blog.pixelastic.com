@@ -63,10 +63,10 @@ function isFormValid(inputs) {
   if (inputs.age < 50) {
     if (inputs.gender === 'M' && inputs.firstName !== '' && inputs.lastName !== '') {
       return true;
-    } 
+    }
     if (inputs.gender === 'F' && inputs.firstName !== '' && inputs.lastName !== '' && inputs.maidenName !== '') {
       return true;
-    } 
+    }
     return false;
   }
 
@@ -96,10 +96,10 @@ function isFormValid(inputs) {
 
   if (inputs.gender === 'M' && inputs.firstName !== '' && inputs.lastName !== '') {
     return true;
-  } 
+  }
   if (inputs.gender === 'F' && inputs.firstName !== '' && inputs.lastName !== '' && inputs.maidenName !== '') {
     return true;
-  } 
+  }
 
   return false;
 }
@@ -114,29 +114,30 @@ previous code was creating.
 ## Shorter conditions
 
 The code is getting more readable already, but there are still code duplication
-that we should avoid. We are testing for `inputs.firstName !== '' &&
-inputs.lastName !== ''` twice. Let's move that into a carefully named variable.
+that we should avoid. We are testing for
+`inputs.firstName !== '' && inputs.lastName !== ''` twice. Let's move that into
+a carefully named variable.
 
 ```javascript
 function isFormValid(inputs) {
   if (inputs.age >= 50) {
     return true;
   }
-  
+
   var mandatoryNamesDefined = (inputs.firstName !== '' && inputs.lastName !== '');
   if (inputs.gender === 'M' && mandatoryNamesDefined) {
     return true;
-  } 
+  }
   if (inputs.gender === 'F' && mandatoryNamesDefined && inputs.maidenName !== '') {
     return true;
-  } 
+  }
   return false;
 }
 ```
 
 This change has two benefits. First, the `if` reads better in plain english if
-you read it in your mind. This will help further contributors (or even you, in
-6 months time) understand what the `if` is actually testing.
+you read it in your mind. This will help further contributors (or even you, in 6
+months time) understand what the `if` is actually testing.
 
 Second, if in the future you decide that only the `firstName` is mandatory,
 you'll only have to change the `var mandatoryNamesDefined` declaration and all
@@ -153,21 +154,20 @@ There is still one change we can add. People can only chose a gender of `M` or
 `F`, so we can even reverse the way checks are made at the end by using the
 _return early, return often_ rule again and inverting the conditions.
 
-
 ```javascript
 function isFormValid(inputs) {
   if (inputs.age >= 50) {
     return true;
   }
-  
+
   var mandatoryNamesDefined = (inputs.firstName !== '' && inputs.lastName !== '');
   if (!mandatoryNamesDefined) {
     return false;
-  } 
+  }
 
   if (inputs.gender === 'F' && inputs.maidenName === '') {
     return false;
-  } 
+  }
 
   return true;
 }
@@ -187,7 +187,7 @@ have to learn the basic syntax and here you go. Writing code that reads well is
 harder, and you have to methodically re-read it several times and remove all the
 useless parts so the reader mind grasps everything easily.
 
-Think of the next person that will read your code to add a new feature or fix
-a bug. That next person might well be you. You don't want to spend more time
+Think of the next person that will read your code to add a new feature or fix a
+bug. That next person might well be you. You don't want to spend more time
 understanding the code than actually fixing it. Make your (future) self a favor,
 and write code that reads easily.

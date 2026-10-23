@@ -17,8 +17,8 @@ Unfortunatly, this does not work when Pocket has to fallback to its webview
 mode. Sometimes, when a page is not correctly formatted, Pocket can't convert
 it.
 
-More often than not, this made me stop reading the article altogether. But
-I recently found a trick to help Pocket into converting the file.
+More often than not, this made me stop reading the article altogether. But I
+recently found a trick to help Pocket into converting the file.
 
 ## Markdown to the rescue
 
@@ -30,12 +30,12 @@ this page online to a service that will convert it back to html. I'm actually
 only doing a `html > markdown > html` conversion, and it just works.
 
 You first need to grab your file (`wget`), than convert it to markdown (I
-personnaly use this [python
-script](http://www.aaronsw.com/2002/html2text/html2text.py)). The final step is
-simply to upload it to a service that can format markdown, like
-[NoteHub](https://www.notehub.org/) or [GitHub
-Gists](https://gist.github.com/). And finally add _this_ page to pocket.
+personnaly use this
+[python script](http://www.aaronsw.com/2002/html2text/html2text.py)). The final
+step is simply to upload it to a service that can format markdown, like
+[NoteHub](https://www.notehub.org/) or [GitHub Gists](https://gist.github.com/).
+And finally add _this_ page to pocket.
 
-Hope that helped. It made me able to add this [sed
-page](http://www.grymoire.com/Unix/Sed.html) using this
+Hope that helped. It made me able to add this
+[sed page](http://www.grymoire.com/Unix/Sed.html) using this
 [gist](https://gist.github.com/pixelastic/08f21ebf608322ed08e7).

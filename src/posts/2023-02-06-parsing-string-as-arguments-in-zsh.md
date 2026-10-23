@@ -9,11 +9,11 @@ I had a `commandOptions` string variable that I wanted to use as arguments to
 I had a hard time passing it as a set of distinct arguments and not one long
 string argument.
 
-The best solution I found was to actually display this `commandOptions` in
-a multiline format, where each line was an option. Then, using the
+The best solution I found was to actually display this `commandOptions` in a
+multiline format, where each line was an option. Then, using the
 `${(f)commandOptions}` modifier to read it.
 
-### `get_options`
+## `get_options`
 
 ```zsh
 #!/usr/bin/env zsh
@@ -28,7 +28,7 @@ for line in $commandOptions; do
 done
 ```
 
-### `use_options`
+## `use_options`
 
 ```zsh
 #!/usr/bin/env zsh

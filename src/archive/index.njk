@@ -1,16 +1,12 @@
 ---
-layout: default.njk
+layout: list.njk
 title: Archive
 permalink: /archive/
 docsearchExclude: true
 ---
-<div class="simple-page">
-<h1 class="article-title">Archive</h1>
-<ul class="simple-list">
-  {% for period in collections.archiveList %}
-    {% if period.level == 'year' %}
-      <li><a href="{{ period.url }}">{{ period.year }}</a></li>
-    {% endif %}
-  {% endfor %}
-</ul>
-</div>
+{% from "components/list.njk" import item %}
+{% for period in collections.archiveList %}
+  {% if period.level == 'year' %}
+    {{ item(period.url, period.year) }}
+  {% endif %}
+{% endfor %}

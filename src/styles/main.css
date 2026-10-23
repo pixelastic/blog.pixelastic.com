@@ -1,391 +1,43 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-:root {
-  color-scheme: dark;
-  --paper: #080b09;
-  --panel: #0d120f;
-  --ink: #d9e5dc;
-  --body: #c5d2c9;
-  --green: #63d391;
-  --green-bright: #9bf2b6;
-  --green-soft: #12281b;
-  --muted: #82948a;
-  --line: #20352a;
-  --code: #b9e9c5;
-  --mono: ui-monospace, sfmono-regular, menlo, monospace;
-  --serif: georgia, serif;
-}
+@theme {
+  --color-paper: #080b09;
+  --color-panel: #0d120f;
+  --color-ink: #d9e5dc;
+  --color-body: #c5d2c9;
+  --color-accent: #63d391;
+  --color-accent-bright: #9bf2b6;
+  --color-accent-soft: #12281b;
+  --color-muted: #82948a;
+  --color-line: #20352a;
+  --color-code: #b9e9c5;
+  --font-mono: ui-monospace, sfmono-regular, menlo, monospace;
+  --font-serif: georgia, serif;
+  --animate-blink: blink 1.1s steps(2, start) infinite;
 
-html {
-  background: var(--paper);
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: Arial, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.reading-shell {
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 22px;
-}
-
-.reading-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 28px;
-  min-height: 58px;
-  border-bottom: 1px solid var(--line);
-}
-
-.wordmark {
-  color: var(--green-bright);
-  font-family: var(--mono);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-}
-
-.wordmark::before {
-  content: '~/';
-  color: var(--muted);
-  font-weight: 400;
-}
-
-.reading-header nav {
-  display: flex;
-  gap: 24px;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 12px;
-}
-
-.reading-header nav a:hover,
-.footer-links a:hover {
-  color: var(--green-bright);
-}
-
-.header-search {
-  margin-left: auto;
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
 }
 
 /* DocSearch theming */
 :root {
-  --docsearch-primary-color: var(--green);
-  --docsearch-text-color: var(--ink);
-  --docsearch-muted-color: var(--muted);
+  --docsearch-primary-color: var(--color-accent);
+  --docsearch-text-color: var(--color-ink);
+  --docsearch-muted-color: var(--color-muted);
   --docsearch-container-background: rgb(8 11 9 / 80%);
-  --docsearch-modal-background: var(--panel);
-  --docsearch-searchbox-background: var(--paper);
-  --docsearch-searchbox-focus-background: var(--paper);
-  --docsearch-hit-background: var(--paper);
-  --docsearch-hit-color: var(--ink);
-  --docsearch-footer-background: var(--panel);
-}
-
-.article-feed {
-  border-bottom: 1px solid var(--line);
-}
-
-.full-article {
-  max-width: 700px;
-  margin-inline: auto;
-  padding: 58px 0 65px;
-  border-bottom: 1px solid var(--line);
-}
-
-.full-article:last-child {
-  border-bottom: 0;
-}
-
-.article-meta {
-  color: var(--green);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.article-title {
-  margin: 20px 0 32px;
-  color: var(--green-bright);
-  font-family: var(--serif);
-  font-size: 43px;
-  font-weight: 400;
-  letter-spacing: -0.065em;
-  line-height: 0.98;
-}
-
-.article-title a:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 6px;
-}
-
-.article-title.is-finished::after {
-  display: none;
-}
-
-.article-title.is-typing::after {
-  display: none;
-}
-
-.article-title .typed::after {
-  content: "";
-  display: inline-block;
-  width: 0.12em;
-  height: 0.78em;
-  margin-left: 0.1em;
-  background: var(--green);
-}
-
-.article-title .untyped {
-  visibility: hidden;
-}
-
-.article-title::after {
-  content: "";
-  display: inline-block;
-  width: 0.12em;
-  height: 0.78em;
-  margin-left: 0.1em;
-  background: var(--green);
-  animation: cursor-blink 1.1s steps(2, start) infinite;
-}
-
-.article-content {
-  overflow-wrap: break-word;
-  color: var(--body);
-  font-family: var(--serif);
-  font-size: 18px;
-  line-height: 1.78;
-}
-
-.article-content p,
-.article-content ul,
-.article-content ol,
-.article-content blockquote,
-.article-content pre {
-  margin: 0 0 22px;
-}
-
-.article-content h2,
-.article-content h3,
-.article-content h4 {
-  margin: 52px 0 18px;
-  color: var(--green);
-  font-family: var(--mono);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.article-content h2::before {
-  content: '## ';
-  color: var(--muted);
-}
-
-.article-content h3::before {
-  content: '### ';
-  color: var(--muted);
-}
-
-.article-content h4::before {
-  content: '#### ';
-  color: var(--muted);
-}
-
-.article-content a {
-  color: var(--green);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.article-content a:hover {
-  color: var(--green-bright);
-}
-
-.article-content ul {
-  padding-left: 24px;
-  list-style: disc;
-}
-
-.article-content ol {
-  padding-left: 24px;
-  list-style: decimal;
-}
-
-.article-content blockquote {
-  padding-left: 18px;
-  border-left: 2px solid var(--line);
-  color: var(--muted);
-}
-
-.article-content img {
-  max-width: 100%;
-  height: auto;
-}
-
-.article-content code {
-  color: var(--code);
-  font-family: var(--mono);
-  font-size: 0.85em;
-}
-
-.article-content :not(pre) > code {
-  padding: 2px 5px;
-  border-radius: 3px;
-  background: var(--panel);
-}
-
-.article-content pre {
-  overflow-x: auto;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  background: var(--panel);
-  line-height: 1.5;
-}
-
-.article-content table {
-  display: block;
-  overflow-x: auto;
-  margin-bottom: 22px;
-  font-size: 15px;
-}
-
-.article-content th,
-.article-content td {
-  padding: 6px 12px;
-  border: 1px solid var(--line);
-}
-
-.article-content hr {
-  margin: 40px 0;
-  border-color: var(--line);
-}
-
-.article-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 38px;
-}
-
-.article-tags a {
-  padding: 7px 11px;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  background: var(--panel);
-  color: var(--green);
-  font-family: var(--mono);
-  font-size: 10px;
-}
-
-.article-tags a:hover {
-  border-color: var(--green);
-  background: var(--green-soft);
-  color: var(--green-bright);
-}
-
-.simple-page {
-  max-width: 700px;
-  margin-inline: auto;
-  padding: 58px 0 65px;
-}
-
-.simple-list {
-  padding-left: 24px;
-  color: var(--green);
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 2;
-  list-style: disc;
-}
-
-.simple-list a:hover {
-  color: var(--green-bright);
-}
-
-.pagination {
-  max-width: 700px;
-  margin-inline: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px 0 80px;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 11px;
-}
-
-.pagination a {
-  color: var(--green);
-}
-
-.pagination a:hover {
-  color: var(--green-bright);
-}
-
-.pagination .is-disabled {
-  color: #405248;
-}
-
-.reading-shell > footer {
-  max-width: 700px;
-  margin-inline: auto;
-  display: flex;
-  gap: 28px;
-  padding: 28px 0 44px;
-  border-top: 1px solid var(--line);
-}
-
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 11px;
-}
-
-@media (width >= 700px) {
-  .reading-shell {
-    padding: 0 42px;
-  }
-
-  .full-article {
-    padding: 72px 0 84px;
-  }
-
-  .article-title {
-    font-size: clamp(40px, 5.2vw, 67px);
-  }
-
-  .article-content {
-    font-size: 19px;
-  }
-}
-
-@keyframes cursor-blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  --docsearch-modal-background: var(--color-panel);
+  --docsearch-searchbox-background: var(--color-paper);
+  --docsearch-searchbox-focus-background: var(--color-paper);
+  --docsearch-hit-background: var(--color-paper);
+  --docsearch-hit-color: var(--color-ink);
+  --docsearch-footer-background: var(--color-panel);
+  --docsearch-subtle-color: var(--color-line);
+  --docsearch-search-button-background: var(--color-panel);
+  --docsearch-search-button-text-color: var(--color-muted);
+  --docsearch-key-background: var(--color-paper);
+  --docsearch-key-color: var(--color-muted);
 }

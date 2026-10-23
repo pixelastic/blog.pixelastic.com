@@ -1,0 +1,13 @@
+{% from "components/caret.njk" import caret %}
+
+{# Page or article title, optionally linked, followed by the caret #}
+{% macro heading(text, url, id) %}
+<h1 {% if id %}id="{{ id }}"{% endif %} class="mb-8 mt-5 font-serif text-[43px] font-normal leading-[0.98] tracking-[-0.065em] text-accent-bright md:text-[clamp(40px,5.2vw,67px)]">
+  {% if url %}
+    <a href="{{ url }}" class="hover:underline hover:decoration-2 hover:underline-offset-[6px]"><span data-text>{{ text }}</span></a>
+  {% else %}
+    <span data-text>{{ text }}</span>
+  {% endif %}
+  {{ caret() }}
+</h1>
+{% endmacro %}

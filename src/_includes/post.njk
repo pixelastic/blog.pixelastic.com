@@ -1,29 +1,22 @@
 ---
 layout: default.njk
 ---
-<article class="full-article">
-  <div class="article-meta">
-    <time datetime="{{ page.date.toISOString() | truncate(10, true, '') }}">{{ page.date.toISOString() | truncate(10, true, '') }}</time>
-  </div>
-  <h1 class="article-title" id="article-title">{{ title }}</h1>
-  <div class="article-content">
-    {{ content | safe }}
-  </div>
-  <div class="article-tags">
-    {% for tag in tags %}
-      <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
-    {% endfor %}
-  </div>
-</article>
+{% from "components/article.njk" import article %}
+{{ article(title, page.date, tags, content | safe, titleId="article-title") }}
+
 <script>
   // Type the title letter by letter; the full title stays in the HTML for no-JS and crawlers
   (() => {
     const title = document.getElementById("article-title");
-    const text = title.textContent.trim();
-    title.innerHTML = "<span class=\"typed\"></span><span class=\"untyped\"></span>";
-    title.classList.add("is-typing");
-    const [typed, untyped] = title.children;
+    const label = title.querySelector("[data-text]");
+    const caret = title.querySelector("[data-caret]");
+    const text = label.textContent.trim();
+    const typed = document.createElement("span");
+    const untyped = document.createElement("span");
+    untyped.className = "invisible";
     untyped.textContent = text;
+    label.replaceChildren(typed, caret, untyped);
+    caret.classList.remove("animate-blink");
     let index = 0;
     const type = () => {
       index += 1;
@@ -33,9 +26,8 @@ layout: default.njk
         setTimeout(type, 20 + Math.random() * 30);
         return;
       }
-      title.classList.remove("is-typing");
-      title.textContent = text;
-      title.classList.add("is-finished");
+      caret.remove();
+      label.textContent = text;
     };
     setTimeout(type, 300);
   })();

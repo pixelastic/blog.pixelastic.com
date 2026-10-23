@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-us">
+<html lang="en-us" class="scroll-smooth bg-paper [color-scheme:dark] motion-reduce:scroll-auto">
   <head>
     <meta charset="utf-8">
     <title>{{ title }} - Pixelastic</title>
@@ -10,25 +10,11 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
     {% if docsearchExclude %}<meta name="docsearch:exclude" content="true">{% endif %}
   </head>
-  <body class="antialiased">
-    <div class="reading-shell">
-      <header class="reading-header">
-        <a class="wordmark" href="/">pixelastic</a>
-        <nav>
-          <a href="/">Articles</a>
-          <a href="/archive/">Archive</a>
-          <a href="/tags/">Tags</a>
-          <a href="/about/">About</a>
-        </nav>
-        <div id="search" class="header-search"></div>
-      </header>
+  <body class="bg-paper font-sans text-ink antialiased">
+    <div class="mx-auto max-w-[1100px] px-[22px] md:px-[42px]">
+      {% include "components/header.njk" %}
       {{ content | safe }}
-      <footer>
-        <div class="footer-links">
-          <a href="https://github.com/pixelastic">GitHub</a>
-          <a href="/atom.xml">RSS</a>
-        </div>
-      </footer>
+      {% include "components/footer.njk" %}
     </div>
     <script src="/vendor/docsearch.js"></script>
     <script>

@@ -1,0 +1,4 @@
+{# One entry of a list of links (archive, tags) #}
+{% macro item(href, label) %}
+<li><a href="{{ href }}" class="hover:text-accent-bright">{{ label }}</a></li>
+{% endmacro %}

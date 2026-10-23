@@ -1,9 +1,9 @@
 ---
 layout: default.njk
 ---
-<div class="simple-page">
-  <h1 class="article-title">{{ title }}</h1>
-  <div class="article-content">
-    {{ content | safe }}
-  </div>
+{% from "components/heading.njk" import heading %}
+{% from "components/prose.njk" import prose %}
+<div class="mx-auto max-w-[700px] pb-[65px] pt-[38px] md:pb-[84px]">
+  {{ heading(title) }}
+  {{ prose(content | safe) }}
 </div>

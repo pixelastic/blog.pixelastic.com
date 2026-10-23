@@ -1,14 +1,10 @@
 ---
-layout: default.njk
+layout: list.njk
 title: Tags
 permalink: /tags/
 docsearchExclude: true
 ---
-<div class="simple-page">
-<h1 class="article-title">Tags</h1>
-<ul class="simple-list">
-  {% for tag in collections.tagList %}
-    <li><a href="/tags/{{ tag.slug }}/">#{{ tag.name }}</a></li>
-  {% endfor %}
-</ul>
-</div>
+{% from "components/list.njk" import item %}
+{% for tag in collections.tagList %}
+  {{ item("/tags/" + tag.slug + "/", "#" + tag.name) }}
+{% endfor %}

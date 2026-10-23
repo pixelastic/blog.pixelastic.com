@@ -1,5 +1,5 @@
 ---
-layout: default.njk
+layout: list.njk
 pagination:
   data: collections.archiveList
   size: 1
@@ -9,11 +9,7 @@ eleventyComputed:
   title: "{{ period.title }}"
 docsearchExclude: true
 ---
-<div class="simple-page">
-<h1 class="article-title">{{ period.title }}</h1>
-<ul class="simple-list">
-  {% for post in period.posts %}
-    <li><a href="{{ post.url }}">{{ post.data.title }}</a></li>
-  {% endfor %}
-</ul>
-</div>
+{% from "components/list.njk" import item %}
+{% for post in period.posts %}
+  {{ item(post.url, post.data.title) }}
+{% endfor %}

@@ -1,0 +1,18 @@
+{% from "components/heading.njk" import heading %}
+{% from "components/prose.njk" import prose %}
+
+{# Full article: date, title, content and tags. Used by the home feed and the dedicated page #}
+{% macro article(title, date, tags, content, url, titleId) %}
+<article class="mx-auto max-w-[700px] py-[58px] md:py-[72px]">
+  <div class="font-mono text-[10px] uppercase tracking-[0.06em] text-accent">
+    <time datetime="{{ date.toISOString() | truncate(10, true, '') }}">{{ date.toISOString() | truncate(10, true, '') }}</time>
+  </div>
+  {{ heading(title, url, titleId) }}
+  {{ prose(content) }}
+  <div class="mt-[38px] flex flex-wrap gap-2">
+    {% for tag in tags %}
+      <a href="/tags/{{ tag | tagSlug }}/" class="rounded-[3px] border border-line bg-panel px-[11px] py-[7px] font-mono text-[10px] text-accent hover:border-accent hover:bg-accent-soft hover:text-accent-bright">#{{ tag }}</a>
+    {% endfor %}
+  </div>
+</article>
+{% endmacro %}

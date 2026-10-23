@@ -1,0 +1,18 @@
+{# Wrapper for rendered Markdown: restyles raw HTML elements we cannot add classes to #}
+{% macro prose(body) %}
+<div class="prose max-w-none break-words font-serif text-[18px] leading-[1.78] md:text-[19px]
+  [--tw-prose-body:var(--color-body)] [--tw-prose-bold:var(--color-body)] [--tw-prose-headings:var(--color-accent)]
+  [--tw-prose-links:var(--color-accent)] [--tw-prose-bullets:var(--color-muted)] [--tw-prose-counters:var(--color-muted)]
+  [--tw-prose-quotes:var(--color-muted)] [--tw-prose-quote-borders:var(--color-line)] [--tw-prose-hr:var(--color-line)]
+  [--tw-prose-code:var(--color-code)] [--tw-prose-pre-code:var(--color-code)] [--tw-prose-pre-bg:var(--color-panel)]
+  [--tw-prose-th-borders:var(--color-line)] [--tw-prose-td-borders:var(--color-line)] [--tw-prose-captions:var(--color-muted)]
+  prose-headings:mb-[18px] prose-headings:mt-[52px] prose-headings:font-mono prose-headings:text-sm prose-headings:font-semibold prose-headings:tracking-tight
+  prose-h2:before:text-muted prose-h2:before:content-['##_'] prose-h3:before:text-muted prose-h3:before:content-['###_'] prose-h4:before:text-muted prose-h4:before:content-['####_']
+  prose-a:underline prose-a:underline-offset-4 prose-a:hover:text-accent-bright
+  prose-code:font-mono prose-code:text-[0.85em] prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
+  [&_:not(pre)>code]:rounded-[3px] [&_:not(pre)>code]:bg-panel [&_:not(pre)>code]:px-[5px] [&_:not(pre)>code]:py-0.5
+  prose-pre:rounded-[3px] prose-pre:border prose-pre:border-line prose-pre:leading-normal
+  prose-img:max-w-full">
+  {{ body }}
+</div>
+{% endmacro %}

@@ -7,37 +7,23 @@ pagination:
   alias: pagePosts
 permalink: "{{ '/' if pagination.pageNumber == 0 else '/page' + (pagination.pageNumber + 1) + '/' }}"
 ---
-<section class="article-feed">
+{% from "components/article.njk" import article %}
+<section class="divide-y divide-line border-b border-line">
   {% for post in pagePosts %}
-    <article class="full-article">
-      <div class="article-meta">
-        <time datetime="{{ post.date.toISOString() | truncate(10, true, '') }}">{{ post.date.toISOString() | truncate(10, true, '') }}</time>
-      </div>
-      <h1 class="article-title">
-        <a href="{{ post.url }}">{{ post.data.title }}</a>
-      </h1>
-      <div class="article-content">
-        {{ post.content | safe }}
-      </div>
-      <div class="article-tags">
-        {% for tag in post.data.tags %}
-          <a href="/tags/{{ tag | tagSlug }}/">#{{ tag }}</a>
-        {% endfor %}
-      </div>
-    </article>
+    {{ article(post.data.title, post.date, post.data.tags, post.content | safe, post.url) }}
   {% endfor %}
 </section>
 
-<nav class="pagination" aria-label="Pagination">
+<nav class="mx-auto flex max-w-[700px] items-center justify-between pb-20 pt-[30px] font-mono text-[11px] text-muted" aria-label="Pagination">
   {% if pagination.href.next %}
-    <a href="{{ pagination.href.next }}">&larr; Older</a>
+    <a href="{{ pagination.href.next }}" class="text-accent hover:text-accent-bright">&larr; Older</a>
   {% else %}
-    <span class="is-disabled">&larr; Older</span>
+    <span class="text-[#405248]">&larr; Older</span>
   {% endif %}
   <span>Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
   {% if pagination.href.previous %}
-    <a href="{{ pagination.href.previous }}">Newer &rarr;</a>
+    <a href="{{ pagination.href.previous }}" class="text-accent hover:text-accent-bright">Newer &rarr;</a>
   {% else %}
-    <span class="is-disabled">Newer &rarr;</span>
+    <span class="text-[#405248]">Newer &rarr;</span>
   {% endif %}
 </nav>

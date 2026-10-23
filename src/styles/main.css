@@ -2,25 +2,28 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  --color-paper: #080b09;
-  --color-panel: #0d120f;
-  --color-ink: #d9e5dc;
-  --color-body: #c5d2c9;
-  --color-accent: #63d391;
-  --color-accent-bright: #9bf2b6;
-  --color-accent-soft: #12281b;
-  --color-muted: #82948a;
-  --color-line: #20352a;
-  --color-code: #b9e9c5;
+  --color-paper: #0c0f15;
+  --color-panel: #111827;
+  --color-ink: #d1d5db;
+  --color-body: #d1d5db;
+  --color-accent: #63b3ed;
+  --color-accent-bright: #90cdf4;
+  --color-accent-soft: #1f2937;
+  --color-muted: #6b7280;
+  --color-line: #374151;
+  --color-code: #a5b4fc;
+  --color-date: #0369a1;
+  --color-prompt: #38a169;
+  --color-soft: #9ca3af;
+  --color-h1: #b794f4;
+  --color-h2: #63b3ed;
+  --color-h3: #276749;
+  --color-h4: #d69e2e;
+  --color-image: #be185d;
+  --color-tag: #ea580c;
+  --color-tag-bg: #1c130d;
+  --color-tag-line: #5a2a10;
   --font-mono: ui-monospace, sfmono-regular, menlo, monospace;
-  --font-serif: georgia, serif;
-  --animate-blink: blink 1.1s steps(2, start) infinite;
-
-  @keyframes blink {
-    50% {
-      opacity: 0;
-    }
-  }
 }
 
 /* DocSearch theming */
@@ -28,7 +31,7 @@
   --docsearch-primary-color: var(--color-accent);
   --docsearch-text-color: var(--color-ink);
   --docsearch-muted-color: var(--color-muted);
-  --docsearch-container-background: rgb(8 11 9 / 80%);
+  --docsearch-container-background: rgb(12 15 21 / 80%);
   --docsearch-modal-background: var(--color-panel);
   --docsearch-searchbox-background: var(--color-paper);
   --docsearch-searchbox-focus-background: var(--color-paper);

@@ -1,18 +1,17 @@
 {# Wrapper for rendered Markdown: restyles raw HTML elements we cannot add classes to #}
 {% macro prose(body) %}
-<div class="prose max-w-none break-words font-serif text-[18px] leading-[1.78] md:text-[19px]
-  [--tw-prose-body:var(--color-body)] [--tw-prose-bold:var(--color-body)] [--tw-prose-headings:var(--color-accent)]
+<div class="prose max-w-[800px] break-words font-sans text-base leading-[1.85] md:text-[17px]
+  [--tw-prose-body:var(--color-body)] [--tw-prose-bold:var(--color-body)] [--tw-prose-headings:var(--color-h2)]
   [--tw-prose-links:var(--color-accent)] [--tw-prose-bullets:var(--color-muted)] [--tw-prose-counters:var(--color-muted)]
   [--tw-prose-quotes:var(--color-muted)] [--tw-prose-quote-borders:var(--color-line)] [--tw-prose-hr:var(--color-line)]
-  [--tw-prose-code:var(--color-code)] [--tw-prose-pre-code:var(--color-code)] [--tw-prose-pre-bg:var(--color-panel)]
+  [--tw-prose-code:var(--color-code)] [--tw-prose-pre-code:var(--color-body)] [--tw-prose-pre-bg:var(--color-panel)]
   [--tw-prose-th-borders:var(--color-line)] [--tw-prose-td-borders:var(--color-line)] [--tw-prose-captions:var(--color-muted)]
-  prose-headings:mb-[18px] prose-headings:mt-[52px] prose-headings:font-mono prose-headings:text-sm prose-headings:font-semibold prose-headings:tracking-tight
-  prose-h2:before:text-muted prose-h2:before:content-['##_'] prose-h3:before:text-muted prose-h3:before:content-['###_'] prose-h4:before:text-muted prose-h4:before:content-['####_']
+  prose-headings:mb-[18px] prose-headings:mt-[52px] prose-headings:font-mono prose-headings:font-semibold prose-headings:tracking-tight
+  prose-h1:text-h1 prose-h1:before:content-['\#_'] prose-h2:text-h2 prose-h2:text-2xl prose-h2:before:content-['\#\#_'] prose-h3:text-h3 prose-h3:before:content-['\#\#\#_'] prose-h4:text-h4 prose-h4:before:content-['\#\#\#\#_']
   prose-a:underline prose-a:underline-offset-4 prose-a:hover:text-accent-bright
-  prose-code:font-mono prose-code:text-[0.85em] prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
-  [&_:not(pre)>code]:rounded-[3px] [&_:not(pre)>code]:bg-panel [&_:not(pre)>code]:px-[5px] [&_:not(pre)>code]:py-0.5
-  prose-pre:rounded-[3px] prose-pre:border prose-pre:border-line prose-pre:leading-normal
-  prose-img:max-w-full">
+  prose-code:font-mono prose-code:text-[0.95em] prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
+  prose-pre:rounded-none prose-pre:border prose-pre:border-line prose-pre:leading-[1.7]
+  prose-img:mx-auto prose-img:block prose-img:max-w-full prose-img:rounded-lg prose-img:border prose-img:cursor-zoom-in prose-img:border-image/50 prose-img:shadow-[0_0_36px_color-mix(in_srgb,var(--color-image)_25%,transparent)] prose-img:transition-[border-color,box-shadow] prose-img:duration-200 prose-img:hover:border-image/70 prose-img:hover:shadow-[0_0_36px_color-mix(in_srgb,var(--color-image)_40%,transparent)] prose-figcaption:font-mono prose-figcaption:text-[11px]">
   {{ body }}
 </div>
 {% endmacro %}

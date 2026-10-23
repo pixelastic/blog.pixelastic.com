@@ -14,16 +14,16 @@ permalink: "{{ '/' if pagination.pageNumber == 0 else '/page' + (pagination.page
   {% endfor %}
 </section>
 
-<nav class="mx-auto flex max-w-[700px] items-center justify-between pb-20 pt-[30px] font-mono text-[11px] text-muted" aria-label="Pagination">
+<nav class="mx-auto flex max-w-[980px] items-center justify-between pb-20 pt-[30px] font-mono text-[11px] text-muted" aria-label="Pagination">
   {% if pagination.href.next %}
     <a href="{{ pagination.href.next }}" class="text-accent hover:text-accent-bright">&larr; Older</a>
   {% else %}
-    <span class="text-[#405248]">&larr; Older</span>
+    <span class="text-line">&larr; Older</span>
   {% endif %}
   <span>Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
   {% if pagination.href.previous %}
     <a href="{{ pagination.href.previous }}" class="text-accent hover:text-accent-bright">Newer &rarr;</a>
   {% else %}
-    <span class="text-[#405248]">Newer &rarr;</span>
+    <span class="text-line">Newer &rarr;</span>
   {% endif %}
 </nav>

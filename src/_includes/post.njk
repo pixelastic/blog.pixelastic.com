@@ -16,7 +16,6 @@ layout: default.njk
     untyped.className = "invisible";
     untyped.textContent = text;
     label.replaceChildren(typed, caret, untyped);
-    caret.classList.remove("animate-blink");
     let index = 0;
     const type = () => {
       index += 1;

@@ -82,20 +82,25 @@ describe('site build', () => {
       {
         title: 'first page',
         url: '/',
-        newer: '<span class="text-gray-400">Newer</span>',
-        older: 'href="/page2/">Older</a>',
+        newer: '<span class="text-line">Newer &rarr;</span>',
+        older:
+          'href="/page2/" class="text-accent hover:text-accent-bright">&larr; Older</a>',
       },
       {
         title: 'second page',
         url: '/page2/',
-        newer: 'href="/">Newer</a>',
-        older: 'href="/page3/">Older</a>',
+        newer:
+          'href="/" class="text-accent hover:text-accent-bright">Newer &rarr;</a>',
+        older:
+          'href="/page3/" class="text-accent hover:text-accent-bright">&larr; Older</a>',
       },
       {
         title: 'third page',
         url: '/page3/',
-        newer: 'href="/page2/">Newer</a>',
-        older: 'href="/page4/">Older</a>',
+        newer:
+          'href="/page2/" class="text-accent hover:text-accent-bright">Newer &rarr;</a>',
+        older:
+          'href="/page4/" class="text-accent hover:text-accent-bright">&larr; Older</a>',
       },
     ])('$title is at $url', ({ url, newer, older }) => {
       const actual = find(url).content;
@@ -106,11 +111,11 @@ describe('site build', () => {
     it('lists 5 posts per page, newest first', () => {
       const first = matchAll(
         find('/').content,
-        /<h1 class="text-3xl font-bold">\s*<a href="([^"]+)"/g,
+        /<h1 [^>]*>\s*<a href="([^"]+)"/g,
       );
       const second = matchAll(
         find('/page2/').content,
-        /<h1 class="text-3xl font-bold">\s*<a href="([^"]+)"/g,
+        /<h1 [^>]*>\s*<a href="([^"]+)"/g,
       );
       expect(first).toHaveLength(5);
       expect(second).toHaveLength(5);

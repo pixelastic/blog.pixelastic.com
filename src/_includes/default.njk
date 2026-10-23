@@ -4,26 +4,42 @@
     <meta charset="utf-8">
     <title>{{ title }} - Pixelastic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#080b09">
+    <meta name="theme-color" content="#0c0f15">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/vendor/docsearch.css">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
     {% if docsearchExclude %}<meta name="docsearch:exclude" content="true">{% endif %}
   </head>
   <body class="bg-paper font-sans text-ink antialiased">
-    <div class="mx-auto max-w-[1100px] px-[22px] md:px-[42px]">
+    <div class="mx-auto max-w-[980px] px-5 md:px-7">
       {% include "components/header.njk" %}
       {{ content | safe }}
       {% include "components/footer.njk" %}
     </div>
-    <script src="/vendor/docsearch.js"></script>
     <script>
-      docsearch({
-        container: '#search',
-        appId: '{{ site.docsearch.appId }}',
-        apiKey: '{{ site.docsearch.apiKey }}',
-        indices: ['{{ site.docsearch.indexName }}'],
-      });
+      // Open article images full screen in a native dialog, closed by a click or Escape
+      (() => {
+        const images = document.querySelectorAll(".prose img");
+        if (!images.length) return;
+        const dialog = document.createElement("dialog");
+        dialog.className = "m-auto max-h-[96vh] max-w-[96vw] cursor-zoom-out bg-transparent p-0 backdrop:bg-paper/90";
+        const full = document.createElement("img");
+        full.className = "max-h-[96vh] max-w-[96vw] rounded-lg border border-image/70";
+        dialog.append(full);
+        document.body.append(dialog);
+        dialog.addEventListener("click", () => dialog.close());
+        const open = (image) => {
+          full.src = image.currentSrc || image.src;
+          full.alt = image.alt;
+          dialog.showModal();
+        };
+        for (const image of images) {
+          image.tabIndex = 0;
+          image.addEventListener("click", () => open(image));
+          image.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") open(image);
+          });
+        }
+      })();
     </script>
   </body>
 </html>

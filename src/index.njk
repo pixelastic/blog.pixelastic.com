@@ -14,7 +14,7 @@ permalink: "{{ '/' if pagination.pageNumber == 0 else '/page' + (pagination.page
   {% endfor %}
 </section>
 
-<nav class="mx-auto flex max-w-[980px] items-center justify-between pb-20 pt-[30px] font-mono text-[11px] text-muted" aria-label="Pagination">
+<nav class="mx-auto flex max-w-[800px] items-center justify-between pb-20 pt-[30px] font-mono text-[11px] text-muted" aria-label="Pagination">
   {% if pagination.href.next %}
     <a href="{{ pagination.href.next }}" class="text-accent hover:text-accent-bright">&larr; Older</a>
   {% else %}

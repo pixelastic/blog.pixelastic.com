@@ -85,8 +85,94 @@ The first pass doesn't read the logic. It removes what has no reason to be
 there, and it fixes names.
 
 Here that means dropping the unused `fs` import, the `legacyFormat` function
-that nobody calls, and the commented `console.log`. Then `cust` becomes
-`customer`, `name` becomes `customerName`, and `data` becomes `summary`.
+that nobody calls, and the commented `console.log`.
+
+```js
+import fs from 'node:fs'; // [!code --]
+import { formatDate } from './dates.js';
+import { fetchOrder, fetchCustomer } from './api.js';
+
+function legacyFormat(order) { // [!code --:3]
+  return order.id + ':' + order.total;
+}
+
+function buildSummary(order, name) {
+  return {
+    id: order.id,
+    customer: name,
+    price: order.totalWithTax,
+    date: formatDate(order.createdAt),
+  };
+}
+
+export async function getOrderSummary(orderId) {
+  const order = await fetchOrder(orderId);
+  const cust = await fetchCustomer(order.customerId);
+  // console.log('order', order); // [!code --]
+  let name;
+  if (cust) {
+    if (cust.name) {
+      name = cust.name;
+    } else {
+      name = cust.email;
+    }
+  } else {
+    name = 'Unknown';
+  }
+  const data = buildSummary(order, name);
+  return data;
+}
+
+export async function getInvoiceSummary(orderId) {
+  const order = await fetchOrder(orderId);
+  const cust = await fetchCustomer(order.customerId);
+  let name = 'Unknown';
+  if (cust) name = cust.name || cust.email;
+  return buildSummary(order, name);
+}
+```
+
+Then `cust` becomes `customer`, `name` becomes `customerName`, and `data`
+becomes `summary`.
+
+```js
+import { formatDate } from './dates.js';
+import { fetchOrder, fetchCustomer } from './api.js';
+
+function buildSummary(order, [-name-]{+customerName+}) {
+  return {
+    id: order.id,
+    customer: [-name-]{+customerName+},
+    price: order.totalWithTax,
+    date: formatDate(order.createdAt),
+  };
+}
+
+export async function getOrderSummary(orderId) {
+  const order = await fetchOrder(orderId);
+  const [-cust-]{+customer+} = await fetchCustomer(order.customerId);
+  let [-name-]{+customerName+};
+  if ([-cust-]{+customer+}) {
+    if ([-cust-]{+customer+}.name) {
+      [-name-]{+customerName+} = [-cust-]{+customer+}.name;
+    } else {
+      [-name-]{+customerName+} = [-cust-]{+customer+}.email;
+    }
+  } else {
+    [-name-]{+customerName+} = 'Unknown';
+  }
+  const [-data-]{+summary+} = buildSummary(order, [-name-]{+customerName+});
+  return [-data-]{+summary+};
+}
+
+export async function getInvoiceSummary(orderId) {
+  const order = await fetchOrder(orderId);
+  const [-cust-]{+customer+} = await fetchCustomer(order.customerId);
+  let [-name-]{+customerName+} = 'Unknown';
+  if ([-cust-]{+customer+}) [-name-]{+customerName+} = [-cust-]{+customer+}.name || [-cust-]{+customer+}.email;
+  return buildSummary(order, [-name-]{+customerName+});
+}
+```
 
 Nothing changes in the behavior. The file is shorter, and easier to read for a
 human. And it is easier for the next pass, because there is less to think about.
@@ -98,6 +184,18 @@ can use early returns. And `getInvoiceSummary` does the same thing in a
 different style, so I normalize both.
 
 ```js
+import { formatDate } from './dates.js';
+import { fetchOrder, fetchCustomer } from './api.js';
+
+function buildSummary(order, customerName) {
+  return {
+    id: order.id,
+    customer: customerName,
+    price: order.totalWithTax,
+    date: formatDate(order.createdAt),
+  };
+}
+
 export async function getOrderSummary(orderId) {
   const order = await fetchOrder(orderId);
   const customer = await fetchCustomer(order.customerId);

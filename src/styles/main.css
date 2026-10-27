@@ -44,3 +44,98 @@
   --docsearch-key-background: var(--color-paper);
   --docsearch-key-color: var(--color-muted);
 }
+
+/* Shiki sets the code background inline, so only !important can override it */
+.prose pre.shiki {
+  background-color: var(--color-panel) !important;
+}
+
+/* Diff colors, copied from the palette of my editor (oroshi colors) */
+:root {
+  --diff-remove: #dc2626;
+  --diff-add: #38a169;
+  --diff-modified: #805ad5;
+  --diff-background-strength: 15%;
+}
+
+/* Lines marked as added, removed or modified in a code block, like in a diff.
+   The block loses its side padding and each line gets it back, so a marked
+   line can reach both edges of the block */
+.prose pre.has-diff {
+  --diff-padding: calc(8em / 7);
+  padding-inline: 0;
+}
+.prose pre.has-diff code {
+  display: flex;
+  flex-direction: column;
+}
+.prose pre.has-diff .line {
+  min-height: 1lh;
+  min-width: 100%;
+  width: max-content;
+  padding-inline: calc(var(--diff-padding) + 2ch) var(--diff-padding);
+  position: relative;
+}
+.prose pre.has-diff .line.diff::before,
+.prose pre.has-diff .line.modified::before {
+  position: absolute;
+  left: calc(var(--diff-padding) + 0.5ch);
+}
+.prose pre.has-diff .line.remove {
+  background-color: color-mix(
+    in srgb,
+    var(--diff-remove) var(--diff-background-strength),
+    transparent
+  );
+}
+.prose pre.has-diff .line.remove::before {
+  content: '-';
+  color: var(--diff-remove);
+}
+.prose pre.has-diff .line.add {
+  background-color: color-mix(
+    in srgb,
+    var(--diff-add) var(--diff-background-strength),
+    transparent
+  );
+}
+.prose pre.has-diff .line.add::before {
+  content: '+';
+  color: var(--diff-add);
+}
+.prose pre.has-diff .line.modified {
+  background-color: color-mix(
+    in srgb,
+    var(--diff-modified) var(--diff-background-strength),
+    transparent
+  );
+}
+.prose pre.has-diff .line.modified::before {
+  content: '~';
+  color: var(--diff-modified);
+}
+
+/* Words changed inside a line. The colors win over the syntax colors */
+.prose pre .word-diff.remove,
+.prose pre .word-diff.remove span {
+  color: var(--diff-remove) !important;
+  text-decoration: line-through;
+}
+.prose pre .word-diff.remove {
+  background-color: color-mix(
+    in srgb,
+    var(--diff-remove) var(--diff-background-strength),
+    transparent
+  );
+}
+.prose pre .word-diff.add,
+.prose pre .word-diff.add span {
+  color: var(--diff-add) !important;
+}
+.prose pre .word-diff.add {
+  background-color: color-mix(
+    in srgb,
+    var(--diff-add) var(--diff-background-strength),
+    transparent
+  );
+}

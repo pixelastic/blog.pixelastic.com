@@ -16,15 +16,16 @@
   "devDependencies": {
     "@11ty/eleventy": "3.1.6",
     "@11ty/eleventy-plugin-rss": "3.1.0",
+    "@docsearch/css": "5.1.2",
+    "@docsearch/js": "5.1.2",
+    "@shikijs/markdown-it": "4.5.0",
+    "@shikijs/transformers": "4.5.0",
     "@tailwindcss/cli": "4.3.3",
     "@tailwindcss/typography": "0.5.20",
     "aberlaas": "2.41.3",
+    "lodash": "4.17.21",
+    "shiki": "4.5.0",
     "tailwindcss": "4.3.3"
-  },
-  "dependencies": {
-    "@docsearch/css": "5.1.2",
-    "@docsearch/js": "5.1.2",
-    "lodash": "4.17.21"
   },
   "scripts": {
     "build": "yarn build:css && eleventy",

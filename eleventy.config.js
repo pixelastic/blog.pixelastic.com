@@ -1,14 +1,18 @@
 import eleventyPluginRss from '@11ty/eleventy-plugin-rss';
+import shiki from '@shikijs/markdown-it';
+import { transformerNotationDiff } from '@shikijs/transformers';
 import { groupPostsByPeriod } from './lib/groupPostsByPeriod.js';
 import { groupPostsByTag } from './lib/groupPostsByTag.js';
+import { transformerWordDiff } from './lib/shiki/index.js';
+import shikiTheme from './lib/shiki/shikiTheme.json' with { type: 'json' };
 import { tagSlug } from './lib/tagSlug.js';
 
 /**
  * Eleventy configuration
  * @param {object} eleventyConfig - Eleventy configuration API
- * @returns {object} Eleventy directories and template engines
+ * @returns {Promise<object>} Eleventy directories and template engines
  */
-export default function (eleventyConfig) {
+export default async function (eleventyConfig) {
   // Images keep their old /img/files/... URLs
   eleventyConfig.addPassthroughCopy({ 'src/img': 'img' });
 
@@ -31,6 +35,34 @@ export default function (eleventyConfig) {
 
   // Posts contain raw HTML that must reach the output untouched
   eleventyConfig.amendLibrary('md', (markdown) => markdown.set({ html: true }));
+
+  // Code blocks are colored with the same theme as my editor. Unknown languages
+  // fall back to plain text
+  const highlightCode = await shiki({
+    theme: shikiTheme,
+    langs: [
+      'apache',
+      'css',
+      'html',
+      'ini',
+      'javascript',
+      'json',
+      'markdown',
+      'nginx',
+      'php',
+      'pug',
+      'puppet',
+      'ruby',
+      'shellscript',
+      'sql',
+      'viml',
+      'xml',
+    ],
+    langAlias: { sh: 'shellscript', zsh: 'shellscript', jade: 'pug' },
+    fallbackLanguage: 'text',
+    transformers: [transformerNotationDiff(), transformerWordDiff()],
+  });
+  eleventyConfig.amendLibrary('md', (markdown) => markdown.use(highlightCode));
 
   // One entry per tag, with its posts, to generate the /tags/ pages
   eleventyConfig.addCollection('tagList', (collectionApi) =>

@@ -18,7 +18,7 @@
     "@11ty/eleventy-plugin-rss": "3.1.0",
     "@tailwindcss/cli": "4.3.3",
     "@tailwindcss/typography": "0.5.20",
-    "aberlaas": "2.40.0",
+    "aberlaas": "2.41.3",
     "tailwindcss": "4.3.3"
   },
   "dependencies": {

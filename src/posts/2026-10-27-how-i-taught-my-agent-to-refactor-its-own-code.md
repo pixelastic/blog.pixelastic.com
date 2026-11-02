@@ -9,8 +9,8 @@ tags:
 ---
 
 Most of my code is now written by my agents, one issue at a time. Each issue is
-carefully planned, tested, linted, reviewed and commited. I'm happy with the
-code quality of each issue taken invidually, but if I string all the issues
+carefully planned, tested, linted, reviewed and committed. I'm happy with the
+code quality of each issue taken individually, but if I string all the issues
 together, I still sometimes end up with some code duplication and useless
 indirection.
 
@@ -21,7 +21,7 @@ refactorings.
 ## I mix everything
 
 But even before agents were a thing, my approach to refactoring was very
-organic. I know the theory about don't refactoring everything at once. Starting
+organic. I know the theory about not refactoring everything at once. Starting
 small. Committing often. Not changing implementation and tests at the same time.
 
 But in practice, it's very hard for me to not fix something I saw as obviously
@@ -35,12 +35,12 @@ teach myself. That's why one day I started writing down, as a `skill`, what good
 refactoring looks like to me.
 
 I split it in three layers: reduce, rewrite and restructure. You start small,
-and increase complexity and impact as you proceed. Each pass is meant to make
-the next pass easier.
+and increase complexity and impact as I proceed. Each pass is meant to make the
+next pass easier.
 
 ## The example
 
-Let's use an example to better understand what I mean.
+Here is an example to show what I mean.
 
 ```js
 import fs from 'node:fs';
@@ -91,10 +91,10 @@ export async function getInvoiceSummary(orderId) {
 
 The goal of the first pass is to reduce the size of the code by removing all the
 noise. Commented code, unused imports or orphaned functions are dead code that
-have no impact on the behavior and only makes understanding the code harder.
+has no impact on the behavior and only makes understanding the code harder.
 
-It was true for humans, it's still true for agents. If you don't need it, remove
-it. Less code means less bugs.
+It has always been true for humans, and it's still true for agents. If I don't
+need it, I remove it. Less code means less bugs.
 
 ```js
 import fs from 'node:fs'; // [!code --]
@@ -141,12 +141,19 @@ export async function getInvoiceSummary(orderId) {
 }
 ```
 
-In this phase, I also rewrite variables so their name removes any ambiguity as
-to what they represent: I use full names rather than abbreviations and avoid
-generic names like `data`.
+Now that the noise is gone, I move to the next phase: rewrite.
 
-Once again, behavior is exactly the same, this is purely cosmetic but helps
-understanding what objects and concepts we're dealing with.
+## Rewrite
+
+In this second pass, I improve each function locally, without (yet) thinking
+about how all the functions interact with each other globally.
+
+I start by renaming variables so their name removes any ambiguity as to what
+they represent: I use full names rather than abbreviations and avoid generic
+names like `data`.
+
+The behavior is exactly the same. This is purely cosmetic, but it helps me
+understand what objects and concepts I'm dealing with.
 
 ```js
 import { formatDate } from './dates.js';
@@ -187,17 +194,10 @@ export async function getInvoiceSummary(orderId) {
 }
 ```
 
-Now that the code is clean, we'll move to the nest phase: rewrite.
-
-## Rewrite
-
-In this second pass, the goal is to improve each function locally, without (yet)
-thinking about how all those functions interact with each other globally.
-
-A good example is replacing deeply nested `if`s with some early return, or
-ensuring similar looking functions are coded in a similar fashion. When you have
-several ways to skin a cat, make sure you at least skin the cat consistenly the
-same way throught your code.
+Another example is replacing deeply nested `if`s with some early return, or
+ensuring similar looking functions are coded in a similar fashion. When there
+are several ways to skin a cat, I make sure I at least skin the cat consistently
+the same way throughout my code.
 
 ```js
 import { formatDate } from './dates.js';
@@ -242,30 +242,29 @@ export async function getInvoiceSummary(orderId) {
 }
 ```
 
-In that phase, you never change the tests, you only improve the code. Tests are
-your safeguard that your changes make the code better, without changing the
-behavior.
+In that phase, I never change the tests, I only improve the code. Tests are my
+safeguard that my changes make the code better, without changing the behavior.
 
-In my example here, we can see that once we've changed the deeply nested `if`s
-into a simpler return early clause, the shape of both `getOrderSummary` and
-`getInvoiceSummary` is very similar.
+In my example here, once I've changed the deeply nested `if`s into simpler early
+returns, the shape of both `getOrderSummary` and `getInvoiceSummary` is very
+similar.
 
-We might have a way to refactor that further, but this will come in the final
-phase: restructure.
+I might have a way to refactor that further, but this comes in the final phase:
+restructure.
 
 ## Restructure
 
-Now that we cleanup up the **inside** of each function, now comes the time to
-cleanup how those functions interact with each other.
+Now that I've cleaned up the **inside** of each function, it is time to clean up
+how those functions interact with each other.
 
 Both `getOrderSummary` and `getInvoiceSummary` do exactly the same thing, so I
-removed them and kept only a higher level `getSummary` function. The
-`buildSummary` function is no longer shared between two functions, so it can now
-be inlined in `getSummary`.
+remove them and keep only a higher level `getSummary` function. The
+`buildSummary` function is no longer shared between two functions, so I inline
+it in `getSummary`.
 
-In that phase, we are allowed to update tests. As we are changing the interface
-of the code, we must also update the relevant tests accordingly. In our example
-it would mean moving the `buildSummary` tests into the `getSummary` tests.
+In that phase, I am allowed to update tests. As I am changing the interface of
+the code, I must also update the relevant tests accordingly. In my example, that
+means moving the `buildSummary` tests into the `getSummary` tests.
 
 ```js
 import { formatDate } from './dates.js';
@@ -306,12 +305,12 @@ export async function getSummary(orderId) { // [!code ++:10]
 }
 ```
 
-This is also where you could remove useless intermediate wrappers, or even
-change the input signature or output format of your functions. This means
-updating the callers and the tests, so this makes this phase the riskiest.
+This is also where I can remove useless intermediate wrappers, or even change
+the input signature or output format of my functions. This means updating the
+callers and the tests, which makes this phase the riskiest.
 
-That is why it comes last; with the code cleaned up and simplified in the
-previous phase, heavy refactoring in that phase is now possible.
+That is why it comes last: with the code cleaned up and simplified by the
+previous phases, heavy refactoring is now possible.
 
 ## The skill
 

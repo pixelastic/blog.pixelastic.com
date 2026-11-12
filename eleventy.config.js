@@ -58,7 +58,12 @@ export default async function (eleventyConfig) {
       'viml',
       'xml',
     ],
-    langAlias: { sh: 'shellscript', zsh: 'shellscript', jade: 'pug' },
+    langAlias: {
+      bats: 'shellscript',
+      sh: 'shellscript',
+      zsh: 'shellscript',
+      jade: 'pug',
+    },
     fallbackLanguage: 'text',
     transformers: [transformerNotationDiff(), transformerWordDiff()],
   });

@@ -10,7 +10,8 @@ set -e
 
 ./node_modules/.bin/aberlaas precommit
 
-# Generate the social card of any new post, and add it to the commit. Existing
-# cards are kept, so this is a no-op most of the time
+# Generate the social card of any new or changed post, and add it to the commit.
+# Up to date cards are kept, so this is a no-op most of the time. Obsolete
+# cards are deleted, `--all` stages those deletions
 yarn og
-git add src/og
+git add --all src/og

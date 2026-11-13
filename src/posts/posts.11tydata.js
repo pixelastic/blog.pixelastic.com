@@ -1,4 +1,4 @@
-import { ogPermalink } from '../../lib/og/index.js';
+import { hashOgCard, ogPermalink, readOgCard } from '../../lib/og/index.js';
 import { postPermalink } from '../../lib/postPermalink.js';
 
 export default {
@@ -11,10 +11,14 @@ export default {
   permalink: (data) => postPermalink(data.page.inputPath),
   eleventyComputed: {
     /**
-     * Social card of the post, shown when it is shared
+     * Social card of the post, shown when it is shared. Its URL changes with its content
      * @param {object} data - Eleventy data cascade of the post
      * @returns {string} URL of the card
      */
-    ogImage: (data) => ogPermalink(data.page.url),
+    ogImage: (data) =>
+      ogPermalink(
+        data.page.url,
+        hashOgCard(readOgCard(data.page.inputPath, data.site.author.name)),
+      ),
   },
 };

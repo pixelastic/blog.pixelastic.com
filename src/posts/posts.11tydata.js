@@ -1,3 +1,4 @@
+import { ogPermalink } from '../../lib/og/index.js';
 import { postPermalink } from '../../lib/postPermalink.js';
 
 export default {
@@ -8,4 +9,12 @@ export default {
    * @returns {string|boolean} Permalink of the post, or false to skip it
    */
   permalink: (data) => postPermalink(data.page.inputPath),
+  eleventyComputed: {
+    /**
+     * Social card of the post, shown when it is shared
+     * @param {object} data - Eleventy data cascade of the post
+     * @returns {string} URL of the card
+     */
+    ogImage: (data) => ogPermalink(data.page.url),
+  },
 };

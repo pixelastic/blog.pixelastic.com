@@ -16,6 +16,9 @@ export default async function (eleventyConfig) {
   // Images keep their old /img/files/... URLs
   eleventyConfig.addPassthroughCopy({ 'src/img': 'img' });
 
+  // Social cards are generated once with `yarn og` and committed as assets
+  eleventyConfig.addPassthroughCopy({ 'src/og': 'og' });
+
   // Fixed files (robots.txt, favicon, downloads...) are served from the root
   eleventyConfig.addPassthroughCopy({ 'src/static': '/' });
 

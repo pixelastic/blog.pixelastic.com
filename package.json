@@ -18,12 +18,15 @@
     "@11ty/eleventy-plugin-rss": "3.1.0",
     "@docsearch/css": "5.1.2",
     "@docsearch/js": "5.1.2",
+    "@resvg/resvg-js": "2.6.2",
     "@shikijs/markdown-it": "4.5.0",
     "@shikijs/transformers": "4.5.0",
     "@tailwindcss/cli": "4.3.3",
     "@tailwindcss/typography": "0.5.20",
     "aberlaas": "2.41.3",
+    "gray-matter": "4.0.3",
     "lodash": "4.17.21",
+    "satori": "0.63.2",
     "shiki": "4.5.0",
     "tailwindcss": "4.3.3"
   },
@@ -34,6 +37,7 @@
     "deploy": "./scripts/deploy",
     "lint": "./scripts/lint",
     "lint:fix": "./scripts/lint-fix",
+    "og": "node scripts/generateOgImages.js",
     "serve": "./scripts/serve",
     "test": "./scripts/test",
     "test:watch": "./scripts/test-watch"
